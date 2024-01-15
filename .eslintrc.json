@@ -1,3 +1,61 @@
 {
-  "extends": "next/core-web-vitals"
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "react-refresh",
+    "eslint-plugin-simple-import-sort",
+    "unused-imports",
+    "import"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "ignorePatterns": [".eslintrc.cjs", "next.config.js"],
+  "extends": [
+    "prettier",
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "rules": {
+    "react-refresh/only-export-components": [
+      "warn",
+      { "allowConstantExport": true }
+    ],
+    "no-unused-vars": "warn",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-empty-function": "off",
+    "react-hooks/exhaustive-deps": ["warn"],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          ["builtin", "external"],
+          "internal",
+          ["parent", "sibling"],
+          "index"
+        ],
+        "newlines-between": "always",
+        "pathGroups": [
+          {
+            "pattern": "@/**",
+            "group": "internal",
+            "position": "after"
+          }
+        ]
+      }
+    ],
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "unused-imports/no-unused-imports-ts": ["error"],
+    "prettier/prettier": ["error", { "endOfLine": "auto" }]
+  }
 }
