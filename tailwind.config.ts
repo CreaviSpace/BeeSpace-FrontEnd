@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
@@ -8,13 +8,59 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      fontFamily: {
+        pretendard: ['Pretendard-Regular'],
+        Roboto: ['Roboto-Variable'],
+      },
+      colors: {
+        primary: '#FFC700',
+        secondary: '#0099DB',
+        black: '#000000',
+        white: '#FFFFFF',
+        gray10: '#C2C2C2',
+        gray20: '#D9D9D9',
+        gray30: '#C2C2C2',
+        gray40: '#A9A9A9',
+        gray50: '#8B8B8B',
+        yellow10: '#FFE071',
+        yellow20: '#FFD541',
+        yellow30: '#FFA944',
+        yellow40: '#FF8A00',
+        blue10: '#F0F3F9',
+        blue20: '#90CAF9',
+        blue30: '#007CEE',
+        blue40: '#072F6C',
+      },
+      // screens: {
+      //   mobile: { max: '727px' },
+      //   tablet: { min: '728px', max: '1280px' },
+      //   desktop: { min: '1281px' },
+      // },
+      fontSize: {
+        bs_13: '0.8125rem',
+        bs_14: '0.875rem',
+        bs_15: '0.9375rem',
+        bs_16: '1rem',
+        bs_17: '1.0625rem',
+        bs_18: '1.125rem',
+        bs_20: '1.25rem',
+        bs_22: '1.375rem',
+        bs_24: '1.5rem',
+        bs_34: '2.125rem',
+        bs_43: '2.6875rem',
+        bs_48: '3rem',
+        bs_60: '3.75rem',
+        bs_50: '3.125rem',
+      },
+      padding: {
+        jj_5: '0.3125rem',
+        jj_15: '0.9375rem',
+        jj_50: '3.125rem',
+        jj_60: '3.75rem',
+        jj_100: '6.25rem',
       },
     },
   },
   plugins: [],
-}
-export default config
+};
+export default config;
