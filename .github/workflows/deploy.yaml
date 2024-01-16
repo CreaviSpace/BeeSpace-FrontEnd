@@ -11,6 +11,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Install mustache (to update the date)
         run: apk add ruby && gem install mustache
       - name: creates output
@@ -29,14 +37,6 @@ jobs:
           target-branch: main
       - name: Test get variable exported by push-to-another-repository
         run: echo $DESTINATION_CLONED_DIRECTORY
-
-      - name: Install Node.js and npm
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install pnpm
-        run: npm install -g pnpm
 
       - name: Install Vercel CLI
         run: npm install --global vercel@canary
