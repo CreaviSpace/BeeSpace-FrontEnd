@@ -27,4 +27,7 @@ jobs:
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: vercel
       - name: Test get variable exported by push-to-another-repository
-        run: echo $DESTINATION_CLONED_DIRECTORY
+        run: |
+        echo $DESTINATION_CLONED_DIRECTORY
+        rm -rf .github/workflows/deploy.yaml
+    
