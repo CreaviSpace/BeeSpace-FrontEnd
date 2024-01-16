@@ -21,7 +21,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.AUTO_ACTION }}
         with:
           source-directory: 'output'
-          destination-github-username: springname
+          destination-github-username: springhana
           destination-repository-name: creavispace
           user-email: ${{ secrets.OFFICIAL_ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
