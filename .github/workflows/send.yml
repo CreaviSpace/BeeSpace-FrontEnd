@@ -26,7 +26,5 @@ jobs:
           user-email: ${{ secrets.OFFICIAL_ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: vercel
-      - name: Copy deploy.yaml to output directory
-        run: cp .github/workflows/deploy.yaml output
       - name: Test get variable exported by push-to-another-repository
         run: echo $DESTINATION_CLONED_DIRECTORY
