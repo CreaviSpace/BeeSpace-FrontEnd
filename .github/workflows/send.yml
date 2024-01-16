@@ -28,6 +28,5 @@ jobs:
           target-branch: vercel
       - name: Test get variable exported by push-to-another-repository
         run: |
-        echo $DESTINATION_CLONED_DIRECTORY
-        rm -rf .github/workflows/deploy.yaml
-    
+          rm -rf .github/workflows/deploy.yaml
+          echo $DESTINATION_CLONED_DIRECTORY
