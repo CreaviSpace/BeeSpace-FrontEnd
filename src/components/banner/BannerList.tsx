@@ -8,7 +8,6 @@ import { images } from '@/utils/data';
 interface IBannerListProps {
   length: string[];
   bannerAllRef: RefObject<HTMLDivElement>;
-  bannerOneRef: RefObject<HTMLDivElement>;
   currentIndex: number;
   setCurrentIndex: (currentIndex: number) => void;
 }
@@ -16,26 +15,19 @@ interface IBannerListProps {
 export default function BannerList({
   length,
   bannerAllRef,
-  bannerOneRef,
   currentIndex,
   setCurrentIndex,
 }: IBannerListProps) {
   const handleBtnPrev = () => {
-    if (bannerAllRef.current && bannerOneRef.current) {
-      BtnPrev(
-        bannerAllRef.current,
-        bannerOneRef.current,
-        currentIndex,
-        setCurrentIndex
-      );
+    if (bannerAllRef.current) {
+      BtnPrev(bannerAllRef.current, currentIndex, setCurrentIndex);
     }
   };
 
   const handleBtnNext = () => {
-    if (bannerAllRef.current && bannerOneRef.current) {
+    if (bannerAllRef.current) {
       BtnNext(
         bannerAllRef.current,
-        bannerOneRef.current,
         currentIndex,
         setCurrentIndex,
         images.length
@@ -43,13 +35,8 @@ export default function BannerList({
     }
   };
   const handleClickList = (index: number) => {
-    if (bannerAllRef.current && bannerOneRef.current) {
-      Clicklist(
-        bannerAllRef.current,
-        bannerOneRef.current,
-        index,
-        setCurrentIndex
-      );
+    if (bannerAllRef.current) {
+      Clicklist(bannerAllRef.current, index, setCurrentIndex);
     }
   };
 
