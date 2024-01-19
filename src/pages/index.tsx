@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main className="mx-auto overflow-hidden">
       <Banner />
-      <section className="max_w h-fit flex justify-between items-center mx-auto">
+      <section className="max-w-max_w h-fit flex justify-between items-center mx-auto">
         <PopularProject />
         <DeadLineRecruitment />
       </section>
