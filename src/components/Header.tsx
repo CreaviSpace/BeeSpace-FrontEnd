@@ -56,23 +56,26 @@ export default function Header() {
         </div>
       </nav>
       {isSearchVisible && (
-        <div className="h-20 bg-white shadow-md py-4">
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="w-max_w h-full m-auto relative">
-            <input
-              type="search"
-              name="searchValue"
-              id="searchValue"
-              placeholder="검색어를 입력하세요"
-              className="w-full h-full bg-[#F5F5F5] rounded-md absolute p-5"
-            />
-            <button
-              type="submit"
-              className="p-5 flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2">
-              <AiOutlineSearch size={30} />
-            </button>
-          </form>
+        <div className="h-screen fixed w-full z-10">
+          <div className="h-20 shadow-md py-4 bg-white">
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="max_w h-full m-auto relative max-w-max_w">
+              <input
+                type="search"
+                name="searchValue"
+                id="searchValue"
+                placeholder="검색어를 입력하세요"
+                className="w-full h-full bg-[#F5F5F5] rounded-[.3125rem] absolute p-5 "
+              />
+              <button
+                type="submit"
+                className="p-5 flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2">
+                <AiOutlineSearch size={30} />
+              </button>
+            </form>
+          </div>
+          <div className=" h-full bg-black/50 w-full"></div>
         </div>
       )}
     </header>
