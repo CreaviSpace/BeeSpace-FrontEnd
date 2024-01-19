@@ -35,7 +35,7 @@ const config: Config = {
         tablet: { min: '728px', max: '1280px' },
         desktop: { min: '1281px' },
       },
-      width: {
+      maxWidth: {
         max_w: '1200px',
       },
       fontSize: {
