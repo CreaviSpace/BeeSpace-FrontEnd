@@ -3,8 +3,8 @@ import { useRef, useState } from 'react';
 import { TransitionEnd } from '@/utils/carousel';
 import { card, images } from '@/utils/data';
 
+import CarouselList from '../CarouselList';
 import BannerItem from './BannerItem';
-import CarouselList from './CarouselList';
 
 export default function Banner() {
   const [currentIndex, setCurrentIndex] = useState(1);
