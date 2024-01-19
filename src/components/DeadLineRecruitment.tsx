@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import DateIcon from '@/assets/icon/dateIcon.png';
 import { card, images } from '@/utils/data';
 
 import UniversalCard from './card/UniversalCard';
@@ -10,20 +11,15 @@ export default function DeadLine() {
 
   return (
     <div className="w-fit">
-      <p className="flex justify-between items-end">
+      <div className="flex justify-between items-end">
         <div className="flex items-center">
-          <Image
-            src={'/public/img/icon/dateIcon.png'}
-            alt={'달력 아이콘'}
-            width={32}
-            height={40}
-          />
+          <Image src={DateIcon} alt={'달력 아이콘'} width={32} height={40} />
           <span>마감 모집</span>
         </div>
         <div className="text-gray20 text-bs_16">
           <Link href={`/recruitment`}>더 보기</Link>
         </div>
-      </p>
+      </div>
       {data.map((item) => (
         <UniversalCard
           key={`card-${item}`}
