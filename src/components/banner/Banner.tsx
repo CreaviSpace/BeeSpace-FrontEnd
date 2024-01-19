@@ -4,7 +4,7 @@ import { TransitionEnd } from '@/utils/carousel';
 import { card, images } from '@/utils/data';
 
 import BannerItem from './BannerItem';
-import BannerList from './BannerList';
+import CarouselList from './CarouselList';
 
 export default function Banner() {
   const [currentIndex, setCurrentIndex] = useState(1);
@@ -61,7 +61,7 @@ export default function Banner() {
         </div>
       </div>
       {bannerAllRef && (
-        <BannerList
+        <CarouselList
           length={images}
           bannerAllRef={bannerAllRef}
           currentIndex={currentIndex}
