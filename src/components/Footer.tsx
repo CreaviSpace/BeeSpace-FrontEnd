@@ -28,8 +28,8 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative w-full flex justify-center bg-[#EFEFEF] ">
-      <div className="max_w flex">
+    <footer className="relative max_w flex justify-center bg-[#EFEFEF] ">
+      <div className="w-full max-w-max_w flex">
         <div className="w-2/6  border-r-2 border-[#BBBBBB] p-14 m-auto">
           <div className="absolute left-0 top-10 w-full border border-[#BBBBBB]" />
           <Link href="/">

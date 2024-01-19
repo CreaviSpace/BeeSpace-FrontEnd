@@ -19,7 +19,7 @@ export default function PopularProject() {
         listRef.current,
         currentIndex,
         setCurrentIndex,
-        images.length / 2
+        Math.ceil(images.length / 2)
       );
     }
   };
@@ -54,7 +54,7 @@ export default function PopularProject() {
 
       {listRef && (
         <CarouselList
-          length={images.length / 2}
+          length={Math.ceil(images.length / 2)}
           bannerAllRef={listRef}
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
