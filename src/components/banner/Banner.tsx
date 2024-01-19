@@ -62,7 +62,7 @@ export default function Banner() {
       </div>
       {bannerAllRef && (
         <CarouselList
-          length={images}
+          length={images.length}
           bannerAllRef={bannerAllRef}
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
