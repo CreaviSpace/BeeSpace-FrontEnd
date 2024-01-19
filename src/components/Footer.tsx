@@ -27,7 +27,7 @@ export default function Footer() {
 
   return (
     <footer className="relative w-full bg-[#EFEFEF] flex">
-      <div className="w-1.5/6  border-r-2 border-[#BBBBBB] p-14">
+      <div className="w-1.5/6  border-r-2 border-[#BBBBBB] p-14 m-auto">
         <div className="absolute left-0 top-10 w-full border border-[#BBBBBB]" />
         <Link href="/">
           <Image
