@@ -3,10 +3,9 @@ import { MdKeyboardArrowRight } from '@react-icons/all-files/md/MdKeyboardArrowR
 import { RefObject } from 'react';
 
 import { BtnNext, BtnPrev, Clicklist } from '@/utils/carousel';
-import { images } from '@/utils/data';
 
 interface IBannerListProps {
-  length: string[];
+  length: number;
   bannerAllRef: RefObject<HTMLDivElement>;
   currentIndex: number;
   setCurrentIndex: (currentIndex: number) => void;
@@ -18,6 +17,11 @@ export default function CarouselList({
   currentIndex,
   setCurrentIndex,
 }: IBannerListProps) {
+  const ElementsLength = Array.from(
+    { length: length },
+    (_, index) => index + 1
+  );
+
   const handleBtnPrev = () => {
     if (bannerAllRef.current) {
       BtnPrev(bannerAllRef.current, currentIndex, setCurrentIndex);
@@ -26,12 +30,7 @@ export default function CarouselList({
 
   const handleBtnNext = () => {
     if (bannerAllRef.current) {
-      BtnNext(
-        bannerAllRef.current,
-        currentIndex,
-        setCurrentIndex,
-        images.length
-      );
+      BtnNext(bannerAllRef.current, currentIndex, setCurrentIndex, length);
     }
   };
   const handleClickList = (index: number) => {
@@ -45,7 +44,7 @@ export default function CarouselList({
       <span className="cursor-pointer" onClick={handleBtnPrev}>
         <MdKeyboardArrowLeft size={20} />
       </span>
-      {length.map((item, index) => (
+      {ElementsLength.map((item, index) => (
         <span
           key={index}
           className={`w-2 h-2 rounded-full ${index + 1 === currentIndex ? 'bg-red-500' : 'bg-black'} cursor-pointer`}
