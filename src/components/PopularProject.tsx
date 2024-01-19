@@ -25,13 +25,13 @@ export default function PopularProject() {
   };
 
   return (
-    <div className="w-[550px] overflow-hidden">
+    <div className="max-w-[550px] p-[0.1px] overflow-x-hidden">
       <div className="text-bs_34">
         <span>인기 프로젝트</span>
       </div>
 
       <div
-        className="relative right-full flex transition-all"
+        className="relative right-full flex transition-all "
         ref={listRef}
         onTransitionEnd={handleTransitionEnd}>
         <PopularImage
