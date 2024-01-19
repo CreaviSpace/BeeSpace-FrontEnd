@@ -13,5 +13,5 @@ export const card = {
   id: '#',
   title: 'Some Title',
   content:
-    'This is image included post. Lorem ipsum dolor sit amet, consecteturadipiscing elit, sed do This is image included post.',
+    'This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.. ',
 };
