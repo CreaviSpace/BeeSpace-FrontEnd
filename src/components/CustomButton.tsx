@@ -1,6 +1,6 @@
-import React, { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset';
   color?: 'primary' | 'secondary' | 'default';
   children?: string;
@@ -18,7 +18,7 @@ export default function CustomButton({
   children,
   className,
   ...restProps
-}: ButtonProps) {
+}: IButtonProps) {
   const buttonColor = colorStyles[color || 'default'];
 
   return (

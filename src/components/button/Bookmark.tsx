@@ -2,7 +2,7 @@ import { IoBookmark } from '@react-icons/all-files/io5/IoBookmark';
 import { IoBookmarkOutline } from '@react-icons/all-files/io5/IoBookmarkOutline';
 import { useState } from 'react';
 
-interface BookmarkProps {
+interface IBookmarkProps {
   color?: string;
   size?: number;
 }
@@ -10,7 +10,7 @@ interface BookmarkProps {
 export default function Bookmark({
   color = '#0099DB',
   size = 25,
-}: BookmarkProps) {
+}: IBookmarkProps) {
   const [isBookmarked, setIsBookmarked] = useState(true);
 
   const handleToggleBookmark = () => {
@@ -24,14 +24,14 @@ export default function Bookmark({
           type="button"
           aria-label="북마크 비활성화"
           onClick={handleToggleBookmark}>
-          <IoBookmark size={size} />
+          <IoBookmarkOutline color={color} size={size} />
         </button>
       ) : (
         <button
           type="button"
           aria-label="북마크 활성화"
           onClick={handleToggleBookmark}>
-          <IoBookmarkOutline color={color} size={size} />
+          <IoBookmark color={color} size={size} />
         </button>
       )}
     </>

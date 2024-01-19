@@ -12,7 +12,7 @@ interface IBannerListProps {
   setCurrentIndex: (currentIndex: number) => void;
 }
 
-export default function BannerList({
+export default function CarouselList({
   length,
   bannerAllRef,
   currentIndex,
