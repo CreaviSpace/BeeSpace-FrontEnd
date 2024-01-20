@@ -1,7 +1,7 @@
 import LikeButton from '@/components/button/LikeButton';
 import UserProfil from '@/components/UserProfil';
 
-interface CommunityItemStyle {
+interface CommunityCardProps {
   userName?: string;
   date?: string;
   contents?: string;
@@ -16,13 +16,13 @@ export default function CommunityItem({
   views,
   comments,
   className,
-}: CommunityItemStyle) {
+}: CommunityCardProps) {
   const data = ['1', '2', '3', '4'];
   return (
     <>
-      {data.map((item) => (
+      {data?.map((item) => (
         <div
-          className={`${className} py-5 px-7 max-w-[43.75rem]`}
+          className={`${className} py-5 px-7 max-w-[43.75rem] rounded-[.3125rem]`}
           key={`card-${item}`}>
           {/* 사용자 정보, 게시글 날짜 및 시간 */}
           <div className="pb-2 flex items-center justify-between">
@@ -33,7 +33,7 @@ export default function CommunityItem({
           </div>
           <hr className="w-full m-auto" aria-hidden />
           {/* 게시글 내용, 조회수, 댓글, 좋아요 */}
-          <div className="clearfixed pt-4">
+          <div className="flow-root pt-4">
             <p className="overflow-hidden text-ellipsis break-keep line-clamp-2">
               {contents}
             </p>
