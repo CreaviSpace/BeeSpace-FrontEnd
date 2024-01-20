@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import Logo from '@/../public/BS_Logo500x181.png';
 
-import CustomButton from './CustomButton';
+import CustomButton from '../button/CustomButton';
 
 interface MenuItem {
   name: string;

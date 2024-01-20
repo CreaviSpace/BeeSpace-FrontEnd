@@ -1,5 +1,5 @@
 import LikeButton from '@/components/button/LikeButton';
-import UserProfil from '@/components/UserProfil';
+import UserProfilButton from '@/components/UserProfilButton';
 
 interface CommunityCardProps {
   userName?: string;
@@ -9,7 +9,7 @@ interface CommunityCardProps {
   comments?: number;
   className?: string;
 }
-export default function CommunityItem({
+export default function CommunityCard({
   userName,
   date,
   contents,
@@ -26,7 +26,7 @@ export default function CommunityItem({
           key={`card-${item}`}>
           {/* 사용자 정보, 게시글 날짜 및 시간 */}
           <div className="pb-2 flex items-center justify-between">
-            <UserProfil userName={userName}>{userName}</UserProfil>
+            <UserProfilButton userName={userName}>{userName}</UserProfilButton>
             <span className="text-bs_14 text-gray20">
               <time dateTime={date}>{date}</time>
             </span>

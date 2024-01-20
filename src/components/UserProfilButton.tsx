@@ -10,7 +10,7 @@ interface UserCircleProps {
   imageURL?: string;
 }
 
-export default function UserProfil({
+export default function UserProfilButton({
   size = 30,
   color = '#AEB4B7',
   children,

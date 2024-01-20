@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import CustomButton from '../CustomButton';
+import CustomButton from '../button/CustomButton';
 
 interface IBannerProps {
   type: boolean;
