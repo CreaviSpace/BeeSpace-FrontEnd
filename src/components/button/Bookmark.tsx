@@ -5,11 +5,13 @@ import { useState } from 'react';
 interface IBookmarkProps {
   color?: string;
   size?: number;
+  className?: string;
 }
 
 export default function Bookmark({
   color = '#0099DB',
   size = 25,
+  className,
 }: IBookmarkProps) {
   const [isBookmarked, setIsBookmarked] = useState(true);
 
@@ -18,7 +20,7 @@ export default function Bookmark({
   };
 
   return (
-    <>
+    <div className={className}>
       {isBookmarked ? (
         <button
           type="button"
@@ -34,6 +36,6 @@ export default function Bookmark({
           <IoBookmark color={color} size={size} />
         </button>
       )}
-    </>
+    </div>
   );
 }

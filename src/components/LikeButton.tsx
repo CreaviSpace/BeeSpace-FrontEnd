@@ -5,11 +5,13 @@ import { useState } from 'react';
 interface LikeButtonProps {
   color?: string;
   size?: number;
+  className?: string;
 }
 
 export default function LikeButton({
   color = '#FF0000',
   size = 20,
+  className,
 }: LikeButtonProps) {
   const [isBookmarked, setIsBookmarked] = useState(true);
 
@@ -18,7 +20,7 @@ export default function LikeButton({
   };
 
   return (
-    <>
+    <div className={className}>
       {isBookmarked ? (
         <button
           type="button"
@@ -34,6 +36,6 @@ export default function LikeButton({
           <FaHeart color={color} size={size} />
         </button>
       )}
-    </>
+    </div>
   );
 }
