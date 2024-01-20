@@ -1,18 +1,18 @@
-import { IoBookmark } from '@react-icons/all-files/io5/IoBookmark';
-import { IoBookmarkOutline } from '@react-icons/all-files/io5/IoBookmarkOutline';
+import { FaHeart } from '@react-icons/all-files/fa/FaHeart';
+import { FaRegHeart } from '@react-icons/all-files/fa/FaRegHeart';
 import { useState } from 'react';
 
-interface IBookmarkProps {
+interface LikeButtonProps {
   color?: string;
   size?: number;
   className?: string;
 }
 
-export default function Bookmark({
-  color = '#0099DB',
-  size = 25,
+export default function LikeButton({
+  color = '#FF0000',
+  size = 20,
   className,
-}: IBookmarkProps) {
+}: LikeButtonProps) {
   const [isBookmarked, setIsBookmarked] = useState(true);
 
   const handleToggleBookmark = () => {
@@ -26,14 +26,14 @@ export default function Bookmark({
           type="button"
           aria-label="북마크 비활성화"
           onClick={handleToggleBookmark}>
-          <IoBookmarkOutline color={color} size={size} />
+          <FaRegHeart size={size} />
         </button>
       ) : (
         <button
           type="button"
           aria-label="북마크 활성화"
           onClick={handleToggleBookmark}>
-          <IoBookmark color={color} size={size} />
+          <FaHeart color={color} size={size} />
         </button>
       )}
     </div>
