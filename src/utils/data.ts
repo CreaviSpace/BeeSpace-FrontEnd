@@ -11,6 +11,10 @@ export const images = [
 
 export const card = {
   id: '#',
+  name: 'user',
+  views: 34,
+  comment: 0,
+  date: '2024-01-20',
   title: 'Some Title',
   content:
     'This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.. ',
