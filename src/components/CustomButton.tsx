@@ -4,6 +4,7 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset';
   color?: 'primary' | 'secondary' | 'default';
   children?: string;
+  className?: string;
 }
 
 const colorStyles = {
