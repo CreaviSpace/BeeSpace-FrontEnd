@@ -2,16 +2,16 @@ import Banner from '@/components/banner/Banner';
 import DeadLineRecruitment from '@/components/DeadLineRecruitment';
 
 import CommunityCardStyle from './../components/CommunityCardStyle';
-import Tag from './../components/Tag';
 
 export default function Home() {
   return (
     <main className="w-max_w mx-auto overflow-hidden">
       <Banner />
       <DeadLineRecruitment />
-      <Tag name="소셜 네트워크" category="projectField" />
-      <Tag name="팀 프로젝트" category="team" />
       <CommunityCardStyle />
+      <section className="max-w-max_w h-fit flex justify-between items-center mx-auto">
+        <DeadLineRecruitment />
+      </section>
     </main>
   );
 }

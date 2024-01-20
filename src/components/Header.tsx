@@ -64,7 +64,7 @@ export default function Header() {
           <div className="h-20 shadow-md py-4 bg-white">
             <form
               onSubmit={(e) => e.preventDefault()}
-              className="w-max_w h-full m-auto relative max-w-max_w">
+              className="max_w h-full m-auto relative max-w-max_w">
               <input
                 type="search"
                 name="searchValue"
