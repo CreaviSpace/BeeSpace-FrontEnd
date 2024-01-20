@@ -19,3 +19,5 @@ export const card = {
   content:
     'This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.. ',
 };
+
+// 테스트 코드 작성
