@@ -19,3 +19,11 @@
     font-display: swap;
   }
 }
+
+@layer components {
+  .clearfixed:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
