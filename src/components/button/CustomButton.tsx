@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes } from 'react';
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset';
   color?: 'primary' | 'secondary' | 'default';
-  children?: string;
+  children: string;
   className?: string;
 }
 

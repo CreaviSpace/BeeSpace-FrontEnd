@@ -4,9 +4,9 @@ import { FaUserCircle } from '@react-icons/all-files/fa/FaUserCircle';
 interface UserCircleProps {
   size?: number;
   color?: string;
-  children?: string;
+  children: string;
+  userName: string;
   className?: string;
-  userName?: string;
   imageURL?: string;
 }
 
@@ -20,14 +20,14 @@ export default function UserProfilButton({
 }: UserCircleProps) {
   return (
     <button
-      className={`${className} flex justify-between w-fit items-center cursor-pointer rounded-[.3125rem] border-gray20`}>
+      className={`${className} flex justify-between items-center w-fit cursor-pointer rounded-[.3125rem] border-gray20`}>
       <div
         aria-label={`${userName} 프로필 사진`}
         className="bg-white rounded-full">
-        {/* <Image src={imageURL} alt={`${userName} 프로필 사진`}  className="w-32 h-auto" /> */}
         <FaUserCircle color={color} size={size} />
+        {/* <Image src={imageURL} alt={`${userName} 프로필 사진`} className="w-32 h-auto" /> */}
       </div>
-      <div className="text-gray40 pl-2">{children}</div>
+      <p className="text-gray40 pl-2">{children}</p>
     </button>
   );
 }
