@@ -1,5 +1,5 @@
 import LikeButton from '@/components/button/LikeButton';
-import UserProfilButton from '@/components/UserProfilButton';
+import UserProfilButton from '@/components/button/UserProfilButton';
 
 interface CommunityCardProps {
   userName: string;
