@@ -20,10 +20,10 @@ export default function CommunityCard({
   const data = ['1', '2', '3', '4'];
   return (
     <>
-      {data?.map((item) => (
+      {data?.map((item, index) => (
         <div
-          className={`${className} py-5 px-7 max-w-[43.75rem] rounded-[.3125rem]`}
-          key={`card-${item}`}>
+          className={`${className} w-full py-5 px-7 rounded-[.3125rem] bg-white`}
+          key={`card-${index}`}>
           {/* 사용자 정보, 게시글 날짜 및 시간 */}
           <div className="pb-2 flex items-center justify-between">
             <UserProfilButton userName={userName}>{userName}</UserProfilButton>
