@@ -12,7 +12,7 @@ export default function Home() {
         <DeadLineRecruitment />
       </section>
       <section className="max-w-max_w h-fit mx-auto py-16">
-        <CommunityCardStyle gridStyle="main" />
+        <CommunityCardStyle isActive="main" />
       </section>
     </main>
   );

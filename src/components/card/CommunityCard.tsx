@@ -2,11 +2,11 @@ import LikeButton from '@/components/button/LikeButton';
 import UserProfilButton from '@/components/UserProfilButton';
 
 interface CommunityCardProps {
-  userName?: string;
-  date?: string;
-  contents?: string;
-  views?: number;
-  comments?: number;
+  userName: string;
+  date: string;
+  contents: string;
+  views: number;
+  comments: number;
   className?: string;
 }
 export default function CommunityCard({
@@ -22,11 +22,13 @@ export default function CommunityCard({
     <>
       {data?.map((item, index) => (
         <div
-          className={`${className} w-full py-5 px-7 rounded-[.3125rem] bg-white`}
+          className={`${className} w-full py-5 px-7 rounded-[.3125rem] bg-white border-gray10`}
           key={`card-${index}`}>
           {/* 사용자 정보, 게시글 날짜 및 시간 */}
           <div className="pb-2 flex items-center justify-between">
-            <UserProfilButton userName={userName}>{userName}</UserProfilButton>
+            <UserProfilButton userName={userName} className="">
+              {userName}
+            </UserProfilButton>
             <span className="text-bs_14 text-gray20">
               <time dateTime={date}>{date}</time>
             </span>
@@ -37,7 +39,7 @@ export default function CommunityCard({
             <p className="overflow-hidden text-ellipsis break-keep line-clamp-2">
               {contents}
             </p>
-            <div className="pt-4 float-start flex gap-x-3">
+            <div className="pt-4 float-start flex gap-x-3 text-bs_14">
               <p>
                 조회수 <span>{views}</span>
               </p>
