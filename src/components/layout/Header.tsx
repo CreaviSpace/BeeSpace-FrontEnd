@@ -74,7 +74,7 @@ export default function Header() {
                 name="searchValue"
                 id="searchValue"
                 placeholder="검색어를 입력하세요"
-                className="w-full h-full bg-[#F5F5F5] rounded-[.3125rem] absolute p-5 "
+                className="w-full h-full bg-[#F5F5F5] rounded-bs_5 absolute p-5 "
               />
               <button
                 type="submit"
