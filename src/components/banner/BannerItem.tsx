@@ -43,7 +43,7 @@ export default function BannerItem({
       <div className="relative pl-5 pt-5 w-full ">
         <div className="border-b border-black pb-5">
           {date && <div>{date}</div>}
-          <div className="mb-5 text-bs_34">{title}</div>
+          <div className="mb-5 text-bs_24 font-bold">{title}</div>
           <div className="text-bs_20 line-clamp-3 ">{content}</div>
         </div>
         <div className="absolute right-0 bottom-0 mt-5">
