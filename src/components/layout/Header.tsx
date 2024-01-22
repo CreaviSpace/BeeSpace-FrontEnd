@@ -26,7 +26,7 @@ export default function Header() {
   };
 
   return (
-    <header>
+    <header className="sticky top-0 w-full z-20 bg-white">
       <nav className="border-b border-gray10">
         <div className="flex justify-between max-w-max_w content-center m-auto items-center">
           <h1>
@@ -52,10 +52,14 @@ export default function Header() {
               onClick={handleSearchToggle}>
               <AiOutlineSearch size={22} />
             </li>
-            <CustomButton className="py-2 px-4 mr-3" color="primary">
-              로그인
-            </CustomButton>
-            <CustomButton className="py-2 px-3">회원가입</CustomButton>
+            <li>
+              <CustomButton className="py-2 px-4 mr-3" color="primary">
+                로그인
+              </CustomButton>
+            </li>
+            <li>
+              <CustomButton className="py-2 px-3">회원가입</CustomButton>
+            </li>
           </ul>
         </div>
       </nav>
@@ -79,7 +83,9 @@ export default function Header() {
               </button>
             </form>
           </div>
-          <div className=" h-full bg-black/50 w-full"></div>
+          <div
+            className=" h-full bg-black/50 w-full cursor-pointer"
+            onClick={handleSearchToggle}></div>
         </div>
       )}
     </header>
