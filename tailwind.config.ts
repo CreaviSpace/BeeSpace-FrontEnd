@@ -54,6 +54,11 @@ const config: Config = {
         bs_60: '3.75rem',
         bs_50: '3.125rem',
       },
+      borderRadius: {
+        bs_5: '0.3125rem',
+        bs_10: '0.625rem',
+        bs_20: '1.25rem',
+      },
     },
   },
   plugins: [],
