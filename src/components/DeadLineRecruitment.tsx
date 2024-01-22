@@ -12,8 +12,8 @@ export default function DeadLine() {
   return (
     <div className="w-fit">
       <div className="flex justify-between items-end">
-        <div className="flex items-center gap-5 text-bs_34">
-          <Image src={DateIcon} alt={'달력 아이콘'} width={32} height={40} />
+        <div className="flex items-center gap-5 text-bs_24">
+          <Image src={DateIcon} alt={'달력 아이콘'} width={28} height={35} />
           <span>마감 모집</span>
         </div>
         <div className="text-gray20 text-bs_16">
