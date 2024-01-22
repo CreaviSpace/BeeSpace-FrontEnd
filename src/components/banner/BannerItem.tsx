@@ -28,7 +28,7 @@ export default function BannerItem({
   };
 
   return (
-    <div className="max-w-[1200px] h-[350px] bg-[#C3D7D9] rounded-[20px] mx-auto p-10 flex">
+    <div className="max-w-[1200px] h-[350px] bg-blue10 rounded-[20px] mx-auto p-10 flex">
       {image && (
         <div className="relative w-[40rem] h-full rounded-[20px] overflow-hidden">
           <Image

@@ -47,7 +47,7 @@ export default function CarouselList({
       {ElementsLength.map((item, index) => (
         <span
           key={index}
-          className={`w-2 h-2 rounded-full ${index + 1 === currentIndex ? 'bg-red-500' : 'bg-black'} cursor-pointer`}
+          className={`${index + 1 === currentIndex ? 'px-3 bg-yellow20' : 'bg-black'} w-2 h-2 rounded-full cursor-pointer transition-all`}
           onClick={() => {
             handleClickList(index + 1);
           }}></span>
