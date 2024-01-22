@@ -2,16 +2,16 @@ import { ButtonHTMLAttributes } from 'react';
 
 interface TagProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset';
-  category?: 'team' | 'individual' | 'hashtag' | 'projectField';
-  name?: string;
+  category: 'team' | 'individual' | 'hashtag' | 'field';
+  name: string;
   className?: string;
 }
 
 const tagStyle = {
-  team: 'bg-primary',
-  individual: 'bg-secondary',
-  hashtag: 'bg-blue10',
-  projectField: 'bg-blue10 rounded-[.625rem] text-bs_16',
+  team: 'bg-primary text-bs_13',
+  individual: 'bg-secondary text-white text-bs_13',
+  hashtag: 'bg-blue10 text-bs_13',
+  field: 'bg-blue10 px-4 rounded-[.625rem]',
 };
 
 export default function Tag({
@@ -25,7 +25,7 @@ export default function Tag({
   return (
     <button
       type={type}
-      className={`${tagColor} ${className} px-4 py- rounded-[.3125rem] text-bs_14`}
+      className={`${tagColor} ${className} px-3 py-1 rounded-[.3125rem] text-bs_14`}
       {...restProps}>
       {name}
     </button>
