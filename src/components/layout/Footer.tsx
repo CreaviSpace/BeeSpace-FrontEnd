@@ -45,18 +45,18 @@ export default function Footer() {
             ))}
           </ul>
         </div>
-        <div className="w-4/6 flex justify-center gap-10 p-14 text-bs_18">
-          <ul>
-            <li>바로가기</li>
+        <div className="w-4/6 flex justify-center gap-10 pt-14 text-bs_18">
+          <ul className="text-bs_14">
+            <li className="p-2">바로가기</li>
             {menu.map((item, index) => (
-              <li key={`menu-${index}`}>
+              <li key={`menu-${index}`} className="p-2">
                 <Link href={item.link}>{item.name}</Link>
               </li>
             ))}
           </ul>
-          <ul>
+          <ul className="text-bs_14">
             {service.map((item, index) => (
-              <li key={`service-${index}`}>
+              <li key={`service-${index}`} className="p-2">
                 <Link href={item.link}>{item.name}</Link>
               </li>
             ))}
