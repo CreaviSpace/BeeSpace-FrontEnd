@@ -21,11 +21,10 @@ export default function Tag({
   className,
   ...restProps
 }: TagProps) {
-  const tagColor = tagStyle[category || 'hashtag'];
   return (
     <button
       type={type}
-      className={`${tagColor} ${className} px-3 py-1 rounded-[.3125rem] text-bs_14`}
+      className={`${tagStyle} ${className} px-3 py-1 rounded-[.3125rem] text-bs_14`}
       {...restProps}>
       {name}
     </button>
