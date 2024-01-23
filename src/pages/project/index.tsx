@@ -1,6 +1,6 @@
 import Banner from '@/components/banner/Banner';
 import Category from '@/components/Category';
-import ProjectCardStyle from '@/components/container/ProjectCardContainer';
+import ProjectCardContainer from '@/components/container/ProjectCardContainer';
 export default function Project() {
   const categories = [
     {
@@ -24,7 +24,7 @@ export default function Project() {
       </section>
       <Category category={categories} btnValue="프로젝트 올리기"></Category>
       <section className="flex justify-center pt-14 pb-24">
-        <ProjectCardStyle />
+        <ProjectCardContainer />
       </section>
     </main>
   );
