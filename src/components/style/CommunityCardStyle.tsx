@@ -3,7 +3,7 @@ import { card } from '@/utils/data';
 
 interface CommunityCardStyleProps {
   className?: string;
-  isActive: 'main' | 'default';
+  isActive?: 'main' | 'default';
 }
 
 export default function CommunityCardStyle({
@@ -22,7 +22,6 @@ export default function CommunityCardStyle({
 
   return (
     <>
-      <h2 className="text-bs_24 font-bold mb-7">커뮤니티</h2>
       <div
         className={`grid ${isActive === 'main' ? gridColumns.main : gridColumns.default}`}
         {...restProps}>
