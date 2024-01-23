@@ -1,19 +1,19 @@
 import Banner from '@/components/banner/Banner';
 import Category from '@/components/Category';
-import ProjectCardStyle from '@/components/style/ProjectCardStyle';
+import ProjectCardStyle from '@/components/container/ProjectCardContainer';
 export default function Project() {
   const categories = [
     {
-      name: '프론트엔드',
-      link: '/',
+      name: 'Android',
+      link: 'android',
     },
     {
-      name: '백엔드',
-      link: '/',
+      name: 'Ios',
+      link: 'ios',
     },
     {
-      name: '기획',
-      link: '/',
+      name: 'Web',
+      link: 'wos',
     },
   ];
   return (
@@ -22,9 +22,8 @@ export default function Project() {
       <section>
         <Banner />
       </section>
-
       <Category category={categories} btnValue="프로젝트 올리기"></Category>
-      <section className="flex justify-center pt-3 pb-24">
+      <section className="flex justify-center pt-14 pb-24">
         <ProjectCardStyle />
       </section>
     </main>

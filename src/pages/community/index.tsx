@@ -1,19 +1,19 @@
 import Banner from '@/components/banner/Banner';
 import Category from '@/components/Category';
-import CommunityCardStyle from '@/components/style/CommunityCardStyle';
+import CommunityCardStyle from '@/components/container/CommunityCardContainer';
 export default function Community() {
   const categories = [
     {
       name: 'QnA',
-      link: '/',
+      link: 'qna',
     },
     {
       name: '수다',
-      link: '/',
+      link: 'chat',
     },
     {
       name: '고민',
-      link: '/',
+      link: 'worry',
     },
   ];
   return (
