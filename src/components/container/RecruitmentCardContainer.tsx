@@ -2,7 +2,7 @@ import { card } from '@/utils/data';
 
 import RecruitmentCard from '../card/RecruitmentCard';
 
-export default function RecruitmentCardStyle() {
+export default function RecruitmentCardContainer() {
   const data = [1, 2, 3, 4, 5, 6];
   return (
     <div className="max-w-max_w">
