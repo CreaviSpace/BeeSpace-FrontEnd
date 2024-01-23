@@ -6,7 +6,7 @@ export const images = [
   'https://assets.codepen.io/756881/amys-4.jpg',
   'https://assets.codepen.io/756881/amys-5.jpg',
   'https://assets.codepen.io/756881/amys-6.jpg',
-  'https://assets.codepen.io/756881/amys-7.jpg',
+  // 'https://assets.codepen.io/756881/amys-7.jpg',
 ];
 
 export const card = {
