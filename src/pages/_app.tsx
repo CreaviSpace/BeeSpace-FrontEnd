@@ -7,7 +7,7 @@ import Header from '@/components/layout/Header';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className="overflow-hidden">
+    <div className="relative h-full">
       <Header />
       <Component {...pageProps} />
       <Footer />
