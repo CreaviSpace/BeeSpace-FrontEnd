@@ -33,9 +33,9 @@ export default function UniversalCard({
 
   return (
     <div
-      className={`${boxSize} ${className} relative  rounded-[10px] border border-gary10 flex overflow-hidden`}>
-      <div className="absolute top-[-4px] right-5">
-        <Bookmark size={30} />
+      className={`${boxSize} ${className} relative  rounded-bs_10 border border-gary10 flex overflow-hidden`}>
+      <div className="absolute top-[-6px] right-5">
+        <Bookmark size={35} />
       </div>
       <Link href={`${type}/${id}`} className="flex">
         {image && (

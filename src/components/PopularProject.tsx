@@ -26,8 +26,9 @@ export default function PopularProject() {
 
   return (
     <div className="max-w-[550px] p-[0.1px] overflow-x-hidden">
-      <div className="text-bs_24">
+      <div className="text-bs_24 flex justify-between items-end">
         <span>인기 프로젝트</span>
+        <span className="text-gray20 text-bs_16">더 보기</span>
       </div>
 
       <div
