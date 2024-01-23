@@ -7,8 +7,8 @@ interface IPopularImageProps {
 
 export default function PopularImage({ img1, img2 }: IPopularImageProps) {
   return (
-    <div className="w-full">
-      <div className="relative right-0 w-[550px] h-80 my-5">
+    <div className="w-full p-1">
+      <div className="relative right-0 my-5 h-80 w-[34.375rem] tablet:w-[47.9375rem] tablet:h-[27.875rem] min_mobile:w-[20.625rem]  min_mobile:h-[11.625rem]">
         {img1 && (
           <Image
             src={img1}
@@ -18,7 +18,7 @@ export default function PopularImage({ img1, img2 }: IPopularImageProps) {
           />
         )}
       </div>
-      <div className="relative right-0 w-[550px] h-80 my-5">
+      <div className="relative right-0 my-5 h-80 w-[34.375rem] tablet:w-[47.9375rem] tablet:h-[27.875rem] min_mobile:w-[20.625rem]  min_mobile:h-[11.625rem]">
         {img2 && (
           <Image
             src={img2}

@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import Banner from '@/components/banner/Banner';
 import Category from '@/components/Category';
 
@@ -7,6 +9,9 @@ export default function Recruitment() {
     { name: 'Ios', link: 'ios' },
     { name: 'Web', link: 'web' },
   ];
+
+  const router = useRouter();
+  const { type } = router.query;
 
   return (
     <div>

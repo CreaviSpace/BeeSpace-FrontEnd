@@ -14,10 +14,8 @@ export default function RecruitmentCard({
   people,
 }: IRecruitmentCardProps) {
   return (
-    <div className="relative w-[23.75rem] h-[17.8125rem] border border-gray10 rounded-bs_10 py-8 px-5 overflow-hidden">
-      <div className="absolute top-[-6px] right-5">
-        <Bookmark size={35} />
-      </div>
+    <div className="relative w-full h-[17.8125rem] border border-gray10 rounded-bs_10 py-8 px-5 overflow-hidden">
+      <Bookmark size={35} className="absolute -top-[0.375rem] right-5" />
       <h3 className="text-bs_18 pb-3 font-bold">{title}</h3>
       <p className="overflow-hidden text-ellipsis break-keep line-clamp-3">
         {content}

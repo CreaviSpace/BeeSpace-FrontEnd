@@ -31,9 +31,10 @@ const config: Config = {
         blue40: '#072F6C',
       },
       screens: {
+        min_mobile: { max: '550px' },
         mobile: { max: '767px' },
-        tablet: { min: '768px', max: '1023px' },
-        desktop: { min: '1024px' },
+        tablet: { min: '768px', max: '1280px' },
+        desktop: { min: '1281px' },
       },
       maxWidth: {
         max_w: '1200px',

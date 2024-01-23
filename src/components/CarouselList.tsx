@@ -42,18 +42,18 @@ export default function CarouselList({
   return (
     <div className="relative flex justify-center items-center gap-2">
       <span className="cursor-pointer" onClick={handleBtnPrev}>
-        <MdKeyboardArrowLeft size={20} />
+        <MdKeyboardArrowLeft size={30} color={'FFC700'} />
       </span>
       {ElementsLength.map((item, index) => (
         <span
           key={index}
-          className={`${index + 1 === currentIndex ? 'px-3 bg-yellow20' : 'bg-black'} w-2 h-2 rounded-full cursor-pointer transition-all`}
+          className={`${index + 1 === currentIndex ? 'px-3 bg-yellow20' : 'border-[3px] border-primary'} w-[0.65rem] h-[0.65rem] rounded-full cursor-pointer transition-all`}
           onClick={() => {
             handleClickList(index + 1);
           }}></span>
       ))}
       <span className="cursor-pointer" onClick={handleBtnNext}>
-        <MdKeyboardArrowRight size={20} />
+        <MdKeyboardArrowRight size={30} color={'FFC700'} />
       </span>
     </div>
   );

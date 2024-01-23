@@ -15,8 +15,8 @@ interface IUniversalCardProps {
 }
 
 const sizeStyles = {
-  large: 'w-[900px] h-[205px]',
-  smoll: 'w-[590px] h-[205px]',
+  large: 'w-[56.25rem] h-[12.8125rem]',
+  smoll: 'w-[36.875rem] h-[12.8125rem]',
 };
 
 export default function UniversalCard({
@@ -33,10 +33,8 @@ export default function UniversalCard({
 
   return (
     <div
-      className={`${boxSize} ${className} relative  rounded-bs_10 border border-gary10 flex overflow-hidden`}>
-      <div className="absolute top-[-6px] right-5">
-        <Bookmark size={35} />
-      </div>
+      className={`${boxSize} ${className} relative m-auto rounded-bs_10 border border-gary10 flex overflow-hidden  tablet:w-[767px] mobile:w-full`}>
+      <Bookmark size={35} className="absolute -top-[0.375rem] right-5" />
       <Link href={`${type}/${id}`} className="flex">
         {image && (
           <div className="relative w-[30%] h-full overflow-hidden ">
