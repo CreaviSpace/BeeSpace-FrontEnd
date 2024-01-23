@@ -4,14 +4,15 @@ import { card, images } from '@/utils/data';
 export default function ProjectCardStyle() {
   return (
     <div className="max-w-max_w">
-      <h1 className="text-bs_24 font-bold mb-7">프로젝트</h1>
-      <div className="grid grid-cols-3 gap-y-6 gap-x-3 bg-white tablet:grid-cols-2">
-        {images.map((item, index) => (
+      <div className="grid grid-cols-4 gap-y-6 gap-x-3 tablet:grid-cols-2">
+        {images.map((item) => (
           <ProjectCard
-            key={`projectCard-${index}`}
+            key={`projectCard-${item}`}
+            image={item}
             title={card.title}
             content={card.content}
-            image={item}
+            tagName="팀 프로젝트"
+            tagCategory="field"
           />
         ))}
       </div>
