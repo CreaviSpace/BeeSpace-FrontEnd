@@ -14,7 +14,9 @@ export default function Home() {
         <DeadLineRecruitment />
       </section>
       <section className="max-w-max_w h-fit mx-auto py-16">
+        <h2 className="text-bs_24 font-bold mb-7">프로젝트</h2>
         <ProjectCardStyle />
+        <h2 className="text-bs_24 font-bold mb-7">커뮤니티</h2>
         <CommunityCardStyle isActive="main" />
       </section>
     </main>
