@@ -22,7 +22,7 @@ export default function CommunityCardStyle({
 
   return (
     <>
-      <h1 className="text-bs_24 font-bold mb-7">커뮤니티</h1>
+      <h2 className="text-bs_24 font-bold mb-7">커뮤니티</h2>
       <div
         className={`grid ${isActive === 'main' ? gridColumns.main : gridColumns.default}`}
         {...restProps}>
