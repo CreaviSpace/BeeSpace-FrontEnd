@@ -23,7 +23,7 @@ export default function Banner() {
   };
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <div
         className="relative right-full flex items-center mt-10 mb-5 m-auto transition-all "
         ref={bannerAllRef}
