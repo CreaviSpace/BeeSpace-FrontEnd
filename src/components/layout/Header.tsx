@@ -16,9 +16,9 @@ export default function Header() {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const menu: Array<MenuItem> = [
-    { name: '프로젝트', link: '/project' },
-    { name: '모집', link: '/recruitment' },
-    { name: '커뮤니티', link: '/community' },
+    { name: '프로젝트', link: '/project?type=all' },
+    { name: '모집', link: '/recruitment?type=all' },
+    { name: '커뮤니티', link: '/community?type=all' },
   ];
 
   const handleSearchToggle = () => {
