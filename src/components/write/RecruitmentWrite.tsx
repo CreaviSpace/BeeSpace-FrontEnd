@@ -14,15 +14,15 @@ const TextEditor = dynamic(
 export default function RecruitmentWrite() {
   const [recruitment, setRecruitment] = useState('project');
   const [onoffLine, setOnoffLine] = useState('on');
-  const [personnel, setPersonnel] = useState(['default', 'default']);
-  const [personnelNum, setPersonnelNum] = useState([1, 1]);
+  const [personnel, setPersonnel] = useState<string[]>(['default', 'default']);
+  const [personnelNum, setPersonnelNum] = useState<number[]>([1, 1]);
   const [option, setOption] = useState([
     '백엔드',
     '프론트엔드',
     '디자이너',
     '기획',
   ]);
-  const [optionNum, setOptionNum] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [optionNum] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const recruitmentList = [
     { key: 'project', name: '프로젝트' },
     { key: 'study', name: '스터디' },
@@ -91,15 +91,19 @@ export default function RecruitmentWrite() {
               <div className="flex" key={`${item}-${index}`}>
                 <CustomSelect
                   option={option}
-                  setOption={setOption}
+                  setOption={setOption as (option: (string | number)[]) => void}
                   personnel={personnel}
-                  setPersonnel={setPersonnel}
+                  setPersonnel={
+                    setPersonnel as (personnel: (string | number)[]) => void
+                  }
                   index={index}
                 />
                 <CustomSelect
                   option={optionNum}
                   personnel={personnelNum}
-                  setPersonnel={setPersonnelNum}
+                  setPersonnel={
+                    setPersonnelNum as (personnel: (string | number)[]) => void
+                  }
                   index={index}
                   handler={handlePersonnelDelete}
                   className="w-3/12"
