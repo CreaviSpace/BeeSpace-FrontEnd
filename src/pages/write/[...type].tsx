@@ -1,3 +1,9 @@
+import RecruitmentWrite from '@/components/write/RecruitmentWrite';
+
 export default function Write() {
-  return <div>글쓰기</div>;
+  return (
+    <div className="py-5">
+      <RecruitmentWrite />
+    </div>
+  );
 }
