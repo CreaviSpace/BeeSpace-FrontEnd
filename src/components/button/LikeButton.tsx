@@ -20,22 +20,12 @@ export default function LikeButton({
   };
 
   return (
-    <div className={className}>
+    <button type="button" onClick={handleToggleBookmark} className={className}>
       {isBookmarked ? (
-        <button
-          type="button"
-          aria-label="북마크 비활성화"
-          onClick={handleToggleBookmark}>
-          <FaRegHeart size={size} />
-        </button>
+        <FaRegHeart size={size} aria-label="북마크 비활성화" />
       ) : (
-        <button
-          type="button"
-          aria-label="북마크 활성화"
-          onClick={handleToggleBookmark}>
-          <FaHeart color={color} size={size} />
-        </button>
+        <FaHeart color={color} size={size} aria-label="북마크 활성화" />
       )}
-    </div>
+    </button>
   );
 }
