@@ -20,7 +20,7 @@ export default function UserProfilButton({
 }: UserCircleProps) {
   return (
     <button
-      className={`${className} flex justify-between items-center w-fit cursor-pointer rounded-[.3125rem] border-gray20`}>
+      className={`${className} flex justify-between items-center w-fit cursor-pointer rounded-bs_5 border-gray20`}>
       <div
         aria-label={`${userName} 프로필 사진`}
         className="bg-white rounded-full">

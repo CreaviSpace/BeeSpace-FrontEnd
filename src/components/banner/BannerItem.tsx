@@ -28,9 +28,9 @@ export default function BannerItem({
   };
 
   return (
-    <div className="max-w-[1200px] h-[350px] bg-blue10 rounded-[20px] mx-auto p-10 flex">
+    <div className="max-w-max_w h-[21.875rem] bg-blue10 rounded-bs_20 mx-auto p-10 flex tablet:rounded-none mobile:rounded-none">
       {image && (
-        <div className="relative w-[40rem] h-full rounded-[20px] overflow-hidden">
+        <div className="relative w-[40rem] h-full rounded-bs_20 overflow-hidden">
           <Image
             src={image}
             alt="banner image"
@@ -49,7 +49,7 @@ export default function BannerItem({
         <div className="absolute right-0 bottom-0 mt-5">
           <CustomButton
             color="secondary"
-            className="px-10 py-2 rounded-[1.25rem]"
+            className="px-10 py-2 rounded-bs_20"
             onClick={handleUrlMove}>
             자세히 보기
           </CustomButton>

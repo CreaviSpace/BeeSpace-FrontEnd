@@ -25,7 +25,7 @@ export default function CustomButton({
   return (
     <button
       type={type}
-      className={`${buttonColor} ${className} rounded-[.3125rem]`}
+      className={`${buttonColor} ${className} rounded-bs_5`}
       {...restProps}>
       {children}
     </button>

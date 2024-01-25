@@ -3,8 +3,8 @@ import { useRef, useState } from 'react';
 import { TransitionEnd } from '@/utils/carousel';
 import { images } from '@/utils/data';
 
-import CarouselList from './CarouselList';
-import PopularImage from './PopularImage';
+import CarouselList from '../CarouselList';
+import PopularImage from '../PopularImage';
 
 export default function PopularProject() {
   // 데이터 넣어줘야함
@@ -25,13 +25,14 @@ export default function PopularProject() {
   };
 
   return (
-    <div className="max-w-[550px] p-[0.1px] overflow-x-hidden">
-      <div className="text-bs_24">
-        <span>인기 프로젝트</span>
+    <div className="w-[550px] p-[0.1px] m-auto overflow-x-hidden tablet:w-[767px] min_mobile:w-[330px]">
+      <div className="text-bs_24 flex justify-between items-end w-full">
+        <h2 className="text-bs_24 font-bold">인기 프로젝트</h2>
+        <span className="text-gray20 text-bs_16">더 보기</span>
       </div>
 
       <div
-        className="relative right-full flex transition-all "
+        className="relative right-full flex transition-all"
         ref={listRef}
         onTransitionEnd={handleTransitionEnd}>
         <PopularImage

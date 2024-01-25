@@ -3,45 +3,52 @@ import Image from 'next/image';
 import LikeButton from '@/components/button/LikeButton';
 import Tag from '@/components/Tag';
 
+import Bookmark from './../button/Bookmark';
+
 interface ProjectCardProps {
   image?: string;
-  title?: string;
-  content?: string;
+  title: string;
+  content: string;
+  tagName: string;
+  tagCategory: 'team' | 'individual' | 'hashtag' | 'field';
 }
 
 export default function ProjectCard({
   image,
   title,
   content,
+  tagName,
+  tagCategory,
 }: ProjectCardProps) {
   return (
-    <div>
+    <div className="relative w-full border border-gray10 rounded-b-bs_20">
+      <Tag
+        name={tagName}
+        category={tagCategory}
+        className="absolute right-3 top-3"
+      />
       {image && (
-        <div className=" bg-white relative overflow-hidden w-[23.75rem] border border-gray10 rounded-b-bs_20 max-w-[380px]">
-          <Tag
-            name="개인 프로젝트"
-            category="individual"
-            className="absolute right-3 top-3"
+        <div className="relative overflow-hidden w-full h-[180px]">
+          <Image
+            src={image}
+            alt="임시 프로젝트 이미지"
+            // layout="responsive"
+            fill
+            className="object-cover object-top -z-[1] "
           />
-          <figure className="">
-            <Image
-              src={image}
-              alt="임시 프로젝트 이미지"
-              layout="responsive"
-              width={380}
-              height={380}
-              className="object-cover object-top rounded-b-bs_20 -z-[1] "
-            />
-          </figure>
-          <figcaption className="w-full p-5 bg-white ab">
-            <h3 className="text-bs_18 pb-3 font-bold">{title}</h3>
-            <p className="overflow-hidden text-ellipsis break-keep line-clamp-2">
-              {content}
-            </p>
-            <LikeButton className="pt-5" />
-          </figcaption>
         </div>
       )}
+      <div className="w-full h-[200px] p-5 rounded-b-bs_20 relative overflow-hidden">
+        <Bookmark
+          className="absolute -top-[.3125rem] right-[.375rem]"
+          size={35}
+        />
+        <h3 className="text-bs_18 pb-3 font-bold">{title}</h3>
+        <p className="overflow-hidden text-ellipsis break-keep line-clamp-2">
+          {content}
+        </p>
+      </div>
+      <LikeButton className="absolute bottom-3 left-5" />
     </div>
   );
 }

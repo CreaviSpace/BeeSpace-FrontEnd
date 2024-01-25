@@ -16,9 +16,9 @@ export default function Header() {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const menu: Array<MenuItem> = [
-    { name: '프로젝트', link: '/project' },
-    { name: '모집', link: '/recruitment' },
-    { name: '커뮤니티', link: '/community' },
+    { name: '프로젝트', link: '/project?type=all' },
+    { name: '모집', link: '/recruitment?type=all' },
+    { name: '커뮤니티', link: '/community?type=all' },
   ];
 
   const handleSearchToggle = () => {
@@ -26,7 +26,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 w-full z-20 bg-white">
+    <header className="sticky top-0 w-full h-16 z-20 bg-white">
       <nav className="border-b border-gray10">
         <div className="flex justify-between max-w-max_w content-center m-auto items-center">
           <h1>
@@ -74,7 +74,7 @@ export default function Header() {
                 name="searchValue"
                 id="searchValue"
                 placeholder="검색어를 입력하세요"
-                className="w-full h-full bg-[#F5F5F5] rounded-[.3125rem] absolute p-5 "
+                className="w-full h-full bg-[#F5F5F5] rounded-bs_5 absolute p-5 "
               />
               <button
                 type="submit"

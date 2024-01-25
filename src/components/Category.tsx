@@ -11,17 +11,11 @@ interface ICategoryProps {
 export default function Category({ category, btnValue }: ICategoryProps) {
   const router = useRouter();
   const pathname = router.pathname.split('/')[1];
-  const { id } = router.query;
+  const { type } = router.query;
 
   const handleCurrentPage = (current: string) => {
-    if (id) {
-      if (id[0] === current) {
-        return 'border-b-[3px] border-primary';
-      }
-    } else {
-      if (current === 'all') {
-        return 'border-b-[3px] border-primary';
-      }
+    if (type && type === current) {
+      return 'border-b-[3px] border-primary';
     }
   };
 
@@ -30,22 +24,24 @@ export default function Category({ category, btnValue }: ICategoryProps) {
   };
 
   return (
-    <nav className="w-full h-20 border border-gray30">
-      <div className="max-w-max_w m-auto flex justify-between items-center">
+    <nav className="sticky top-16 w-full border-y bg-white border-gray30 mt-10 z-[1]">
+      <div className="max-w-max_w m-auto flex justify-between items-center mobile:justify-center">
         <ul className="flex text-center">
           <li
-            className={`${handleCurrentPage('all')}  w-20 py-5 mx-10 text-bs_20 cursor-pointer`}>
-            <Link href={`/${pathname}/all`}>전체</Link>
+            className={`${handleCurrentPage('all')} px-2 py-5 mx-10 text-bs_20 cursor-pointer mobile:mx-5`}>
+            <Link href={`/${pathname}?type=all`}>전체</Link>
           </li>
           {category.map((item) => (
             <li
               key={`category-${item}`}
-              className={`${handleCurrentPage(item.link)} w-20 py-5 mx-10 text-bs_20 cursor-pointer`}>
-              <Link href={`/${pathname}/${item.link}`}>{item.name}</Link>
+              className={`${handleCurrentPage(item.link)} px-2 py-5 mx-10 text-bs_20 cursor-pointer mobile:mx-5`}>
+              <Link href={`/${pathname}?type=${item.link}`}>{item.name}</Link>
             </li>
           ))}
         </ul>
-        <CustomButton className="py-1 px-5" onClick={handleGoToWritePage}>
+        <CustomButton
+          className="py-1 px-5 mobile:hidden"
+          onClick={handleGoToWritePage}>
           {btnValue}
         </CustomButton>
       </div>
