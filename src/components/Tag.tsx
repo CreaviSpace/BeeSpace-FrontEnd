@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
 
-interface TagProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ITagProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset';
   category: 'team' | 'individual' | 'hashtag' | 'field';
   name: string;
@@ -20,12 +20,12 @@ export default function Tag({
   name,
   className,
   ...restProps
-}: TagProps) {
+}: ITagProps) {
   const tagColor = tagStyle[category || 'hashtag'];
   return (
     <button
       type={type}
-      className={`${tagColor} ${className} px-3 py-1 rounded-[.3125rem] text-bs_14`}
+      className={`${tagColor} ${className} px-3 py-1 rounded-[.3125rem] text-bs_14 mr-1 mb-1`}
       {...restProps}>
       {name}
     </button>

@@ -20,22 +20,16 @@ export default function Bookmark({
   };
 
   return (
-    <div className={className}>
+    <button type="button" onClick={handleToggleBookmark} className={className}>
       {isBookmarked ? (
-        <button
-          type="button"
-          aria-label="북마크 비활성화"
-          onClick={handleToggleBookmark}>
-          <IoBookmarkOutline color={color} size={size} />
-        </button>
+        <IoBookmarkOutline
+          color={color}
+          size={size}
+          aria-label="비활성화된 북마크"
+        />
       ) : (
-        <button
-          type="button"
-          aria-label="북마크 활성화"
-          onClick={handleToggleBookmark}>
-          <IoBookmark color={color} size={size} />
-        </button>
+        <IoBookmark color={color} size={size} aria-label="활성화된 북마크" />
       )}
-    </div>
+    </button>
   );
 }
