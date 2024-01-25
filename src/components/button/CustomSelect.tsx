@@ -53,11 +53,11 @@ export default function CustomSelect({
 
   return (
     <section
-      className={`relative w-full h-[3.125rem] my-5 border border-gray10 rounded-bs_5 ${className}`}
+      className={`relative w-full h-[3.125rem] mb-2 mr-2 border border-gray10 rounded-bs_5 ${className}`}
       onClick={handleOnOffToggle}>
       <label
         htmlFor=""
-        className="absolute top-0 left-0 px-5 w-full h-[3.125rem] p-[0.625rem] flex justify-between items-center -z-[1]">
+        className="absolute top-0 left-0 px-5 w-full h-[3.125rem] p-[0.625rem] flex justify-between items-center z-[1]">
         {personnel[index] !== `default` ? personnel[index] : '선택해주세요.'}
         <span className={`${isOnOff && '-rotate-180 transition-all'}`}>
           <IoIosArrowDown size={20} />
