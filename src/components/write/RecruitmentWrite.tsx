@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
 import CustomSelect from '../button/CustomSelect';
-import OnoffButton from '../button/OnoffButton';
+import OnOffButton from '../button/OnOffButton';
 import TitleEditor from '../TextEditor/TitleEditor';
 
 const TextEditor = dynamic(
@@ -61,7 +61,7 @@ export default function RecruitmentWrite() {
         <ul className="my-20 grid grid-cols-2 gap-x-10">
           <li className="w-full">
             <h2 className="text-bs_20 my-5">모집 분류</h2>
-            <OnoffButton
+            <OnOffButton
               value={recruitment}
               setValue={setRecruitment}
               list={recruitmentList}
@@ -69,7 +69,7 @@ export default function RecruitmentWrite() {
           </li>
           <li className="w-full">
             <h2 className="text-bs_20 my-5">진행 방식</h2>
-            <OnoffButton
+            <OnOffButton
               value={onoffLine}
               setValue={setOnoffLine}
               list={onoffList}
