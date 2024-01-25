@@ -1,7 +1,7 @@
 import { FaUserCircle } from '@react-icons/all-files/fa/FaUserCircle';
 // import Image from 'next/image';
 
-interface UserCircleProps {
+interface IUserCircleProps {
   size?: number;
   color?: string;
   children: string;
@@ -17,7 +17,7 @@ export default function UserProfilButton({
   className,
   userName,
   // imageURL,
-}: UserCircleProps) {
+}: IUserCircleProps) {
   return (
     <button
       className={`${className} flex justify-between items-center w-fit cursor-pointer rounded-bs_5 border-gray20`}>

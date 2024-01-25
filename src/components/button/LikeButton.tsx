@@ -2,7 +2,7 @@ import { FaHeart } from '@react-icons/all-files/fa/FaHeart';
 import { FaRegHeart } from '@react-icons/all-files/fa/FaRegHeart';
 import { useState } from 'react';
 
-interface LikeButtonProps {
+interface ILikeButtonProps {
   color?: string;
   size?: number;
   className?: string;
@@ -12,7 +12,7 @@ export default function LikeButton({
   color = '#FF0000',
   size = 20,
   className,
-}: LikeButtonProps) {
+}: ILikeButtonProps) {
   const [isBookmarked, setIsBookmarked] = useState(true);
 
   const handleToggleBookmark = () => {

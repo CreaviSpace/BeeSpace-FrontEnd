@@ -1,7 +1,7 @@
 import CommunityCard from '@/components/card/CommunityCard';
 import { card } from '@/utils/data';
 
-interface CommunityCardStyleProps {
+interface ICommunityCardStyleProps {
   className?: string;
   isActive?: 'main' | 'default';
 }
@@ -9,7 +9,7 @@ interface CommunityCardStyleProps {
 export default function CommunityCardContainer({
   isActive,
   ...restProps
-}: CommunityCardStyleProps) {
+}: ICommunityCardStyleProps) {
   const gridColumns = {
     main: 'grid-cols-2 gap-3',
     default: 'grid-cols-1 max-w-[43.75rem]',
