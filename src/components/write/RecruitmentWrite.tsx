@@ -1,7 +1,10 @@
 import dynamic from 'next/dynamic';
 
 import Classification from './recruitment/Classification';
+import Communication from './recruitment/Communication';
+import Deadline from './recruitment/Deadline';
 import OnOffLine from './recruitment/OnOffLine';
+import Period from './recruitment/Period';
 import Personnel from './recruitment/Personnel';
 import TitleEditor from './TextEditor/TitleEditor';
 
@@ -35,15 +38,11 @@ export default function RecruitmentWrite() {
             <h2 className="text-bs_20 my-5">기술 스택</h2>
           </li>
           <li>
-            <div>
-              <h2 className="text-bs_20 my-5">진행 기간</h2>
-            </div>
-            <div>
-              <h2 className="text-bs_20 my-5">연락 방법</h2>
-            </div>
+            <Period />
+            <Communication />
           </li>
-          <li>
-            <h2 className="text-bs_20 my-5">모집 마감</h2>
+          <li className="w-full m-auto flex flex-col justify-center items-center">
+            <Deadline />
           </li>
         </ul>
       </section>
