@@ -23,11 +23,7 @@ export default function CustomSelect({
   const [isOnOff, setIsOnOff] = useState(false);
 
   const handleOnOffToggle = () => {
-    if (isOnOff) {
-      setIsOnOff(false);
-    } else {
-      setIsOnOff(true);
-    }
+    setIsOnOff(!isOnOff);
   };
 
   const handleOptionValue = (item: string | number) => {
