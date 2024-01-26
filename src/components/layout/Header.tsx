@@ -13,6 +13,7 @@ interface MenuItem {
 }
 
 export default function Header() {
+  const [value, setValue] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const menu: Array<MenuItem> = [
@@ -69,12 +70,19 @@ export default function Header() {
             <form
               onSubmit={(e) => e.preventDefault()}
               className="max_w h-full m-auto relative max-w-max_w">
+              <label htmlFor="searchValue" id="searchValue" className="sr-only">
+                검색창
+              </label>
               <input
                 type="search"
+                value={value}
                 name="searchValue"
                 id="searchValue"
                 placeholder="검색어를 입력하세요"
-                className="w-full h-full bg-[#F5F5F5] rounded-bs_5 absolute p-5 "
+                className="w-full h-full bg-[#F5F5F5] rounded-bs_5 absolute p-5"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setValue(e.target.value);
+                }}
               />
               <button
                 type="submit"
