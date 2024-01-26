@@ -11,22 +11,22 @@ interface ISideButtonProps {
 export default function SideButton({ className }: ISideButtonProps) {
   return (
     <aside
-      className={`${className} flex flex-col max-w-12 items-center gap-1 py-2 rounded-md bg-secondary`}>
+      className={`${className} flex flex-col items-center gap-2 p-2 py-3 rounded-md bg-secondary`}>
       <LikeButton
         color="black"
-        size={30}
-        className="border rounded-md bg-white p-1"
+        size={25}
+        className="border rounded-md bg-white p-3"
       />
       <Bookmark
         color="black"
-        size={30}
-        className="border rounded-md bg-white p-1"
+        size={25}
+        className="border rounded-md bg-white p-3"
       />
       <button
         type="button"
         aria-label="공유 버튼"
-        className="border rounded-md bg-white p-1">
-        <FaShareAlt size={30} className="m-auto" />
+        className="border rounded-md bg-white p-3">
+        <FaShareAlt size={25} className="m-auto" />
       </button>
     </aside>
   );
