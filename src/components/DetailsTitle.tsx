@@ -8,9 +8,8 @@ interface IDetailsTitleProps {
   type: string;
   time: string;
   views: number;
-  field: string;
   title: string;
-  comments: number;
+  likes: number;
   userName: string;
   className?: string;
 }
@@ -22,7 +21,7 @@ export default function DetailsTitle({
   views,
   className,
   userName,
-  comments,
+  likes,
 }: IDetailsTitleProps) {
   return (
     <div className="w-full h-fit flex flex-col items-center max-w-max_w m-auto">
@@ -33,18 +32,18 @@ export default function DetailsTitle({
       />
       <h1 className="font-bold text-bs_24 mb-8">{title}</h1>
       <div className="max-w-max_w flex items-center justify-between w-full px-4 py-2">
-        <UserProfilButton userName={`${userName}사용자`} />
+        <UserProfilButton userName={userName} />
         <div className="flex gap-x-3 text-bs_14 text-gray40">
-          <p>
-            좋아요&nbsp;<span>{comments}</span>
-          </p>
-          <span aria-hidden>|</span>
           <p>
             조회수&nbsp;<span>{views}</span>
           </p>
           <span aria-hidden>|</span>
           <p>
-            <time>{time}</time>
+            좋아요&nbsp;<span>{likes}</span>
+          </p>
+          <span aria-hidden>|</span>
+          <p>
+            <time dateTime={time}>{time}</time>
           </p>
         </div>
       </div>
