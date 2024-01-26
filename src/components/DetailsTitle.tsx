@@ -6,7 +6,7 @@ import Tag from '@/components/Tag';
 
 interface IDetailsTitleProps {
   type: string;
-  time: number;
+  time: string;
   views: number;
   field: string;
   title: string;
@@ -36,11 +36,11 @@ export default function DetailsTitle({
         <UserProfilButton userName={`${userName}사용자`} />
         <div className="flex gap-x-3 text-bs_14 text-gray40">
           <p>
-            조회수&nbsp;<span>{views}</span>
+            좋아요&nbsp;<span>{comments}</span>
           </p>
           <span aria-hidden>|</span>
           <p>
-            댓글&nbsp;<span>{comments}</span>
+            조회수&nbsp;<span>{views}</span>
           </p>
           <span aria-hidden>|</span>
           <p>
