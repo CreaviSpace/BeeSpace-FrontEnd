@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
-import { details } from '@/utils/data';
-
 import CustomButton from '../button/CustomButton';
+import UserProfilButton from '../button/UserProfilButton';
 
 export default function CommentContainer() {
   const [value, setValue] = useState('');
@@ -12,7 +11,7 @@ export default function CommentContainer() {
 
   return (
     <div>
-      <h2>댓글 ({comment.length})</h2>
+      <h3 className="mb-5 text-bs_20">댓글 ({comment.length})</h3>
       <div className="flex gap-5">
         <input
           type="text"
@@ -27,7 +26,20 @@ export default function CommentContainer() {
           등록
         </CustomButton>
       </div>
-      <div dangerouslySetInnerHTML={{ __html: details.content }} />
+
+      <div className="mt-10">
+        {comment.map((item, index) => (
+          <div key={`${item}-${index}`} className="py-5 border-b border-gray10">
+            <div className="flex justify-between items-center">
+              <UserProfilButton userName="author" />
+              <div>
+                <button>수정</button>&nbsp;&#124;&nbsp;<button>버튼</button>
+              </div>
+            </div>
+            <div className="mt-3 text-bs_18">{item}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
