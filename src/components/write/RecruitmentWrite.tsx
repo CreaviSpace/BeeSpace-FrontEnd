@@ -1,11 +1,13 @@
 import dynamic from 'next/dynamic';
 
+import CustomButton from '../button/CustomButton';
 import Classification from './recruitment/Classification';
 import Communication from './recruitment/Communication';
 import Deadline from './recruitment/Deadline';
 import OnOffLine from './recruitment/OnOffLine';
 import Period from './recruitment/Period';
 import Personnel from './recruitment/Personnel';
+import SkillStack from './recruitment/SkillStack';
 import TitleEditor from './TextEditor/TitleEditor';
 
 const TextEditor = dynamic(
@@ -24,24 +26,24 @@ export default function RecruitmentWrite() {
       </h1>
 
       <section>
-        <ul className="my-20 grid grid-cols-2 gap-x-10">
-          <li className="w-full">
+        <ul className="my-20 grid grid-cols-2 gap-x-20">
+          <li className="mt-14">
             <Classification />
           </li>
-          <li className="w-full">
+          <li className="mt-14">
             <OnOffLine />
           </li>
-          <li className="w-full">
+          <li className="mt-14">
             <Personnel />
           </li>
-          <li>
-            <h2 className="text-bs_20 my-5">기술 스택</h2>
+          <li className="mt-14">
+            <SkillStack />
           </li>
-          <li>
+          <li className="mt-14">
             <Period />
             <Communication />
           </li>
-          <li className="w-full m-auto flex flex-col justify-center items-center">
+          <li className="mt-14">
             <Deadline />
           </li>
         </ul>
@@ -50,6 +52,13 @@ export default function RecruitmentWrite() {
         <TitleEditor />
         <TextEditor />
       </section>
+
+      <div className="text-right mt-10">
+        <CustomButton className="py-3 px-10 mr-3">취소</CustomButton>
+        <CustomButton color="secondary" className="py-3 px-10">
+          작성
+        </CustomButton>
+      </div>
     </div>
   );
 }
