@@ -10,13 +10,13 @@ interface IUniversalCardProps {
   date: string;
   image?: string;
   type?: string;
-  size: 'large' | 'smoll';
+  size: 'large' | 'small';
   className?: string;
 }
 
 const sizeStyles = {
   large: 'w-[56.25rem] h-[12.8125rem]',
-  smoll: 'w-[36.875rem] h-[12.8125rem]',
+  small: 'w-[36.875rem] h-[12.8125rem]',
 };
 
 export default function UniversalCard({
@@ -29,7 +29,7 @@ export default function UniversalCard({
   size,
   className,
 }: IUniversalCardProps) {
-  const boxSize = sizeStyles[size || 'smoll'];
+  const boxSize = sizeStyles[size || 'small'];
 
   return (
     <div

@@ -28,7 +28,7 @@ export default function DeadLine() {
           content={card.content}
           date={'2020-02-12'}
           image={images[0]}
-          size="smoll"
+          size="small"
           className="my-5"
         />
       ))}
