@@ -47,7 +47,7 @@ export default function DetailsTitle({
           </p>
         </div>
       </div>
-      <span className="w-full border border-gray10" />
+      <span className="w-full border border-gray10 block" />
       <div className="text-bs_14 flex justify-end w-full px-4 py-2">
         <Link href={`write/${type}`}>
           <button>수정</button>
