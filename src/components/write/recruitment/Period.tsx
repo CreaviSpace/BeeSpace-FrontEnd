@@ -21,8 +21,8 @@ export default function Period() {
       <h2 className="text-bs_20 my-5">진행 기간</h2>
       <CustomSelect
         option={option}
-        personnel={period}
-        setPersonnel={setPeriod as (personnel: (string | number)[]) => void}
+        select={period}
+        setSelect={setPeriod as (personnel: (string | number)[]) => void}
         index={0}
       />
     </div>

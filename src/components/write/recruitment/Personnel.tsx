@@ -50,21 +50,19 @@ export default function Personnel() {
           <CustomSelect
             option={option}
             setOption={setOption as (option: (string | number)[]) => void}
-            personnel={personnel}
-            setPersonnel={
-              setPersonnel as (personnel: (string | number)[]) => void
-            }
+            select={personnel}
+            setSelect={setPersonnel as (personnel: (string | number)[]) => void}
             index={index}
           />
           <CustomSelect
             option={optionNum}
-            personnel={personnelNum}
-            setPersonnel={
+            select={personnelNum}
+            setSelect={
               setPersonnelNum as (personnel: (string | number)[]) => void
             }
             index={index}
             handler={handlePersonnelDelete}
-            className="w-[25%] bg-primary border-none"
+            className="bg-primary border-none"
           />
         </div>
       ))}

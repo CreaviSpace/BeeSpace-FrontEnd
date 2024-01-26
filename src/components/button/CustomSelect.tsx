@@ -4,8 +4,8 @@ import { useState } from 'react';
 interface ICustomSelectProps {
   option: string[] | number[];
   setOption?: (option: (string | number)[]) => void;
-  personnel: string[] | number[];
-  setPersonnel: (personnel: (string | number)[]) => void;
+  select: string[] | number[];
+  setSelect: (personnel: (string | number)[]) => void;
   index: number;
   className?: string;
   handler?: (num: number) => void;
@@ -14,8 +14,8 @@ interface ICustomSelectProps {
 export default function CustomSelect({
   option,
   setOption,
-  personnel,
-  setPersonnel,
+  select,
+  setSelect,
   index,
   className,
   handler,
@@ -27,9 +27,9 @@ export default function CustomSelect({
   };
 
   const handleOptionValue = (item: string | number) => {
-    const copyPersonnel = [...personnel];
+    const copyPersonnel = [...select];
     copyPersonnel[index] = item;
-    setPersonnel(copyPersonnel);
+    setSelect(copyPersonnel);
 
     if (typeof item === 'number' && item === 0 && handler) {
       handler(index);
@@ -39,8 +39,8 @@ export default function CustomSelect({
       if (copyPersonnel.some((prev) => prev === copyPersonnel[index])) {
         const copyOption = option.filter((prev) => prev !== item);
         setOption(copyOption);
-        if (personnel[index] !== `default`) {
-          const newOption = [...copyOption, personnel[index]];
+        if (select[index] !== `default`) {
+          const newOption = [...copyOption, select[index]];
           setOption(newOption);
         }
       }
@@ -54,7 +54,7 @@ export default function CustomSelect({
       <label
         htmlFor=""
         className="absolute top-0 left-0 px-5 w-full h-[3.125rem] p-[0.625rem] flex justify-between items-center z-[1]">
-        {personnel[index] !== `default` ? personnel[index] : '선택해주세요.'}
+        {select[index] !== `default` ? select[index] : '선택해주세요.'}
         <span className={`${isOnOff && '-rotate-180 transition-all'}`}>
           <IoIosArrowDown size={20} />
         </span>
