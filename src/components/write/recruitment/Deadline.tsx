@@ -27,7 +27,7 @@ export default function Deadline() {
         </div>
       </div>
       {isCalendarToggle && (
-        <div className="border border-gray10 mt-5 ">
+        <div className="border border-gray10 mt-5 w-fit m-auto">
           <DayPicker mode="single" selected={selected} onSelect={setSelected} />
         </div>
       )}
