@@ -23,7 +23,7 @@ export const card = {
 
 // 테스트 코드 작성
 
-const details = {
+export const details = {
   title: '동물의 숲 유저들을 위한 커뮤니티를 만들 팀원 찾습니다!!',
   content:
     '<h1>[소개]</h1>' +
