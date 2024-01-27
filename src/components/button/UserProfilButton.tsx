@@ -4,7 +4,7 @@ import { FaUserCircle } from '@react-icons/all-files/fa/FaUserCircle';
 interface IUserCircleProps {
   size?: number;
   color?: string;
-  userName: string;
+  userName?: string;
   className?: string;
   imageURL?: string;
 }

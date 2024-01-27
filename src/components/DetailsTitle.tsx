@@ -5,7 +5,7 @@ import UserProfilButton from '@/components/button/UserProfilButton';
 import Tag from '@/components/Tag';
 
 interface IDetailsTitleProps {
-  type: string;
+  type?: string;
   time: string;
   views: number;
   title: string;
@@ -30,7 +30,7 @@ export default function DetailsTitle({
         category="field"
         className={`${className} w-fit`}
       />
-      <h1 className="font-bold text-bs_24 mb-8">{title}</h1>
+      <h1 className="font-bold text-bs_24 mb-3">{title}</h1>
       <div className="max-w-max_w flex items-center justify-between w-full px-4 py-2">
         <UserProfilButton userName={userName} />
         <div className="flex gap-x-3 text-bs_14 text-gray40">
