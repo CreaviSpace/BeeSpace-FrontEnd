@@ -24,9 +24,7 @@ export default function CommunityDetail() {
         </div>
         <span className="w-full border block border-gray10" />
       </section>
-      <div className="absolute right-0 top-1/3">
-        <SideButton />
-      </div>
+      <SideButton />
     </main>
   );
 }
