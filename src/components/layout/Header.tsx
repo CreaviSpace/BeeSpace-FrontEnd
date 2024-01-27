@@ -26,6 +26,10 @@ export default function Header() {
     setIsSearchVisible(!isSearchVisible);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
   return (
     <header className="sticky top-0 w-full h-16 z-20 bg-white">
       <nav className="border-b border-gray10">
@@ -80,9 +84,7 @@ export default function Header() {
                 id="searchValue"
                 placeholder="검색어를 입력하세요"
                 className="w-full h-full bg-[#F5F5F5] rounded-bs_5 absolute p-5"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setValue(e.target.value);
-                }}
+                onChange={handleChange}
               />
               <button
                 type="submit"
