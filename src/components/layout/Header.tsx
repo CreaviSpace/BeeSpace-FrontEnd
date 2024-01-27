@@ -3,9 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import Logo from '@/../public/BS_Logo500x181.png';
-
-import CustomButton from '../button/CustomButton';
+import CustomButton from '@/components/button/CustomButton';
 
 interface MenuItem {
   name: string;
@@ -36,7 +34,12 @@ export default function Header() {
         <div className="flex justify-between max-w-max_w content-center m-auto items-center">
           <h1>
             <Link href="/">
-              <Image src={Logo} alt="비스페이스 로고" className="w-32 h-auto" />
+              <Image
+                src="/BS_Logo500x181.png"
+                alt="비스페이스 로고"
+                width={128}
+                height={46}
+              />
             </Link>
           </h1>
           <ul className="flex">
