@@ -24,8 +24,9 @@ export default function ProjectCard({
   tagName,
   tagCategory,
 }: IProjectCardProps) {
+  const isImageAvailable = !!image;
   return (
-    <div className="relative w-full h-[380px] border border-gray10 rounded-b-bs_20">
+    <div className="relative max-w-md w-full h-[380px] border border-gray10 rounded-b-bs_20">
       <Link href={`${type}/${id}`}>
         <Tag
           name={tagName}
@@ -43,14 +44,15 @@ export default function ProjectCard({
           </div>
         )}
       </Link>
-      <div className="w-full h-[200px] p-5 rounded-b-bs_20 relative overflow-hidden">
+      <div className="w-full h-fit p-5 rounded-b-bs_20 relative overflow-hidden">
         <Bookmark
           className="absolute -top-[.3125rem] right-[.375rem]"
           size={35}
         />
         <Link href={`${type}/${id}`}>
-          <h3 className="text-bs_18 pb-3 font-bold">{title}</h3>
-          <p className="overflow-hidden text-ellipsis break-keep line-clamp-2">
+          <h3 className="text-bs_18 pb-3 font-bold mt-5">{title}</h3>
+          <p
+            className={`overflow-hidden text-ellipsis break-keep ${!isImageAvailable ? 'line-clamp-[10]' : 'line-clamp-2'}`}>
             {content}
           </p>
         </Link>
