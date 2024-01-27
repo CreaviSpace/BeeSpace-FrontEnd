@@ -11,6 +11,10 @@ export default function Write() {
     return <div>잘못된 페이지</div>;
   }
 
+  if (!type) {
+    return <div>잘못된 페이지</div>;
+  }
+
   return (
     <div className="py-5">
       {type[0] === 'recruitment' && <RecruitmentWrite />}

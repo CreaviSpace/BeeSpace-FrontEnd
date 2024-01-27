@@ -1,5 +1,5 @@
-import { FaUserCircle } from '@react-icons/all-files/fa/FaUserCircle';
-// import Image from 'next/image';
+// import { FaUserCircle } from '@react-icons/all-files/fa/FaUserCircle';
+import Image from 'next/image';
 
 interface IUserCircleProps {
   size?: number;
@@ -22,8 +22,14 @@ export default function UserProfilButton({
       <div
         aria-label={`${userName} 프로필 사진`}
         className="bg-white rounded-full">
-        <FaUserCircle color={color} size={size} />
-        {/* <Image src={imageURL} alt={`${userName} 프로필 사진`} className="w-32 h-auto" /> */}
+        {/* <FaUserCircle color={color} size={size} /> */}
+        <Image
+          src={'/img/user/default.avif'}
+          alt={`${userName} 프로필 사진`}
+          width={40}
+          height={40}
+          className="rounded-full"
+        />
       </div>
       <p className="text-gray40 pl-2">{userName}</p>
     </button>
