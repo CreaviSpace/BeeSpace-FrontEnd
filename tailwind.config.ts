@@ -31,11 +31,12 @@ const config: Config = {
         blue40: '#072F6C',
       },
       screens: {
-        mobile: { max: '727px' },
-        tablet: { min: '728px', max: '1280px' },
+        min_mobile: { max: '550px' },
+        mobile: { max: '767px' },
+        tablet: { min: '768px', max: '1280px' },
         desktop: { min: '1281px' },
       },
-      width: {
+      maxWidth: {
         max_w: '1200px',
       },
       fontSize: {
@@ -54,12 +55,10 @@ const config: Config = {
         bs_60: '3.75rem',
         bs_50: '3.125rem',
       },
-      padding: {
-        jj_5: '0.3125rem',
-        jj_15: '0.9375rem',
-        jj_50: '3.125rem',
-        jj_60: '3.75rem',
-        jj_100: '6.25rem',
+      borderRadius: {
+        bs_5: '0.3125rem',
+        bs_10: '0.625rem',
+        bs_20: '1.25rem',
       },
     },
   },

@@ -1,16 +1,18 @@
-import { GrBookmark } from '@react-icons/all-files/gr/GrBookmark';
-import { IoBookmarkSharp } from '@react-icons/all-files/io5/IoBookmarkSharp';
+import { IoBookmark } from '@react-icons/all-files/io5/IoBookmark';
+import { IoBookmarkOutline } from '@react-icons/all-files/io5/IoBookmarkOutline';
 import { useState } from 'react';
 
-interface BookmarkProps {
-  color: string;
-  size: number;
+interface IBookmarkProps {
+  color?: string;
+  size?: number;
+  className?: string;
 }
 
 export default function Bookmark({
   color = '#0099DB',
   size = 25,
-}: BookmarkProps) {
+  className,
+}: IBookmarkProps) {
   const [isBookmarked, setIsBookmarked] = useState(true);
 
   const handleToggleBookmark = () => {
@@ -18,22 +20,16 @@ export default function Bookmark({
   };
 
   return (
-    <>
+    <button type="button" onClick={handleToggleBookmark} className={className}>
       {isBookmarked ? (
-        <button
-          type="button"
-          aria-label="북마크 비활성화"
-          onClick={handleToggleBookmark}>
-          <GrBookmark size={size} />
-        </button>
+        <IoBookmarkOutline
+          color={color}
+          size={size}
+          aria-label="비활성화된 북마크"
+        />
       ) : (
-        <button
-          type="button"
-          aria-label="북마크 활성화"
-          onClick={handleToggleBookmark}>
-          <IoBookmarkSharp color={color} size={size} />
-        </button>
+        <IoBookmark color={color} size={size} aria-label="활성화된 북마크" />
       )}
-    </>
+    </button>
   );
 }

@@ -3,71 +3,57 @@ import { MdKeyboardArrowRight } from '@react-icons/all-files/md/MdKeyboardArrowR
 import { RefObject } from 'react';
 
 import { BtnNext, BtnPrev, Clicklist } from '@/utils/carousel';
-import { images } from '@/utils/data';
 
 interface IBannerListProps {
-  length: string[];
+  length: number;
   bannerAllRef: RefObject<HTMLDivElement>;
-  bannerOneRef: RefObject<HTMLDivElement>;
   currentIndex: number;
   setCurrentIndex: (currentIndex: number) => void;
 }
 
-export default function BannerList({
+export default function CarouselList({
   length,
   bannerAllRef,
-  bannerOneRef,
   currentIndex,
   setCurrentIndex,
 }: IBannerListProps) {
+  const ElementsLength = Array.from(
+    { length: length },
+    (_, index) => index + 1
+  );
+
   const handleBtnPrev = () => {
-    if (bannerAllRef.current && bannerOneRef.current) {
-      BtnPrev(
-        bannerAllRef.current,
-        bannerOneRef.current,
-        currentIndex,
-        setCurrentIndex
-      );
+    if (bannerAllRef.current) {
+      BtnPrev(bannerAllRef.current, currentIndex, setCurrentIndex);
     }
   };
 
   const handleBtnNext = () => {
-    if (bannerAllRef.current && bannerOneRef.current) {
-      BtnNext(
-        bannerAllRef.current,
-        bannerOneRef.current,
-        currentIndex,
-        setCurrentIndex,
-        images.length
-      );
+    if (bannerAllRef.current) {
+      BtnNext(bannerAllRef.current, currentIndex, setCurrentIndex, length);
     }
   };
   const handleClickList = (index: number) => {
-    if (bannerAllRef.current && bannerOneRef.current) {
-      Clicklist(
-        bannerAllRef.current,
-        bannerOneRef.current,
-        index,
-        setCurrentIndex
-      );
+    if (bannerAllRef.current) {
+      Clicklist(bannerAllRef.current, index, setCurrentIndex);
     }
   };
 
   return (
     <div className="relative flex justify-center items-center gap-2">
       <span className="cursor-pointer" onClick={handleBtnPrev}>
-        <MdKeyboardArrowLeft size={20} />
+        <MdKeyboardArrowLeft size={30} color={'FFC700'} />
       </span>
-      {length.map((item, index) => (
+      {ElementsLength.map((item, index) => (
         <span
           key={index}
-          className={`w-2 h-2 rounded-full ${index + 1 === currentIndex ? 'bg-red-500' : 'bg-black'} cursor-pointer`}
+          className={`${index + 1 === currentIndex ? 'px-3 bg-yellow20' : 'border-[3px] border-primary'} w-[0.65rem] h-[0.65rem] rounded-full cursor-pointer transition-all`}
           onClick={() => {
             handleClickList(index + 1);
           }}></span>
       ))}
       <span className="cursor-pointer" onClick={handleBtnNext}>
-        <MdKeyboardArrowRight size={20} />
+        <MdKeyboardArrowRight size={30} color={'FFC700'} />
       </span>
     </div>
   );

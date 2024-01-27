@@ -3,20 +3,18 @@ import { useRef, useState } from 'react';
 import { TransitionEnd } from '@/utils/carousel';
 import { card, images } from '@/utils/data';
 
+import CarouselList from '../CarouselList';
 import BannerItem from './BannerItem';
-import BannerList from './BannerList';
 
 export default function Banner() {
   const [currentIndex, setCurrentIndex] = useState(1);
 
   const bannerAllRef = useRef<HTMLDivElement>(null);
-  const bannerOneRef = useRef<HTMLDivElement>(null);
 
   const handleTransitionEnd = () => {
-    if (bannerAllRef.current && bannerOneRef.current) {
+    if (bannerAllRef.current) {
       TransitionEnd(
         bannerAllRef.current,
-        bannerOneRef.current,
         currentIndex,
         setCurrentIndex,
         images.length
@@ -25,14 +23,12 @@ export default function Banner() {
   };
 
   return (
-    <div className="mb-10">
+    <div className="overflow-hidden">
       <div
-        className="relative right-full flex mt-10 mb-5 mx-auto transition-all"
+        className="relative right-full flex items-center mt-10 mb-5 m-auto transition-all "
         ref={bannerAllRef}
         onTransitionEnd={handleTransitionEnd}>
-        <div
-          className={`w-screen flex-grow-0 flex-shrink-0 flex-basis-auto`}
-          ref={bannerOneRef}>
+        <div className={`w-full flex-grow-0 flex-shrink-0 flex-basis-auto`}>
           <BannerItem
             type={false}
             id={card.id}
@@ -44,8 +40,7 @@ export default function Banner() {
         {images.map((item, index) => (
           <div
             key={`banner-${index}`}
-            className={`w-screen flex-grow-0 flex-shrink-0 flex-basis-auto`}
-            ref={bannerOneRef}>
+            className={`w-full flex-grow-0 flex-shrink-0 flex-basis-auto`}>
             <BannerItem
               type={false}
               id={card.id}
@@ -55,9 +50,7 @@ export default function Banner() {
             />
           </div>
         ))}
-        <div
-          className={`w-screen flex-grow-0 flex-shrink-0 flex-basis-auto`}
-          ref={bannerOneRef}>
+        <div className={`w-full flex-grow-0 flex-shrink-0 flex-basis-auto`}>
           <BannerItem
             type={false}
             id={card.id}
@@ -67,11 +60,10 @@ export default function Banner() {
           />
         </div>
       </div>
-      {bannerAllRef && bannerOneRef && (
-        <BannerList
-          length={images}
+      {bannerAllRef && (
+        <CarouselList
+          length={images.length}
           bannerAllRef={bannerAllRef}
-          bannerOneRef={bannerOneRef}
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
         />
