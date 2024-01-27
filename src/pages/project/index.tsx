@@ -22,7 +22,7 @@ export default function Project() {
       <section>
         <Banner />
       </section>
-      <Category category={categories} btnValue="프로젝트 올리기"></Category>
+      <Category category={categories} btnValue="프로젝트 올리기" />
       <section className="flex justify-center pt-14 pb-24">
         <ProjectCardContainer />
       </section>
