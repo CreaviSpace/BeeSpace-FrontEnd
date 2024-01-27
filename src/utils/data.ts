@@ -15,10 +15,11 @@ export const card = {
   name: 'user',
   views: 34,
   comment: 0,
+  likes: 0,
   date: '2024-01-20',
   title: 'Some Title',
   content:
-    'This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.. ',
+    'This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doThis is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.. This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doThis is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.. ',
 };
 
 // 테스트 코드 작성
@@ -40,3 +41,16 @@ export const details = {
     '<p>Kotlin/Spring boot (API 서버), FastAPI(이미지 업로드 서버, 채팅), PostgreSQL(DB) , MongoDB(채팅)</p>' +
     '<p>Git, Github, Slack, Discord, Figma</p>',
 };
+
+export const tags = [
+  { name: 'hashTag1', id: 1 },
+  { name: 'hashTag2', id: 2 },
+  { name: 'hashTag3', id: 3 },
+  { name: 'hashTag4', id: 4 },
+  { name: 'hashTag5', id: 5 },
+  { name: 'hashTag6', id: 6 },
+  { name: 'hashTag7', id: 7 },
+  { name: 'hashTag8', id: 8 },
+  { name: 'hashTag9', id: 9 },
+  { name: 'hashTag10', id: 10 },
+];
