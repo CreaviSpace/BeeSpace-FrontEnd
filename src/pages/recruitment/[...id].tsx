@@ -34,9 +34,7 @@ export default function RecruitmentDetail() {
         </div>
         <span className="w-full border block border-gray10" />
       </section>
-      <div className="absolute -right-2 top-1/3">
-        <SideButton />
-      </div>
+      <SideButton />
     </main>
   );
 }
