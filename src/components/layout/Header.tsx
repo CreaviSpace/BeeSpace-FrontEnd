@@ -3,9 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import Logo from '@/../public/BS_Logo500x181.png';
-
-import CustomButton from '../button/CustomButton';
+import CustomButton from '@/components/button/CustomButton';
 
 interface MenuItem {
   name: string;
@@ -13,6 +11,7 @@ interface MenuItem {
 }
 
 export default function Header() {
+  const [value, setValue] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const menu: Array<MenuItem> = [
@@ -25,13 +24,22 @@ export default function Header() {
     setIsSearchVisible(!isSearchVisible);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
   return (
     <header className="sticky top-0 w-full h-16 z-20 bg-white">
       <nav className="border-b border-gray10">
         <div className="flex justify-between max-w-max_w content-center m-auto items-center">
           <h1>
             <Link href="/">
-              <Image src={Logo} alt="비스페이스 로고" className="w-32 h-auto" />
+              <Image
+                src="/BS_Logo500x181.png"
+                alt="비스페이스 로고"
+                width={128}
+                height={46}
+              />
             </Link>
           </h1>
           <ul className="flex">
@@ -69,12 +77,17 @@ export default function Header() {
             <form
               onSubmit={(e) => e.preventDefault()}
               className="max_w h-full m-auto relative max-w-max_w">
+              <label htmlFor="searchValue" id="searchValue" className="sr-only">
+                검색창
+              </label>
               <input
                 type="search"
+                value={value}
                 name="searchValue"
                 id="searchValue"
                 placeholder="검색어를 입력하세요"
-                className="w-full h-full bg-[#F5F5F5] rounded-bs_5 absolute p-5 "
+                className="w-full h-full bg-[#F5F5F5] rounded-bs_5 absolute p-5"
+                onChange={handleChange}
               />
               <button
                 type="submit"

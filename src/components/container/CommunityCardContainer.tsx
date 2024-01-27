@@ -1,7 +1,7 @@
 import CommunityCard from '@/components/card/CommunityCard';
 import { card } from '@/utils/data';
 
-interface CommunityCardStyleProps {
+interface ICommunityCardStyleProps {
   className?: string;
   isActive?: 'main' | 'default';
 }
@@ -9,7 +9,7 @@ interface CommunityCardStyleProps {
 export default function CommunityCardContainer({
   isActive,
   ...restProps
-}: CommunityCardStyleProps) {
+}: ICommunityCardStyleProps) {
   const gridColumns = {
     main: 'grid-cols-2 gap-3',
     default: 'grid-cols-1 max-w-[43.75rem]',
@@ -19,19 +19,24 @@ export default function CommunityCardContainer({
     main: 'border',
     default: 'border-b',
   };
-
+  const data = [1, 2, 3, 4];
   return (
     <div
       className={`grid ${isActive === 'main' ? gridColumns.main : gridColumns.default} mobile:grid-cols-1`}
       {...restProps}>
-      <CommunityCard
-        className={`mt-2 ${isActive === 'main' ? borderStyle.main : borderStyle.default}`}
-        contents={card.content}
-        userName={card.name}
-        date={card.date}
-        views={card.views}
-        comments={card.comment}
-      />
+      {data?.map((item) => (
+        <CommunityCard
+          key={`card-${item}`}
+          className={`mt-2 ${isActive === 'main' ? borderStyle.main : borderStyle.default}`}
+          id="123"
+          type="community"
+          contents={card.content}
+          userName={card.name}
+          date={card.date}
+          views={card.views}
+          comments={card.comment}
+        />
+      ))}
     </div>
   );
 }

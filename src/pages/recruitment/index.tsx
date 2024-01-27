@@ -6,9 +6,8 @@ import RecruitmentCardContainer from '@/components/container/RecruitmentCardCont
 
 export default function Recruitment() {
   const category = [
-    { name: 'Android', link: 'android' },
-    { name: 'Ios', link: 'ios' },
-    { name: 'Web', link: 'web' },
+    { name: '프로젝트', link: 'project' },
+    { name: '스터디', link: 'study' },
   ];
 
   const router = useRouter();

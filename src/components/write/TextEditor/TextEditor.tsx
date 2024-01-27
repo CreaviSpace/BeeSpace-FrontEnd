@@ -56,7 +56,7 @@ export default function TextEditor() {
         modules={modules}
         formats={formats}
         onChange={setValues}
-        className="h-[37.5rem]"
+        className="h-[34.375rem]"
       />
     </div>
   );

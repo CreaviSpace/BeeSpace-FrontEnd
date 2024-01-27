@@ -9,6 +9,7 @@ export default function ProjectCardContainer() {
           <ProjectCard
             key={`projectCard-${item}`}
             image={item}
+            id={card.id}
             title={card.title}
             content={card.content}
             tagName="팀 프로젝트"
