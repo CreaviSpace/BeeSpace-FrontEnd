@@ -19,19 +19,24 @@ export default function CommunityCardContainer({
     main: 'border',
     default: 'border-b',
   };
-
+  const data = [1, 2, 3, 4];
   return (
     <div
       className={`grid ${isActive === 'main' ? gridColumns.main : gridColumns.default} mobile:grid-cols-1`}
       {...restProps}>
-      <CommunityCard
-        className={`mt-2 ${isActive === 'main' ? borderStyle.main : borderStyle.default}`}
-        contents={card.content}
-        userName={card.name}
-        date={card.date}
-        views={card.views}
-        comments={card.comment}
-      />
+      {data?.map((item) => (
+        <CommunityCard
+          key={`card-${item}`}
+          className={`mt-2 ${isActive === 'main' ? borderStyle.main : borderStyle.default}`}
+          id="123"
+          type="community"
+          contents={card.content}
+          userName={card.name}
+          date={card.date}
+          views={card.views}
+          comments={card.comment}
+        />
+      ))}
     </div>
   );
 }
