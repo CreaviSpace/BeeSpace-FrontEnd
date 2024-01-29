@@ -9,7 +9,7 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const colorStyles = {
   primary: 'bg-primary hover:bg-yellow20',
-  secondary: 'bg-blue20 hover:bg-blue10',
+  secondary: 'bg-blue20 hover:bg-[#b2dcff]',
   default: 'bg-transparent border border-black',
 };
 
