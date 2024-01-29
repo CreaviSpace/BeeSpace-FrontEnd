@@ -1,4 +1,5 @@
 import SideButton from '@/components/button/SideButton';
+import CommentContainer from '@/components/container/CommentContainer';
 import DetailsTitle from '@/components/DetailsTitle';
 import Tag from '@/components/Tag';
 import { card, details } from '@/utils/data';
@@ -6,7 +7,7 @@ import { card, details } from '@/utils/data';
 export default function CommunityDetail() {
   return (
     <main className="m-auto py-10 h-full gap-5 w-fit relative ">
-      <section className="max-w-max_w m-auto">
+      <section className="max-w-max_w m-auto mb-5">
         <DetailsTitle
           type="community"
           time={card.date}
@@ -15,6 +16,7 @@ export default function CommunityDetail() {
           likes={card.comment}
           userName={card.name}
         />
+        <SideButton />
         <div
           className="py-5 px-3"
           dangerouslySetInnerHTML={{ __html: details.content }}
@@ -24,7 +26,7 @@ export default function CommunityDetail() {
         </div>
         <span className="w-full border block border-gray10" />
       </section>
-      <SideButton />
+      <CommentContainer />
     </main>
   );
 }

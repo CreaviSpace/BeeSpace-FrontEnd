@@ -1,4 +1,5 @@
 import SideButton from '@/components/button/SideButton';
+import CommentContainer from '@/components/container/CommentContainer';
 import RecruitDetails from '@/components/details/recruitment/RecruitDetails';
 import RecruitPosition from '@/components/details/recruitment/RecruitPosition';
 import TechStackList from '@/components/details/recruitment/TechStackList';
@@ -17,9 +18,10 @@ export default function RecruitmentDetail() {
   };
 
   return (
-    <main className="pt-20 pb-10 h-full flex justify-center max-w-[1000px] m-auto relative">
-      <section className="m-auto">
+    <main className="m-auto py-10 h-full gap-5 w-fit relative">
+      <section className="m-auto max-w-max_w mb-5">
         <DetailsTitle {...commonDetailsProps} />
+        <SideButton />
         <RecruitDetails />
         <div className="p-6 border-b flex justify-between">
           <RecruitPosition />
@@ -34,7 +36,7 @@ export default function RecruitmentDetail() {
         </div>
         <span className="w-full border block border-gray10" />
       </section>
-      <SideButton />
+      <CommentContainer />
     </main>
   );
 }
