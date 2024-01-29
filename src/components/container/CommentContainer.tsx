@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import CustomButton from '../button/CustomButton';
-import UserProfilButton from '../button/UserProfilButton';
+import UserProfileButton from '../button/UserProfileButton';
 
 export default function CommentContainer() {
   const [value, setValue] = useState('');
@@ -31,7 +31,7 @@ export default function CommentContainer() {
         {comment.map((item, index) => (
           <div key={`${item}-${index}`} className="py-5 border-b border-gray10">
             <div className="flex justify-between items-center">
-              <UserProfilButton userName="author" />
+              <UserProfileButton userName="author" />
               <div>
                 <button>수정</button>&nbsp;&#124;&nbsp;<button>버튼</button>
               </div>

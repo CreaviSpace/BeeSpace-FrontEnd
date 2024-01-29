@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 
-import UserProfilButton from '@/components/button/UserProfilButton';
+import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
 
 interface IDetailsTitleProps {
@@ -32,7 +32,7 @@ export default function DetailsTitle({
       />
       <h1 className="font-bold text-bs_24 mb-3">{title}</h1>
       <div className="max-w-max_w flex items-center justify-between w-full px-4 py-2">
-        <UserProfilButton userName={userName} />
+        <UserProfileButton userName={userName} />
         <div className="flex gap-x-3 text-bs_14 text-gray40">
           <p>
             조회수&nbsp;<span>{views}</span>
