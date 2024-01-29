@@ -10,9 +10,8 @@ interface ISideButtonProps {
 
 export default function SideButton({ className }: ISideButtonProps) {
   return (
-    <aside className="absolute -right-2 top-1/3">
-      <div
-        className={`${className} fixed mobile:hidden w-fit h-fit flex flex-col items-center gap-2 p-2 py-3 rounded-md bg-secondary`}>
+    <aside className={`${className} absolute -right-2`}>
+      <div className="fixed mobile:hidden w-fit h-fit flex flex-col items-center gap-2 p-2 py-3 rounded-md bg-secondary">
         <LikeButton
           color="black"
           size={25}
