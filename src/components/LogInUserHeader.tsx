@@ -73,7 +73,7 @@ export default function LogInHeader({ onClick }: ILogInHeaderProps) {
       {onProfileModal ? (
         <li
           ref={profileModalRef}
-          className="w-32 h-fit bg-white border rounded-bs_10 shadow-md absolute bottom-[-150px] right-0 flex flex-col gap-y-2 p-3 text-bs_14">
+          className="w-32 h-fit bg-white border rounded-bs_10 shadow-md absolute top-[2.8125rem] right-0 flex flex-col gap-y-3 p-4 text-bs_14">
           <Link href="/">내 프로필</Link>
           <Link href="/">알림</Link>
           <Link href="/">북마크</Link>
@@ -86,10 +86,10 @@ export default function LogInHeader({ onClick }: ILogInHeaderProps) {
       {onWritingModal ? (
         <li
           ref={writingModalRef}
-          className="w-32 h-fit bg-white border rounded-bs_10 shadow-md absolute bottom-[-110px] right-0 flex flex-col gap-y-2 p-3 text-bs_14">
+          className="w-40 h-fit bg-white border rounded-bs_10 shadow-md absolute top-[2.8125rem] right-0 flex flex-col gap-y-3 p-4 text-bs_14">
           <Link href="/">프로젝트 올리기</Link>
           <Link href="/">팀원 모집하기</Link>
-          <Link href="/">커뮤니티 글스기</Link>
+          <Link href="/">커뮤니티 글쓰기</Link>
         </li>
       ) : null}
     </ul>
