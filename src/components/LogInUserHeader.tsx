@@ -87,9 +87,9 @@ export default function LogInHeader({ onClick }: ILogInHeaderProps) {
         <li
           ref={writingModalRef}
           className="w-40 h-fit bg-white border rounded-bs_10 shadow-md absolute top-[2.8125rem] right-0 flex flex-col gap-y-3 p-4 text-bs_14">
-          <Link href="/">프로젝트 올리기</Link>
-          <Link href="/">팀원 모집하기</Link>
-          <Link href="/">커뮤니티 글쓰기</Link>
+          <Link href="/write/project">프로젝트 올리기</Link>
+          <Link href="/write/recruitment">팀원 모집하기</Link>
+          <Link href="/write/community">커뮤니티 글쓰기</Link>
         </li>
       ) : null}
     </ul>
