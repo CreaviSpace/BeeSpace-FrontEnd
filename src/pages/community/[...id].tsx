@@ -1,6 +1,6 @@
 import SideButton from '@/components/button/SideButton';
 import CommentContainer from '@/components/container/CommentContainer';
-import DetailsTitle from '@/components/DetailsTitle';
+import DetailsTitle from '@/components/details/DetailsTitle';
 import Tag from '@/components/Tag';
 import { card, details } from '@/utils/data';
 

@@ -1,9 +1,9 @@
 import SideButton from '@/components/button/SideButton';
 import CommentContainer from '@/components/container/CommentContainer';
+import DetailsTitle from '@/components/details/DetailsTitle';
 import DistributeLink from '@/components/details/project/DistributeLink';
 import Members from '@/components/details/project/Members';
 import SkillStack from '@/components/details/project/SkiilStack';
-import DetailsTitle from '@/components/DetailsTitle';
 import Tag from '@/components/Tag';
 import { details } from '@/utils/data';
 

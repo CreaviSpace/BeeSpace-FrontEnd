@@ -1,9 +1,9 @@
 import SideButton from '@/components/button/SideButton';
 import CommentContainer from '@/components/container/CommentContainer';
+import DetailsTitle from '@/components/details/DetailsTitle';
 import RecruitDetails from '@/components/details/recruitment/RecruitDetails';
 import RecruitPosition from '@/components/details/recruitment/RecruitPosition';
 import TechStackList from '@/components/details/recruitment/TechStackList';
-import DetailsTitle from '@/components/DetailsTitle';
 import Tag from '@/components/Tag';
 import { card, details } from '@/utils/data';
 
