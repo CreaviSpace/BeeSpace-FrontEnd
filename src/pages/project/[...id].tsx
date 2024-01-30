@@ -1,7 +1,7 @@
 import { FaPaperclip } from '@react-icons/all-files/fa/FaPaperclip';
 
 import SideButton from '@/components/button/SideButton';
-import UserProfilButton from '@/components/button/UserProfilButton';
+import UserProfileButton from '@/components/button/UserProfileButton';
 import CommentContainer from '@/components/container/CommentContainer';
 import DetailsTitle from '@/components/DetailsTitle';
 import Icons from '@/components/Icons';
@@ -37,12 +37,11 @@ export default function ProjectDetail() {
         title="Some Title"
         userName="author"
       />
-      <div className="absolute right-[2rem] tablet:right-[4.8125rem]">
-        <SideButton />
-      </div>
+      <SideButton />
       <div className="py-8 border-b border-gray10">
         <div dangerouslySetInnerHTML={{ __html: details.content }} />
       </div>
+      <SideButton className="" />
       <div className="py-8 border-b border-black">
         <Tag name={'팀 프로젝트'} category={'team'} />
         <section className="pt-5">
@@ -54,7 +53,7 @@ export default function ProjectDetail() {
               <li className="min-w-20">{item.personnel}</li>
               {item.people.map((people, index) => (
                 <li key={`${people}-${index}`} className="ml-5">
-                  <UserProfilButton
+                  <UserProfileButton
                     userName={people.name}
                     className="border border-gray10 px-4 py-3"
                   />
