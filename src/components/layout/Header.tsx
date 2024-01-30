@@ -1,6 +1,7 @@
 import { AiOutlineSearch } from '@react-icons/all-files/ai/AiOutlineSearch';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
@@ -15,6 +16,8 @@ export default function Header() {
   const [value, setValue] = useState('');
   const [isLogin, setIsLogin] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+  const router = useRouter();
 
   const menu: Array<MenuItem> = [
     { name: '프로젝트', link: '/project?type=all' },
@@ -91,7 +94,10 @@ export default function Header() {
         <div className="h-screen fixed w-full z-10 ">
           <div className="h-20 shadow-md py-4 bg-white">
             <form
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={(e) => {
+                e.preventDefault();
+                router.push(`/search?type="all"`);
+              }}
               className="max_w h-full m-auto relative max-w-max_w mobile:px-3">
               <label htmlFor="searchValue" id="searchValue" className="sr-only">
                 검색창
