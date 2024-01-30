@@ -5,7 +5,7 @@ import CustomButton from './button/CustomButton';
 
 interface ICategoryProps {
   category: { name: string; link: string }[];
-  btnValue: string;
+  btnValue?: string;
 }
 
 export default function Category({ category, btnValue }: ICategoryProps) {
@@ -39,11 +39,13 @@ export default function Category({ category, btnValue }: ICategoryProps) {
             </li>
           ))}
         </ul>
-        <CustomButton
-          className="py-1 px-5 mobile:hidden"
-          onClick={handleGoToWritePage}>
-          {btnValue}
-        </CustomButton>
+        {btnValue && (
+          <CustomButton
+            className="py-1 px-5 mobile:hidden"
+            onClick={handleGoToWritePage}>
+            {btnValue}
+          </CustomButton>
+        )}
       </div>
     </nav>
   );
