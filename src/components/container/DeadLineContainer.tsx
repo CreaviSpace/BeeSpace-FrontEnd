@@ -20,9 +20,9 @@ export default function DeadLine() {
           />
           <h2 className="text-bs_24 font-bold">마감 모집</h2>
         </div>
-        <div className="text-gray20 text-bs_16">
-          <Link href={`/recruitment`}>더 보기</Link>
-        </div>
+        <Link href={`/recruitment?type=all`} className="text-gray20 text-bs_16">
+          더 보기
+        </Link>
       </div>
       {data.map((item) => (
         <UniversalCard

@@ -1,10 +1,9 @@
-import { FaPaperclip } from '@react-icons/all-files/fa/FaPaperclip';
-
 import SideButton from '@/components/button/SideButton';
-import UserProfileButton from '@/components/button/UserProfileButton';
 import CommentContainer from '@/components/container/CommentContainer';
-import DetailsTitle from '@/components/DetailsTitle';
-import Icons from '@/components/Icons';
+import DetailsTitle from '@/components/details/DetailsTitle';
+import DistributeLink from '@/components/details/project/DistributeLink';
+import Members from '@/components/details/project/Members';
+import SkillStack from '@/components/details/project/SkiilStack';
 import Tag from '@/components/Tag';
 import { details } from '@/utils/data';
 
@@ -44,55 +43,9 @@ export default function ProjectDetail() {
       <SideButton className="" />
       <div className="py-8 border-b border-black">
         <Tag name={'팀 프로젝트'} category={'team'} />
-        <section className="pt-5">
-          <h3 className="text-bs_20 font-bold">팀원 소개</h3>
-          {Personnel.map((item, index) => (
-            <ul
-              key={`${item}-${index}`}
-              className="flex items-center ml-8 p-5 border-l-2 border-gray10">
-              <li className="min-w-20">{item.personnel}</li>
-              {item.people.map((people, index) => (
-                <li key={`${people}-${index}`} className="ml-5">
-                  <UserProfileButton
-                    userName={people.name}
-                    className="border border-gray10 px-4 py-3"
-                  />
-                </li>
-              ))}
-            </ul>
-          ))}
-        </section>
-        <section>
-          <h3 className="text-bs_20 font-bold ml-4">링크</h3>
-          <ul>
-            {Link.map((item, index) => (
-              <li
-                key={`${item}-${index}`}
-                className="flex items-center justify-between ml-8 p-5 border-l-2 border-gray10">
-                <div className="flex items-center">
-                  <Icons icon={item.title} />
-                  <div className="ml-5">
-                    <p className="text-bs_18 font-bold">{item.title}</p>
-                    <div className="text-bs_16">{item.link}</div>
-                  </div>
-                </div>
-                <span className="cursor-pointer">
-                  <FaPaperclip size={20} />
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-        <section>
-          <h3 className="text-bs_20 font-bold">기술 스택</h3>
-          <ul className="flex gap-3 ml-8 p-5 border-l-2 border-gray10">
-            {skill.map((item, index) => (
-              <li
-                key={`${item}-${index}`}
-                className="w-10 h-10 border border-gray10 rounded-full"></li>
-            ))}
-          </ul>
-        </section>
+        <Members personnel={Personnel} />
+        <DistributeLink link={Link} />
+        <SkillStack skill={skill} />
       </div>
       <div className="text-right py-5">
         <Tag name={'설문조사 참여'} category={'team'} />

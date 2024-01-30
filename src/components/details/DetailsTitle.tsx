@@ -3,6 +3,7 @@ import React from 'react';
 
 import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
+import useReportModal from '@/hooks/useReportModal';
 
 interface IDetailsTitleProps {
   type?: string;
@@ -23,6 +24,8 @@ export default function DetailsTitle({
   userName,
   likes,
 }: IDetailsTitleProps) {
+  const { onOpen } = useReportModal();
+
   return (
     <div className="w-full h-fit flex flex-col items-center max-w-max_w m-auto">
       <Tag
@@ -56,6 +59,10 @@ export default function DetailsTitle({
           &#124;
         </span>
         <button>삭제</button>
+        <span className="mx-2" aria-hidden>
+          &#124;
+        </span>
+        <button onClick={onOpen}>신고</button>
       </div>
     </div>
   );

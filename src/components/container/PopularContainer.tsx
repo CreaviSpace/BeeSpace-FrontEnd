@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRef, useState } from 'react';
 
 import { TransitionEnd } from '@/utils/carousel';
@@ -28,7 +29,9 @@ export default function PopularProject() {
     <div className="w-[550px] p-[0.1px] m-auto overflow-x-hidden tablet:w-[767px] min_mobile:w-[330px]">
       <div className="text-bs_24 flex justify-between items-end w-full">
         <h2 className="text-bs_24 font-bold">인기 프로젝트</h2>
-        <span className="text-gray20 text-bs_16">더 보기</span>
+        <Link href={`/project?type=all`} className="text-gray20 text-bs_16">
+          더 보기
+        </Link>
       </div>
 
       <div
