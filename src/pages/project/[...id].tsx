@@ -36,12 +36,11 @@ export default function ProjectDetail() {
         title="Some Title"
         userName="author"
       />
-      <div className="absolute right-[2rem] tablet:right-[4.8125rem]">
-        <SideButton />
-      </div>
+      <SideButton />
       <div className="py-8 border-b border-gray10">
         <div dangerouslySetInnerHTML={{ __html: details.content }} />
       </div>
+      <SideButton className="" />
       <div className="py-8 border-b border-black">
         <Tag name={'팀 프로젝트'} category={'team'} />
         <Members personnel={Personnel} />
