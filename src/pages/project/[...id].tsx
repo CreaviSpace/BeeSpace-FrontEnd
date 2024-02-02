@@ -40,7 +40,6 @@ export default function ProjectDetail() {
       <div className="py-8 border-b border-gray10">
         <div dangerouslySetInnerHTML={{ __html: details.content }} />
       </div>
-      <SideButton className="" />
       <div className="py-8 border-b border-black">
         <Tag name={'팀 프로젝트'} category={'team'} />
         <Members personnel={Personnel} />
