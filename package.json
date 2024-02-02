@@ -36,6 +36,7 @@
     "react-cropper": "^2.3.3",
     "react-day-picker": "^8.10.0",
     "react-dom": "^18",
+    "react-file-drop": "^3.1.6",
     "react-quill": "^2.0.0",
     "react-toastify": "^10.0.0",
     "vercel": "^33.1.0",
