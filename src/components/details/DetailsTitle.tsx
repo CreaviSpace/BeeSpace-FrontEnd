@@ -3,6 +3,7 @@ import React from 'react';
 
 import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
+import useReconfirmModal from '@/hooks/useReconfirmModal';
 import useReportModal from '@/hooks/useReportModal';
 
 interface IDetailsTitleProps {
@@ -24,7 +25,8 @@ export default function DetailsTitle({
   userName,
   likes,
 }: IDetailsTitleProps) {
-  const { onOpen } = useReportModal();
+  const { onOpen: reportOpen } = useReportModal();
+  const { onOpen: reconfirmOpen } = useReconfirmModal();
 
   return (
     <div className="w-full h-fit flex flex-col items-center max-w-max_w m-auto">
@@ -58,11 +60,11 @@ export default function DetailsTitle({
         <span className="mx-2" aria-hidden>
           &#124;
         </span>
-        <button>삭제</button>
+        <button onClick={reconfirmOpen}>삭제</button>
         <span className="mx-2" aria-hidden>
           &#124;
         </span>
-        <button onClick={onOpen}>신고</button>
+        <button onClick={reportOpen}>신고</button>
       </div>
     </div>
   );

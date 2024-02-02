@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import LogInUserHeader from '@/components/LogInUserHeader';
+import useSearchErrorModal from '@/hooks/useSearchErrorModal';
 
 interface MenuItem {
   name: string;
@@ -18,6 +19,8 @@ export default function Header() {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const router = useRouter();
+
+  const { onOpen } = useSearchErrorModal();
 
   const menu: Array<MenuItem> = [
     { name: '프로젝트', link: '/project?type=all' },
@@ -35,6 +38,14 @@ export default function Header() {
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
+  };
+
+  const handleSearchTest = () => {
+    if (value.trim().length >= 1) {
+      router.push(`/search?type="all"`);
+    } else {
+      onOpen();
+    }
   };
 
   return (
@@ -96,7 +107,7 @@ export default function Header() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                router.push(`/search?type="all"`);
+                handleSearchTest();
               }}
               className="max_w h-full m-auto relative max-w-max_w mobile:px-3">
               <label htmlFor="searchValue" id="searchValue" className="sr-only">
