@@ -12,16 +12,20 @@ import Modals from './Modals';
 export default function SignUpModal() {
   const { isOpen, onOpen, onClose } = useSignUpModal();
   const icons = [
-    { icon: <FcGoogle key="google" size={45} />, style: 'bg-white', link: '/' },
+    {
+      icon: <FcGoogle key="google" size={45} />,
+      style: 'bg-white',
+      link: '/signup',
+    },
     {
       icon: <RiKakaoTalkFill key="kakao" size={45} />,
       style: 'bg-yellow-300',
-      link: '/',
+      link: '/signup',
     },
     {
       icon: <IoLogoGithub key="github" size={45} />,
       style: 'bg-white',
-      link: '/',
+      link: '/signup',
     },
     {
       icon: (
@@ -34,7 +38,7 @@ export default function SignUpModal() {
         />
       ),
       style: 'bg-green-500 p-3 flex',
-      link: '/',
+      link: '/signup',
     },
   ];
   return (
