@@ -19,6 +19,7 @@ export default function Header() {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const router = useRouter();
+  const pathname = router.pathname;
 
   const { onOpen } = useSearchErrorModal();
 
@@ -48,6 +49,9 @@ export default function Header() {
     }
   };
 
+  if (pathname === '/manager') {
+    return null;
+  }
   return (
     <header className="sticky top-0 w-full h-16 z-20 bg-white">
       <nav className="border-b border-gray10 ">
