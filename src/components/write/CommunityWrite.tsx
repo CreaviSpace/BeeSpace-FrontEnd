@@ -32,7 +32,7 @@ export default function CommunityWrite() {
         </h1>
         <ul className="my-20">
           <li className="mt-14">
-            <h2 className="text-bs_20 mb-5">프로젝트 분류</h2>
+            <h2 className="text-bs_20 mb-5 font-bold">프로젝트 분류</h2>
             <OnoffButton
               value={community}
               setValue={setCommunity}
@@ -40,7 +40,7 @@ export default function CommunityWrite() {
             />
           </li>
           <li className="mt-14">
-            <h2 className="text-bs_20 mb-5">태그</h2>
+            <h2 className="text-bs_20 mb-5 font-bold">태그</h2>
             <TagInput />
           </li>
           <li className="mt-14">

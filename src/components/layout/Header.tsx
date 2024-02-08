@@ -1,3 +1,4 @@
+// import { useDisclosure } from '@chakra-ui/react';
 import { AiOutlineSearch } from '@react-icons/all-files/ai/AiOutlineSearch';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,7 +7,9 @@ import { useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import LogInUserHeader from '@/components/LogInUserHeader';
+import useLoginModal from '@/hooks/useLoginModal';
 import useSearchErrorModal from '@/hooks/useSearchErrorModal';
+import useSignUpModal from '@/hooks/useSignUpModal';
 
 interface MenuItem {
   name: string;
@@ -15,12 +18,14 @@ interface MenuItem {
 
 export default function Header() {
   const [value, setValue] = useState('');
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const router = useRouter();
   const pathname = router.pathname;
 
+  const { onOpen: openLogin } = useLoginModal();
+  const { onOpen: openSignUp } = useSignUpModal();
   const { onOpen } = useSearchErrorModal();
 
   const menu: Array<MenuItem> = [
@@ -89,14 +94,20 @@ export default function Header() {
               <ul className="flex">
                 <li>
                   <CustomButton
-                    onClick={handleSignInOut}
+                    // onClick={handleSignInOut}
+                    onClick={() => {
+                      openLogin();
+                      handleSignInOut();
+                    }}
                     className="py-2 px-4 mr-3"
                     color="primary">
                     로그인
                   </CustomButton>
                 </li>
                 <li>
-                  <CustomButton className="py-2 px-3">회원가입</CustomButton>
+                  <CustomButton onClick={openSignUp} className="py-2 px-3">
+                    회원가입
+                  </CustomButton>
                 </li>
               </ul>
             ) : (

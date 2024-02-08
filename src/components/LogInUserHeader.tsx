@@ -26,7 +26,7 @@ export default function LogInHeader({ onClick }: ILogInHeaderProps) {
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      // 모달이 열려 있고 모달의 바깥쪽을 눌렀을 때 창 닫기
+      // 모달이 열려 있을 때 모달의 바깥쪽을 누르면 창 닫기
       if (
         (onProfileModal &&
           profileModalRef.current &&
@@ -40,10 +40,11 @@ export default function LogInHeader({ onClick }: ILogInHeaderProps) {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    if (onProfileModal || onWritingModal) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
 
     return () => {
-      // Cleanup the event listener
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [onProfileModal, onWritingModal]);
@@ -74,7 +75,7 @@ export default function LogInHeader({ onClick }: ILogInHeaderProps) {
         <li
           ref={profileModalRef}
           className="w-32 h-fit bg-white border rounded-bs_10 shadow-md absolute top-[2.8125rem] right-0 flex flex-col gap-y-3 p-4 text-bs_14">
-          <Link href="/">내 프로필</Link>
+          <Link href="/profile">내 프로필</Link>
           <Link href="/">알림</Link>
           <Link href="/">북마크</Link>
           <span className="w-full h-[1px] border block"></span>
