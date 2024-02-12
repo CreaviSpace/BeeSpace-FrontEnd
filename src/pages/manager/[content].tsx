@@ -5,6 +5,7 @@ import { FaList } from '@react-icons/all-files/fa/FaList';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 import ContentManagement from '@/components/manager/ContentManagement';
 import DashBoardManagement from '@/components/manager/DashBoardManagement';
@@ -14,6 +15,14 @@ import UserManagement from '@/components/manager/UserManagement';
 import TotalChart from '@/components/TotalChart';
 import UserConnectiont from '@/components/user/UserConnectiont';
 export default function Manager() {
+  const [isSlide, setIsSlide] = useState(false);
+  const router = useRouter();
+  const { content, type } = router.query;
+
+  useEffect(() => {
+    setIsSlide(false);
+  }, [content, type]);
+
   const menu = [
     {
       bigContent: '대시보드',
@@ -49,18 +58,28 @@ export default function Manager() {
     },
   ];
 
-  const router = useRouter();
-  const { content, type } = router.query;
-
   const handleNowContentCSS = (url: string) => {
     if (url === type) {
       return 'bg-blue20';
     }
   };
+
+  const handleGoHome = () => {
+    router.push('/');
+  };
+
   return (
     <main>
-      <div className="max-w-max_w m-auto flex border-r border-gray10">
-        <aside className="w-60 h-[calc(100vh_-_4rem)] border-x border-gray10 bg-blue10">
+      <div className="max-w-max_w m-auto flex border-r border-gray10 relative">
+        <button
+          className={`hidden absolute top-10  ${isSlide ? 'left-60' : 'left-0'} p-2 rounded-r-md bg-blue20 z-10 cursor-pointer  transition-all mobile:block`}
+          onClick={() => {
+            setIsSlide(!isSlide);
+          }}>
+          <FaList size={20} />
+        </button>
+        <aside
+          className={`w-60 h-screen border-x border-gray10 bg-blue10 z-10 transition-all mobile:absolute mobile:top-0 mobile:${isSlide ? 'left-0' : '-left-[100%]'}`}>
           <p className="relative w-fill h-fit p-5 text-center flex justify-center items-center border-b border-gary10">
             <Image
               src="/BS_Logo315x114.png"
@@ -99,13 +118,20 @@ export default function Manager() {
         </aside>
 
         <div className="w-full h-[calc(100vh_-_4rem)] overflow-auto">
-          <div className="flex">
-            <section className="w-3/5 h-96 p-3">
+          <div className="w-full bg-blue10 p-3 text-right">
+            <button
+              className="px-3 font-bold transition-all"
+              onClick={handleGoHome}>
+              나가기
+            </button>
+          </div>
+          <div className="flex mobile:flex-col">
+            <section className="w-3/5 h-96 p-3 mobile:w-full ">
               <div className="bg-blue10 w-full h-full p-3">
                 <TotalChart />
               </div>
             </section>
-            <section className="w-2/5 h-96 p-3">
+            <section className="w-2/5 h-96 p-3 mobile:w-full">
               <div className="bg-blue10 w-full h-full p-3">
                 <h3 className="text-bs_20 font-bold mb-2">
                   사용자 로그인 이력 관리

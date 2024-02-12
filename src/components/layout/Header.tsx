@@ -54,9 +54,10 @@ export default function Header() {
     }
   };
 
-  if (pathname === '/manager') {
+  if (pathname.split('/')[1] === 'manager') {
     return null;
   }
+
   return (
     <header className="sticky top-0 w-full h-16 z-20 bg-white">
       <nav className="border-b border-gray10 ">

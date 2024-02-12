@@ -16,7 +16,7 @@ export default function ContentManagement() {
             content={card.content}
             date={card.date}
             size="large"
-            className="border-2 border-gray20 mb-2"
+            className="border-2 border-gray20 mb-2 tablet:w-full"
           />
         ))}
       </div>

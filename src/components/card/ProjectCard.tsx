@@ -26,7 +26,7 @@ export default function ProjectCard({
 }: IProjectCardProps) {
   const isImageAvailable = !!image;
   return (
-    <div className="relative max-w-md w-full h-[23.75rem] border border-gray10 rounded-b-bs_20">
+    <div className="relative max-w-md w-full m-auto h-[23.75rem] border border-gray10 rounded-b-bs_20">
       <Link href={`${type}/${id}`}>
         <Tag
           name={tagName}
