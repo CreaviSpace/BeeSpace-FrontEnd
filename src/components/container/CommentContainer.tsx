@@ -33,7 +33,7 @@ export default function CommentContainer() {
             <div className="flex justify-between items-center">
               <UserProfileButton userName="author" />
               <div>
-                <button>수정</button>&nbsp;&#124;&nbsp;<button>버튼</button>
+                <button>수정</button>&nbsp;&#124;&nbsp;<button>삭제</button>
               </div>
             </div>
             <div className="mt-3 text-bs_18">{item}</div>
