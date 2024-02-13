@@ -53,7 +53,7 @@ export default function CustomSelect({
       onClick={handleOnOffToggle}>
       <label
         htmlFor=""
-        className="absolute top-0 left-0 px-5 w-full h-[3.125rem] p-[0.625rem] flex justify-between items-center z-[1]">
+        className="absolute top-0 left-0 px-5 w-full h-[3.125rem] p-[0.625rem] flex justify-between items-center z-[1] cursor-pointer">
         {select[index] !== `default` ? select[index] : '선택해주세요.'}
         <span className={`${isOnOff && '-rotate-180 transition-all'}`}>
           <IoIosArrowDown size={20} />
@@ -65,7 +65,7 @@ export default function CustomSelect({
           {option.map((item) => (
             <li
               key={`${item}-${index}`}
-              className="w-full h-[3.125rem] p-[0.625rem] hover:bg-gray10 flex items-center"
+              className="w-full h-[3.125rem] p-[0.625rem] hover:bg-gray10 flex items-center cursor-pointer"
               onClick={() => {
                 handleOptionValue(item);
               }}>
