@@ -1,8 +1,9 @@
+import { IoCloseOutline } from '@react-icons/all-files/io5/IoCloseOutline';
 import { SetStateAction, useEffect, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 
-export default function TagInput() {
+export default function InputTag() {
   const [inputValue, setInputValue] = useState('');
   const [displayedValues, setDisplayedValues] = useState<string[]>([]);
   const inputRef = useRef(null);
@@ -43,14 +44,17 @@ export default function TagInput() {
 
   return (
     <div className="w-full">
-      <div className="flex items-center">
+      <div className="flex items-center max-w-max_w overflow-hidden">
         {displayedValues.map((value, index) => (
           <div key={index} className="flex justify-between mr-1">
             <CustomButton
               onClick={() => handleDeleteButton(index)}
               color="hashtag"
-              className="max-h-[2rem] px-2 text-bs_14">
-              {value} <button>X</button>
+              className="pl-3 pr-2 py-1 text-bs_14 mr-1 flex items-center">
+              <p className="mr-2 text-nowrap">{value}</p>
+              <button>
+                <IoCloseOutline size={20} />
+              </button>
             </CustomButton>
           </div>
         ))}
@@ -61,7 +65,7 @@ export default function TagInput() {
           onChange={handleInputChange}
           onKeyUp={handleInputKey}
           placeholder="태그를 입력해주세요."
-          className="w-full h-[3.125rem] px-3 border border-gary30 rounded-bs_5 border-gray30"
+          className="w-full min-w-40 h-[3.125rem] px-3 border border-gary30 rounded-bs_5 border-gray30"
         />
       </div>
     </div>

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import OnoffButton from '@/components/button/OnOffButton';
 
 import CustomButton from '../button/CustomButton';
-import TagInput from './communtiy/TagInput';
+import InputTag from './communtiy/InputTag';
 import TitleEditor from './TextEditor/TitleEditor';
 
 const TextEditor = dynamic(
@@ -41,7 +41,7 @@ export default function CommunityWrite() {
           </li>
           <li className="mt-14">
             <h2 className="text-bs_20 mb-5 font-bold">태그</h2>
-            <TagInput />
+            <InputTag />
           </li>
           <li className="mt-14">
             <TitleEditor />
