@@ -2,6 +2,7 @@ import { FaApple } from '@react-icons/all-files/fa/FaApple';
 import { FaGlobe } from '@react-icons/all-files/fa/FaGlobe';
 import { FaGooglePlay } from '@react-icons/all-files/fa/FaGooglePlay';
 import { FaPlusCircle } from '@react-icons/all-files/fa/FaPlusCircle';
+import { IoCloseOutline } from '@react-icons/all-files/io5/IoCloseOutline';
 import { useState } from 'react';
 
 export default function DistributionLink() {
@@ -35,6 +36,10 @@ export default function DistributionLink() {
       placeholder: '애플 스토어 배포 링크를 입력해주세요.',
     },
   ];
+
+  const handleDeleteButton = (index: number) => {
+    setAddLink(addLink.filter((_, i) => i !== index));
+  };
 
   return (
     <div className="flow-root">
@@ -70,15 +75,24 @@ export default function DistributionLink() {
         ))}
         {addLink.length > 0 &&
           addLink.map((item, index) => (
-            <li key={`${item}-${index}`} className="w-full flex mb-3">
-              <label htmlFor="siteLink"></label>
+            <li
+              key={`${item}-${index}`}
+              className="w-full flex justify-between mb-3">
+              <label
+                htmlFor="siteLink"
+                className="font-bold text-nowrap text-center p-3 h-[3.125rem]">
+                {`사이트 이름`}
+              </label>
               <input
                 type="text"
                 name="siteLink"
                 id="siteLink"
                 placeholder="링크를 입력해주세요."
-                className="w-full h-[3.125rem] ml-2 border border-gray30 rounded-bs_5 pl-3 text-bs_14"
+                className="w-full h-[3.125rem] mr-2 border border-gray30 rounded-bs_5 pl-3 text-bs_14"
               />
+              <button onClick={() => handleDeleteButton(index)}>
+                <IoCloseOutline color="gray" size={30} />
+              </button>
             </li>
           ))}
       </ul>
