@@ -11,23 +11,28 @@ import Modals from './Modals';
 
 export default function SignUpModal() {
   const { isOpen, onOpen, onClose } = useSignUpModal();
+
   const icons = [
     {
+      title: '구글',
       icon: <FcGoogle key="google" size={45} />,
       style: 'bg-white',
-      link: '/signup',
+      link: '/',
     },
     {
+      title: '카카오',
       icon: <RiKakaoTalkFill key="kakao" size={45} />,
       style: 'bg-yellow-300',
-      link: '/signup',
+      link: '/',
     },
     {
+      title: '깃허브',
       icon: <IoLogoGithub key="github" size={45} />,
       style: 'bg-white',
-      link: '/signup',
+      link: '/',
     },
     {
+      title: '네이버',
       icon: (
         <Image
           src="/img/icon/SiNaver.svg"
@@ -38,7 +43,7 @@ export default function SignUpModal() {
         />
       ),
       style: 'bg-green-500 p-3 flex',
-      link: '/signup',
+      link: '/',
     },
   ];
   return (
@@ -51,8 +56,12 @@ export default function SignUpModal() {
             <Link
               key={`icon-${index}`}
               href={icon.link}
-              className={`${icon.style} rounded-full shadow-[0_3px_5px_rgba(0,0,0,0.3)] p-2`}>
-              {icon.icon}
+              className=" flex flex-col items-center gap-2">
+              <div
+                className={`${icon.style} rounded-full shadow-[0_3px_5px_rgba(0,0,0,0.3)] p-2`}>
+                {icon.icon}
+              </div>
+              <span>{icon.title}</span>
             </Link>
           ))}
         </section>
