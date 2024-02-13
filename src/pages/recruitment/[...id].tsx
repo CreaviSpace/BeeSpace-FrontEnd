@@ -18,7 +18,7 @@ export default function RecruitmentDetail() {
   };
 
   return (
-    <main className="m-auto py-10 h-full gap-5 w-fit relative">
+    <main className="h-full gap-5 max-w-max_w m-auto py-10 px-16 relative">
       <section className="m-auto max-w-max_w mb-5">
         <DetailsTitle {...commonDetailsProps} />
         <SideButton />
@@ -28,7 +28,7 @@ export default function RecruitmentDetail() {
           <TechStackList />
         </div>
         <div
-          className="py-5 px-3"
+          className="py-5 px-3 ql_editor"
           dangerouslySetInnerHTML={{ __html: details.content }}
         />
         <div className="mb-4">

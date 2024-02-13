@@ -22,6 +22,7 @@ export default function Header() {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const router = useRouter();
+  const pathname = router.pathname;
 
   const { onOpen: openLogin } = useLoginModal();
   const { onOpen: openSignUp } = useSignUpModal();
@@ -52,6 +53,10 @@ export default function Header() {
       onOpen();
     }
   };
+
+  if (pathname.split('/')[1] === 'manager') {
+    return null;
+  }
 
   return (
     <header className="sticky top-0 w-full h-16 z-20 bg-white">

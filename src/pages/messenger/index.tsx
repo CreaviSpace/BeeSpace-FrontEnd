@@ -4,6 +4,7 @@ import { FaRegImages } from '@react-icons/all-files/fa/FaRegImages';
 import { FaTelegramPlane } from '@react-icons/all-files/fa/FaTelegramPlane';
 
 import UserProfileButton from '@/components/button/UserProfileButton';
+import UserConnectiont from '@/components/user/UserConnectiont';
 
 export default function Messenger() {
   const user = [1, 2, 3];
@@ -41,15 +42,12 @@ export default function Messenger() {
           </div>
           <ul>
             {user.map((item) => (
-              <li
+              <UserConnectiont
                 key={item}
-                className="flex items-center py-5 px-2 border-b border-gray10">
-                <UserProfileButton className="min-w-16" />
-                <div className="w-full">
-                  <p className="text-bs_20 font-bold w-full">author</p>
-                  <p className="text-bs_14">안녕하세요</p>
-                </div>
-              </li>
+                value="nickname"
+                content="안녕하세요"
+                className="py-5 px-2 border-b border-gray10"
+              />
             ))}
           </ul>
         </section>

@@ -38,7 +38,10 @@ export default function ProjectDetail() {
       />
       <SideButton />
       <div className="py-8 border-b border-gray10">
-        <div dangerouslySetInnerHTML={{ __html: details.content }} />
+        <div
+          className="ql_editor"
+          dangerouslySetInnerHTML={{ __html: details.content }}
+        />
       </div>
       <div className="py-8 border-b border-black">
         <Tag name={'팀 프로젝트'} category={'team'} />

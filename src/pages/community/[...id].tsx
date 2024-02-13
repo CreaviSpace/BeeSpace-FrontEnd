@@ -6,7 +6,7 @@ import { card, details } from '@/utils/data';
 
 export default function CommunityDetail() {
   return (
-    <main className="m-auto py-10 h-full gap-5 w-fit relative ">
+    <main className="h-full gap-5 max-w-max_w m-auto py-10 px-16 relative ">
       <section className="max-w-max_w m-auto mb-5">
         <DetailsTitle
           type="community"

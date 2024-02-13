@@ -44,6 +44,9 @@ dependencies:
   react:
     specifier: ^18
     version: 18.2.0
+  react-apexcharts:
+    specifier: ^1.4.1
+    version: 1.4.1(apexcharts@3.45.1)(react@18.2.0)
   react-cropper:
     specifier: ^2.3.3
     version: 2.3.3(react@18.2.0)
@@ -5349,6 +5352,17 @@ packages:
       http-errors: 1.7.3
       iconv-lite: 0.4.24
       unpipe: 1.0.0
+    dev: false
+
+  /react-apexcharts@1.4.1(apexcharts@3.45.1)(react@18.2.0):
+    resolution: {integrity: sha512-G14nVaD64Bnbgy8tYxkjuXEUp/7h30Q0U33xc3AwtGFijJB9nHqOt1a6eG0WBn055RgRg+NwqbKGtqPxy15d0Q==}
+    peerDependencies:
+      apexcharts: ^3.41.0
+      react: '>=0.13'
+    dependencies:
+      apexcharts: 3.45.1
+      prop-types: 15.8.1
+      react: 18.2.0
     dev: false
 
   /react-clientside-effect@1.2.6(react@18.2.0):
