@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Bookmark from '../button/Bookmark';
+import SkeletonUniversalCard from '../skeleton/SkeletonUniversalCard';
 
 interface IUniversalCardProps {
   id: string;
@@ -30,6 +31,10 @@ export default function UniversalCard({
   className,
 }: IUniversalCardProps) {
   const boxSize = sizeStyles[size || 'small'];
+
+  if (false) {
+    return <SkeletonUniversalCard boxSize={boxSize} />;
+  }
 
   return (
     <div
