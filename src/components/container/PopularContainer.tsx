@@ -4,8 +4,8 @@ import { useRef, useState } from 'react';
 import { TransitionEnd } from '@/utils/carousel';
 import { images } from '@/utils/data';
 
+import PopularImageCard from '../card/PopularImageCard';
 import CarouselList from '../CarouselList';
-import PopularImageCard from './PopularImageCard';
 
 export default function PopularProject() {
   // 데이터 넣어줘야함
