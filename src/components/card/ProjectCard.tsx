@@ -5,6 +5,8 @@ import Bookmark from '@/components/button/Bookmark';
 import LikeButton from '@/components/button/LikeButton';
 import Tag from '@/components/Tag';
 
+import SkeletonProjectCard from '../skeleton/SkeletonProjectCard';
+
 interface IProjectCardProps {
   id?: string;
   type?: string;
@@ -25,6 +27,11 @@ export default function ProjectCard({
   tagCategory,
 }: IProjectCardProps) {
   const isImageAvailable = !!image;
+
+  if (false) {
+    return <SkeletonProjectCard />;
+  }
+
   return (
     <div className="relative max-w-md w-full m-auto h-[23.75rem] border border-gray10 rounded-b-bs_20">
       <Link href={`${type}/${id}`}>

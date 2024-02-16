@@ -4,8 +4,8 @@ import { useRef, useState } from 'react';
 import { TransitionEnd } from '@/utils/carousel';
 import { images } from '@/utils/data';
 
+import PopularImageCard from '../card/PopularImageCard';
 import CarouselList from '../CarouselList';
-import PopularImage from '../PopularImage';
 
 export default function PopularProject() {
   // 데이터 넣어줘야함
@@ -38,14 +38,14 @@ export default function PopularProject() {
         className="relative right-full flex transition-all"
         ref={listRef}
         onTransitionEnd={handleTransitionEnd}>
-        <PopularImage
+        <PopularImageCard
           img1={images[images.length - 2]}
           img2={images[images.length - 1]}
         />
         {images.map((item, index) => {
           if (index % 2 == 0) {
             return (
-              <PopularImage
+              <PopularImageCard
                 key={`pop-${index}`}
                 img1={images[index]}
                 img2={images[index + 1]}
@@ -53,7 +53,7 @@ export default function PopularProject() {
             );
           }
         })}
-        <PopularImage img1={images[0]} img2={images[1]} />
+        <PopularImageCard img1={images[0]} img2={images[1]} />
       </div>
 
       {listRef && (

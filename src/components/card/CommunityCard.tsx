@@ -4,6 +4,8 @@ import LikeButton from '@/components/button/LikeButton';
 import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
 
+import SkeletonCommunityCard from '../skeleton/SkeletonCommunityCard';
+
 interface CommunityCardProps {
   id?: string;
   type?: string;
@@ -24,6 +26,10 @@ export default function CommunityCard({
   comments,
   className,
 }: CommunityCardProps) {
+  if (false) {
+    return <SkeletonCommunityCard />;
+  }
+
   return (
     <>
       <div
