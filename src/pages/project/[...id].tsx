@@ -1,9 +1,11 @@
+import Link from 'next/link';
+
 import SideButton from '@/components/button/SideButton';
 import CommentContainer from '@/components/container/CommentContainer';
 import DetailsTitle from '@/components/details/DetailsTitle';
 import DistributeLink from '@/components/details/project/DistributeLink';
 import Members from '@/components/details/project/Members';
-import SkillStack from '@/components/details/project/SkiilStack';
+import SkillStack from '@/components/details/project/SkillStack';
 import Tag from '@/components/Tag';
 import { details } from '@/utils/data';
 
@@ -18,7 +20,7 @@ export default function ProjectDetail() {
     { personnel: 'PM', people: [{ name: 'author' }] },
   ];
 
-  const Link = [
+  const Links = [
     { title: 'Android', link: '/google' },
     { title: 'Ios', link: '/apple' },
     { title: 'Web', link: '/web' },
@@ -46,12 +48,14 @@ export default function ProjectDetail() {
       <div className="py-8 border-b border-black">
         <Tag name={'팀 프로젝트'} category={'team'} />
         <Members personnel={Personnel} />
-        <DistributeLink link={Link} />
+        <DistributeLink link={Links} />
         <SkillStack skill={skill} />
       </div>
-      <div className="text-right py-5">
-        <Tag name={'설문조사 참여'} category={'team'} />
-      </div>
+      <Link href="/feedback">
+        <div className="text-right py-5">
+          <Tag name={'설문조사 참여'} category={'team'} />
+        </div>
+      </Link>
       <CommentContainer />
     </div>
   );
