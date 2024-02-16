@@ -5,7 +5,9 @@ import CustomButton from '@/components/button/CustomButton';
 import CustomSelect from '@/components/button/CustomSelect';
 
 export default function ProfileEdit() {
-  const [personnel, setPersonnel] = useState<string[]>(['default', 'default']);
+  const [jop, setJop] = useState<string[]>(['백엔드', 'default']);
+  const [career, setCareer] = useState<string[]>(['없음', 'default']);
+  const [skill, setSkill] = useState<string[]>(['없음', 'default']);
   const [jopOption, setJobOption] = useState([
     '백엔드',
     '프론트엔드',
@@ -25,6 +27,23 @@ export default function ProfileEdit() {
     '9년',
     '10년 이상',
   ]);
+  const [skillOption, setskillOption] = useState([
+    'Java',
+    'Javascript',
+    'Spring',
+    'HTML/CSS',
+    'jQuery',
+    'JSp',
+    'Vue.js',
+    'Oracle',
+    'MySQL',
+    'React',
+    'Spring Boot',
+    'PHP',
+    'Python',
+    'Node,js',
+    'C#',
+  ]);
   return (
     <main className="py-28">
       <section className="w-[600px] m-auto flex flex-col items-center">
@@ -43,7 +62,7 @@ export default function ProfileEdit() {
               type="text"
               id="nickName"
               placeholder="닉네임을 기재해 주세요."
-              className="px-4 py-2 border border-gray30 rounded-bs_5"
+              className="px-4 py-3 border border-gray30 rounded-bs_5"
             />
           </li>
           <li className="flex flex-col gap-2 mt-8">
@@ -52,17 +71,16 @@ export default function ProfileEdit() {
               type="text"
               id="introduction"
               placeholder="자신을 소개해 주세요."
-              className="px-4 py-2 border border-gray30 rounded-bs_5"
+              className="px-4 py-3 border border-gray30 rounded-bs_5"
             />
           </li>
           <li className="flex flex-col gap-2 mt-8">
             <label htmlFor="job">직무</label>
             <CustomSelect
+              htmlFor="job"
               option={jopOption}
-              select={personnel}
-              setSelect={
-                setPersonnel as (personnel: (string | number)[]) => void
-              }
+              select={jop}
+              setSelect={setJop as (jop: (string | number)[]) => void}
               index={1}
               className="border-gray30"
             />
@@ -70,30 +88,28 @@ export default function ProfileEdit() {
           <li className="flex flex-col gap-2 mt-8">
             <label htmlFor="career">경력</label>
             <CustomSelect
-              option={jopOption}
-              select={personnel}
-              setSelect={
-                setPersonnel as (personnel: (string | number)[]) => void
-              }
+              htmlFor="career"
+              option={careerOption}
+              select={career}
+              setSelect={setCareer as (career: (string | number)[]) => void}
               index={1}
               className="border-gray30"
             />
           </li>
           <li className="flex flex-col gap-2 mt-8">
             <label htmlFor="interestSkill">관심스택</label>
-            <select
-              name="skill"
-              id="interestSkill"
-              className="border border-gray30 px-4 py-2 rounded-bs_5">
-              <option value="select">선택해주세요</option>
-              <option value="Javascript">Javascript</option>
-              <option value="React">React</option>
-              <option value="Java">Java</option>
-            </select>
+            <CustomSelect
+              htmlFor="interestSkill"
+              option={skillOption}
+              select={skill}
+              setSelect={setSkill as (skill: (string | number)[]) => void}
+              index={1}
+              className="border-gray30"
+            />
           </li>
           <li className="text-right mt-14">
-            <CustomButton className="py-3 px-10 mr-3">취소</CustomButton>
-            <CustomButton color="secondary" className="py-3 px-10">
+            <CustomButton className="py-2 px-5 mr-3">취소</CustomButton>
+            <CustomButton color="secondary" className="py-2 px-5">
               확인
             </CustomButton>
           </li>
