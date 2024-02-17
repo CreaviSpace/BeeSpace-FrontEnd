@@ -9,6 +9,7 @@ interface ICustomSelectProps {
   index: number;
   className?: string;
   handler?: (num: number) => void;
+  htmlFor?: string;
 }
 
 export default function CustomSelect({
@@ -19,6 +20,7 @@ export default function CustomSelect({
   index,
   className,
   handler,
+  htmlFor,
 }: ICustomSelectProps) {
   const [isOnOff, setIsOnOff] = useState(false);
 
@@ -52,7 +54,7 @@ export default function CustomSelect({
       className={`relative w-full h-[3.125rem] mb-2 mr-2 border border-gray10 rounded-bs_5 ${className}`}
       onClick={handleOnOffToggle}>
       <label
-        htmlFor=""
+        htmlFor={htmlFor}
         className="absolute top-0 left-0 px-5 w-full h-[3.125rem] p-[0.625rem] flex justify-between items-center z-[1] cursor-pointer">
         {select[index] !== `default` ? select[index] : '선택해주세요.'}
         <span className={`${isOnOff && '-rotate-180 transition-all'}`}>

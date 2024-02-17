@@ -20,6 +20,9 @@
   }
 
   /* ql editor 초기 값 */
+  .ql_editor {
+    padding: 20px;
+  }
   .ql_editor h1 {
     display: block;
     font-size: 2em;

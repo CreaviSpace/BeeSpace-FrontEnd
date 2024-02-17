@@ -11,7 +11,7 @@ export default function CommentContainer() {
 
   return (
     <div>
-      <h3 className="mb-5 text-bs_20">댓글 ({comment.length})</h3>
+      <h3 className="mb-5 text-bs_18">댓글 ({comment.length})</h3>
       <div className="flex gap-5">
         <input
           type="text"
