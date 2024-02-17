@@ -37,9 +37,7 @@ export default function ProjectDetail() {
         title="Some Title"
         userName="author"
       />
-      <div className="absolute right-[2rem]">
         <SideButton />
-      </div>
       <div className="py-8 border-b border-gray10">
         <div dangerouslySetInnerHTML={{ __html: details.content }} />
       </div>
