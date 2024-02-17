@@ -28,35 +28,39 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative max_w flex justify-center bg-[#EFEFEF] ">
+    <footer className="relative max_w flex justify-center bg-[#EFEFEF]">
       <div className="w-full max-w-max_w flex">
-        <div className="w-2/6  border-r-2 border-[#BBBBBB] p-14 m-auto">
-          <div className="absolute left-0 top-10 w-full border border-[#BBBBBB]" />
-          <Link href="/">
+        <div className="w-2/6  border-r-2 border-[#BBBBBB] py-14 px-14 m-auto mobile:w-3/6 mobile:px-5">
+          <div className="absolute left-0 top-10 w-full border-t-2 border-[#BBBBBB]" />
+          <Link href="/" className="mobile:hidden">
             <Image src={Logo} alt="logo" width={186} height={70} />
           </Link>
-          <ul className="text-bs_14 mt-5">
+          <ul className="text-bs_14 mt-5 mobile:mt-0">
             {info.map((item, index) => (
-              <li key={`info-${index}`} className="flex">
-                <div className="w-16 ">{item.name}</div>
-                |&nbsp;&nbsp;
+              <li
+                key={`info-${index}`}
+                className="flex tablet:flex-col mobile:flex-col">
+                <div className="w-20 font-bold">{item.name}</div>
+                <span className="tablet:hidden mobile:hidden">
+                  |&nbsp;&nbsp;
+                </span>
                 {item.detail}
               </li>
             ))}
           </ul>
         </div>
-        <div className="w-4/6 flex justify-center gap-10 pt-14 text-bs_18">
+        <div className="w-4/6 flex justify-center gap-10 pt-14 text-bs_18 mobile:w-3/6 mobile:gap-2">
           <ul className="text-bs_14">
-            <li className="p-2">바로가기</li>
+            <li className="p-2 mobile:p-1">바로가기</li>
             {menu.map((item, index) => (
-              <li key={`menu-${index}`} className="p-2">
+              <li key={`menu-${index}`} className="p-2 mobile:p-1">
                 <Link href={item.link}>{item.name}</Link>
               </li>
             ))}
           </ul>
           <ul className="text-bs_14">
             {service.map((item, index) => (
-              <li key={`service-${index}`} className="p-2">
+              <li key={`service-${index}`} className="p-2 mobile:p-1">
                 <Link href={item.link}>{item.name}</Link>
               </li>
             ))}

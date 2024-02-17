@@ -5,6 +5,8 @@ import Bookmark from '@/components/button/Bookmark';
 import LikeButton from '@/components/button/LikeButton';
 import Tag from '@/components/Tag';
 
+import SkeletonProjectCard from '../skeleton/SkeletonProjectCard';
+
 interface IProjectCardProps {
   id?: string;
   type?: string;
@@ -25,8 +27,13 @@ export default function ProjectCard({
   tagCategory,
 }: IProjectCardProps) {
   const isImageAvailable = !!image;
+
+  if (false) {
+    return <SkeletonProjectCard />;
+  }
+
   return (
-    <div className="relative max-w-md w-full h-[380px] border border-gray10 rounded-b-bs_20">
+    <div className="relative max-w-md w-full m-auto h-[23.75rem] border border-gray10 rounded-b-bs_20">
       <Link href={`${type}/${id}`}>
         <Tag
           name={tagName}
@@ -34,7 +41,7 @@ export default function ProjectCard({
           className="absolute top-3 left-3"
         />
         {image && (
-          <div className="relative overflow-hidden w-full h-[180px]">
+          <div className="relative overflow-hidden w-full h-[11.25rem]">
             <Image
               src={image}
               alt="임시 프로젝트 이미지"
@@ -57,7 +64,14 @@ export default function ProjectCard({
           </p>
         </Link>
       </div>
-      <LikeButton className="absolute bottom-3 left-5" />
+      <div className="flow-root px-5">
+        <LikeButton className="float-start" />
+        <ul className="float-end flex gap-1">
+          <li className="border border-gray20 rounded-full w-6 h-6"></li>
+          <li className="border border-gray20 rounded-full w-6 h-6"></li>
+          <li className="border border-gray20 rounded-full w-6 h-6"></li>
+        </ul>
+      </div>
     </div>
   );
 }

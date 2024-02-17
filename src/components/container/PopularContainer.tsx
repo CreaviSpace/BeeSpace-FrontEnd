@@ -1,10 +1,11 @@
+import Link from 'next/link';
 import { useRef, useState } from 'react';
 
 import { TransitionEnd } from '@/utils/carousel';
 import { images } from '@/utils/data';
 
+import PopularImageCard from '../card/PopularImageCard';
 import CarouselList from '../CarouselList';
-import PopularImage from '../PopularImage';
 
 export default function PopularProject() {
   // 데이터 넣어줘야함
@@ -28,21 +29,23 @@ export default function PopularProject() {
     <div className="w-[550px] p-[0.1px] m-auto overflow-x-hidden tablet:w-[767px] min_mobile:w-[330px]">
       <div className="text-bs_24 flex justify-between items-end w-full">
         <h2 className="text-bs_24 font-bold">인기 프로젝트</h2>
-        <span className="text-gray20 text-bs_16">더 보기</span>
+        <Link href={`/project?type=all`} className="text-gray20 text-bs_16">
+          더 보기
+        </Link>
       </div>
 
       <div
         className="relative right-full flex transition-all"
         ref={listRef}
         onTransitionEnd={handleTransitionEnd}>
-        <PopularImage
+        <PopularImageCard
           img1={images[images.length - 2]}
           img2={images[images.length - 1]}
         />
         {images.map((item, index) => {
           if (index % 2 == 0) {
             return (
-              <PopularImage
+              <PopularImageCard
                 key={`pop-${index}`}
                 img1={images[index]}
                 img2={images[index + 1]}
@@ -50,7 +53,7 @@ export default function PopularProject() {
             );
           }
         })}
-        <PopularImage img1={images[0]} img2={images[1]} />
+        <PopularImageCard img1={images[0]} img2={images[1]} />
       </div>
 
       {listRef && (

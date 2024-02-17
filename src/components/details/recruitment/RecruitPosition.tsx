@@ -50,7 +50,7 @@ export default function RecruitPosition() {
                 <div className="flex-1">{`${recruited}/${total}`}</div>
                 <CustomButton
                   onClick={() => handleApply(position as keyof Positions)}
-                  className={`mt-1 w-24 h-8 ${recruited === total ? 'bg-[#FFC700] border-transparent' : ''}`}>
+                  className={`mt-1 w-24 h-8 ${recruited === total ? 'bg-yellow-400 border-transparent' : ''}`}>
                   {recruited === total ? '완료' : '지원하기'}
                 </CustomButton>
               </div>

@@ -1,15 +1,16 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset';
-  color?: 'primary' | 'secondary' | 'default';
-  children: string;
+  color?: 'primary' | 'secondary' | 'hashtag' | 'default';
+  children: string | ReactNode;
   className?: string;
 }
 
 const colorStyles = {
   primary: 'bg-primary hover:bg-yellow20',
-  secondary: 'bg-blue20 hover:bg-blue10',
+  secondary: 'bg-blue20 hover:bg-[#b2dcff]',
+  hashtag: 'bg-blue10 border',
   default: 'bg-transparent border border-black',
 };
 
