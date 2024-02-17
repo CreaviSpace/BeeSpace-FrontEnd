@@ -1,10 +1,15 @@
 import SideButton from '@/components/button/SideButton';
 import CommentContainer from '@/components/container/CommentContainer';
 import DetailsTitle from '@/components/details/DetailsTitle';
+import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import Tag from '@/components/Tag';
 import { card, details } from '@/utils/data';
 
 export default function CommunityDetail() {
+  if (false) {
+    return <SkeletonDetail />;
+  }
+
   return (
     <main>
       <section className="max-w-max_w m-auto py-10 px-16 relative mb-5">

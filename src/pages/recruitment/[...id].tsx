@@ -4,6 +4,7 @@ import DetailsTitle from '@/components/details/DetailsTitle';
 import RecruitDetails from '@/components/details/recruitment/RecruitDetails';
 import RecruitPosition from '@/components/details/recruitment/RecruitPosition';
 import TechStackList from '@/components/details/recruitment/TechStackList';
+import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import Tag from '@/components/Tag';
 import { card, details } from '@/utils/data';
 
@@ -16,6 +17,10 @@ export default function RecruitmentDetail() {
     likes: card.comment,
     userName: card.name,
   };
+
+  if (false) {
+    return <SkeletonDetail />;
+  }
 
   return (
     <main className="h-full gap-5 max-w-max_w m-auto py-10 px-16 relative">
