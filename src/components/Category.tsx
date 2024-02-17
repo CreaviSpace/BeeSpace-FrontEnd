@@ -5,7 +5,7 @@ import CustomButton from './button/CustomButton';
 
 interface ICategoryProps {
   category: { name: string; link: string }[];
-  btnValue: string;
+  btnValue?: string;
 }
 
 export default function Category({ category, btnValue }: ICategoryProps) {
@@ -31,19 +31,21 @@ export default function Category({ category, btnValue }: ICategoryProps) {
             className={`${handleCurrentPage('all')} px-2 py-5 mx-10 text-bs_20 cursor-pointer mobile:mx-5`}>
             <Link href={`/${pathname}?type=all`}>전체</Link>
           </li>
-          {category.map((item) => (
+          {category.map((item, index) => (
             <li
-              key={`category-${item}`}
+              key={`category-${index}`}
               className={`${handleCurrentPage(item.link)} px-2 py-5 mx-10 text-bs_20 cursor-pointer mobile:mx-5`}>
               <Link href={`/${pathname}?type=${item.link}`}>{item.name}</Link>
             </li>
           ))}
         </ul>
-        <CustomButton
-          className="py-1 px-5 mobile:hidden"
-          onClick={handleGoToWritePage}>
-          {btnValue}
-        </CustomButton>
+        {btnValue && (
+          <CustomButton
+            className="py-1 px-5 mobile:hidden"
+            onClick={handleGoToWritePage}>
+            {btnValue}
+          </CustomButton>
+        )}
       </div>
     </nav>
   );

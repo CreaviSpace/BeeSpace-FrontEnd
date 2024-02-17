@@ -1,8 +1,10 @@
 import Link from 'next/link';
 
 import LikeButton from '@/components/button/LikeButton';
-import UserProfilButton from '@/components/button/UserProfilButton';
+import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
+
+import SkeletonCommunityCard from '../skeleton/SkeletonCommunityCard';
 
 interface CommunityCardProps {
   id?: string;
@@ -24,13 +26,17 @@ export default function CommunityCard({
   comments,
   className,
 }: CommunityCardProps) {
+  if (false) {
+    return <SkeletonCommunityCard />;
+  }
+
   return (
     <>
       <div
         className={`${className} w-full py-5 px-7 rounded-bs_5 bg-white border-gray10`}>
         {/* 사용자 정보, 게시글 날짜 및 시간 */}
         <div className="pb-2 flex items-center justify-between">
-          <UserProfilButton userName={userName} />
+          <UserProfileButton userName={userName} />
           <span className="text-bs_14 text-gray20">
             <time dateTime={date}>{date}</time>
           </span>

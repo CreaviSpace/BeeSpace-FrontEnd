@@ -1,7 +1,6 @@
-// import { FaUserCircle } from '@react-icons/all-files/fa/FaUserCircle';
 import Image from 'next/image';
 
-interface IUserCircleProps {
+interface IUserProfileProps {
   size?: number;
   color?: string;
   userName?: string;
@@ -9,13 +8,11 @@ interface IUserCircleProps {
   imageURL?: string;
 }
 
-export default function UserProfilButton({
-  size = 30,
-  color = '#AEB4B7',
+export default function UserProfileButton({
   className,
   userName,
   // imageURL,
-}: IUserCircleProps) {
+}: IUserProfileProps) {
   return (
     <button
       className={`${className} flex justify-between items-center w-fit cursor-pointer rounded-bs_5 border-gray20`}>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import CustomButton from '../button/CustomButton';
-import UserProfilButton from '../button/UserProfilButton';
+import UserProfileButton from '../button/UserProfileButton';
 
 export default function CommentContainer() {
   const [value, setValue] = useState('');
@@ -11,7 +11,7 @@ export default function CommentContainer() {
 
   return (
     <div>
-      <h3 className="mb-5 text-bs_20">댓글 ({comment.length})</h3>
+      <h3 className="mb-5 text-bs_18">댓글 ({comment.length})</h3>
       <div className="flex gap-5">
         <input
           type="text"
@@ -31,9 +31,9 @@ export default function CommentContainer() {
         {comment.map((item, index) => (
           <div key={`${item}-${index}`} className="py-5 border-b border-gray10">
             <div className="flex justify-between items-center">
-              <UserProfilButton userName="author" />
+              <UserProfileButton userName="author" />
               <div>
-                <button>수정</button>&nbsp;&#124;&nbsp;<button>버튼</button>
+                <button>수정</button>&nbsp;&#124;&nbsp;<button>삭제</button>
               </div>
             </div>
             <div className="mt-3 text-bs_18">{item}</div>

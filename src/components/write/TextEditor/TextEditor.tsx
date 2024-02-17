@@ -3,6 +3,8 @@ import 'react-quill/dist/quill.snow.css';
 import { useMemo, useState } from 'react';
 import ReactQuill from 'react-quill';
 
+import ImageDrag from '@/components/ImageDrag';
+
 import CustomToolbar from './CustomToolbar';
 
 const formats = [
@@ -51,13 +53,15 @@ export default function TextEditor() {
     <div>
       <h1 className="text-bs_20 font-bold my-5">소개</h1>
       <CustomToolbar />
-      <ReactQuill
-        theme="snow"
-        modules={modules}
-        formats={formats}
-        onChange={setValues}
-        className="h-[34.375rem]"
-      />
+      <ImageDrag>
+        <ReactQuill
+          theme="snow"
+          modules={modules}
+          formats={formats}
+          onChange={setValues}
+          className="h-[34.375rem]"
+        />
+      </ImageDrag>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import Deadline from './recruitment/Deadline';
 import OnOffLine from './recruitment/OnOffLine';
 import Period from './recruitment/Period';
 import Personnel from './recruitment/Personnel';
-import SkillStack from './recruitment/SkillStack';
+import SkillStack from './SkillStack';
 import TitleEditor from './TextEditor/TitleEditor';
 
 const TextEditor = dynamic(

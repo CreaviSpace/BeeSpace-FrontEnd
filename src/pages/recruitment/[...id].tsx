@@ -1,8 +1,10 @@
 import SideButton from '@/components/button/SideButton';
+import CommentContainer from '@/components/container/CommentContainer';
+import DetailsTitle from '@/components/details/DetailsTitle';
 import RecruitDetails from '@/components/details/recruitment/RecruitDetails';
 import RecruitPosition from '@/components/details/recruitment/RecruitPosition';
 import TechStackList from '@/components/details/recruitment/TechStackList';
-import DetailsTitle from '@/components/DetailsTitle';
+import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import Tag from '@/components/Tag';
 import { card, details } from '@/utils/data';
 
@@ -16,17 +18,22 @@ export default function RecruitmentDetail() {
     userName: card.name,
   };
 
+  if (false) {
+    return <SkeletonDetail />;
+  }
+
   return (
-    <main className="pt-20 pb-10 h-full flex justify-center max-w-[1000px] m-auto relative">
-      <section className="m-auto">
+    <main className="h-full gap-5 max-w-max_w m-auto py-10 px-16 relative">
+      <section className="m-auto max-w-max_w mb-5">
         <DetailsTitle {...commonDetailsProps} />
+        <SideButton />
         <RecruitDetails />
         <div className="p-6 border-b flex justify-between">
           <RecruitPosition />
           <TechStackList />
         </div>
         <div
-          className="py-5 px-3"
+          className="py-5 px-3 ql_editor"
           dangerouslySetInnerHTML={{ __html: details.content }}
         />
         <div className="mb-4">
@@ -34,9 +41,7 @@ export default function RecruitmentDetail() {
         </div>
         <span className="w-full border block border-gray10" />
       </section>
-      <div className="absolute -right-2 top-1/3">
-        <SideButton />
-      </div>
+      <CommentContainer />
     </main>
   );
 }

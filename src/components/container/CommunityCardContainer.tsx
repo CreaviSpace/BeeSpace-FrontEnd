@@ -22,7 +22,7 @@ export default function CommunityCardContainer({
   const data = [1, 2, 3, 4];
   return (
     <div
-      className={`grid ${isActive === 'main' ? gridColumns.main : gridColumns.default} mobile:grid-cols-1`}
+      className={`grid ${isActive === 'main' ? gridColumns.main : gridColumns.default} w-full mobile:grid-cols-1`}
       {...restProps}>
       {data?.map((item) => (
         <CommunityCard

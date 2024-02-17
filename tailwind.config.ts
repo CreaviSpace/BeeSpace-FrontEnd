@@ -39,6 +39,9 @@ const config: Config = {
       maxWidth: {
         max_w: '1200px',
       },
+      minWidth: {
+        min_w: '320px',
+      },
       fontSize: {
         bs_13: '0.8125rem',
         bs_14: '0.875rem',
