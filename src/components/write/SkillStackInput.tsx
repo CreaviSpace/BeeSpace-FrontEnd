@@ -1,4 +1,4 @@
-export default function SkillStack() {
+export default function SkillStackInput() {
   return (
     <>
       <h2 className="text-bs_20 my-5">기술 스택</h2>

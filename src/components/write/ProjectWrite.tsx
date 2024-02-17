@@ -9,7 +9,7 @@ import InputTag from './communtiy/InputTag';
 import DistributionLink from './project/DistributionLink';
 import MemberList from './project/MemberList';
 import ProjectBanner from './project/ProjectBanner';
-import SkillStack from './SkillStack';
+import SkillStack from './SkillStackInput';
 import TitleEditor from './TextEditor/TitleEditor';
 
 const TextEditor = dynamic(
