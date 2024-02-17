@@ -4,6 +4,7 @@ import DetailsTitle from '@/components/details/DetailsTitle';
 import DistributeLink from '@/components/details/project/DistributeLink';
 import Members from '@/components/details/project/Members';
 import SkillStack from '@/components/details/project/SkiilStack';
+import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import Tag from '@/components/Tag';
 import { details } from '@/utils/data';
 
@@ -25,6 +26,10 @@ export default function ProjectDetail() {
   ];
 
   const skill = ['react', 'java'];
+
+  if (false) {
+    return <SkeletonDetail />;
+  }
 
   return (
     <div className="relative max-w-max_w m-auto py-10 px-16">
