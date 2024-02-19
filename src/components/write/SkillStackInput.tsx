@@ -1,7 +1,7 @@
 export default function SkillStackInput() {
   return (
     <>
-      <h2 className="text-bs_20 my-5">기술 스택</h2>
+      <h2 className="text-bs_20 mb-5 font-bold">기술 스택</h2>
       <input
         type="text"
         placeholder={`입력해주세요.`}

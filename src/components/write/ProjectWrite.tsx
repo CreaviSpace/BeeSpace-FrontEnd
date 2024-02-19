@@ -52,7 +52,6 @@ export default function ProjectWrite() {
           <TextEditor />
         </li>
         <li className="mt-14">
-          {/* <h2 className="text-bs_20 mb-5">기술 스택</h2> */}
           <SkillStack />
         </li>
         <li className="mt-14">
@@ -73,9 +72,9 @@ export default function ProjectWrite() {
           <div className="w-1/2">
             <h2 className="text-bs_20 my-5 font-bold">프로젝트 소개</h2>
             <textarea
-              name=""
-              id="textarea"
-              className="border border-gray30 rounded-bs_10 w-full min-w-80 max-h-[420px]"
+              name="projectTextarea"
+              id="projectTextarea"
+              className="border border-gray30 rounded-bs_10 w-full min-w-80 min-h-[18.75rem]"
             />
           </div>
         </li>
