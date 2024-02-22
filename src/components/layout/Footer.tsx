@@ -28,7 +28,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative max_w flex justify-center bg-[#EFEFEF]">
+    <footer className="relative max_w flex justify-center bg-[#EFEFEF] h-[15.625rem]">
       <div className="w-full max-w-max_w flex">
         <div className="w-2/6  border-r-2 border-[#BBBBBB] py-14 px-14 m-auto mobile:w-3/6 mobile:px-5">
           <div className="absolute left-0 top-10 w-full border-t-2 border-[#BBBBBB]" />
