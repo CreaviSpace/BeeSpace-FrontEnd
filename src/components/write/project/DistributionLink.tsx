@@ -5,7 +5,13 @@ import { FaPlusCircle } from '@react-icons/all-files/fa/FaPlusCircle';
 import { IoCloseOutline } from '@react-icons/all-files/io5/IoCloseOutline';
 import { useState } from 'react';
 
-export default function DistributionLink() {
+interface IDistributionLinkProps {
+  className?: string;
+}
+
+export default function DistributionLink({
+  className,
+}: IDistributionLinkProps) {
   const [addLink, setAddLink] = useState<string[]>([]);
   const [LinkNum, setLinkNum] = useState<[string, number][]>([['default', 0]]);
 
@@ -42,18 +48,20 @@ export default function DistributionLink() {
   };
 
   return (
-    <div className="flow-root">
-      <h2 className="text-bs_20 mb-5 font-bold float-start">
-        배포주소 & 참고링크
-        <span className="font-normal text-bs_18 ml-1">&#40;선택&#41;</span>
-      </h2>
-      <div className="float-end">
-        {addLink.length < 5 && (
-          <button className="flex gap-1" onClick={handleAddLink}>
-            <FaPlusCircle color={'#90CAF9'} size={25} />
-            링크 추가
-          </button>
-        )}
+    <div className={`${className}`}>
+      <div className="flex justify-between">
+        <h2 className="text-bs_20 mb-5 font-bold">
+          배포주소 & 참고링크
+          <span className="font-normal text-bs_18 ml-1">&#40;선택&#41;</span>
+        </h2>
+        <div className="">
+          {addLink.length < 5 && (
+            <button className="flex gap-1" onClick={handleAddLink}>
+              <FaPlusCircle color={'#90CAF9'} size={25} />
+              링크 추가
+            </button>
+          )}
+        </div>
       </div>
       <ul>
         {icons.map((item, index) => (
@@ -78,16 +86,24 @@ export default function DistributionLink() {
             <li
               key={`${item}-${index}`}
               className="w-full flex justify-between mb-3">
-              <label
-                htmlFor="siteLink"
-                className="font-bold text-nowrap text-center p-3 h-[3.125rem]">
-                {`사이트 이름`}
+              <label htmlFor="siteLink" className="sr-only">
+                참고 사이트 이름 입력란
               </label>
               <input
                 type="text"
                 name="siteLink"
                 id="siteLink"
-                placeholder="링크를 입력해주세요."
+                placeholder="배포 또는 참고 사이트 이름"
+                className="w-1/3 h-[3.125rem] mr-2 border border-gray30 rounded-bs_5 pl-3 text-bs_14"
+              />
+              <label htmlFor="siteLink" className="sr-only">
+                참고 사이트 입력란
+              </label>
+              <input
+                type="text"
+                name="siteLink"
+                id="siteLink"
+                placeholder="참고 사이트 링크를 입력해주세요."
                 className="w-full h-[3.125rem] mr-2 border border-gray30 rounded-bs_5 pl-3 text-bs_14"
               />
               <button onClick={() => handleDeleteButton(index)}>
