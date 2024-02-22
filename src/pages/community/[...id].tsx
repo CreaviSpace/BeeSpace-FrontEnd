@@ -12,7 +12,7 @@ export default function CommunityDetail() {
 
   return (
     <main>
-      <section className="max-w-max_w m-auto py-10 px-16 relative mb-5">
+      <section className="max-w-max_w m-auto py-16 px-8 relative mb-5">
         <DetailsTitle
           type="community"
           time={card.date}
