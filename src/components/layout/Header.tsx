@@ -126,7 +126,7 @@ export default function Header() {
                 handleSearchTest();
               }}
               className="max_w h-full m-auto relative max-w-max_w mobile:px-3">
-              <label htmlFor="searchValue" id="searchValue" className="sr-only">
+              <label htmlFor="searchValue" className="sr-only">
                 검색창
               </label>
               <input

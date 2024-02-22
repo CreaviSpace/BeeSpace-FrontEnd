@@ -34,7 +34,7 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="relative max-w-max_w m-auto py-10 px-16">
+    <div className="relative max-w-max_w m-auto py-16 px-8">
       <DetailsTitle
         type="project"
         time={'2024.01.08'}

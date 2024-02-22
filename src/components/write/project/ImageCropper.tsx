@@ -52,10 +52,10 @@ const ImageCropper = ({ children, aspectRatio, onCrop }: PropsType) => {
         {children}
       </label>
       {image && (
-        <div className="fixed left-0 top-0 w-screen h-screen flex justify-center items-center z-10">
-          <div className="fixed w-full h-full bg-[#000000e0]" />
+        <div className="fixed left-0 top-0 w-screen h-screen flex justify-center items-center z-20">
+          <div className="fixed w-full h-full bg-[#000000cc]" />
           <div className="z-[2] bg-white overflow-y-auto overflow-x-hidden flex flex-col max-h-[80%]">
-            <h2 className="font-semibold text-bs_22 leading-7 px-4 py-5">
+            <h2 className="font-semibold text-bs_20 leading-7 px-4 py-5">
               이미지 편집하기
             </h2>
             <div className="flex-1 flex items-center justify-center bg-white">

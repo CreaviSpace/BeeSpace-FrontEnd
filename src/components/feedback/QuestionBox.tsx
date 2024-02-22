@@ -7,14 +7,14 @@ export default function QuestionBox() {
   ];
   return (
     <div className="absolute -right-[10rem] border px-4 py-5 bg-white rounded-bs_5 border-gray30">
-      <ul className="text-bs_14 flex flex-col gap-3">
+      <div className="text-bs_14 flex flex-col gap-3">
         {questionTypes.map((type, index) => (
-          <li key={index} className="flex">
+          <button key={index} className="flex">
             <BsPlusCircle size={18} />
             <span className="ml-1">{type.text}</span>
-          </li>
+          </button>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

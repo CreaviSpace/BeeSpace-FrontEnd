@@ -43,34 +43,36 @@ export default function ProjectBanner() {
 
   return (
     <div>
-      <div className="relative w-[300px] h-[300px]">
+      <div className="relative w-[21.875rem] h-[21.875rem]">
         {compressedImage ? (
           <Image
             src={compressedImage}
             alt=""
-            width={300}
-            height={300}
+            width={350}
+            height={350}
             className="w-full h-full rounded-bs_10"
           />
         ) : (
-          <div className=" absolute w-[300px] h-[300px] bg-gray10 flex items-center justify-center text-white rounded-bs_10">
+          <div className="absolute w-[21.875rem] h-[21.875rem] bg-gray10 flex items-center justify-center text-white rounded-bs_10">
             {isCompressLoading ? '이미지 압축 중..' : <FaImage size={50} />}
           </div>
         )}
         <ImageCropper aspectRatio={1 / 1} onCrop={handleUploadImage}>
-          <CustomButton
-            onClick={handleDeleteImage}
-            color="primary"
-            className="absolute w-[300px] h-[50px] mt-3 left-0 bottom-[-60px]">
-            이미지 추가
-          </CustomButton>
+          <div className="absolute -bottom-[7.5rem]">
+            <CustomButton
+              onClick={handleDeleteImage}
+              color="primary"
+              className=" w-[21.875rem] h-[3.125rem] mt-3">
+              이미지 추가
+            </CustomButton>
+            <CustomButton
+              onClick={handleDeleteImage}
+              className="w-[21.875rem] h-[3.125rem] mt-2">
+              이미지 제거
+            </CustomButton>
+          </div>
         </ImageCropper>
       </div>
-      <CustomButton
-        onClick={handleDeleteImage}
-        className="w-[300px] h-[50px] mt-[70px]">
-        이미지 제거
-      </CustomButton>
     </div>
   );
 }

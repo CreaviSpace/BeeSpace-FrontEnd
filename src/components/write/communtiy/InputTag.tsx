@@ -3,7 +3,11 @@ import { SetStateAction, useEffect, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 
-export default function InputTag() {
+interface IInputTagProps {
+  className?: string;
+}
+
+export default function InputTag({ className }: IInputTagProps) {
   const [inputValue, setInputValue] = useState('');
   const [displayedValues, setDisplayedValues] = useState<string[]>([]);
   const inputRef = useRef(null);
@@ -43,7 +47,7 @@ export default function InputTag() {
   useEffect(() => {}, [displayedValues]);
 
   return (
-    <div className="w-full">
+    <div className={`${className} w-full`}>
       <div className="flex items-center max-w-max_w overflow-hidden">
         {displayedValues.map((value, index) => (
           <div key={index} className="flex justify-between mr-1">
