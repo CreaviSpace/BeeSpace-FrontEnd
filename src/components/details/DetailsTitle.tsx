@@ -3,8 +3,8 @@ import React from 'react';
 
 import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
-import useReconfirmModal from '@/hooks/useReconfirmModal';
-import useReportModal from '@/hooks/useReportModal';
+import useReconfirmModal from '@/store/useReconfirmModal';
+import useReportModal from '@/store/useReportModal';
 
 interface IDetailsTitleProps {
   type?: string;
