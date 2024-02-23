@@ -8,8 +8,6 @@ import PopularImageCard from '../card/PopularImageCard';
 import CarouselList from '../CarouselList';
 
 export default function PopularProject() {
-  // 데이터 넣어줘야함
-
   const [currentIndex, setCurrentIndex] = useState(1);
 
   const listRef = useRef<HTMLDivElement>(null);
@@ -26,8 +24,8 @@ export default function PopularProject() {
   };
 
   return (
-    <div className="w-[550px] p-[0.1px] m-auto overflow-x-hidden tablet:w-[767px] min_mobile:w-[330px]">
-      <div className="text-bs_24 flex justify-between items-end w-full">
+    <div className="w-[550px] p-[0.1px] mx-auto mb-auto overflow-x-hidden tablet:w-[767px] min_mobile:w-[330px]">
+      <div className="text-bs_24 flex justify-between items-start w-full">
         <h2 className="text-bs_24 font-bold">인기 프로젝트</h2>
         <Link href={`/project?type=all`} className="text-gray20 text-bs_16">
           더 보기
@@ -66,4 +64,11 @@ export default function PopularProject() {
       )}
     </div>
   );
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: ['/'],
+    fallback: false,
+  };
 }
