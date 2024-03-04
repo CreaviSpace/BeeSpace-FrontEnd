@@ -7,7 +7,7 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
   env: {
-    END_POINT: process.env.BASE_URL,
+    BASE_URL: process.env.BASE_URL,
   },
 };
 
