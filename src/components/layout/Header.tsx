@@ -7,9 +7,9 @@ import { useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import LogInUserHeader from '@/components/LogInUserHeader';
-import useLoginModal from '@/hooks/useLoginModal';
-import useSearchErrorModal from '@/hooks/useSearchErrorModal';
-import useSignUpModal from '@/hooks/useSignUpModal';
+import useLoginModal from '@/store/useLoginModal';
+import useSearchErrorModal from '@/store/useSearchErrorModal';
+import useSignUpModal from '@/store/useSignUpModal';
 
 interface MenuItem {
   name: string;
