@@ -6,6 +6,9 @@ const nextConfig = {
     domains: ['assets.codepen.io'],
     formats: ['image/avif', 'image/webp'],
   },
+  env: {
+    END_POINT: process.env.BASE_URL,
+  },
 };
 
 module.exports = nextConfig;
