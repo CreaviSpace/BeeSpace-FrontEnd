@@ -57,7 +57,7 @@ export default function ProjectBanner() {
             {isCompressLoading ? '이미지 압축 중..' : <FaImage size={50} />}
           </div>
         )}
-        <ImageCropper aspectRatio={1 / 1} onCrop={handleUploadImage}>
+        <ImageCropper aspectRatio={16 / 10} onCrop={handleUploadImage}>
           <div className="absolute -bottom-[7.5rem]">
             <CustomButton
               onClick={handleDeleteImage}
