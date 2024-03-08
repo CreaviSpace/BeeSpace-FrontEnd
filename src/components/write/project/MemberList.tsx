@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import CustomSelect from '@/components/button/CustomSelect';
 
 interface IMemberList {
-  setMemberDtos: (memberDtos: { memberId: string; position: string }[]) => void;
+  setMemberDtos: (memberDtos: { memberId: number; position: string }[]) => void;
 }
 
 export default function MemberList({ setMemberDtos }: IMemberList) {
@@ -16,10 +16,10 @@ export default function MemberList({ setMemberDtos }: IMemberList) {
   const options = ['선택해주세요', '백엔드', '프론트엔드', '디자인', '기획'];
   const [selectPosition, setSelectPosition] = useState(['default']);
 
-  const [memberId, setMemberId] = useState(['']);
+  const [memberId, setMemberId] = useState([0]);
 
   useEffect(() => {
-    const memberDtos: { memberId: string; position: string }[] = [];
+    const memberDtos: { memberId: number; position: string }[] = [];
     selectPosition.forEach((_, index) => {
       memberDtos.push({
         memberId: memberId[index],
@@ -51,7 +51,7 @@ export default function MemberList({ setMemberDtos }: IMemberList) {
       {
         length: personnel[0] as number,
       },
-      () => ''
+      () => 0
     );
 
     setSelectNum([newSelectPlus.length]);
@@ -85,12 +85,12 @@ export default function MemberList({ setMemberDtos }: IMemberList) {
             index={index}
           />
           <input
-            type="text"
+            type="number"
             placeholder="닉네임을 입력해주세요."
             className="border border-gray30 rounded-bs_5 w-1/2 text-bs_14 pl-3"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const newMemberId = memberId;
-              memberId[index] = e.target.value;
+              memberId[index] = parseInt(e.target.value);
               setMemberId([...newMemberId]);
             }}
             required
