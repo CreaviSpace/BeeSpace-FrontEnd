@@ -1,7 +1,10 @@
-import { useState } from 'react';
+interface ITitleEditor {
+  title: string;
+  setTitle: (title: string) => void;
+}
 
-export default function TitleEditor() {
-  const [title, setTitle] = useState('');
+export default function TitleEditor({ title, setTitle }: ITitleEditor) {
+  // const [title, setTitle] = useState('');
   return (
     <div>
       <h1 className="text-bs_20 font-bold my-5">제목</h1>

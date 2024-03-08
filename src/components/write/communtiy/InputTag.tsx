@@ -1,13 +1,19 @@
 import { IoCloseOutline } from '@react-icons/all-files/io5/IoCloseOutline';
-import { SetStateAction, useEffect, useRef, useState } from 'react';
+import { SetStateAction, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 
 interface IInputTagProps {
   className?: string;
+  value?: string;
+  setValue: (value: string) => void;
 }
 
-export default function InputTag({ className }: IInputTagProps) {
+export default function InputTag({
+  className,
+  value,
+  setValue,
+}: IInputTagProps) {
   const [inputValue, setInputValue] = useState('');
   const [displayedValues, setDisplayedValues] = useState<string[]>([]);
   const inputRef = useRef(null);
@@ -23,6 +29,8 @@ export default function InputTag({ className }: IInputTagProps) {
     if (e.key === 'Enter') {
       // value 값 배열 생성
       setDisplayedValues((prevValues) => [...prevValues, inputValue]);
+      // 전역 상태에 저장
+      setValue(inputValue);
       // input 태그 value 삭제
       setInputValue('');
     } else if (e.key === ',') {
@@ -31,6 +39,8 @@ export default function InputTag({ className }: IInputTagProps) {
         ...prevValues,
         inputValue.replace(/,/g, ''),
       ]);
+      // 전역 상태에 저장
+      setValue(inputValue);
       // input 태그 value 삭제
       setInputValue('');
     }
@@ -44,7 +54,7 @@ export default function InputTag({ className }: IInputTagProps) {
     );
   };
 
-  useEffect(() => {}, [displayedValues]);
+  // useEffect(() => {}, [displayedValues]);
 
   return (
     <div className={`${className} w-full`}>
