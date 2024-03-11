@@ -43,7 +43,7 @@ export default function DistributionLink({
     },
     {
       id: 'apple',
-      title: '애플 스토어',
+      title: '앱 스토어',
       icon: <FaApple size={25} />,
       placeholder: '애플 스토어 배포 링크를 입력해주세요.',
     },
@@ -88,7 +88,7 @@ export default function DistributionLink({
           {addLink.length < 5 && (
             <button className="flex gap-1" onClick={handleAddLink}>
               <FaPlusCircle color={'#90CAF9'} size={25} />
-              링크 추가
+              <span className="min_mobile:hidden">링크 추가</span>
             </button>
           )}
         </div>
