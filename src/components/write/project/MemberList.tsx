@@ -29,18 +29,6 @@ export default function MemberList({ setMemberDtos }: IMemberList) {
     setMemberDtos(memberDtos);
   }, [selectPosition, memberId]);
 
-  // useEffect(() => {
-  //   // 페이지가 처음 렌더링될 때 1개의 입력 필드가 존재하도록 초기화
-  //   updateSeletNumber(1);
-  // }, []); // 빈 배열을 전달하여 컴포넌트가 처음 렌더링될 때만 실행되도록 설정
-
-  // const handleOptionChange = (e: ChangeEvent<HTMLSelectElement>) => {
-  //   // 변경되는 옵션의 수를 관찰하고 updateSeletNumber에 값을 전달
-  //   const newSeletOption = parseInt(e.target.value, 10);
-  //   setSelectOption(newSeletOption);
-  //   updateSeletNumber(newSeletOption);
-  // };
-
   const updateSeletPuls = (personnel: (string | number)[]) => {
     const newSelectPlus = Array.from(
       { length: personnel[0] as number },
@@ -57,8 +45,6 @@ export default function MemberList({ setMemberDtos }: IMemberList) {
     setSelectNum([newSelectPlus.length]);
     setMemberId(newMemberId);
     setSelectPosition(newSelectPlus);
-    // 전달받은 옵션 숫자만큼 selet 개수를 업데이트
-    // setSelectPlus(Array.from({ length: optionValue }, (_, index) => index));
   };
 
   return (
@@ -75,7 +61,7 @@ export default function MemberList({ setMemberDtos }: IMemberList) {
       />
 
       {selectPosition.map((item, index) => (
-        <div key={index} className="flex gap-2">
+        <div key={index} className="flex gap-2 min_mobile:flex-col">
           <CustomSelect
             option={options}
             select={selectPosition}
@@ -87,7 +73,7 @@ export default function MemberList({ setMemberDtos }: IMemberList) {
           <input
             type="number"
             placeholder="닉네임을 입력해주세요."
-            className="border border-gray30 rounded-bs_5 w-1/2 text-bs_14 pl-3"
+            className="border border-gray30 rounded-bs_5 text-bs_14 pl-3 h-[3.125rem] w-1/2 min_mobile:w-full"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const newMemberId = memberId;
               memberId[index] = parseInt(e.target.value);
