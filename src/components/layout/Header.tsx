@@ -46,9 +46,9 @@ export default function Header() {
     setValue(e.target.value);
   };
 
-  const handleSearchTest = () => {
+  const handleSearch = () => {
     if (value.trim().length >= 1) {
-      router.push(`/search?type="all"`);
+      router.push(`/search?type=all&text=${value}`);
     } else {
       onOpen();
     }
@@ -123,7 +123,7 @@ export default function Header() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                handleSearchTest();
+                handleSearch();
               }}
               className="max_w h-full m-auto relative max-w-max_w mobile:px-3">
               <label htmlFor="searchValue" className="sr-only">
