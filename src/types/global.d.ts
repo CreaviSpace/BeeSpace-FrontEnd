@@ -5,7 +5,7 @@ interface ILinkListType {
 
 export interface IProjectType {
   id: number;
-  kind: string;
+  postType: string;
   category: string;
   title: string;
   linkList: ILinkListType[];
