@@ -4,12 +4,13 @@ import { useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import OnoffButton from '@/components/button/OnOffButton';
+import useProjectData from '@/store/useProjectData';
 
 import InputTag from './communtiy/InputTag';
 import DistributionLink from './project/DistributionLink';
 import MemberList from './project/MemberList';
 import ProjectBanner from './project/ProjectBanner';
-import SkillStack from './SkillStackInput';
+import SkillStackInput from './SkillStackInput';
 import TitleEditor from './TextEditor/TitleEditor';
 
 const TextEditor = dynamic(
@@ -22,7 +23,16 @@ const TextEditor = dynamic(
 
 export default function ProjectWrite() {
   const [textValue, setTextValue] = useState('');
-  const [project, setProject] = useState('individual');
+  const {
+    category,
+    title,
+    content,
+    field,
+    memberDtos,
+    techStackDtos,
+    linkDtos,
+    setter,
+  } = useProjectData();
 
   const commnuityList = [
     { key: 'individual', name: '개인 프로젝트' },
@@ -34,30 +44,33 @@ export default function ProjectWrite() {
   };
 
   return (
-    <main className="max-w-max_w m-auto p-20">
+    <main className="max-w-max_w min-w-min_w m-auto p-20 mobile:p-3">
       <section className="border-b border-gray20">
         <h1 className="text-center text-[2rem] font-bold">
-          프로젝트를 소개해주세요
+          프로젝트<span className="mobile:hidden">를 소개해주세요</span>
         </h1>
         <ul className="my-20">
           <li className="mt-14">
             <h2 className="text-bs_20 mb-5 font-bold">프로젝트 분류</h2>
             <OnoffButton
-              value={project}
-              setValue={setProject}
+              value={category}
+              setValue={setter.setCategory}
               list={commnuityList}
             />
           </li>
           <li className="mt-14">
             <h2 className="text-bs_20 mb-5 font-bold">멤버</h2>
-            <MemberList />
+            <MemberList setMemberDtos={setter.setMemberDtos} />
           </li>
           <li className="mt-14">
-            <TitleEditor />
-            <TextEditor />
+            <TitleEditor title={title} setTitle={setter.setTtitle} />
+            <TextEditor values={content} setValues={setter.setContent} />
           </li>
           <li className="mt-14">
-            <SkillStack />
+            <SkillStackInput
+              techStackDtos={techStackDtos}
+              setTechStackDtos={setter.setTechStackDtos}
+            />
           </li>
           <li className="mt-14">
             <h2 className="text-bs_20 mb-5 font-bold">
@@ -66,20 +79,21 @@ export default function ProjectWrite() {
                 &#40;선택&#41;
               </span>
             </h2>
-            <InputTag />
+            {/* 중복 처리 필요 */}
+            <InputTag value={field} setValue={setter.setfield} />
           </li>
           <li className="mt-14">
-            <DistributionLink />
+            <DistributionLink setLinkDtos={setter.setLinkDtos} />
           </li>
         </ul>
       </section>
       <section>
-        <div className="px-20 flex justify-between mt-14 mobile:flex-col">
-          <div className="mobile:mb-36">
+        <div className="flex justify-between mt-14 tablet:flex-col mobile:flex-col">
+          <div className="mx-auto tablet:mb-36 mobile:mb-36 mobile:w-full">
             <h2 className="text-bs_20 my-5 font-bold">프로젝트 배너</h2>
             <ProjectBanner />
           </div>
-          <div>
+          <div className="mx-auto w-full pl-10 target:pl-0 mobile:pl-0">
             <h2 className="text-bs_20 my-5 font-bold">프로젝트 소개</h2>
             <textarea
               name="projectTextarea"
@@ -87,9 +101,8 @@ export default function ProjectWrite() {
               value={textValue}
               onChange={(e) => handleTextareaValue(e)}
               placeholder="프로젝트를 간략히 소개해주세요."
-              cols={60}
               rows={20}
-              className="border border-gray30 rounded-bs_10 text-bs_14 p-2"
+              className="border border-gray30 rounded-bs_10 text-bs_14 p-2 w-full"
             />
           </div>
         </div>
@@ -102,4 +115,11 @@ export default function ProjectWrite() {
       </section>
     </main>
   );
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: ['/write/project'],
+    fallback: false,
+  };
 }

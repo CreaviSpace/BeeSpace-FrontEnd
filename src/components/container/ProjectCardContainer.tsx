@@ -13,8 +13,14 @@ interface IProjectCardContainerProps {
 export default function ProjectCardContainer({
   category = 'all',
 }: IProjectCardContainerProps) {
-  const { isError, data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useProject(category);
+  const {
+    isLoading,
+    isError,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useProject(category);
 
   const observer: React.MutableRefObject<IntersectionObserver | null> =
     useRef(null);
@@ -39,7 +45,7 @@ export default function ProjectCardContainer({
   return (
     <div className="max-w-max_w w-full">
       <div className="grid grid-cols-4 gap-y-6 gap-x-3 tablet:grid-cols-2 mobile:grid-cols-1">
-        {isFetchingNextPage
+        {isLoading
           ? [1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
               <SkeletonProjectCard key={`${item}-${index}`} />
             ))

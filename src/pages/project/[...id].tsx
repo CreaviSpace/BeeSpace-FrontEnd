@@ -36,11 +36,11 @@ export default function ProjectDetail() {
   const skill = ['react', 'java'];
 
   return (
-    <div className="relative max-w-max_w m-auto py-16 px-8">
+    <main className="relative max-w-max_w m-auto py-16 px-8">
       {isLoading ? (
         <SkeletonDetail />
       ) : (
-        <>
+        <section>
           <DetailsTitle
             type="project"
             time={data.modifiedDate}
@@ -72,8 +72,8 @@ export default function ProjectDetail() {
             </div>
           </Link>
           <CommentContainer />
-        </>
+        </section>
       )}
-    </div>
+    </main>
   );
 }

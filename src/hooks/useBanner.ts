@@ -5,8 +5,16 @@ const useBanner = (kind: string) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     queryKey: [`banner-${kind}`],
     queryFn: async () => {
+      let url;
+
+      if (kind === 'project') {
+        url = `project/popular`;
+      } else if (kind === 'recruitment') {
+        url = `recruit/deadline`;
+      }
+
       const response = await axios.get(`
-      ${process.env.BASE_URL}/project/popular
+      ${process.env.BASE_URL}/${url}
         `);
 
       if (response.data.success) {

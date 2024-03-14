@@ -60,7 +60,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 w-full h-16 z-20 bg-white">
-      <nav className="border-b border-gray10 ">
+      <nav className="border-b border-gray10 px-3">
         <div className="flex justify-between max-w-max_w content-center m-auto items-center">
           <h1>
             <Link href="/">
@@ -105,7 +105,7 @@ export default function Header() {
                     로그인
                   </CustomButton>
                 </li>
-                <li>
+                <li className="mobile:hidden">
                   <CustomButton onClick={openSignUp} className="py-2 px-3">
                     회원가입
                   </CustomButton>
