@@ -41,7 +41,7 @@ export default function SkillStackInput({
       </ul>
 
       <ul className="flex mt-5">
-        {techStackDtos.map((item, index) => {
+        {techStackDtos?.map((item, index) => {
           if (item.techStackId === data[index].id) {
             return (
               <li
