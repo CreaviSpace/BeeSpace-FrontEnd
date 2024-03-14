@@ -12,3 +12,14 @@ export interface IProjectType {
   thumbnail: string;
   bannerContent: string;
 }
+
+export interface IRecruitType {
+  id: number;
+  postType: string;
+  category: string;
+  title: string;
+  content: string;
+  techStack: string;
+  amount: number;
+  now: number;
+}
