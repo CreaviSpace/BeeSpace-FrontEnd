@@ -6,7 +6,8 @@ const useCommunityDetail = (id: string) => {
     queryKey: [`community-${id}`],
     queryFn: async () => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/community/${id}`
+        `${process.env.BASE_URL}/community/${id}`,
+        { params: { withCredentials: true } }
       );
 
       if (response.data.success) {
