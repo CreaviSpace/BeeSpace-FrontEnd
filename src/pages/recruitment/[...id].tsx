@@ -34,11 +34,12 @@ export default function RecruitmentDetail() {
           <>
             <DetailsTitle
               type="recruitment"
+              className="hidden"
               time={data.modifiedDate}
               views={data.viewCount}
               title={data.title}
               likes={data.commont}
-              userName={`user`} // 수정
+              userName={`user`}
             />
             <SideButton />
             <RecruitDetails />
