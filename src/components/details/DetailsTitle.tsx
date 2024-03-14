@@ -14,7 +14,7 @@ interface IDetailsTitleProps {
   likes: number;
   userName: string;
   className?: string;
-  category: string;
+  category?: string;
 }
 
 export default function DetailsTitle({
@@ -32,7 +32,7 @@ export default function DetailsTitle({
 
   return (
     <div className="w-full h-fit flex flex-col items-center max-w-max_w m-auto">
-      <Tag name={category} category="field" className={`${className} w-fit`} />
+      <Tag name={category} category="field" className={`${className}`} />
       <h1 className="font-bold text-bs_24 mb-3">{title}</h1>
       <div className="max-w-max_w flex items-center justify-between w-full px-4 py-2">
         <UserProfileButton userName={userName} />
