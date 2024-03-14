@@ -16,7 +16,7 @@ export default function Recruitment() {
   return (
     <main>
       <section>
-        <Banner kind="recruit" />
+        <Banner kind="recruitment" />
       </section>
       <Category category={category} btnValue="프로젝트 올리기" />
       <section className="flex justify-center pt-14 pb-24">
