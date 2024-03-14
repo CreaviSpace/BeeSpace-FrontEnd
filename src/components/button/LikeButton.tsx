@@ -1,27 +1,32 @@
 import { FaHeart } from '@react-icons/all-files/fa/FaHeart';
 import { FaRegHeart } from '@react-icons/all-files/fa/FaRegHeart';
-import { useState } from 'react';
+
+import useLike from '@/hooks/useLike';
 
 interface ILikeButtonProps {
   color?: string;
   size?: number;
   className?: string;
+  id: number;
+  kind: string;
 }
 
 export default function LikeButton({
   color = '#FF0000',
   size = 20,
   className,
+  id,
+  kind,
 }: ILikeButtonProps) {
-  const [isBookmarked, setIsBookmarked] = useState(true);
+  const { isLoading, isError, data, isFetching, mutate } = useLike(id, kind);
 
   const handleToggleBookmark = () => {
-    setIsBookmarked((prev) => !prev);
+    mutate();
   };
 
   return (
     <button type="button" onClick={handleToggleBookmark} className={className}>
-      {isBookmarked ? (
+      {isLoading && data ? (
         <FaRegHeart size={size} aria-label="북마크 비활성화" />
       ) : (
         <FaHeart color={color} size={size} aria-label="북마크 활성화" />
