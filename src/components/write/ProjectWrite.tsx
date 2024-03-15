@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import OnoffButton from '@/components/button/OnOffButton';
@@ -22,7 +21,6 @@ const TextEditor = dynamic(
 );
 
 export default function ProjectWrite() {
-  const [textValue, setTextValue] = useState('');
   const {
     category,
     title,
@@ -31,16 +29,26 @@ export default function ProjectWrite() {
     memberDtos,
     techStackDtos,
     linkDtos,
+    thumbnail,
+    bannerContent,
     setter,
   } = useProjectData();
+
+  useEffect(() => {
+    if (!category) {
+      setter.setCategory('individual');
+    }
+  }, []);
 
   const commnuityList = [
     { key: 'individual', name: '개인 프로젝트' },
     { key: 'team', name: '팀 프로젝트' },
   ];
 
-  const handleTextareaValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTextValue(e.target.value);
+  const handleBannerContentChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setter.setBannerContent(e.target.value);
   };
 
   return (
@@ -63,7 +71,7 @@ export default function ProjectWrite() {
             <MemberList setMemberDtos={setter.setMemberDtos} />
           </li>
           <li className="mt-14">
-            <TitleEditor title={title} setTitle={setter.setTtitle} />
+            <TitleEditor title={title} setTitle={setter.setTitle} />
             <TextEditor values={content} setValues={setter.setContent} />
           </li>
           <li className="mt-14">
@@ -80,7 +88,10 @@ export default function ProjectWrite() {
               </span>
             </h2>
             {/* 중복 처리 필요 */}
-            <InputTag value={field} setValue={setter.setfield} />
+            <InputTag
+              value={field}
+              setValue={setter.setfield as (value: string | string[]) => void}
+            />
           </li>
           <li className="mt-14">
             <DistributionLink setLinkDtos={setter.setLinkDtos} />
@@ -98,8 +109,8 @@ export default function ProjectWrite() {
             <textarea
               name="projectTextarea"
               id="projectTextarea"
-              value={textValue}
-              onChange={(e) => handleTextareaValue(e)}
+              value={bannerContent}
+              onChange={handleBannerContentChange}
               placeholder="프로젝트를 간략히 소개해주세요."
               rows={20}
               className="border border-gray30 rounded-bs_10 text-bs_14 p-2 w-full"

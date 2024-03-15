@@ -9,7 +9,10 @@ const useProjectDetail = (id: string) => {
       //     return;
       //   }
 
-      const respones = await axios.get(`${process.env.BASE_URL}/project/${id}`);
+      const respones = await axios.get(
+        `${process.env.BASE_URL}/project/${id}`,
+        { params: { withCredentials: true } }
+      );
 
       if (respones.data.success) {
         return respones.data.data;

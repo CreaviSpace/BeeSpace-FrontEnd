@@ -1,20 +1,45 @@
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+
 import UniversalCard from '@/components/card/UniversalCard';
 import Category from '@/components/Category';
+import useSearch from '@/hooks/useSearch';
 import { card } from '@/utils/data';
 
 export default function Search() {
+  const [size, setSize] = useState(6);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+
+  const router = useRouter();
+  const { text } = router.query;
+  const {
+    isLoading,
+    isError,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useSearch(size, page, text as string, 'all');
+
+  useEffect(() => {
+    data?.pages.map((page) => {
+      setPage((prev) => prev + page.length);
+    });
+  }, []);
+
   const categories = [
     {
       name: '프로젝트',
-      link: 'project&value=val',
+      link: `project&text=${text}`,
     },
     {
       name: '모집',
-      link: 'recruitment&value=val',
+      link: `recruitment&text=${text}`,
     },
     {
       name: '커뮤니티',
-      link: 'community&value=val',
+      link: `community&text=${text}`,
     },
   ];
 
@@ -29,11 +54,11 @@ export default function Search() {
     { name: '수다', link: '#' },
   ];
 
-  const size = [1, 2, 3, 4, 5];
+  const sizes = [1, 2, 3, 4, 5];
 
   return (
     <main>
-      <Category category={categories} />
+      <Category category={categories} searchValue={text as string} />
       <div className="grid grid-cols-5 max-w-max_w m-auto py-10 tablet:grid-cols-4 mobile:grid-cols-4">
         <aside className="col-span-1 tablet:hidden mobile:hidden">
           <div className="h-[2.25rem] my-7"></div>
@@ -46,18 +71,24 @@ export default function Search() {
           </ul>
         </aside>
         <section className="col-span-4 mx-auto">
-          <h2 className="text-bs_34 font-bold my-5">전체 {size.length}</h2>
-          {size.map((item, index) => (
-            <UniversalCard
-              key={`${item}-${index}`}
-              id={card.id}
-              title={card.title}
-              content={card.content}
-              date={card.date}
-              size="large"
-              className="my-5"
-            />
-          ))}
+          {isLoading ? (
+            '로딩중'
+          ) : (
+            <>
+              <h2 className="text-bs_34 font-bold my-5">전체 {totalPage}</h2>
+              {sizes.map((item, index) => (
+                <UniversalCard
+                  key={`${item}-${index}`}
+                  id={card.id}
+                  title={card.title}
+                  content={card.content}
+                  date={card.date}
+                  size="large"
+                  className="my-5"
+                />
+              ))}
+            </>
+          )}
         </section>
       </div>
     </main>

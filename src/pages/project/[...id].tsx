@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import SideButton from '@/components/button/SideButton';
 import CommentContainer from '@/components/container/CommentContainer';
 import DetailsTitle from '@/components/details/DetailsTitle';
 import DistributeLink from '@/components/details/project/DistributeLink';
@@ -17,26 +18,8 @@ export default function ProjectDetail() {
     id as string
   );
 
-  // const Personnel = [
-  //   { personnel: '디자인', people: [{ name: 'author' }, { name: 'author' }] },
-  //   {
-  //     personnel: '프론트엔드',
-  //     people: [{ name: 'author' }, { name: 'author' }],
-  //   },
-  //   { personnel: '백엔드', people: [{ name: 'author' }, { name: 'author' }] },
-  //   { personnel: 'PM', people: [{ name: 'author' }] },
-  // ];
-
-  const Links = [
-    { title: 'Android', link: '/google' },
-    { title: 'Ios', link: '/apple' },
-    { title: 'Web', link: '/web' },
-  ];
-
-  const skill = ['react', 'java'];
-
   return (
-    <main className="relative max-w-max_w m-auto py-16 px-8">
+    <main className="relative max-w-max_w m-auto p-16 tablet:px-8 mobile:px-8">
       {isLoading ? (
         <SkeletonDetail />
       ) : (
@@ -50,7 +33,7 @@ export default function ProjectDetail() {
             userName="author"
             category={data.category}
           />
-          {/* <SideButton /> */}
+          <SideButton />
           <div className="py-8 border-b border-gray10">
             <div
               className="ql_editor"

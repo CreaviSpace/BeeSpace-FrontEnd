@@ -5,8 +5,8 @@ import CustomButton from '@/components/button/CustomButton';
 
 interface IInputTagProps {
   className?: string;
-  value?: string;
-  setValue: (value: string) => void;
+  value?: string | string[];
+  setValue: (value: string | string[]) => void;
 }
 
 export default function InputTag({
@@ -30,7 +30,11 @@ export default function InputTag({
       // value 값 배열 생성
       setDisplayedValues((prevValues) => [...prevValues, inputValue]);
       // 전역 상태에 저장
-      setValue(inputValue);
+      if (typeof value === 'string') {
+        setValue(inputValue);
+      } else if (typeof value === 'object') {
+        setValue([...displayedValues, inputValue]);
+      }
       // input 태그 value 삭제
       setInputValue('');
     } else if (e.key === ',') {
@@ -39,8 +43,13 @@ export default function InputTag({
         ...prevValues,
         inputValue.replace(/,/g, ''),
       ]);
+
       // 전역 상태에 저장
-      setValue(inputValue);
+      if (typeof value === 'string') {
+        setValue(inputValue.replace(/,/g, ''));
+      } else if (typeof value === 'object') {
+        setValue([...displayedValues, inputValue.replace(/,/g, '')]);
+      }
       // input 태그 value 삭제
       setInputValue('');
     }
@@ -52,6 +61,7 @@ export default function InputTag({
       (prevValues) => prevValues.filter((_, i) => i !== index)
       // => 특정 index(i)에 해당하는 요소를 제외한 새로운 배열을 생성
     );
+    setValue(displayedValues.filter((_, i) => i !== index));
   };
 
   // useEffect(() => {}, [displayedValues]);
@@ -66,9 +76,9 @@ export default function InputTag({
               color="hashtag"
               className="pl-3 pr-2 py-1 text-bs_14 mr-1 flex items-center">
               <p className="mr-2 text-nowrap">{value}</p>
-              <button>
+              <span>
                 <IoCloseOutline size={20} />
-              </button>
+              </span>
             </CustomButton>
           </div>
         ))}
