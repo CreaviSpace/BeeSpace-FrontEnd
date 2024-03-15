@@ -7,9 +7,9 @@ import { useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import LogInUserHeader from '@/components/LogInUserHeader';
-import useLoginModal from '@/hooks/useLoginModal';
-import useSearchErrorModal from '@/hooks/useSearchErrorModal';
-import useSignUpModal from '@/hooks/useSignUpModal';
+import useLoginModal from '@/store/useLoginModal';
+import useSearchErrorModal from '@/store/useSearchErrorModal';
+import useSignUpModal from '@/store/useSignUpModal';
 
 interface MenuItem {
   name: string;
@@ -46,9 +46,9 @@ export default function Header() {
     setValue(e.target.value);
   };
 
-  const handleSearchTest = () => {
+  const handleSearch = () => {
     if (value.trim().length >= 1) {
-      router.push(`/search?type="all"`);
+      router.push(`/search?type=all&text=${value}`);
     } else {
       onOpen();
     }
@@ -60,7 +60,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 w-full h-16 z-20 bg-white">
-      <nav className="border-b border-gray10 ">
+      <nav className="border-b border-gray10 px-3">
         <div className="flex justify-between max-w-max_w content-center m-auto items-center">
           <h1>
             <Link href="/">
@@ -105,7 +105,7 @@ export default function Header() {
                     로그인
                   </CustomButton>
                 </li>
-                <li>
+                <li className="mobile:hidden">
                   <CustomButton onClick={openSignUp} className="py-2 px-3">
                     회원가입
                   </CustomButton>
@@ -123,7 +123,7 @@ export default function Header() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                handleSearchTest();
+                handleSearch();
               }}
               className="max_w h-full m-auto relative max-w-max_w mobile:px-3">
               <label htmlFor="searchValue" className="sr-only">

@@ -9,8 +9,8 @@ export default function DeadLine() {
   const data = ['1', '2', '3'];
 
   return (
-    <div className="w-full tablet:w-[767px] m-auto">
-      <div className="flex justify-between items-end">
+    <div className="w-full tablet:w-[767px] mx-auto mb-auto">
+      <div className="flex justify-between items-start">
         <div className="flex items-center gap-5 text-bs_24">
           <Image
             src={'/img/icon/dateIcon.avif'}

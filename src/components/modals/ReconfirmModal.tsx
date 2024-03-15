@@ -1,6 +1,6 @@
 import { Button, ModalFooter, ModalHeader } from '@chakra-ui/react';
 
-import useReconfirmModal from '@/hooks/useReconfirmModal';
+import useReconfirmModal from '@/store/useReconfirmModal';
 
 import Modals from './Modals';
 

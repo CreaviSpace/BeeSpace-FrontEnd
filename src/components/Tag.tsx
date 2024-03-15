@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes } from 'react';
 interface ITagProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset';
   category: 'team' | 'individual' | 'hashtag' | 'field' | 'skill';
-  name: string;
+  name?: string;
   className?: string;
 }
 

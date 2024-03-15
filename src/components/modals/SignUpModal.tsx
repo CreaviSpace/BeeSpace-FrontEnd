@@ -5,7 +5,7 @@ import { RiKakaoTalkFill } from '@react-icons/all-files/ri/RiKakaoTalkFill';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import useSignUpModal from '@/hooks/useSignUpModal';
+import useSignUpModal from '@/store/useSignUpModal';
 
 import Modals from './Modals';
 
@@ -51,7 +51,7 @@ export default function SignUpModal() {
       <ModalHeader className="text-center mt-10 mb-2">회원가입</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
-        <section className="mb-11 m-auto w-fit flex justify-between gap-3">
+        <section className="mb-11 m-auto w-fit flex justify-between gap-10">
           {icons.map((icon, index) => (
             <Link
               key={`icon-${index}`}
