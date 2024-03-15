@@ -1,15 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const useBanner = (kind: string) => {
+const useBanner = (postType: string) => {
   const { isLoading, isError, data, isFetching } = useQuery({
-    queryKey: [`banner-${kind}`],
+    queryKey: [`banner-${postType}`],
     queryFn: async () => {
       let url;
 
-      if (kind === 'project') {
+      if (postType === 'project') {
         url = `project/popular`;
-      } else if (kind === 'recruitment') {
+      } else if (postType === 'recruitment') {
         url = `recruit/deadline`;
       }
 

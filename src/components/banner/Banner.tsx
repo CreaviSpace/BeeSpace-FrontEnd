@@ -8,23 +8,23 @@ import SkeletonBanner from '../skeleton/SkeletonBanner';
 import BannerItem from './BannerItem';
 
 interface IBannerProps {
-  kind: string;
+  postType: string;
 }
 
 interface IBannerItem {
   id: number;
   postType: string;
   title: string;
-  thumbnail: string;
+  thumbnail?: string;
   category: string;
   bannerContent: string;
 }
 
-export default function Banner({ kind }: IBannerProps) {
+export default function Banner({ postType }: IBannerProps) {
   const [currentIndex, setCurrentIndex] = useState(1);
   const bannerAllRef = useRef<HTMLDivElement>(null);
 
-  const { isLoading, isError, data, isFetching } = useBanner(kind);
+  const { isLoading, isError, data, isFetching } = useBanner(postType);
 
   const handleTransitionEnd = () => {
     if (bannerAllRef.current) {
@@ -49,7 +49,7 @@ export default function Banner({ kind }: IBannerProps) {
             onTransitionEnd={handleTransitionEnd}>
             <div className={`w-full flex-grow-0 flex-shrink-0 flex-basis-auto`}>
               <BannerItem
-                kind={data[data.length - 1].postType}
+                postType={data[data.length - 1].postType}
                 id={data[data.length - 1].id}
                 title={data[data.length - 1].title}
                 content={data[data.length - 1].bannerContent}
@@ -61,7 +61,7 @@ export default function Banner({ kind }: IBannerProps) {
                 key={`banner-${index}`}
                 className={`w-full flex-grow-0 flex-shrink-0 flex-basis-auto`}>
                 <BannerItem
-                  kind={item.postType}
+                  postType={item.postType}
                   id={item.id}
                   title={item.title}
                   content={item.bannerContent}
@@ -71,7 +71,7 @@ export default function Banner({ kind }: IBannerProps) {
             ))}
             <div className={`w-full flex-grow-0 flex-shrink-0 flex-basis-auto`}>
               <BannerItem
-                kind={data[0].postType}
+                postType={data[0].postType}
                 id={data[0].id}
                 title={data[0].title}
                 content={data[0].content}

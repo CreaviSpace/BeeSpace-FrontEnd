@@ -25,7 +25,7 @@ export default function Project() {
     <main>
       <h1 className="sr-only">프로젝트 페이지</h1>
       <section>
-        <Banner kind="project" />
+        <Banner postType="project" />
       </section>
       <Category category={categories} btnValue="프로젝트 올리기" />
       <section className="flex justify-center pt-14 pb-24">

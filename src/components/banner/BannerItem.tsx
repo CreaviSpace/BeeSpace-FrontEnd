@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import CustomButton from '../button/CustomButton';
 
 interface IBannerProps {
-  kind: string;
+  postType: string;
   id: number;
   title: string;
   content: string;
@@ -14,7 +14,7 @@ interface IBannerProps {
 }
 
 export default function BannerItem({
-  kind,
+  postType,
   title,
   content,
   image,
@@ -24,7 +24,7 @@ export default function BannerItem({
   const router = useRouter();
 
   const handleUrlMove = () => {
-    router.push(`/${kind}/1`);
+    router.push(`/${postType}/1`);
   };
 
   return (
