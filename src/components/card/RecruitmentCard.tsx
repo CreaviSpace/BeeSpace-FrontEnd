@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 // import Bookmark from '../button/Bookmark';
-import SkeletonRecruitmentCard from '@/components/skeleton/SkeletonRecruitmentCard';
 import { IRecruitType } from '@/types/global';
 
 interface IRecruitmentCardProps {
@@ -9,10 +8,6 @@ interface IRecruitmentCardProps {
 }
 
 export default function RecruitmentCard({ item }: IRecruitmentCardProps) {
-  if (false) {
-    return <SkeletonRecruitmentCard />;
-  }
-
   return (
     <div className="relative w-full h-[17.8125rem] bg-white border border-gray10 rounded-bs_10 py-8 px-5 overflow-hidden">
       {/* <Bookmark size={35} className="absolute -top-[0.375rem] right-5" /> */}
@@ -22,12 +17,10 @@ export default function RecruitmentCard({ item }: IRecruitmentCardProps) {
           {item.content}
         </p>
         <ul className="flex py-6 gap-3">
-          {item.techStack}
-          {/* {item?.techStack.map((item, index) => (
-            <li
-              key={`${item}-${index}`}
-              className="w-10 h-10 rounded-full border border-gray10 flex justify-center items-center"></li>
-          ))} */}
+          <li className="w-10 h-10 rounded-full border border-gray10 flex justify-center items-center">
+            {item.techStack}
+          </li>
+          {/* ))} */}
         </ul>
         <div>
           모집인원 ({item.now}/{item.amount})
