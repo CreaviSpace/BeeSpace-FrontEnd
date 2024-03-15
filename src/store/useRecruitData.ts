@@ -11,7 +11,7 @@ interface IRecruitBody {
   title: string;
   content: string;
   positions: { position: string; amount: number; now: number }[];
-  techStacks: { techStackId: number }[];
+  techStacks: { techStackId: number; techStack: string; iconUrl: string }[];
   setter: {
     setCategory: (category: string) => void;
     setAmount: (amount: number) => void;
@@ -29,7 +29,9 @@ interface IRecruitBody {
         now: number;
       }[]
     ) => void;
-    setTechStacks: (techStacks: { techStackId: number }[]) => void;
+    setTechStacks: (
+      techStacks: { techStackId: number; techStack: string; iconUrl: string }[]
+    ) => void;
   };
 }
 
@@ -44,26 +46,27 @@ const useRecruitData = create<IRecruitBody>((set) => ({
   title: '',
   content: '',
   positions: [{ position: '', amount: 0, now: 0 }],
-  techStacks: [{ techStackId: 0 }],
+  techStacks: [{ techStackId: 0, techStack: '', iconUrl: '' }],
   setter: {
-    setCategory: (category: string) => set({ category: category }),
-    setAmount: (amount: number) => set({ amount: amount }),
-    setWorkDay: (workDay: number) => set({ workDay: workDay }),
-    setContact: (contact: string) => set({ contact: contact }),
-    setContactWay: (contactWay: string) => set({ contactWay: contactWay }),
-    setProceedWay: (proceedWay: string) => set({ proceedWay: proceedWay }),
+    setCategory: (category: string) => set({ category }),
+    setAmount: (amount: number) => set({ amount }),
+    setWorkDay: (workDay: number) => set({ workDay }),
+    setContact: (contact: string) => set({ contact }),
+    setContactWay: (contactWay: string) => set({ contactWay }),
+    setProceedWay: (proceedWay: string) => set({ proceedWay }),
     setEnd: (end: string) => set({ end: end }),
-    setTitle: (title: string) => set({ title: title }),
-    setContent: (content: string) => set({ content: content }),
+    setTitle: (title: string) => set({ title }),
+    setContent: (content: string) => set({ content }),
     setPositions: (
       positions: {
         position: string;
         amount: number;
         now: number;
       }[]
-    ) => set(() => ({ positions: positions })),
-    setTechStacks: (techStacks: { techStackId: number }[]) =>
-      set(() => ({ techStacks: techStacks })),
+    ) => set(() => ({ positions })),
+    setTechStacks: (
+      techStacks: { techStackId: number; techStack: string; iconUrl: string }[]
+    ) => set(() => ({ techStacks })),
   },
 }));
 export default useRecruitData;
