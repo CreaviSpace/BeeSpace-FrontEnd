@@ -12,8 +12,14 @@ interface IRecruitmentCardContainerProps {
 export default function RecruitmentCardContainer({
   postType = 'all',
 }: IRecruitmentCardContainerProps) {
-  const { isError, data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useRecruit(postType);
+  const {
+    isLoading,
+    isError,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useRecruit(postType);
 
   const observer: React.MutableRefObject<IntersectionObserver | null> =
     useRef(null);
@@ -35,12 +41,10 @@ export default function RecruitmentCardContainer({
     [isFetchingNextPage]
   );
 
-  // console.log(data);
-
   return (
     <div className="max-w-max_w w-full my-10">
       <div className="grid grid-cols-3 gap-y-6 gap-x-3 tablet:grid-cols-2 mobile:grid-cols-1">
-        {isFetchingNextPage
+        {isLoading
           ? [1, 2, 3, 4, 5, 6].map((item, index) => (
               <SkeletonRecruitmentCard key={`${item}-${index}`} />
             ))
