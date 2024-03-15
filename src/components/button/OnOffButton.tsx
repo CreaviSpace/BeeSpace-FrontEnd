@@ -17,7 +17,7 @@ export default function OnoffButton({
         <CustomButton
           key={`${item}-${index}`}
           color={value === item.key ? 'secondary' : 'default'}
-          className="py-2 px-6 mr-5"
+          className="py-2 px-6 mr-5 mobile:mr-1"
           onClick={() => {
             setValue(item.key);
           }}>

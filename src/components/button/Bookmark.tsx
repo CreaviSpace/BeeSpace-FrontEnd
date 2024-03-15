@@ -1,27 +1,35 @@
 import { IoBookmark } from '@react-icons/all-files/io5/IoBookmark';
 import { IoBookmarkOutline } from '@react-icons/all-files/io5/IoBookmarkOutline';
-import { useState } from 'react';
+
+import useBookMark from '@/hooks/useBookMark';
 
 interface IBookmarkProps {
   color?: string;
   size?: number;
   className?: string;
+  id: number;
+  kind: string;
 }
 
 export default function Bookmark({
   color = '#0099DB',
   size = 25,
   className,
+  id,
+  kind,
 }: IBookmarkProps) {
-  const [isBookmarked, setIsBookmarked] = useState(true);
+  const { isLoading, isError, data, isFetching, mutate } = useBookMark(
+    id,
+    kind
+  );
 
   const handleToggleBookmark = () => {
-    setIsBookmarked((prev) => !prev);
+    mutate();
   };
 
   return (
     <button type="button" onClick={handleToggleBookmark} className={className}>
-      {isBookmarked ? (
+      {isLoading && data ? (
         <IoBookmarkOutline
           color={color}
           size={size}

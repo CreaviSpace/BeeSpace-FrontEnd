@@ -1,14 +1,15 @@
 import dynamic from 'next/dynamic';
 
-import CustomButton from '../button/CustomButton';
-import Classification from './recruitment/Classification';
-import Communication from './recruitment/Communication';
-import Deadline from './recruitment/Deadline';
-import OnOffLine from './recruitment/OnOffLine';
-import Period from './recruitment/Period';
-import Personnel from './recruitment/Personnel';
-import SkillStack from './SkillStack';
-import TitleEditor from './TextEditor/TitleEditor';
+import CustomButton from '@/components/button/CustomButton';
+import Classification from '@/components/write/recruitment/Classification';
+import Communication from '@/components/write/recruitment/Communication';
+import Deadline from '@/components/write/recruitment/Deadline';
+import OnOffLine from '@/components/write/recruitment/OnOffLine';
+import Period from '@/components/write/recruitment/Period';
+import Personnel from '@/components/write/recruitment/Personnel';
+import SkillStackInput from '@/components/write/SkillStackInput';
+import TitleEditor from '@/components/write/TextEditor/TitleEditor';
+import useRecruitData from '@/store/useRecruitData';
 
 const TextEditor = dynamic(
   () =>
@@ -19,13 +20,13 @@ const TextEditor = dynamic(
 );
 
 export default function RecruitmentWrite() {
+  const { techStacks, title, content, setter } = useRecruitData();
   return (
-    <div className="max-w-max_w m-auto p-20">
-      <h1 className="text-center text-[2rem] font-bold">
-        모집 정보를 입력해주세요
-      </h1>
-
+    <main className="max-w-max_w m-auto p-20">
       <section>
+        <h1 className="text-center text-[2rem] font-bold">
+          모집 정보를 입력해주세요
+        </h1>
         <ul className="my-20 grid grid-cols-2 gap-x-20">
           <li className="mt-14">
             <Classification />
@@ -37,7 +38,10 @@ export default function RecruitmentWrite() {
             <Personnel />
           </li>
           <li className="mt-14">
-            <SkillStack />
+            <SkillStackInput
+              techStackDtos={techStacks}
+              setTechStackDtos={setter.setTechStacks}
+            />
           </li>
           <li className="mt-14">
             <Period />
@@ -49,8 +53,8 @@ export default function RecruitmentWrite() {
         </ul>
       </section>
       <section>
-        <TitleEditor />
-        <TextEditor />
+        <TitleEditor title={title} setTitle={setter.setTitle} />
+        <TextEditor values={content} setValues={setter.setContent} />
       </section>
 
       <div className="text-right mt-10">
@@ -59,6 +63,6 @@ export default function RecruitmentWrite() {
           작성
         </CustomButton>
       </div>
-    </div>
+    </main>
   );
 }

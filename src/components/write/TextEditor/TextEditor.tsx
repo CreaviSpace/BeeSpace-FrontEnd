@@ -1,6 +1,6 @@
 import 'react-quill/dist/quill.snow.css';
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import ReactQuill from 'react-quill';
 
 import ImageDrag from '@/components/ImageDrag';
@@ -25,9 +25,12 @@ const formats = [
   'background',
 ];
 
-export default function TextEditor() {
-  const [values, setValues] = useState('');
+interface ITextEditor {
+  values: string;
+  setValues: (values: string) => void;
+}
 
+export default function TextEditor({ values, setValues }: ITextEditor) {
   const modules = useMemo(() => {
     return {
       toolbar: {

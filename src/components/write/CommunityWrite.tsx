@@ -1,7 +1,8 @@
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useEffect } from 'react';
 
 import OnoffButton from '@/components/button/OnOffButton';
+import useCommunityData from '@/store/useCommunityData';
 
 import CustomButton from '../button/CustomButton';
 import InputTag from './communtiy/InputTag';
@@ -16,17 +17,23 @@ const TextEditor = dynamic(
 );
 
 export default function CommunityWrite() {
-  const [community, setCommunity] = useState('qna');
-
   const commnuityList = [
     { key: 'qna', name: 'QnA' },
     { key: 'chat', name: '수다' },
     { key: 'worry', name: '고민' },
   ];
 
+  const { category, title, content, hashTags, setter } = useCommunityData();
+
+  useEffect(() => {
+    if (!category) {
+      setter.setCategory('qna');
+    }
+  }, []);
+
   return (
-    <main className="max-w-max_w m-auto p-20">
-      <section>
+    <main>
+      <section className="max-w-max_w m-auto p-20">
         <h1 className="text-center text-[2rem] font-bold">
           프로젝트를 소개해주세요
         </h1>
@@ -34,18 +41,23 @@ export default function CommunityWrite() {
           <li className="mt-14">
             <h2 className="text-bs_20 mb-5 font-bold">프로젝트 분류</h2>
             <OnoffButton
-              value={community}
-              setValue={setCommunity}
+              value={category}
+              setValue={setter.setCategory}
               list={commnuityList}
             />
           </li>
           <li className="mt-14">
             <h2 className="text-bs_20 mb-5 font-bold">태그</h2>
-            <InputTag />
+            <InputTag
+              value={hashTags}
+              setValue={
+                setter.setHashTags as (value: string | string[]) => void
+              }
+            />
           </li>
           <li className="mt-14">
-            <TitleEditor />
-            <TextEditor />
+            <TitleEditor title={title} setTitle={setter.setTitle} />
+            <TextEditor values={content} setValues={setter.setContent} />
           </li>
           <li className="text-right mt-10">
             <CustomButton className="py-3 px-10 mr-3">취소</CustomButton>

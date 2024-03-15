@@ -5,7 +5,7 @@ import { RiKakaoTalkFill } from '@react-icons/all-files/ri/RiKakaoTalkFill';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import useLoginModal from '@/hooks/useLoginModal';
+import useLoginModal from '@/store/useLoginModal';
 
 import Modals from './Modals';
 

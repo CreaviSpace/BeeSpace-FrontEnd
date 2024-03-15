@@ -1,9 +1,19 @@
 import { IoCloseOutline } from '@react-icons/all-files/io5/IoCloseOutline';
-import { SetStateAction, useEffect, useRef, useState } from 'react';
+import { SetStateAction, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 
-export default function InputTag() {
+interface IInputTagProps {
+  className?: string;
+  value?: string | string[];
+  setValue: (value: string | string[]) => void;
+}
+
+export default function InputTag({
+  className,
+  value,
+  setValue,
+}: IInputTagProps) {
   const [inputValue, setInputValue] = useState('');
   const [displayedValues, setDisplayedValues] = useState<string[]>([]);
   const inputRef = useRef(null);
@@ -19,6 +29,12 @@ export default function InputTag() {
     if (e.key === 'Enter') {
       // value 값 배열 생성
       setDisplayedValues((prevValues) => [...prevValues, inputValue]);
+      // 전역 상태에 저장
+      if (typeof value === 'string') {
+        setValue(inputValue);
+      } else if (typeof value === 'object') {
+        setValue([...displayedValues, inputValue]);
+      }
       // input 태그 value 삭제
       setInputValue('');
     } else if (e.key === ',') {
@@ -27,6 +43,13 @@ export default function InputTag() {
         ...prevValues,
         inputValue.replace(/,/g, ''),
       ]);
+
+      // 전역 상태에 저장
+      if (typeof value === 'string') {
+        setValue(inputValue.replace(/,/g, ''));
+      } else if (typeof value === 'object') {
+        setValue([...displayedValues, inputValue.replace(/,/g, '')]);
+      }
       // input 태그 value 삭제
       setInputValue('');
     }
@@ -38,12 +61,13 @@ export default function InputTag() {
       (prevValues) => prevValues.filter((_, i) => i !== index)
       // => 특정 index(i)에 해당하는 요소를 제외한 새로운 배열을 생성
     );
+    setValue(displayedValues.filter((_, i) => i !== index));
   };
 
-  useEffect(() => {}, [displayedValues]);
+  // useEffect(() => {}, [displayedValues]);
 
   return (
-    <div className="w-full">
+    <div className={`${className} w-full`}>
       <div className="flex items-center max-w-max_w overflow-hidden">
         {displayedValues.map((value, index) => (
           <div key={index} className="flex justify-between mr-1">
@@ -52,9 +76,9 @@ export default function InputTag() {
               color="hashtag"
               className="pl-3 pr-2 py-1 text-bs_14 mr-1 flex items-center">
               <p className="mr-2 text-nowrap">{value}</p>
-              <button>
+              <span>
                 <IoCloseOutline size={20} />
-              </button>
+              </span>
             </CustomButton>
           </div>
         ))}

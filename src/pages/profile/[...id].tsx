@@ -67,12 +67,11 @@ export default function ProfileEdit() {
           </li>
           <li className="flex flex-col gap-2 mt-8">
             <label htmlFor="introduction">자기소개</label>
-            <input
-              type="text"
+            <textarea
+              name="introduction"
               id="introduction"
               placeholder="자신을 소개해 주세요."
-              className="px-4 py-3 border border-gray30 rounded-bs_5"
-            />
+              className="p-4 border border-gray30 rounded-bs_5"></textarea>
           </li>
           <li className="flex flex-col gap-2 mt-8">
             <label htmlFor="job">직무</label>
@@ -114,10 +113,10 @@ export default function ProfileEdit() {
             </CustomButton>
           </li>
         </ul>
-        <span className="w-full h-[1px] bg-gray30"></span>
-        <div className="w-full flex justify-between my-8">
-          <CustomButton className="py-2 px-5">회원탈퇴</CustomButton>
-          <CustomButton className="py-2 px-5">비밀번호 변경</CustomButton>
+        <span className="w-full h-[1px] bg-gray10"></span>
+        <div className="w-full flex justify-between my-10">
+          <CustomButton className="py-1 px-3">회원탈퇴</CustomButton>
+          <CustomButton className="py-1 px-3">비밀번호 변경</CustomButton>
         </div>
       </section>
     </main>

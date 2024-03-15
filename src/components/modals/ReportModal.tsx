@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import useReportModal from '@/hooks/useReportModal';
+import useReportModal from '@/store/useReportModal';
 
 import CustomSelect from '../button/CustomSelect';
 import Modals from './Modals';
