@@ -1,5 +1,5 @@
-// import { useDisclosure } from '@chakra-ui/react';
 import { AiOutlineSearch } from '@react-icons/all-files/ai/AiOutlineSearch';
+import { FaListUl } from '@react-icons/all-files/fa/FaListUl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -11,6 +11,8 @@ import useLoginModal from '@/store/useLoginModal';
 import useSearchErrorModal from '@/store/useSearchErrorModal';
 import useSignUpModal from '@/store/useSignUpModal';
 
+import MoblieCategory from './MoblieCategory';
+
 interface MenuItem {
   name: string;
   link: string;
@@ -20,6 +22,7 @@ export default function Header() {
   const [value, setValue] = useState('');
   const [isLogin, setIsLogin] = useState(true);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [isMCategoryVisible, setIsMCategoryVisible] = useState(false);
 
   const router = useRouter();
   const pathname = router.pathname;
@@ -44,6 +47,10 @@ export default function Header() {
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
+  };
+
+  const handleCategoryToggle = () => {
+    setIsMCategoryVisible(!isMCategoryVisible);
   };
 
   const handleSearch = () => {
@@ -73,18 +80,26 @@ export default function Header() {
               />
             </Link>
           </h1>
-          <ul className="flex mobile:hidden">
-            {menu.map((item, index) => (
-              <li key={index}>
-                <Link
-                  href={item.link}
-                  className="p-5 text-center block hover:text-primary">
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+
           <div className="flex items-center">
+            <FaListUl
+              size={25}
+              className="hidden mobile:block"
+              onClick={handleCategoryToggle}
+            />
+            <ul className="flex mobile:hidden">
+              {menu.map((item, index) => (
+                <li key={index}>
+                  <Link
+                    href={item.link}
+                    className="p-5 text-center block hover:text-primary">
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            {isMCategoryVisible && <MoblieCategory menu={menu} />}
+
             <div
               className="p-5 text-center block cursor-pointer"
               aria-label="검색 버튼"
