@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const useRecruit = (postType: string) => {
+const useRecruit = (category: string) => {
   const {
     isLoading,
     isError,
@@ -10,10 +10,10 @@ const useRecruit = (postType: string) => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: [`project-list-${postType}`],
+    queryKey: [`project-list-${category}`],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/recruit?size=${12}&page=${pageParam}&category=${postType}`
+        `${process.env.BASE_URL}/recruit?size=${12}&page=${pageParam}&category=${category}`
       );
       if (response.data.success) {
         return response.data.data;

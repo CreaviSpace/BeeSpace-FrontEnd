@@ -42,7 +42,15 @@ export default function RecruitmentDetail() {
               userName={`user`}
             />
             <SideButton />
-            <RecruitDetails />
+            <RecruitDetails
+              category={data.category}
+              contactWay={data.contactWay}
+              contact={data.contact}
+              amount={data.amount}
+              proceedWay={data.proceedWay}
+              workDay={data.workDay}
+              end={data.end}
+            />
             <div className="p-6 border-b flex justify-between">
               <RecruitPosition />
               <TechStackList />

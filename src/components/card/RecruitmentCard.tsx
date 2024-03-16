@@ -20,7 +20,6 @@ export default function RecruitmentCard({ item }: IRecruitmentCardProps) {
           <li className="w-10 h-10 rounded-full border border-gray10 flex justify-center items-center">
             {item.techStack}
           </li>
-          {/* ))} */}
         </ul>
         <div>
           모집인원 ({item.now}/{item.amount})

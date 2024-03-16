@@ -6,11 +6,11 @@ import useRecruit from '@/hooks/useRecruit';
 import { IRecruitType } from '@/types/global';
 
 interface IRecruitmentCardContainerProps {
-  postType?: string;
+  category?: string;
 }
 
 export default function RecruitmentCardContainer({
-  postType = 'all',
+  category = 'all',
 }: IRecruitmentCardContainerProps) {
   const {
     isLoading,
@@ -19,7 +19,7 @@ export default function RecruitmentCardContainer({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useRecruit(postType);
+  } = useRecruit(category);
 
   const observer: React.MutableRefObject<IntersectionObserver | null> =
     useRef(null);
