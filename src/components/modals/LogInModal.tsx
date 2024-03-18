@@ -2,7 +2,10 @@ import { ModalBody, ModalCloseButton, ModalHeader } from '@chakra-ui/react';
 import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle';
 import { IoLogoGithub } from '@react-icons/all-files/io/IoLogoGithub';
 import { RiKakaoTalkFill } from '@react-icons/all-files/ri/RiKakaoTalkFill';
+import axios from 'axios';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect } from 'react';
 
 import useLoginModal from '@/store/useLoginModal';
 
@@ -16,19 +19,19 @@ export default function LogInModal() {
       title: '구글',
       icon: <FcGoogle key="google" size={45} />,
       style: 'bg-white',
-      link: () => {},
+      link: 'https://port-0-creavispace-backend-am952nlsse11uk.sel5.cloudtype.app/oauth2/authorization/google',
     },
     {
       title: '카카오',
       icon: <RiKakaoTalkFill key="kakao" size={45} />,
       style: 'bg-yellow-300',
-      link: () => {},
+      link: '/',
     },
     {
       title: '깃허브',
       icon: <IoLogoGithub key="github" size={45} />,
       style: 'bg-white',
-      link: () => {},
+      link: '/',
     },
     {
       title: '네이버',
@@ -42,13 +45,14 @@ export default function LogInModal() {
         />
       ),
       style: 'bg-green-500 p-3 flex',
-      link: async () => {
-        // await axios.get(
-        //   'https://port-0-creavispace-backend-am952nlsse11uk.sel5.cloudtype.app/login/oauth2/authorization/naver'
-        // );
-      },
+      link: 'https://port-0-creavispace-backend-am952nlsse11uk.sel5.cloudtype.app/oauth2/authorization/naver',
     },
   ];
+
+  useEffect(() => {
+    axios.get(`${process.env.BASE_URL}/login/oauth2/code`);
+  }, []);
+
   return (
     <Modals isOpen={isOpen} onClose={onClose}>
       <ModalCloseButton />
@@ -56,16 +60,16 @@ export default function LogInModal() {
       <ModalBody>
         <section className="mb-11 m-auto flex justify-between gap-10">
           {icons.map((icon, index) => (
-            <button
+            <Link
               key={`icon-${index}`}
-              className=" flex flex-col items-center gap-2"
-              onClick={icon.link}>
+              href={icon.link}
+              className=" flex flex-col items-center gap-2">
               <div
                 className={`${icon.style} rounded-full shadow-[0_3px_5px_rgba(0,0,0,0.3)] p-2`}>
                 {icon.icon}
               </div>
               <span>{icon.title}</span>
-            </button>
+            </Link>
           ))}
         </section>
       </ModalBody>
