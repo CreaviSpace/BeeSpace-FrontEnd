@@ -2,10 +2,8 @@ import { ModalBody, ModalCloseButton, ModalHeader } from '@chakra-ui/react';
 import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle';
 import { IoLogoGithub } from '@react-icons/all-files/io/IoLogoGithub';
 import { RiKakaoTalkFill } from '@react-icons/all-files/ri/RiKakaoTalkFill';
-import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect } from 'react';
 
 import useLoginModal from '@/store/useLoginModal';
 
@@ -48,10 +46,6 @@ export default function LogInModal() {
       link: 'https://port-0-creavispace-backend-am952nlsse11uk.sel5.cloudtype.app/oauth2/authorization/naver',
     },
   ];
-
-  useEffect(() => {
-    axios.get(`${process.env.BASE_URL}/login/oauth2/code`);
-  }, []);
 
   return (
     <Modals isOpen={isOpen} onClose={onClose}>
