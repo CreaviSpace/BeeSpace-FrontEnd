@@ -1,13 +1,10 @@
 import Link from 'next/link';
 
-import LikeButton from '@/components/button/LikeButton';
 import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
 
-import SkeletonCommunityCard from '../skeleton/SkeletonCommunityCard';
-
 interface CommunityCardProps {
-  id?: string;
+  id?: number;
   type?: string;
   userName: string;
   date: string;
@@ -26,10 +23,6 @@ export default function CommunityCard({
   comments,
   className,
 }: CommunityCardProps) {
-  if (false) {
-    return <SkeletonCommunityCard />;
-  }
-
   return (
     <>
       <div
@@ -62,7 +55,7 @@ export default function CommunityCard({
               </p>
             </div>
           </Link>
-          <LikeButton className="pt-4 float-end" />
+          {/* <LikeButton id={id} postType="community" className="pt-4 float-end" /> */}
         </div>
       </div>
     </>

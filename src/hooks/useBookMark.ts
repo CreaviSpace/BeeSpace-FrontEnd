@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const useBookMark = (id?: number, kind?: string) => {
+const useBookMark = (id?: number, postType?: string) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     queryKey: [`bookmark-${id}`],
     queryFn: async () => {
@@ -20,7 +20,9 @@ const useBookMark = (id?: number, kind?: string) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: async () => {
-      return await axios.post(`${process.env.BASE_URL}/bookmark/${kind}/${id}`);
+      return await axios.post(
+        `${process.env.BASE_URL}/bookmark/${postType}/${id}`
+      );
     },
 
     onSuccess: () => {

@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const useLike = (id?: number, kind?: string) => {
+const useLike = (id?: number, postType?: string) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     queryKey: [`like-${id}`],
     queryFn: async () => {
@@ -20,7 +20,7 @@ const useLike = (id?: number, kind?: string) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: async () => {
-      return await axios.post(`${process.env.BASE_URL}/like/${kind}/${id}`);
+      return await axios.post(`${process.env.BASE_URL}/like/${postType}/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`like-${id}`] });
