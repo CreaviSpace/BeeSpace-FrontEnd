@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const useRecruit = (category: string) => {
+const useRecruit = (category: string, size: number) => {
   const {
     isLoading,
     isError,
@@ -13,7 +13,7 @@ const useRecruit = (category: string) => {
     queryKey: [`project-list-${category}`],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/recruit?size=${12}&page=${pageParam}&category=${category}`
+        `${process.env.BASE_URL}/recruit?size=${size}&page=${pageParam}&category=${category}`
       );
       if (response.data.success) {
         return response.data.data;
@@ -22,7 +22,13 @@ const useRecruit = (category: string) => {
     staleTime: 30000 * 6,
     gcTime: 30000 * 6,
     initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    getNextPageParam: (lastPage) => {
+      if (lastPage && lastPage.nextCursor) {
+        return lastPage.nextCursor;
+      } else {
+        return null;
+      }
+    },
   });
   return {
     isLoading,
