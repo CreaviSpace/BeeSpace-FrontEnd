@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
+import { getCookies } from '@/utils/getCookies';
+
 const useProjectDetail = (id: string) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     queryKey: [`project-${id}`],
@@ -11,7 +13,7 @@ const useProjectDetail = (id: string) => {
 
       const respones = await axios.get(
         `${process.env.BASE_URL}/project/${id}`,
-        { params: { withCredentials: true } }
+        { headers: { Authorization: getCookies('jwt') } }
       );
 
       if (respones.data.success) {
