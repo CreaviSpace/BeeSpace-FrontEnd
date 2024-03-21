@@ -8,7 +8,7 @@ interface IBookmarkProps {
   size?: number;
   className?: string;
   id: number;
-  kind: string;
+  type: string;
 }
 
 export default function Bookmark({
@@ -16,11 +16,11 @@ export default function Bookmark({
   size = 25,
   className,
   id,
-  kind,
+  type,
 }: IBookmarkProps) {
   const { isLoading, isError, data, isFetching, mutate } = useBookMark(
     id,
-    kind
+    type
   );
 
   const handleToggleBookmark = () => {
@@ -29,14 +29,14 @@ export default function Bookmark({
 
   return (
     <button type="button" onClick={handleToggleBookmark} className={className}>
-      {isLoading && data ? (
+      {!isLoading && data?.bookmarkStatus ? (
+        <IoBookmark color={color} size={size} aria-label="활성화된 북마크" />
+      ) : (
         <IoBookmarkOutline
           color={color}
           size={size}
           aria-label="비활성화된 북마크"
         />
-      ) : (
-        <IoBookmark color={color} size={size} aria-label="활성화된 북마크" />
       )}
     </button>
   );
