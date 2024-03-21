@@ -20,7 +20,7 @@ export default function ProjectDetail() {
 
   return (
     <main className="relative max-w-max_w m-auto p-16 tablet:px-8 mobile:px-8">
-      {isLoading ? (
+      {isLoading && !data?.id ? (
         <SkeletonDetail />
       ) : (
         <section>
@@ -33,7 +33,7 @@ export default function ProjectDetail() {
             userName="author"
             category={data.category}
           />
-          <SideButton />
+          <SideButton id={data.id} type={data.postType} />
           <div className="py-8 border-b border-gray10">
             <div
               className="ql_editor"
