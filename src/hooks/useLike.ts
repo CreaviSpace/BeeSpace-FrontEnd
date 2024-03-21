@@ -4,12 +4,12 @@ import { toast } from 'react-toastify';
 
 import { getCookies } from '@/utils/getCookies';
 
-const useLike = (id?: number, type?: string) => {
+const useLike = (id?: number, postType?: string) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     queryKey: [`like-${id}`],
     queryFn: async () => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/like?postId=${id}&type=${type}`,
+        `${process.env.BASE_URL}/like?postId=${id}&type=${postType}`,
         {
           headers: { Authorization: getCookies('jwt') },
         }
@@ -26,7 +26,7 @@ const useLike = (id?: number, type?: string) => {
   const { mutate } = useMutation({
     mutationFn: async () => {
       return await axios.post(
-        `${process.env.BASE_URL}/like?postId=${id}&type=${type}`,
+        `${process.env.BASE_URL}/like?postId=${id}&type=${postType}`,
         {},
         {
           headers: { Authorization: getCookies('jwt') },

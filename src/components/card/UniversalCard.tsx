@@ -5,12 +5,12 @@ import Bookmark from '../button/Bookmark';
 import SkeletonUniversalCard from '../skeleton/SkeletonUniversalCard';
 
 interface IUniversalCardProps {
-  id: string;
+  id: number;
   title: string;
   content: string;
   date: string;
   image?: string;
-  type?: string;
+  postType: string;
   size: 'large' | 'small';
   className?: string;
 }
@@ -26,21 +26,26 @@ export default function UniversalCard({
   content,
   date,
   image,
-  type,
+  postType,
   size,
   className,
 }: IUniversalCardProps) {
   const boxSize = sizeStyles[size || 'small'];
 
-  if (false) {
+  if (!id && !postType) {
     return <SkeletonUniversalCard boxSize={boxSize} />;
   }
 
   return (
     <div
       className={`${boxSize} ${className} relative m-auto rounded-bs_10 border border-gary10 flex overflow-hidden  tablet:w-[767px] mobile:w-full`}>
-      <Bookmark size={35} className="absolute -top-[0.375rem] right-5" />
-      <Link href={`${type}/${id}`} className="flex">
+      <Bookmark
+        id={id}
+        postType={postType}
+        size={35}
+        className="absolute -top-[0.375rem] right-5"
+      />
+      <Link href={`${postType}/${id}`} className="flex">
         {image && (
           <div className="relative w-[30%] h-full overflow-hidden ">
             <Image

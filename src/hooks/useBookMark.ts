@@ -4,12 +4,12 @@ import { toast } from 'react-toastify';
 
 import { getCookies } from '@/utils/getCookies';
 
-const useBookMark = (id?: number, type?: string) => {
+const useBookMark = (id?: number, postType?: string) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     queryKey: [`bookmark-${id}`],
     queryFn: async () => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/bookmark?postId=${id}&type=${type}`,
+        `${process.env.BASE_URL}/bookmark?postId=${id}&type=${postType}`,
         {
           headers: {
             Authorization: getCookies('jwt'),
@@ -29,7 +29,7 @@ const useBookMark = (id?: number, type?: string) => {
   const { mutate } = useMutation({
     mutationFn: async () => {
       return await axios.post(
-        `${process.env.BASE_URL}/bookmark?postId=${id}&type=${type}`,
+        `${process.env.BASE_URL}/bookmark?postId=${id}&type=${postType}`,
         {},
         {
           headers: {

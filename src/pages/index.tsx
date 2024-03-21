@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import Banner from '@/components/banner/Banner';
 import CommunityCardContainer from '@/components/container/CommunityCardContainer';
-import DeadLineRecruitment from '@/components/container/DeadLineContainer';
+import DeadLineContainer from '@/components/container/DeadLineContainer';
 import PopularProject from '@/components/container/PopularContainer';
 import ProjectCardContainer from '@/components/container/ProjectCardContainer';
 import RecruitmentCardContainer from '@/components/container/RecruitmentCardContainer';
@@ -10,11 +10,11 @@ import RecruitmentCardContainer from '@/components/container/RecruitmentCardCont
 export default function Home() {
   return (
     <main className="mx-auto overflow-hidden">
-      <Banner kind="project" />
+      <Banner postType="project" />
       <div className="h-fit mx-auto py-16">
         <section className="max-w-max_w h-fit grid grid-cols-2 mx-auto mt-10 tablet:grid-cols-1 mobile:grid-cols-1">
           <PopularProject />
-          <DeadLineRecruitment />
+          <DeadLineContainer />
         </section>
         <section className="max-w-max_w mx-auto mt-10">
           <div className="text-bs_24 flex justify-between items-center w-full mb-5 mt-10">

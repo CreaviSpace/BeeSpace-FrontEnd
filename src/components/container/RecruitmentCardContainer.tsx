@@ -49,7 +49,7 @@ export default function RecruitmentCardContainer({
               <SkeletonRecruitmentCard key={`${item}-${index}`} />
             ))
           : data?.pages.map((pages: IRecruitType[]) => {
-              return pages.map((item, index) => {
+              return pages?.map((item, index) => {
                 if (pages.length === index + 1) {
                   return (
                     <div ref={lastElementRef} key={`${item}-${index}`}>

@@ -8,7 +8,7 @@ interface IBookmarkProps {
   size?: number;
   className?: string;
   id: number;
-  type: string;
+  postType: string;
 }
 
 export default function Bookmark({
@@ -16,11 +16,11 @@ export default function Bookmark({
   size = 25,
   className,
   id,
-  type,
+  postType,
 }: IBookmarkProps) {
   const { isLoading, isError, data, isFetching, mutate } = useBookMark(
     id,
-    type
+    postType
   );
 
   const handleToggleBookmark = () => {

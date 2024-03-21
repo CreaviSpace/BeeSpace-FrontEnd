@@ -6,8 +6,9 @@ import { useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 export default function Deadline() {
   const today = new Date();
-  const [selected, setSelected] = useState<Date>(today);
+  const [selected, setSelected] = useState<Date | undefined>(today);
   const [isCalendarToggle, setIsCalendarToggle] = useState(true);
+  today;
 
   const handleCalendarToggle = () => {
     setIsCalendarToggle(!isCalendarToggle);

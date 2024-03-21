@@ -8,7 +8,7 @@ interface ILikeButtonProps {
   size?: number;
   className?: string;
   id: number;
-  type: string;
+  postType: string;
 }
 
 export default function LikeButton({
@@ -16,9 +16,12 @@ export default function LikeButton({
   size = 20,
   className,
   id,
-  type,
+  postType,
 }: ILikeButtonProps) {
-  const { isLoading, isError, data, isFetching, mutate } = useLike(id, type);
+  const { isLoading, isError, data, isFetching, mutate } = useLike(
+    id,
+    postType
+  );
 
   const handleToggleBookmark = () => {
     mutate();
