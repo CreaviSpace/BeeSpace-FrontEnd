@@ -38,7 +38,7 @@ export default function ProjectCard({ item, tagName }: IProjectCardProps) {
           className="absolute -top-[.3125rem] right-[.375rem]"
           size={35}
           id={item.id}
-          type={item.postType}
+          postType={item.postType}
         />
         <Link href={`${item.postType}/${item.id}`}>
           <h3 className="text-bs_18 mt-3 font-bold">{item.title}</h3>
@@ -49,7 +49,11 @@ export default function ProjectCard({ item, tagName }: IProjectCardProps) {
         </Link>
       </div>
       <div className="absolute bottom-1 left-0 flex justify-between items-center pl-5 pr-2 w-full h-fit ">
-        <LikeButton className="float-start" id={item.id} type={item.postType} />
+        <LikeButton
+          className="float-start"
+          id={item.id}
+          postType={item.postType}
+        />
         <ul className="float-end flex items-center gap-1">
           {item.links?.map((item, index) => (
             <li key={`${item}-${index}`}>
