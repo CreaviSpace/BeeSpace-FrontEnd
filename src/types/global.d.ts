@@ -1,4 +1,4 @@
-interface ILinkListType {
+interface ILinksType {
   type: string;
   url: string;
 }
@@ -8,7 +8,7 @@ export interface IProjectType {
   postType: string;
   category: string;
   title: string;
-  linkList: ILinkListType[];
+  links: ILinksType[];
   thumbnail: string;
   bannerContent: string;
 }
