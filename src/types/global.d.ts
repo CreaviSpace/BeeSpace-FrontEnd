@@ -43,3 +43,61 @@ export interface IDeadLineType {
   modifiedDate: string;
   techStacks: { techStackId: number; techStack: string; iconUrl: string }[];
 }
+
+export interface IRecruitBody {
+  category: string;
+  amount: number;
+  workDay: number;
+  contact: string;
+  contactWay: string;
+  proceedWay: string;
+  end: string;
+  endFormat: string;
+  title: string;
+  content: string;
+  positions: {
+    position: string;
+    amount: number;
+    now: number;
+  }[];
+  techStacks: {
+    tackStackId: number;
+  }[];
+}
+
+export interface IProjectBody {
+  category: string;
+  memberDtos: {
+    memberId: number;
+    position: string;
+  }[];
+  title: string;
+  content: string;
+  techStackDtos: {
+    techStackId: number;
+  }[];
+  field: string;
+  linkDtos: {
+    type: string;
+    url: string;
+  }[];
+  thumbnail: string;
+  bannerContent: string;
+}
+
+export interface ICommunityBody {
+  category: string;
+  title: string;
+  content: string;
+  hashTags: string[];
+}
+
+export interface IUniversalType {
+  id: number;
+  title: string;
+  bannerContent: string;
+  thumbnail: string;
+  category: string;
+  postType: string;
+  links: { type: string; url: string }[];
+}
