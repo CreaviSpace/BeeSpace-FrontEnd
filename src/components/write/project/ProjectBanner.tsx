@@ -5,27 +5,31 @@ import { useEffect, useState } from 'react';
 import CustomButton from '@/components/button/CustomButton';
 import useImageCompress from '@/hooks/useImageCompression';
 import { dataURItoFile } from '@/utils/dataURItoFile';
+import fileUpload from '@/utils/fileUpload';
 
 import ImageCropper from './ImageCropper';
 
-export default function ProjectBanner() {
+interface IProjectBanner {
+  setThumbnail: (thumbnail: string) => void;
+}
+
+export default function ProjectBanner({ setThumbnail }: IProjectBanner) {
   const [uploadImage, setUploadImage] = useState<string | null>(null);
+  const [imageName, setImageName] = useState<string>('');
   const [compressedImage, setCompressedImage] = useState<string | null>(null);
   const { isLoading: isCompressLoading, compressImage } = useImageCompress();
 
   const handleUploadImage = (image: string) => setUploadImage(image);
+  const handleImageName = (name: string) => setImageName(name);
 
   const handleCompressImage = async () => {
     if (!uploadImage) return;
 
-    const imageFile = dataURItoFile(uploadImage);
-
+    const imageFile = dataURItoFile(uploadImage, imageName);
     const compressedImage = await compressImage(imageFile);
 
-    // 이미지 서버 저장 로직
-    if (!compressedImage) return;
-    const imageUrl = URL.createObjectURL(compressedImage);
-    setCompressedImage(imageUrl);
+    const imageURL = await fileUpload(compressedImage, setCompressedImage);
+    setThumbnail(imageURL);
   };
 
   const handleDeleteImage = () => {
@@ -56,7 +60,11 @@ export default function ProjectBanner() {
             {isCompressLoading ? '이미지 압축 중..' : <FaImage size={50} />}
           </div>
         )}
-        <ImageCropper aspectRatio={16 / 10} onCrop={handleUploadImage}>
+
+        <ImageCropper
+          aspectRatio={16 / 10}
+          onCrop={handleUploadImage}
+          onFile={handleImageName}>
           <div className="w-full absolute -bottom-[7.5rem]">
             <CustomButton
               onClick={handleDeleteImage}
