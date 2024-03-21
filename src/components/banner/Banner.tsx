@@ -39,7 +39,7 @@ export default function Banner({ postType }: IBannerProps) {
 
   return (
     <div className="overflow-hidden">
-      {isLoading ? (
+      {isLoading && data?.length <= 0 ? (
         <SkeletonBanner />
       ) : (
         <>
@@ -49,11 +49,11 @@ export default function Banner({ postType }: IBannerProps) {
             onTransitionEnd={handleTransitionEnd}>
             <div className={`w-full flex-grow-0 flex-shrink-0 flex-basis-auto`}>
               <BannerItem
-                postType={data[data.length - 1].postType}
-                id={data[data.length - 1].id}
-                title={data[data.length - 1].title}
-                content={data[data.length - 1].bannerContent}
-                image={data[data.length - 1].thumbnail}
+                postType={data[data?.length - 1]?.postType}
+                id={data[data?.length - 1]?.id}
+                title={data[data?.length - 1]?.title}
+                content={data[data?.length - 1]?.bannerContent}
+                image={data[data?.length - 1]?.thumbnail}
               />
             </div>
             {data.map((item: IBannerItem, index: number) => (
@@ -71,11 +71,11 @@ export default function Banner({ postType }: IBannerProps) {
             ))}
             <div className={`w-full flex-grow-0 flex-shrink-0 flex-basis-auto`}>
               <BannerItem
-                postType={data[0].postType}
-                id={data[0].id}
-                title={data[0].title}
-                content={data[0].content}
-                image={data[0].thumbnail}
+                postType={data[0]?.postType}
+                id={data[0]?.id}
+                title={data[0]?.title}
+                content={data[0]?.content}
+                image={data[0]?.thumbnail}
               />
             </div>
           </div>
