@@ -2,16 +2,21 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const useLike = (id?: number, kind?: string) => {
+import { getCookies } from '@/utils/getCookies';
+
+const useLike = (id?: number, type?: string) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     queryKey: [`like-${id}`],
     queryFn: async () => {
-      // const response = await axios.get(
-      //   `${process.env.BASE_URL}/like/${kind}/${id}`
-      // );
-      // if (response.data.success) {
-      //   return response.data.data;
-      // }
+      const response = await axios.get(
+        `${process.env.BASE_URL}/like?postId=${id}&type=${type}`,
+        {
+          headers: { Authorization: getCookies('jwt') },
+        }
+      );
+      if (response.data.success) {
+        return response.data.data;
+      }
     },
     gcTime: 30000, // 5분
     staleTime: 30000, // 5분
@@ -20,7 +25,13 @@ const useLike = (id?: number, kind?: string) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: async () => {
-      return await axios.post(`${process.env.BASE_URL}/like/${kind}/${id}`);
+      return await axios.post(
+        `${process.env.BASE_URL}/like?postId=${id}&type=${type}`,
+        {},
+        {
+          headers: { Authorization: getCookies('jwt') },
+        }
+      );
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`like-${id}`] });
