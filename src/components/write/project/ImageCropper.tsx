@@ -7,9 +7,10 @@ interface PropsType {
   onCrop: (image: string) => void;
   aspectRatio: number;
   children: React.ReactNode;
+  onFile: (name: string) => void;
 }
 
-const ImageCropper = ({ children, aspectRatio, onCrop }: PropsType) => {
+const ImageCropper = ({ children, aspectRatio, onCrop, onFile }: PropsType) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const cropperRef = useRef<ReactCropperElement>(null);
   const [image, setImage] = useState<null | string>(null);
@@ -18,12 +19,13 @@ const ImageCropper = ({ children, aspectRatio, onCrop }: PropsType) => {
     if (inputRef.current) inputRef.current.click();
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     const files = e.target.files;
 
     if (!files || files.length === 0) return;
+    onFile(files[0].name);
 
     const reader = new FileReader();
     reader.onload = () => {
@@ -48,7 +50,12 @@ const ImageCropper = ({ children, aspectRatio, onCrop }: PropsType) => {
         onChange={handleFileChange}
         className="sr-only"
       />
-      <label htmlFor="Imagefile" onClick={handleChildrenClick}>
+      <label
+        htmlFor="Imagefile"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleChildrenClick();
+        }}>
         {children}
       </label>
       {image && (
