@@ -39,55 +39,59 @@ export default function Banner({ postType }: IBannerProps) {
 
   return (
     <div className="overflow-hidden">
-      {isLoading && data?.length <= 0 ? (
+      {isLoading ? (
         <SkeletonBanner />
       ) : (
-        <>
-          <div
-            className="relative right-full flex items-center mt-10 mb-5 m-auto transition-all "
-            ref={bannerAllRef}
-            onTransitionEnd={handleTransitionEnd}>
-            <div className={`w-full flex-grow-0 flex-shrink-0 flex-basis-auto`}>
-              <BannerItem
-                postType={data[data?.length - 1]?.postType}
-                id={data[data?.length - 1]?.id}
-                title={data[data?.length - 1]?.title}
-                content={data[data?.length - 1]?.bannerContent}
-                image={data[data?.length - 1]?.thumbnail}
-              />
-            </div>
-            {data.map((item: IBannerItem, index: number) => (
+        data?.length > 0 && (
+          <>
+            <div
+              className="relative right-full flex items-center mt-10 mb-5 m-auto transition-all "
+              ref={bannerAllRef}
+              onTransitionEnd={handleTransitionEnd}>
               <div
-                key={`banner-${index}`}
                 className={`w-full flex-grow-0 flex-shrink-0 flex-basis-auto`}>
                 <BannerItem
-                  postType={item.postType}
-                  id={item.id}
-                  title={item.title}
-                  content={item.bannerContent}
-                  image={item.thumbnail}
+                  postType={data[data.length - 1].postType}
+                  id={data[data.length - 1].id}
+                  title={data[data.length - 1].title}
+                  content={data[data.length - 1].bannerContent}
+                  image={data[data.length - 1].thumbnail}
                 />
               </div>
-            ))}
-            <div className={`w-full flex-grow-0 flex-shrink-0 flex-basis-auto`}>
-              <BannerItem
-                postType={data[0]?.postType}
-                id={data[0]?.id}
-                title={data[0]?.title}
-                content={data[0]?.content}
-                image={data[0]?.thumbnail}
-              />
+              {data.map((item: IBannerItem, index: number) => (
+                <div
+                  key={`banner-${index}`}
+                  className={`w-full flex-grow-0 flex-shrink-0 flex-basis-auto`}>
+                  <BannerItem
+                    postType={item.postType}
+                    id={item.id}
+                    title={item.title}
+                    content={item.bannerContent}
+                    image={item.thumbnail}
+                  />
+                </div>
+              ))}
+              <div
+                className={`w-full flex-grow-0 flex-shrink-0 flex-basis-auto`}>
+                <BannerItem
+                  postType={data[0].postType}
+                  id={data[0].id}
+                  title={data[0].title}
+                  content={data[0].content}
+                  image={data[0].thumbnail}
+                />
+              </div>
             </div>
-          </div>
-          {bannerAllRef && (
-            <CarouselList
-              length={data.length}
-              bannerAllRef={bannerAllRef}
-              currentIndex={currentIndex}
-              setCurrentIndex={setCurrentIndex}
-            />
-          )}
-        </>
+            {bannerAllRef && (
+              <CarouselList
+                length={data.length}
+                bannerAllRef={bannerAllRef}
+                currentIndex={currentIndex}
+                setCurrentIndex={setCurrentIndex}
+              />
+            )}
+          </>
+        )
       )}
     </div>
   );
