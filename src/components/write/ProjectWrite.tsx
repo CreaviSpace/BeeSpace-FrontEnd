@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import OnoffButton from '@/components/button/OnOffButton';
+import useWritePost from '@/hooks/useWritePost';
 import useProjectData from '@/store/useProjectData';
 
 import InputTag from './communtiy/InputTag';
@@ -39,6 +40,30 @@ export default function ProjectWrite() {
       setter.setCategory('individual');
     }
   }, []);
+
+  // memberId랑 teachStackId는 테스트 용
+  const projectData = {
+    category,
+    memberDtos: [
+      {
+        memberId: 1,
+        position: 'frontend',
+      },
+    ],
+    title,
+    content,
+    techStackDtos: [
+      {
+        techStackId: 1,
+      },
+    ],
+    field,
+    linkDtos,
+    thumbnail,
+    bannerContent,
+  };
+
+  const { mutate } = useWritePost('project', projectData);
 
   const commnuityList = [
     { key: 'individual', name: '개인 프로젝트' },
@@ -102,7 +127,7 @@ export default function ProjectWrite() {
         <div className="flex justify-between mt-14 tablet:flex-col mobile:flex-col">
           <div className="mx-auto tablet:mb-36 mobile:mb-36 mobile:w-full">
             <h2 className="text-bs_20 my-5 font-bold">프로젝트 배너</h2>
-            <ProjectBanner />
+            <ProjectBanner setThumbnail={setter.setThumbnail} />
           </div>
           <div className="mx-auto w-full pl-10 target:pl-0 mobile:pl-0">
             <h2 className="text-bs_20 my-5 font-bold">프로젝트 소개</h2>
@@ -119,18 +144,16 @@ export default function ProjectWrite() {
         </div>
         <div className="text-right mt-28">
           <CustomButton className="py-3 px-10 mr-3">취소</CustomButton>
-          <CustomButton color="secondary" className="py-3 px-10">
+          <CustomButton
+            color="secondary"
+            className="py-3 px-10"
+            onClick={async () => {
+              mutate();
+            }}>
             작성
           </CustomButton>
         </div>
       </section>
     </main>
   );
-}
-
-export async function getStaticPaths() {
-  return {
-    paths: ['/write/project'],
-    fallback: false,
-  };
 }
