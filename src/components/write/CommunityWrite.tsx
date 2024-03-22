@@ -2,6 +2,8 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 
 import OnoffButton from '@/components/button/OnOffButton';
+import useCommunityDetail from '@/hooks/useCommunityDetail';
+import useWritePost from '@/hooks/useWritePost';
 import useCommunityData from '@/store/useCommunityData';
 
 import CustomButton from '../button/CustomButton';
@@ -16,20 +18,52 @@ const TextEditor = dynamic(
   { ssr: false }
 );
 
-export default function CommunityWrite() {
+interface ICommunityWriteProps {
+  id: string | undefined;
+}
+
+export default function CommunityWrite({ id }: ICommunityWriteProps) {
   const commnuityList = [
     { key: 'qna', name: 'QnA' },
     { key: 'chat', name: '수다' },
     { key: 'worry', name: '고민' },
   ];
 
-  const { category, title, content, hashTags, setter } = useCommunityData();
-
   useEffect(() => {
     if (!category) {
       setter.setCategory('qna');
     }
   }, []);
+
+  const { category, title, content, hashTags, setter } = useCommunityData();
+
+  const communityData = {
+    category: category,
+    title: title,
+    content: content,
+    hashTags: hashTags,
+  };
+
+  const { mutate } = useWritePost('community', communityData);
+  const { isLoading, isError, data, isFetching } = useCommunityDetail(id);
+
+  useEffect(() => {
+    if (!isLoading && id) {
+      setter.setCategory(data.category);
+      setter.setTitle(data.title);
+      setter.setContent(data.content);
+      const hashTags: string[] = [];
+      data?.hashTags.map((item: { hashTagId: number; hashTag: string }) => {
+        hashTags.push(item.hashTag);
+      });
+      setter.setHashTags(hashTags);
+    } else {
+      setter.setCategory('');
+      setter.setTitle('');
+      setter.setContent('');
+      setter.setHashTags([]);
+    }
+  }, [isFetching, id]);
 
   return (
     <main>
@@ -61,7 +95,12 @@ export default function CommunityWrite() {
           </li>
           <li className="text-right mt-10">
             <CustomButton className="py-3 px-10 mr-3">취소</CustomButton>
-            <CustomButton color="secondary" className="py-3 px-10">
+            <CustomButton
+              color="secondary"
+              className="py-3 px-10"
+              onClick={() => {
+                mutate();
+              }}>
               작성
             </CustomButton>
           </li>
