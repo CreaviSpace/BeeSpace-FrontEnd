@@ -15,6 +15,7 @@ interface IDetailsTitleProps {
   userName: string;
   className?: string;
   category?: string;
+  id: number;
 }
 
 export default function DetailsTitle({
@@ -26,6 +27,7 @@ export default function DetailsTitle({
   userName,
   likes,
   category,
+  id,
 }: IDetailsTitleProps) {
   const { onOpen: reportOpen } = useReportModal();
   const { onOpen: reconfirmOpen } = useReconfirmModal();
@@ -52,7 +54,7 @@ export default function DetailsTitle({
       </div>
       <span className="w-full border border-gray10 block" />
       <div className="text-bs_14 flex justify-end w-full px-4 py-2">
-        <Link href={`/write/${type}`}>
+        <Link href={`/write/${type}?id=${id}`}>
           <button>수정</button>
         </Link>
         <span className="mx-2" aria-hidden>
