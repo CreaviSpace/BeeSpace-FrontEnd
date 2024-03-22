@@ -61,6 +61,7 @@ export default function TextEditor({ values, setValues }: ITextEditor) {
           theme="snow"
           modules={modules}
           formats={formats}
+          value={values}
           onChange={setValues}
           className="h-[34.375rem]"
         />
