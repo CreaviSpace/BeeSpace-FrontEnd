@@ -2,21 +2,48 @@ import { useEffect, useState } from 'react';
 
 import CustomSelect from '@/components/button/CustomSelect';
 
-interface IMemberList {
-  setMemberDtos: (memberDtos: { memberId: number; position: string }[]) => void;
+interface IMemberListProps {
+  positions?: {
+    members: {
+      memberId: number;
+      memberNickname: string;
+      memberProfile: string;
+    }[];
+    position: string;
+  }[];
+  setMemberDtos: (positions: { memberId: number; position: string }[]) => void;
 }
 
-export default function MemberList({ setMemberDtos }: IMemberList) {
-  // const [selectOption, setSelectOption] = useState(1);
-  // const [selectPlus, setSelectPlus] = useState<number[]>([0]);
-
+export default function MemberList({
+  positions,
+  setMemberDtos,
+}: IMemberListProps) {
   const optionNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const [selectNum, setSelectNum] = useState([1]);
+  const [selectNum, setSelectNum] = useState<number[]>([1]);
 
   const options = ['선택해주세요', '백엔드', '프론트엔드', '디자인', '기획'];
-  const [selectPosition, setSelectPosition] = useState(['default']);
+  const [selectPosition, setSelectPosition] = useState<string[]>(['default']);
 
-  const [memberId, setMemberId] = useState([0]);
+  const [memberId, setMemberId] = useState<number[]>([0]);
+
+  useEffect(() => {
+    if (positions && positions.length > 0) {
+      setSelectNum([positions.length]);
+      const selectPosition: string[] = [];
+      const memberId: number[] = [];
+      let selectNum = 0;
+      positions.map((members) => {
+        selectPosition.push(members.position);
+        members.members.map((member) => {
+          memberId.push(member.memberId);
+          selectNum += 1;
+        });
+      });
+      setSelectNum([selectNum]);
+      setSelectPosition(selectPosition);
+      setMemberId(memberId);
+    }
+  }, [positions]);
 
   useEffect(() => {
     const memberDtos: { memberId: number; position: string }[] = [];
@@ -74,6 +101,9 @@ export default function MemberList({ setMemberDtos }: IMemberList) {
             type="number"
             placeholder="닉네임을 입력해주세요."
             className="border border-gray30 rounded-bs_5 text-bs_14 pl-3 h-[3.125rem] w-1/2 min_mobile:w-full"
+            value={
+              memberId[index] === 0 ? '닉네임을 입력해주세요' : memberId[index]
+            }
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const newMemberId = memberId;
               memberId[index] = parseInt(e.target.value);
