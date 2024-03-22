@@ -20,42 +20,45 @@ export default function ProjectDetail() {
 
   return (
     <main className="relative max-w-max_w m-auto p-16 tablet:px-8 mobile:px-8">
-      {isLoading && !data?.id ? (
+      {isLoading ? (
         <SkeletonDetail />
       ) : (
-        <section>
-          <DetailsTitle
-            type="project"
-            time={data.modifiedDate}
-            views={data.viewCount}
-            likes={3}
-            title={data.title}
-            userName="author"
-            category={data.category}
-          />
-          <SideButton id={data.id} type={data.postType} />
-          <div className="py-8 border-b border-gray10">
-            <div
-              className="ql_editor"
-              dangerouslySetInnerHTML={{ __html: data.content }}
+        data?.id && (
+          <section>
+            <DetailsTitle
+              type="project"
+              time={data.modifiedDate}
+              views={data.viewCount}
+              likes={3}
+              title={data.title}
+              userName="author"
+              category={data.category}
+              id={data.id}
             />
-          </div>
-          <div className="py-8 border-b border-black">
-            <Tag
-              name={data.field === 'team' ? '팀 프로젝트' : '개인 프로젝트'}
-              category={data.field}
-            />
-            <Members positions={data.positions} />
-            <DistributeLink links={data.links} />
-            <SkillStack techStacks={data.techStacks} />
-          </div>
-          <Link href="/feedback">
-            <div className="text-right py-5">
-              <Tag name={'설문조사 참여'} category={'team'} />
+            <SideButton id={data.id} type={data.postType} />
+            <div className="py-8 border-b border-gray10">
+              <div
+                className="ql_editor"
+                dangerouslySetInnerHTML={{ __html: data.content }}
+              />
             </div>
-          </Link>
-          <CommentContainer />
-        </section>
+            <div className="py-8 border-b border-black">
+              <Tag
+                name={data.field === 'team' ? '팀 프로젝트' : '개인 프로젝트'}
+                category={data.field}
+              />
+              <Members positions={data.positions} />
+              <DistributeLink links={data.links} />
+              <SkillStack techStacks={data.techStacks} />
+            </div>
+            <Link href="/feedback">
+              <div className="text-right py-5">
+                <Tag name={'설문조사 참여'} category={'team'} />
+              </div>
+            </Link>
+            <CommentContainer />
+          </section>
+        )
       )}
     </main>
   );
