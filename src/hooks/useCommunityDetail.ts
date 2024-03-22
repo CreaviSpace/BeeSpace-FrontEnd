@@ -1,10 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const useCommunityDetail = (id: string) => {
+const useCommunityDetail = (id: string | undefined) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     queryKey: [`community-${id}`],
     queryFn: async () => {
+      if (!id) {
+        return null;
+      }
+
       const response = await axios.get(
         `${process.env.BASE_URL}/community/${id}`,
         { params: { withCredentials: true } }
