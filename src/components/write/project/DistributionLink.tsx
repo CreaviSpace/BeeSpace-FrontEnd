@@ -7,15 +7,21 @@ import { useEffect, useState } from 'react';
 
 interface IDistributionLinkProps {
   className?: string;
+  linkDtos: { type: string; url: string }[];
   setLinkDtos: (linkDtos: { type: string; url: string }[]) => void;
 }
 
 export default function DistributionLink({
   className,
+  linkDtos,
   setLinkDtos,
 }: IDistributionLinkProps) {
   const [addLink, setAddLink] = useState<{ type: string; url: string }[]>([]);
-  const [link, setLink] = useState<{ type: string; url: string }[]>([]);
+  const [link, setLink] = useState<{ type: string; url: string }[]>([
+    { type: 'web', url: '' },
+    { type: 'google', url: '' },
+    { type: 'ios', url: '' },
+  ]);
 
   useEffect(() => {
     const newLinkDtos = [...addLink, ...link];
@@ -54,16 +60,10 @@ export default function DistributionLink({
     setAddLink(newAddLink);
   };
 
-  const handleChangeLinkInput = (type: string, value: string) => {
+  const handleChangeLinkInput = (index: number, value: string) => {
     const newLink = [...link];
-    if (newLink.some((item) => item.type === type)) {
-      const index = newLink.findIndex((item) => item.type === type);
-      newLink[index].url = value;
-      setLink(newLink);
-    } else {
-      const newLink = [...link, { type: type, url: value }];
-      setLink(newLink);
-    }
+    newLink[index].url = value;
+    setLink(newLink);
   };
 
   const handleChangeInput = (
@@ -106,9 +106,10 @@ export default function DistributionLink({
               type="text"
               name={item.id}
               id={item.id}
+              value={linkDtos[0].url} // 임시 나중에 index로
               placeholder={item.placeholder}
               onChange={(e) => {
-                handleChangeLinkInput(item.id, e.target.value);
+                handleChangeLinkInput(index, e.target.value);
               }}
               className="w-full h-[3.125rem] ml-2 border border-gray30 rounded-bs_5 pl-3 text-bs_14"
             />
