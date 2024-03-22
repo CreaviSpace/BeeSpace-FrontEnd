@@ -10,10 +10,14 @@ import fileUpload from '@/utils/fileUpload';
 import ImageCropper from './ImageCropper';
 
 interface IProjectBanner {
+  thumbnail: string;
   setThumbnail: (thumbnail: string) => void;
 }
 
-export default function ProjectBanner({ setThumbnail }: IProjectBanner) {
+export default function ProjectBanner({
+  thumbnail,
+  setThumbnail,
+}: IProjectBanner) {
   const [uploadImage, setUploadImage] = useState<string | null>(null);
   const [imageName, setImageName] = useState<string>('');
   const [compressedImage, setCompressedImage] = useState<string | null>(null);
@@ -51,6 +55,13 @@ export default function ProjectBanner({ setThumbnail }: IProjectBanner) {
         {compressedImage ? (
           <Image
             src={compressedImage}
+            alt="bannerImage"
+            fill
+            className="object-cover object-top rounded-bs_10"
+          />
+        ) : thumbnail ? (
+          <Image
+            src={thumbnail}
             alt="bannerImage"
             fill
             className="object-cover object-top rounded-bs_10"
