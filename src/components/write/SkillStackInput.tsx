@@ -1,13 +1,28 @@
+import { useEffect } from 'react';
+
 interface SkillStackInput {
+  techStacks?: { techStackId: number; techStack: string; iconUrl: string }[];
   techStackDtos: { techStackId: number }[];
   setTechStackDtos: (techStackDtos: { techStackId: number }[]) => void;
 }
 
 export default function SkillStackInput({
+  techStacks,
   techStackDtos,
   setTechStackDtos,
 }: SkillStackInput) {
-  const data = [{ skill: 'React', id: 1 }];
+  const data = [{ techStack: 'React', techStackId: 1, iconUrl: '' }];
+
+  useEffect(() => {
+    if (techStacks && techStacks.length > 0) {
+      const teachStackDtos: { techStackId: number }[] = [];
+      techStacks.map((item) => {
+        teachStackDtos.push({ techStackId: item.techStackId });
+      });
+
+      setTechStackDtos(teachStackDtos);
+    }
+  }, [techStacks]);
 
   const handleTechStackDtosPush = (id: number) => {
     if (techStackDtos.some((item) => item.techStackId === 0)) {
@@ -29,20 +44,20 @@ export default function SkillStackInput({
       <ul className="relative rounded-bs_5 overflow-hidden border border-gray10  bg-white z-[10]">
         {data.map((item) => (
           <li
-            key={item.id}
+            key={item.techStackId}
             className="w-full h-[3.125rem] p-[0.625rem] hover:bg-gray10 flex items-center"
             datatype="0"
             onClick={() => {
-              handleTechStackDtosPush(item.id);
+              handleTechStackDtosPush(item.techStackId);
             }}>
-            {item.skill}
+            {item.techStack}
           </li>
         ))}
       </ul>
 
       <ul className="flex mt-5">
         {techStackDtos?.map((item, index) => {
-          if (item.techStackId === data[index].id) {
+          if (item.techStackId === data[index].techStackId) {
             return (
               <li
                 key={item.techStackId}
