@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import OnoffButton from '@/components/button/OnOffButton';
+import useProjectDetail from '@/hooks/useProjectDetail';
 import useWritePost from '@/hooks/useWritePost';
 import useProjectData from '@/store/useProjectData';
 
@@ -21,7 +22,11 @@ const TextEditor = dynamic(
   { ssr: false }
 );
 
-export default function ProjectWrite() {
+interface IProjectWriteProps {
+  id: string | undefined;
+}
+
+export default function ProjectWrite({ id }: IProjectWriteProps) {
   const {
     category,
     title,
@@ -63,7 +68,33 @@ export default function ProjectWrite() {
     bannerContent,
   };
 
-  const { mutate } = useWritePost('project', projectData);
+  const { mutate: projectPost } = useWritePost('project', projectData);
+
+  const { isLoading, isError, data, isFetching } = useProjectDetail(id);
+
+  useEffect(() => {
+    if (!isLoading && id) {
+      setter.setCategory(data.category);
+      // setter.setMemberDtos(data.memberDtos);
+      setter.setTitle(data.title);
+      setter.setContent(data.content);
+      // setter.setTechStackDtos(data.techStackDtos);
+      setter.setfield(data.field);
+      setter.setLinkDtos(data.links);
+      setter.setThumbnail(data.thumbnail);
+      setter.setBannerContent(data.bannerContent);
+    } else {
+      setter.setCategory('individual');
+      setter.setMemberDtos([{ memberId: 0, position: 'default' }]);
+      setter.setTitle('');
+      setter.setContent('');
+      setter.setTechStackDtos([{ techStackId: 0 }]);
+      setter.setfield('');
+      setter.setLinkDtos([{ type: '', url: '' }]);
+      setter.setThumbnail('');
+      setter.setBannerContent('');
+    }
+  }, [isFetching, id]);
 
   const commnuityList = [
     { key: 'individual', name: '개인 프로젝트' },
@@ -93,7 +124,10 @@ export default function ProjectWrite() {
           </li>
           <li className="mt-14">
             <h2 className="text-bs_20 mb-5 font-bold">멤버</h2>
-            <MemberList setMemberDtos={setter.setMemberDtos} />
+            <MemberList
+              positions={!isLoading && id && data.positions}
+              setMemberDtos={setter.setMemberDtos}
+            />
           </li>
           <li className="mt-14">
             <TitleEditor title={title} setTitle={setter.setTitle} />
@@ -101,6 +135,7 @@ export default function ProjectWrite() {
           </li>
           <li className="mt-14">
             <SkillStackInput
+              techStacks={!isLoading && id && data.techStacks}
               techStackDtos={techStackDtos}
               setTechStackDtos={setter.setTechStackDtos}
             />
@@ -119,7 +154,10 @@ export default function ProjectWrite() {
             />
           </li>
           <li className="mt-14">
-            <DistributionLink setLinkDtos={setter.setLinkDtos} />
+            <DistributionLink
+              linkDtos={linkDtos}
+              setLinkDtos={setter.setLinkDtos}
+            />
           </li>
         </ul>
       </section>
@@ -127,7 +165,10 @@ export default function ProjectWrite() {
         <div className="flex justify-between mt-14 tablet:flex-col mobile:flex-col">
           <div className="mx-auto tablet:mb-36 mobile:mb-36 mobile:w-full">
             <h2 className="text-bs_20 my-5 font-bold">프로젝트 배너</h2>
-            <ProjectBanner setThumbnail={setter.setThumbnail} />
+            <ProjectBanner
+              thumbnail={thumbnail}
+              setThumbnail={setter.setThumbnail}
+            />
           </div>
           <div className="mx-auto w-full pl-10 target:pl-0 mobile:pl-0">
             <h2 className="text-bs_20 my-5 font-bold">프로젝트 소개</h2>
@@ -148,7 +189,7 @@ export default function ProjectWrite() {
             color="secondary"
             className="py-3 px-10"
             onClick={async () => {
-              mutate();
+              projectPost();
             }}>
             작성
           </CustomButton>
