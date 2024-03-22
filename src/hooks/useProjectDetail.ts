@@ -3,13 +3,13 @@ import axios from 'axios';
 
 import { getCookies } from '@/utils/getCookies';
 
-const useProjectDetail = (id: string) => {
+const useProjectDetail = (id: string | undefined) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     queryKey: [`project-${id}`],
     queryFn: async () => {
-      //   if (!id) {
-      //     return;
-      //   }
+      if (!id) {
+        return null;
+      }
 
       const respones = await axios.get(
         `${process.env.BASE_URL}/project/${id}`,
