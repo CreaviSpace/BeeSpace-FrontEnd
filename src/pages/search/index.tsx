@@ -1,18 +1,27 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import UniversalCard from '@/components/card/UniversalCard';
 import Category from '@/components/Category';
+import SkeletonUniversalCard from '@/components/skeleton/SkeletonUniversalCard';
 import useSearch from '@/hooks/useSearch';
-import { card } from '@/utils/data';
+import { IUniversalType } from '@/types/global';
 
 export default function Search() {
-  const [size, setSize] = useState(6);
-  const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(0);
+  const PAGE_SIZE = 20;
 
   const router = useRouter();
-  const { text } = router.query;
+  const { type, text } = router.query;
+
+  const [searchValue, setSearchValue] = useState('');
+  const [searchType, setSearchType] = useState('');
+
+  useEffect(() => {
+    setSearchValue(text as string);
+    setSearchType(type as string);
+  }, [text, type]);
+
   const {
     isLoading,
     isError,
@@ -20,13 +29,7 @@ export default function Search() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useSearch(size, page, text as string, 'all');
-
-  useEffect(() => {
-    data?.pages.map((page) => {
-      setPage((prev) => prev + page.length);
-    });
-  }, []);
+  } = useSearch(PAGE_SIZE, searchValue, searchType);
 
   const categories = [
     {
@@ -44,50 +47,88 @@ export default function Search() {
   ];
 
   const side = [
-    { name: '개인 프로젝트', link: '#' },
-    { name: '팀 프로젝트', link: '#' },
-    { name: '스터디', link: '#' },
-    { name: '프로젝트 모집', link: '#' },
-    { name: 'Q&A', link: '#' },
-    { name: '피드백', link: '#' },
-    { name: '고민', link: '#' },
-    { name: '수다', link: '#' },
+    { name: '개인 프로젝트', link: 'individual' },
+    { name: '팀 프로젝트', link: 'team' },
+    { name: '스터디', link: 'study' },
+    { name: '프로젝트 모집', link: 'project' },
+    { name: 'Q&A', link: 'qna' },
+    { name: '고민', link: 'worry' },
+    { name: '수다', link: 'chat' },
   ];
 
-  const sizes = [1, 2, 3, 4, 5];
+  const observer: React.MutableRefObject<IntersectionObserver | null> =
+    useRef(null);
+
+  const lastElementRef = useCallback(
+    (node: HTMLElement | null) => {
+      if (isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && !isError) {
+            fetchNextPage();
+          }
+        },
+        {
+          threshold: 0.7,
+        }
+      );
+      if (node) observer.current.observe(node);
+    },
+    [isFetchingNextPage]
+  );
 
   return (
     <main>
-      <Category category={categories} searchValue={text as string} />
+      <Category category={categories} searchValue={searchValue} />
       <div className="grid grid-cols-5 max-w-max_w m-auto py-10 tablet:grid-cols-4 mobile:grid-cols-4">
         <aside className="col-span-1 tablet:hidden mobile:hidden">
           <div className="h-[2.25rem] my-7"></div>
-          <ul className="border border-gray10 py-8 pl-5 pr-20 w-fit rounded-bs_10 fixed">
+          <ul
+            className="border border-gray10 py-8 pl-5 pr-20 w-fit rounded-bs_10 sticky 
+          top-[calc(4.6875rem_+_4rem)]">
             {side.map((item, index) => (
               <li key={`${item}-${index}`} className="py-1 text-bs_18">
-                {item.name}
+                <Link href={`/search?type=${item.link}&text=${searchValue}`}>
+                  {item.name}
+                </Link>
               </li>
             ))}
           </ul>
         </aside>
         <section className="col-span-4 mx-auto">
-          {isLoading ? (
-            '로딩중'
+          {isLoading
+            ? [1, 2, 3, 4, 5, 6].map((_, index) => (
+                <SkeletonUniversalCard size="large" key={index} />
+              ))
+            : data?.pages[0] && (
+                <>
+                  <h2 className="text-bs_34 font-bold my-5">
+                    전체 {data?.pages[0].length}
+                  </h2>
+                  {data?.pages.map((page) => {
+                    return page.map((item: IUniversalType, index: number) => (
+                      <UniversalCard
+                        key={`${item}-${index}`}
+                        id={item.id}
+                        title={item.title}
+                        content={item.bannerContent}
+                        image={item.thumbnail}
+                        postType={item.postType}
+                        size="large"
+                        className="my-5"
+                      />
+                    ));
+                  })}
+                </>
+              )}
+
+          {isFetchingNextPage ? (
+            [1, 2, 3, 4, 5, 6].map((_, index) => (
+              <SkeletonUniversalCard size="large" key={index} />
+            ))
           ) : (
-            <>
-              <h2 className="text-bs_34 font-bold my-5">전체 {totalPage}</h2>
-              {sizes.map((item, index) => (
-                <UniversalCard
-                  key={`${item}-${index}`}
-                  id={card.id}
-                  title={card.title}
-                  content={card.content}
-                  date={card.date}
-                  size="large"
-                  className="my-5"
-                />
-              ))}
-            </>
+            <div ref={lastElementRef}></div>
           )}
         </section>
       </div>

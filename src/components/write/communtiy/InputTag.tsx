@@ -1,11 +1,11 @@
 import { IoCloseOutline } from '@react-icons/all-files/io5/IoCloseOutline';
-import { SetStateAction, useRef, useState } from 'react';
+import { SetStateAction, useEffect, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 
 interface IInputTagProps {
   className?: string;
-  value?: string | string[];
+  value: string | string[];
   setValue: (value: string | string[]) => void;
 }
 
@@ -17,6 +17,14 @@ export default function InputTag({
   const [inputValue, setInputValue] = useState('');
   const [displayedValues, setDisplayedValues] = useState<string[]>([]);
   const inputRef = useRef(null);
+
+  useEffect(
+    function updateValue() {
+      const newValue = [...value];
+      setDisplayedValues(newValue);
+    },
+    [value]
+  );
 
   const handleInputChange = (e: {
     target: { value: SetStateAction<string> };

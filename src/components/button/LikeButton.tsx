@@ -7,7 +7,7 @@ interface ILikeButtonProps {
   color?: string;
   size?: number;
   className?: string;
-  id?: number;
+  id: number;
   postType: string;
 }
 
@@ -29,10 +29,10 @@ export default function LikeButton({
 
   return (
     <button type="button" onClick={handleToggleBookmark} className={className}>
-      {isLoading && data ? (
-        <FaRegHeart size={size} aria-label="북마크 비활성화" />
-      ) : (
+      {!isLoading && data?.likeStatus ? (
         <FaHeart color={color} size={size} aria-label="북마크 활성화" />
+      ) : (
+        <FaRegHeart size={size} aria-label="북마크 비활성화" />
       )}
     </button>
   );

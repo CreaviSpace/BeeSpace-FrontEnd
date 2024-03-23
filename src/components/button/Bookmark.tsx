@@ -29,14 +29,14 @@ export default function Bookmark({
 
   return (
     <button type="button" onClick={handleToggleBookmark} className={className}>
-      {isLoading && data ? (
+      {!isLoading && data?.bookmarkStatus ? (
+        <IoBookmark color={color} size={size} aria-label="활성화된 북마크" />
+      ) : (
         <IoBookmarkOutline
           color={color}
           size={size}
           aria-label="비활성화된 북마크"
         />
-      ) : (
-        <IoBookmark color={color} size={size} aria-label="활성화된 북마크" />
       )}
     </button>
   );

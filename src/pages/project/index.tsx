@@ -4,18 +4,15 @@ import Banner from '@/components/banner/Banner';
 import Category from '@/components/Category';
 import ProjectCardContainer from '@/components/container/ProjectCardContainer';
 export default function Project() {
+  const PAGE_SIZE = 20;
   const categories = [
     {
-      name: 'Android',
-      link: 'android',
+      name: '개인',
+      link: 'individual',
     },
     {
-      name: 'Ios',
-      link: 'ios',
-    },
-    {
-      name: 'Web',
-      link: 'wos',
+      name: '팀',
+      link: 'team',
     },
   ];
   const router = useRouter();
@@ -29,7 +26,7 @@ export default function Project() {
       </section>
       <Category category={categories} btnValue="프로젝트 올리기" />
       <section className="flex justify-center pt-14 pb-24">
-        <ProjectCardContainer category={type as string} />
+        <ProjectCardContainer category={type as string} size={PAGE_SIZE} />
       </section>
     </main>
   );
