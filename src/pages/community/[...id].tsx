@@ -53,7 +53,7 @@ export default function CommunityDetail() {
             </div>
             <span className="w-full border block border-gray10" />
             <div className="mt-8">
-              <CommentContainer />
+              <CommentContainer id={data.id} type={data.postType} />
             </div>
           </section>
         )

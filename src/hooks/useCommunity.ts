@@ -1,7 +1,11 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const useCommunity = (category: string, hashTag: string) => {
+const useCommunity = (
+  category: string,
+  size: number,
+  hashTag: string | undefined
+) => {
   const {
     isLoading,
     isError,
@@ -14,8 +18,9 @@ const useCommunity = (category: string, hashTag: string) => {
     queryKey: [`community-list-${category}`],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/community?size=${6}&page=${pageParam}&category=${category}&hashTag=${hashTag}`
+        `${process.env.BASE_URL}/community?size=${size}&page=${pageParam}${category !== 'all' ? `&category=${category}` : ''}${hashTag ? `&hashTag=${hashTag}` : ''}`
       );
+
       if (response.data.success) {
         return response.data.data;
       }

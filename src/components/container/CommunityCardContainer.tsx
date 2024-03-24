@@ -7,6 +7,7 @@ import { ICommunityType } from '@/types/global';
 
 interface ICommunityCardStyleProps {
   category?: string;
+  size: number;
   hashTag?: string;
   className?: string;
   isActive?: 'main' | 'default';
@@ -14,7 +15,8 @@ interface ICommunityCardStyleProps {
 
 export default function CommunityCardContainer({
   category = 'all',
-  hashTag = '',
+  size,
+  hashTag,
   isActive,
   ...restProps
 }: ICommunityCardStyleProps) {
@@ -25,7 +27,7 @@ export default function CommunityCardContainer({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useCommunity(category, hashTag);
+  } = useCommunity(category, size, hashTag);
 
   const observer: React.MutableRefObject<IntersectionObserver | null> =
     useRef(null);
