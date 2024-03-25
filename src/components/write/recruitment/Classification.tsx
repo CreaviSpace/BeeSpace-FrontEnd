@@ -9,7 +9,7 @@ export default function Classification({
   setCategory,
 }: IClassificationProps) {
   const recruitmentList = [
-    { key: 'project', name: '프로젝트' },
+    { key: 'project-recruit', name: '프로젝트' },
     { key: 'study', name: '스터디' },
   ];
 
