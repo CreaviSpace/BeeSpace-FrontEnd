@@ -4,15 +4,15 @@ import { useEffect } from 'react';
 export default function Login() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const code = new URL(window.location.href).searchParams.get('code');
-      const state = new URL(window.location.href).searchParams.get('state');
+      const token = new URL(window.location.href).searchParams.get('token');
+
       const LoginFetch = async () => {
-        const response = await axios.post(
-          `${process.env.BASE_URL}/login/naver?code=${code}&state=${state}`
+        const response = await axios.get(
+          `${process.env.BASE_URL}/login?token=${token}`
         );
 
-        if (response.data.success) {
-          document.cookie = `jwt=${response.data.data.token}; max-age=${response.data.data.expires};`;
+        if (response.data) {
+          document.cookie = `jwt=${response.data.jwt};`;
         }
       };
 
