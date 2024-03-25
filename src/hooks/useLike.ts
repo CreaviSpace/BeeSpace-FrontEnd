@@ -6,8 +6,13 @@ import { getCookies } from '@/utils/getCookies';
 
 const useLike = (id?: number, postType?: string) => {
   const { isLoading, isError, data, isFetching } = useQuery({
+    enabled: !!id,
     queryKey: [`like-${id}`],
     queryFn: async () => {
+      if (!id) {
+        return null;
+      }
+
       const response = await axios.get(
         `${process.env.BASE_URL}/like?postId=${id}&postType=${postType}`,
         {
