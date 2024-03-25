@@ -9,7 +9,7 @@ const useLike = (id?: number, postType?: string) => {
     queryKey: [`like-${id}`],
     queryFn: async () => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/like?postId=${id}&type=${postType}`,
+        `${process.env.BASE_URL}/like?postId=${id}&postType=${postType}`,
         {
           headers: { Authorization: getCookies('jwt') },
         }
@@ -26,7 +26,7 @@ const useLike = (id?: number, postType?: string) => {
   const { mutate } = useMutation({
     mutationFn: async () => {
       return await axios.post(
-        `${process.env.BASE_URL}/like?postId=${id}&type=${postType}`,
+        `${process.env.BASE_URL}/like?postId=${id}&postType=${postType}`,
         {},
         {
           headers: { Authorization: getCookies('jwt') },
