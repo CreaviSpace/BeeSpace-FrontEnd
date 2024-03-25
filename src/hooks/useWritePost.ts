@@ -11,12 +11,17 @@ const useWritePost = (
 ) => {
   const { mutate } = useMutation({
     mutationFn: async () => {
-      return await axios.post(`${process.env.BASE_URL}/${postType}`, data, {
-        headers: {
-          Authorization: getCookies('jwt'),
-        },
-      });
+      const responce = await axios.post(
+        `${process.env.BASE_URL}/${postType}`,
+        data,
+        {
+          headers: {
+            Authorization: getCookies('jwt'),
+          },
+        }
+      );
     },
+
     mutationKey: [`detail`],
 
     onSuccess: () => {

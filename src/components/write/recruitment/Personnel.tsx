@@ -1,9 +1,26 @@
+/* eslint-disable no-unused-vars */
 import { FaPlusCircle } from '@react-icons/all-files/fa/FaPlusCircle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CustomSelect from '@/components/button/CustomSelect';
-
-export default function Personnel() {
+interface IPersonnelProps {
+  amount: number;
+  setAmount: (amount: number) => void;
+  positions: { position: string; amount: number; now: number }[];
+  setPositions: (
+    positions: {
+      position: string;
+      amount: number;
+      now: number;
+    }[]
+  ) => void;
+}
+export default function Personnel({
+  amount,
+  setAmount,
+  positions,
+  setPositions,
+}: IPersonnelProps) {
   const [personnel, setPersonnel] = useState<string[]>(['default', 'default']);
   const [personnelNum, setPersonnelNum] = useState<number[]>([1, 1]);
   const [option, setOption] = useState([
@@ -13,6 +30,22 @@ export default function Personnel() {
     '기획',
   ]);
   const [optionNum] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+  useEffect(() => {
+    const newPersonnel = personnel.map((_, index) => {
+      return {
+        position: personnel[index],
+        amount: personnelNum[index],
+        now: 0,
+      };
+    });
+    setPositions(newPersonnel);
+  }, [personnel, personnelNum]);
+
+  useEffect(() => {
+    const newPersonnelNum = personnelNum.reduce((a, b) => a + b);
+    setAmount(newPersonnelNum);
+  }, [personnelNum]);
 
   const handlePersonnelPlus = () => {
     if (personnel.length < 4) {
