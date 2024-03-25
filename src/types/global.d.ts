@@ -1,5 +1,5 @@
 interface ILinksType {
-  type: string;
+  linkType: string;
   url: string;
 }
 
@@ -100,4 +100,10 @@ export interface IUniversalType {
   category: string;
   postType: string;
   links: { type: string; url: string }[];
+}
+
+export interface IquestionType {
+  question: string;
+  type: string;
+  chiceItems: string[];
 }
