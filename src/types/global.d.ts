@@ -101,3 +101,11 @@ export interface IUniversalType {
   postType: string;
   links: { type: string; url: string }[];
 }
+export interface ICommentContainerTypes {
+  id: number;
+  memberId: number;
+  memberNickName: string;
+  memberProfileUrl: string;
+  modifiedDate: string;
+  content: string;
+}
