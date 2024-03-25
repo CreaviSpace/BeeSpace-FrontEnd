@@ -2,9 +2,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+import useLoginModal from '@/store/useLoginModal';
 import { getCookies } from '@/utils/getCookies';
 
 const useLike = (id?: number, postType?: string) => {
+  const { onOpen } = useLoginModal();
+
   const { isLoading, isError, data, isFetching } = useQuery({
     enabled: !!id,
     queryKey: [`like-${id}`],
@@ -30,6 +33,12 @@ const useLike = (id?: number, postType?: string) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: async () => {
+      const token = getCookies('jwt');
+
+      if (!token) {
+        return onOpen();
+      }
+
       return await axios.post(
         `${process.env.BASE_URL}/like?postId=${id}&postType=${postType}`,
         {},
