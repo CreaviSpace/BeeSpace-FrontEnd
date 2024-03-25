@@ -7,7 +7,7 @@ import useReconfirmModal from '@/store/useReconfirmModal';
 import useReportModal from '@/store/useReportModal';
 
 interface IDetailsTitleProps {
-  type?: string;
+  type: string;
   time: string;
   views: number;
   title: string;
@@ -30,7 +30,13 @@ export default function DetailsTitle({
   id,
 }: IDetailsTitleProps) {
   const { onOpen: reportOpen } = useReportModal();
-  const { onOpen: reconfirmOpen } = useReconfirmModal();
+  const { onOpen: reconfirmOpen, setPostType, setId } = useReconfirmModal();
+
+  const handleDelete = () => {
+    setId(id);
+    setPostType(type);
+    reconfirmOpen();
+  };
 
   return (
     <div className="w-full h-fit flex flex-col items-center max-w-max_w m-auto">
@@ -60,7 +66,7 @@ export default function DetailsTitle({
         <span className="mx-2" aria-hidden>
           &#124;
         </span>
-        <button onClick={reconfirmOpen}>삭제</button>
+        <button onClick={handleDelete}>삭제</button>
         <span className="mx-2" aria-hidden>
           &#124;
         </span>
