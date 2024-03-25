@@ -16,15 +16,6 @@ export default function RecruitmentDetail() {
     id as string
   );
 
-  // const commonDetailsProps = {
-  //   className: 'hidden',
-  //   time: data.modifiedDate,
-  //   views: data.viewCount,
-  //   title: data.title,
-  //   likes: data.comment,
-  //   userName: data.name,
-  // };
-
   return (
     <main className="h-full gap-5 max-w-max_w m-auto py-10 px-16 relative">
       <section className="m-auto max-w-max_w mb-5">

@@ -1,10 +1,12 @@
-import { useState } from 'react';
-
 import OnoffButton from '@/components/button/OnOffButton';
-
-export default function OnOffLine() {
-  const [onoffLine, setOnoffLine] = useState('on');
-
+interface IOnOffLineProps {
+  proceedWay: string;
+  setProceedWay: (contactWay: string) => void;
+}
+export default function OnOffLine({
+  proceedWay,
+  setProceedWay,
+}: IOnOffLineProps) {
   const onoffList = [
     { key: 'on', name: '온라인' },
     { key: 'off', name: '오프라인' },
@@ -13,7 +15,11 @@ export default function OnOffLine() {
   return (
     <>
       <h2 className="text-bs_20 my-5">진행 방식</h2>
-      <OnoffButton value={onoffLine} setValue={setOnoffLine} list={onoffList} />
+      <OnoffButton
+        value={proceedWay}
+        setValue={setProceedWay}
+        list={onoffList}
+      />
     </>
   );
 }

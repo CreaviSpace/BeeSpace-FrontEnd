@@ -2,11 +2,11 @@ import { create } from 'zustand';
 
 interface IRecruitBody {
   category: string;
+  amount: number;
+  workDay: number;
   contact: string;
   contactWay: string;
-  amount: number;
   proceedWay: string;
-  workDay: number;
   end: string;
   title: string;
   content: string;
@@ -36,11 +36,11 @@ interface IRecruitBody {
 }
 
 const useRecruitData = create<IRecruitBody>((set) => ({
-  category: '',
+  category: 'project',
   contact: '',
   contactWay: '',
   amount: 0,
-  proceedWay: '',
+  proceedWay: 'on',
   workDay: 0,
   end: '',
   title: '',

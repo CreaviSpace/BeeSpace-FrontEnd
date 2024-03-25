@@ -2,9 +2,13 @@ import 'react-day-picker/dist/style.css';
 
 import { FaRegCalendarAlt } from '@react-icons/all-files/fa/FaRegCalendarAlt';
 import { format } from 'date-fns';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
-export default function Deadline() {
+interface IDeadlineProps {
+  end: string;
+  setEnd: (end: string) => void;
+}
+export default function Deadline({ end, setEnd }: IDeadlineProps) {
   const today = new Date();
   const [selected, setSelected] = useState<Date | undefined>(today);
   const [isCalendarToggle, setIsCalendarToggle] = useState(true);
@@ -13,6 +17,18 @@ export default function Deadline() {
   const handleCalendarToggle = () => {
     setIsCalendarToggle(!isCalendarToggle);
   };
+
+  useEffect(() => {
+    // const dateString = selected?.toString();
+    if (selected !== undefined) {
+      const year = selected.getFullYear();
+      const month = selected.getMonth() + 1;
+      const day = selected.getDate();
+      const monthPad = month.toString().padStart(2, '0');
+      const selectDate = `${year}-${monthPad}-${day}`;
+      setEnd(selectDate);
+    }
+  }, [selected]);
 
   return (
     <>

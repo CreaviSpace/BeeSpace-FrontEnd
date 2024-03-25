@@ -1,10 +1,13 @@
-import { useState } from 'react';
-
 import OnoffButton from '@/components/button/OnOffButton';
 
-export default function Classification() {
-  const [recruitment, setRecruitment] = useState('project');
-
+interface IClassificationProps {
+  category: string;
+  setCategory: (category: string) => void;
+}
+export default function Classification({
+  category,
+  setCategory,
+}: IClassificationProps) {
   const recruitmentList = [
     { key: 'project', name: '프로젝트' },
     { key: 'study', name: '스터디' },
@@ -14,8 +17,8 @@ export default function Classification() {
     <>
       <h2 className="text-bs_20 my-5">모집 분류</h2>
       <OnoffButton
-        value={recruitment}
-        setValue={setRecruitment}
+        value={category}
+        setValue={setCategory}
         list={recruitmentList}
       />
     </>

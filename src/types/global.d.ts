@@ -107,3 +107,11 @@ export interface IquestionType {
   type: string;
   chiceItems: string[];
 }
+export interface ICommentContainerTypes {
+  id: number;
+  memberId: number;
+  memberNickName: string;
+  memberProfileUrl: string;
+  modifiedDate: string;
+  content: string;
+}
