@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 
 interface IDistributionLinkProps {
   className?: string;
-  linkDtos: { type: string; url: string }[];
-  setLinkDtos: (linkDtos: { type: string; url: string }[]) => void;
+  linkDtos: { linkType: string; url: string }[];
+  setLinkDtos: (linkDtos: { linkType: string; url: string }[]) => void;
 }
 
 export default function DistributionLink({
@@ -16,11 +16,13 @@ export default function DistributionLink({
   linkDtos,
   setLinkDtos,
 }: IDistributionLinkProps) {
-  const [addLink, setAddLink] = useState<{ type: string; url: string }[]>([]);
-  const [link, setLink] = useState<{ type: string; url: string }[]>([
-    { type: 'web', url: '' },
-    { type: 'google', url: '' },
-    { type: 'ios', url: '' },
+  const [addLink, setAddLink] = useState<{ linkType: string; url: string }[]>(
+    []
+  );
+  const [link, setLink] = useState<{ linkType: string; url: string }[]>([
+    { linkType: 'web', url: '' },
+    { linkType: 'google', url: '' },
+    { linkType: 'ios', url: '' },
   ]);
 
   useEffect(() => {
@@ -30,7 +32,7 @@ export default function DistributionLink({
 
   const handleAddLink = () => {
     if (addLink.length < 5) {
-      setAddLink([...addLink, { type: 'default', url: 'default' }]);
+      setAddLink([...addLink, { linkType: 'default', url: 'default' }]);
     }
   };
 
@@ -72,7 +74,7 @@ export default function DistributionLink({
     inputType: string
   ) => {
     const newAddLink = [...addLink];
-    if (inputType === 'type') newAddLink[index].type = value;
+    if (inputType === 'type') newAddLink[index].linkType = value;
     else if (inputType === 'url') newAddLink[index].url = value;
     setAddLink(newAddLink);
   };
@@ -106,7 +108,7 @@ export default function DistributionLink({
               type="text"
               name={item.id}
               id={item.id}
-              value={linkDtos[0].url} // 임시 나중에 index로
+              value={link[index].url} // 임시 나중에 index로
               placeholder={item.placeholder}
               onChange={(e) => {
                 handleChangeLinkInput(index, e.target.value);
@@ -129,7 +131,9 @@ export default function DistributionLink({
                 id="siteLink"
                 placeholder="배포 또는 참고 사이트 이름"
                 value={
-                  addLink[index].type === 'default' ? '' : addLink[index].type
+                  addLink[index].linkType === 'default'
+                    ? ''
+                    : addLink[index].linkType
                 }
                 onChange={(e) => {
                   handleChangeInput(index, e.target.value, 'type');

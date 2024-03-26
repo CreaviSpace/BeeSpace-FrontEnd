@@ -58,7 +58,7 @@ export default function ProjectCard({ item, tagName }: IProjectCardProps) {
           {item.links?.map((item, index) => (
             <li key={`${item}-${index}`}>
               <Link href={item.url}>
-                <Icons icon={item.type} />
+                <Icons icon={item.linkType} />
               </Link>
             </li>
           ))}
