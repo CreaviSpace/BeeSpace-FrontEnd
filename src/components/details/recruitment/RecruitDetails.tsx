@@ -19,21 +19,33 @@ export default function RecruitDetails({
   end,
 }: IRecruitDetailsProps) {
   const recruitmentDetails = [
-    { label: '모집 구분', value: category },
+    {
+      label: '모집 구분',
+      value: category.includes('project-recruit') ? '프로젝트' : '스터디',
+    },
     {
       label: '연락 방법',
-      value: contact.includes('https://docs.google.com/forms/')
+      value: contactWay.includes('google-form')
         ? '구글폼'
-        : contact.includes('https://open.kakao.com/')
-          ? '오픈카톡'
-          : contactWay,
+        : contactWay.includes('opentalk')
+          ? '오픈톡'
+          : contactWay.includes('email')
+            ? '이메일'
+            : null,
       className: 'underline underline-offset-2 decoration-gray-400',
     },
     { label: '모집 인원', value: `${amount}명` },
   ];
 
   const progressDetails = [
-    { label: '진행 방식', value: proceedWay },
+    {
+      label: '진행 방식',
+      value: proceedWay.includes('online')
+        ? '온라인'
+        : proceedWay.includes('offline')
+          ? '오프라인'
+          : '온/오프라인',
+    },
     { label: '진행 기간', value: `${workDay}개월` },
     { label: '모집 마감', value: end },
   ];
