@@ -115,3 +115,9 @@ export interface ICommentContainerTypes {
   modifiedDate: string;
   content: string;
 }
+
+export interface ITechStackType {
+  techStackId: number;
+  techStack: string;
+  techStackIcon: string;
+}
