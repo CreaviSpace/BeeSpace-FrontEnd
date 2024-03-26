@@ -78,7 +78,7 @@ export interface IProjectBody {
   }[];
   field: string;
   linkDtos: {
-    type: string;
+    linkType: string;
     url: string;
   }[];
   thumbnail: string;
