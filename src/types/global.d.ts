@@ -78,7 +78,7 @@ export interface IProjectBody {
   }[];
   field: string;
   linkDtos: {
-    type: string;
+    linkType: string;
     url: string;
   }[];
   thumbnail: string;
@@ -114,4 +114,10 @@ export interface ICommentContainerTypes {
   memberProfileUrl: string;
   modifiedDate: string;
   content: string;
+}
+
+export interface ITechStackType {
+  techStackId: number;
+  techStack: string;
+  techStackIcon: string;
 }

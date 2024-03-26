@@ -20,8 +20,15 @@ export default function InputTag({
 
   useEffect(
     function updateValue() {
-      const newValue = [...value];
-      setDisplayedValues(newValue);
+      if (value) {
+        if (typeof value === 'string') {
+          const newValue = [value];
+          setDisplayedValues(newValue);
+        } else if (typeof value === 'object') {
+          const newValue = [...value];
+          setDisplayedValues(newValue);
+        }
+      }
     },
     [value]
   );
@@ -71,8 +78,6 @@ export default function InputTag({
     );
     setValue(displayedValues.filter((_, i) => i !== index));
   };
-
-  // useEffect(() => {}, [displayedValues]);
 
   return (
     <div className={`${className} w-full`}>

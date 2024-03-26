@@ -5,6 +5,7 @@ import CustomButton from '@/components/button/CustomButton';
 import OnoffButton from '@/components/button/OnOffButton';
 import useProjectDetail from '@/hooks/useProjectDetail';
 import useWritePost from '@/hooks/useWritePost';
+import useWriteUpdate from '@/hooks/useWriteUpdate';
 import useProjectData from '@/store/useProjectData';
 
 import InputTag from './communtiy/InputTag';
@@ -49,40 +50,46 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
   // memberId랑 teachStackId는 테스트 용
   const projectData = {
     category,
-    memberDtos: [
-      {
-        memberId: 1,
-        position: 'frontend',
-      },
-    ],
+    memberDtos,
     title,
     content,
-    techStackDtos: [
-      {
-        techStackId: 1,
-      },
-    ],
+    techStackDtos,
     field,
     linkDtos,
     thumbnail,
     bannerContent,
   };
 
-  const { mutate: projectPost } = useWritePost('project', projectData);
-
   const { isLoading, isError, data, isFetching } = useProjectDetail(id);
+  const { mutate: projectPost } = useWritePost('project', projectData);
+  const { mutate: projectUpdate } = useWriteUpdate(
+    parseInt(id as string),
+    'project',
+    projectData
+  );
 
   useEffect(() => {
     if (!isLoading && id) {
       setter.setCategory(data.category);
-      // setter.setMemberDtos(data.memberDtos);
       setter.setTitle(data.title);
       setter.setContent(data.content);
-      // setter.setTechStackDtos(data.techStackDtos);
-      setter.setfield(data.field);
+      setter.setfield(data.field || '');
       setter.setLinkDtos(data.links);
       setter.setThumbnail(data.thumbnail);
       setter.setBannerContent(data.bannerContent);
+      if (data.techStacks && data.techStacks.length > 0) {
+        const teachStackDtos: { techStackId: number }[] = [];
+        data.techStacks.map(
+          (item: {
+            techStackId: number;
+            techStack: string;
+            iconUrl: string;
+          }) => {
+            teachStackDtos.push({ techStackId: item.techStackId });
+          }
+        );
+        setter.setTechStackDtos(teachStackDtos);
+      }
     } else {
       setter.setCategory('individual');
       setter.setMemberDtos([{ memberId: 0, position: 'default' }]);
@@ -90,7 +97,7 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
       setter.setContent('');
       setter.setTechStackDtos([{ techStackId: 0 }]);
       setter.setfield('');
-      setter.setLinkDtos([{ type: '', url: '' }]);
+      setter.setLinkDtos([{ linkType: '', url: '' }]);
       setter.setThumbnail('');
       setter.setBannerContent('');
     }
@@ -135,7 +142,6 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
           </li>
           <li className="mt-14">
             <SkillStackInput
-              techStacks={!isLoading && id && data.techStacks}
               techStackDtos={techStackDtos}
               setTechStackDtos={setter.setTechStackDtos}
             />
@@ -149,7 +155,7 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
             </h2>
             {/* 중복 처리 필요 */}
             <InputTag
-              value={field}
+              value={field as string}
               setValue={setter.setfield as (value: string | string[]) => void}
             />
           </li>
@@ -189,7 +195,11 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
             color="secondary"
             className="py-3 px-10"
             onClick={async () => {
-              projectPost();
+              if (id && data.id) {
+                projectUpdate();
+              } else {
+                projectPost();
+              }
             }}>
             작성
           </CustomButton>
