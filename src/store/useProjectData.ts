@@ -9,7 +9,7 @@ interface IProjectBody {
   bannerContent: string;
   memberDtos: { memberId: number; position: string }[];
   techStackDtos: { techStackId: number }[];
-  linkDtos: { type: string; url: string }[];
+  linkDtos: { linkType: string; url: string }[];
   setter: {
     setCategory: (category: string) => void;
     setTitle: (title: string) => void;
@@ -19,7 +19,7 @@ interface IProjectBody {
     setMemberDtos: (
       memberDtos: { memberId: number; position: string }[]
     ) => void;
-    setLinkDtos: (linkDtos: { type: string; url: string }[]) => void;
+    setLinkDtos: (linkDtos: { linkType: string; url: string }[]) => void;
     setThumbnail: (thumbnail: string) => void;
     setBannerContent: (bannerContent: string) => void;
   };
@@ -34,7 +34,7 @@ const useProjectData = create<IProjectBody>((set) => ({
   bannerContent: '',
   memberDtos: [{ memberId: 0, position: '' }],
   techStackDtos: [{ techStackId: 0 }],
-  linkDtos: [{ type: '', url: '' }],
+  linkDtos: [{ linkType: '', url: '' }],
   setter: {
     setCategory: (category: string) => set(() => ({ category: category })),
     setTitle: (title: string) => set(() => ({ title: title })),
@@ -44,7 +44,7 @@ const useProjectData = create<IProjectBody>((set) => ({
       set(() => ({ memberDtos: memberDtos })),
     setTechStackDtos: (techStackDtos: { techStackId: number }[]) =>
       set(() => ({ techStackDtos: techStackDtos })),
-    setLinkDtos: (linkDtos: { type: string; url: string }[]) =>
+    setLinkDtos: (linkDtos: { linkType: string; url: string }[]) =>
       set(() => ({ linkDtos: linkDtos })),
     setThumbnail: (thumbnail: string) => set(() => ({ thumbnail: thumbnail })),
     setBannerContent: (bannerContent: string) =>
