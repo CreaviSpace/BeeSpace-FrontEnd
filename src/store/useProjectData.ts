@@ -34,7 +34,11 @@ const useProjectData = create<IProjectBody>((set) => ({
   bannerContent: '',
   memberDtos: [{ memberId: 0, position: '' }],
   techStackDtos: [{ techStackId: 0 }],
-  linkDtos: [{ linkType: '', url: '' }],
+  linkDtos: [
+    { linkType: 'web', url: '' },
+    { linkType: 'android', url: '' },
+    { linkType: 'ios', url: '' },
+  ],
   setter: {
     setCategory: (category: string) => set(() => ({ category: category })),
     setTitle: (title: string) => set(() => ({ title: title })),
