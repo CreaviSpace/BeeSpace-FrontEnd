@@ -1,4 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+import useSkillStackSearch from '@/hooks/useSkillStackSearch';
+import { ITechStackType } from '@/types/global';
 
 interface SkillStackInput {
   techStacks?: { techStackId: number; techStack: string; iconUrl: string }[];
@@ -11,7 +14,8 @@ export default function SkillStackInput({
   techStackDtos,
   setTechStackDtos,
 }: SkillStackInput) {
-  const data = [{ techStack: 'React', techStackId: 1, iconUrl: '' }];
+  const [text, setText] = useState('');
+  const { isLoading, isError, data } = useSkillStackSearch(text);
 
   useEffect(() => {
     if (techStacks && techStacks.length > 0) {
@@ -38,33 +42,39 @@ export default function SkillStackInput({
       <input
         type="text"
         placeholder={`입력해주세요.`}
+        value={text}
+        onChange={(e) => {
+          setText(e.target.value);
+        }}
         className="w-full h-[3.125rem] px-5 border border-gary10 rounded-bs_5"
       />
 
       <ul className="relative rounded-bs_5 overflow-hidden border border-gray10  bg-white z-[10]">
-        {data.map((item) => (
-          <li
-            key={item.techStackId}
-            className="w-full h-[3.125rem] p-[0.625rem] hover:bg-gray10 flex items-center"
-            datatype="0"
-            onClick={() => {
-              handleTechStackDtosPush(item.techStackId);
-            }}>
-            {item.techStack}
-          </li>
-        ))}
+        {!isLoading
+          ? '로딩중'
+          : data?.length > 0 &&
+            data?.map((item: ITechStackType) => (
+              <li
+                key={item.techStackId}
+                className="w-full h-[3.125rem] p-[0.625rem] hover:bg-gray10 flex items-center"
+                datatype="0"
+                onClick={() => {
+                  handleTechStackDtosPush(item.techStackId);
+                }}>
+                {item.techStack}
+              </li>
+            ))}
       </ul>
 
-      <ul className="flex mt-5">
-        {techStackDtos?.map((item, index) => {
-          if (item.techStackId === data[index].techStackId) {
-            return (
+      <ul className="flex mt-5 gap-2">
+        {!isLoading
+          ? '로딩중'
+          : data?.length > 0 &&
+            techStackDtos?.map((item) => (
               <li
                 key={item.techStackId}
                 className="w-10 h-10 rounded-full border border-gray10"></li>
-            );
-          }
-        })}
+            ))}
       </ul>
     </>
   );
