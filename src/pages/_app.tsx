@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <ReportModal />
           <LogInModal />
           <SignUpModal />
-          <ReconfirmModal value="계정" />
+          <ReconfirmModal />
           <SearchErrorModal />
           <Component {...pageProps} />
           <Footer />
