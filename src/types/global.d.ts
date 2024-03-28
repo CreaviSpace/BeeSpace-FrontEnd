@@ -70,7 +70,7 @@ export interface IRecruitBody {
     now: number;
   }[];
   techStacks: {
-    tackStackId: number;
+    techStackId: number;
   }[];
 }
 
