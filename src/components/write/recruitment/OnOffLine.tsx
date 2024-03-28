@@ -10,7 +10,7 @@ export default function OnOffLine({
   const onoffList = [
     { key: 'online', name: '온라인' },
     { key: 'offline', name: '오프라인' },
-    { key: 'on-offline', name: '온라인/오프라인' },
+    { key: 'on-offline', name: '온/오프라인' },
   ];
   return (
     <>
