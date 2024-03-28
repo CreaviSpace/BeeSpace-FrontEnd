@@ -3,12 +3,21 @@ interface ILinksType {
   url: string;
 }
 
+export interface IBannerItem {
+  id: number;
+  postType: string;
+  title: string;
+  thumbnail?: string;
+  category: string;
+  bannerContent: string;
+}
+
 export interface IProjectType {
   id: number;
   postType: string;
   category: string;
   title: string;
-  links: ILinksType[];
+  links?: ILinksType[];
   thumbnail: string;
   bannerContent: string;
 }
@@ -120,4 +129,9 @@ export interface ITechStackType {
   techStackId: number;
   techStack: string;
   techStackIcon: string;
+}
+export interface IPositionsType {
+  position: string;
+  now: number;
+  amount: number;
 }
