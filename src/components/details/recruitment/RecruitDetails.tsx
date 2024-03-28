@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import RecruitContactLink from './RecruitContactLink';
 
 interface IRecruitDetailsProps {
   category: string;
@@ -29,10 +29,7 @@ export default function RecruitDetails({
         ? '구글폼'
         : contactWay.includes('opentalk')
           ? '오픈톡'
-          : contactWay.includes('email')
-            ? '이메일'
-            : null,
-      className: 'underline underline-offset-2 decoration-gray-400',
+          : '이메일',
     },
     { label: '모집 인원', value: `${amount}명` },
   ];
@@ -59,14 +56,10 @@ export default function RecruitDetails({
               <div className="flex justify-between">
                 <div className="flex-1 font-bold">{item.label}</div>
                 {item.label === '연락 방법' ? (
-                  <div className={`flex-1 ${item.className}`}>
-                    <Link
-                      href={contact}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      {item.value}
-                    </Link>
-                  </div>
+                  <RecruitContactLink
+                    contact={contact}
+                    contactWay={item.value}
+                  />
                 ) : (
                   <div className={`flex-1`}>{item.value}</div>
                 )}
