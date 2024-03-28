@@ -9,7 +9,7 @@ const useCommentGetPost = (id: number, type: string, content: string) => {
     queryKey: [`comment-${id}`],
     queryFn: async () => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/comment?postId=${id}&type=${type}`
+        `${process.env.BASE_URL}/comment?postId=${id}&postType=${type}`
       );
 
       if (!response.data.success) {
@@ -24,7 +24,7 @@ const useCommentGetPost = (id: number, type: string, content: string) => {
   const { mutate } = useMutation({
     mutationFn: async () => {
       return await axios.post(
-        `${process.env.BASE_URL}/comment?postId=${id}&type=${type}`,
+        `${process.env.BASE_URL}/comment?postId=${id}&postType=${type}`,
         { content: content },
         { headers: { Authorization: getCookies('jwt') } }
       );
