@@ -1,32 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import useSkillStackSearch from '@/hooks/useSkillStackSearch';
 import { ITechStackType } from '@/types/global';
 
 interface SkillStackInput {
-  techStacks?: { techStackId: number; techStack: string; iconUrl: string }[];
   techStackDtos: { techStackId: number }[];
   setTechStackDtos: (techStackDtos: { techStackId: number }[]) => void;
 }
 
 export default function SkillStackInput({
-  techStacks,
   techStackDtos,
   setTechStackDtos,
 }: SkillStackInput) {
   const [text, setText] = useState('');
   const { isLoading, isError, data } = useSkillStackSearch(text);
-
-  useEffect(() => {
-    if (techStacks && techStacks.length > 0) {
-      const teachStackDtos: { techStackId: number }[] = [];
-      techStacks.map((item) => {
-        teachStackDtos.push({ techStackId: item.techStackId });
-      });
-
-      setTechStackDtos(teachStackDtos);
-    }
-  }, [techStacks]);
 
   const handleTechStackDtosPush = (id: number) => {
     if (techStackDtos.some((item) => item.techStackId === 0)) {
@@ -67,14 +54,11 @@ export default function SkillStackInput({
       </ul>
 
       <ul className="flex mt-5 gap-2">
-        {!isLoading
-          ? '로딩중'
-          : data?.length > 0 &&
-            techStackDtos?.map((item) => (
-              <li
-                key={item.techStackId}
-                className="w-10 h-10 rounded-full border border-gray10"></li>
-            ))}
+        {techStackDtos?.map((item) => (
+          <li
+            key={item.techStackId}
+            className="w-10 h-10 rounded-full border border-gray10"></li>
+        ))}
       </ul>
     </>
   );
