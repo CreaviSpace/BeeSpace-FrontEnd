@@ -8,9 +8,9 @@ export default function OnOffLine({
   setProceedWay,
 }: IOnOffLineProps) {
   const onoffList = [
-    { key: 'on', name: '온라인' },
-    { key: 'off', name: '오프라인' },
-    { key: 'on/off', name: '온라인/오프라인' },
+    { key: 'online', name: '온라인' },
+    { key: 'offline', name: '오프라인' },
+    { key: 'on-offline', name: '온/오프라인' },
   ];
   return (
     <>

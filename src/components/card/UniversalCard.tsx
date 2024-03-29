@@ -53,7 +53,9 @@ export default function UniversalCard({
         )}
         <ul className={`${image ? 'w-[70%] ' : 'w-full'} p-10`}>
           <li className="text-bs_24">{title}</li>
-          <li className="text-bs_16 my-1 line-clamp-3">{content}</li>
+          <li
+            className="text-bs_16 my-1 line-clamp-3"
+            dangerouslySetInnerHTML={{ __html: content }}></li>
           {date && <li className="text-bs_16 text-gray10">{date}</li>}
         </ul>
       </Link>

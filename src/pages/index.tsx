@@ -13,7 +13,7 @@ export default function Home() {
       <Banner postType="project" />
       <div className="h-fit mx-auto py-16">
         <section className="max-w-max_w h-fit grid grid-cols-2 mx-auto mt-10 tablet:grid-cols-1 mobile:grid-cols-1">
-          <PopularProject />
+          <PopularProject postType="project" />
           <DeadLineContainer />
         </section>
         <section className="max-w-max_w mx-auto mt-10">
@@ -23,7 +23,7 @@ export default function Home() {
               더 보기
             </Link>
           </div>
-          <ProjectCardContainer />
+          <ProjectCardContainer size={6} category="all" />
         </section>
         <section className="w-screen bg-[#F2F2F2] py-10 mt-10 min-w-min_w">
           <div className="max-w-max_w mx-auto">
@@ -35,7 +35,7 @@ export default function Home() {
                 더 보기
               </Link>
             </div>
-            <RecruitmentCardContainer />
+            <RecruitmentCardContainer size={6} />
           </div>
         </section>
         <section className="max-w-max_w mx-auto mt-10">
@@ -45,7 +45,7 @@ export default function Home() {
               더 보기
             </Link>
           </div>
-          <CommunityCardContainer isActive="main" />
+          <CommunityCardContainer isActive="main" size={2} />
         </section>
       </div>
     </main>

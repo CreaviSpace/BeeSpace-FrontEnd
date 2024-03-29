@@ -15,7 +15,7 @@ const useCommentPutDelete = (
   const { mutate: mutateDelete } = useMutation({
     mutationFn: async () => {
       return await axios.delete(
-        `${process.env.BASE_URL}/comment/${id}?type=${type}`,
+        `${process.env.BASE_URL}/comment/${id}?postType=${type}`,
         {
           headers: { Authorization: getCookies('jwt') },
         }
@@ -34,7 +34,7 @@ const useCommentPutDelete = (
       if (!content) return null;
 
       return await axios.put(
-        `${process.env.BASE_URL}/comment/${id}?type=${type}`,
+        `${process.env.BASE_URL}/comment/${id}?postType=${type}`,
         { content: content },
         {
           headers: { Authorization: getCookies('jwt') },

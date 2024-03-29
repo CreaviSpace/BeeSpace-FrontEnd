@@ -26,14 +26,8 @@ export default function CommunityWrite({ id }: ICommunityWriteProps) {
   const commnuityList = [
     { key: 'qna', name: 'QnA' },
     { key: 'chat', name: '수다' },
-    { key: 'worry', name: '고민' },
+    { key: 'concern', name: '고민' },
   ];
-
-  useEffect(() => {
-    if (!category) {
-      setter.setCategory('qna');
-    }
-  }, []);
 
   const { category, title, content, hashTags, setter } = useCommunityData();
 
@@ -43,12 +37,6 @@ export default function CommunityWrite({ id }: ICommunityWriteProps) {
     content: content,
     hashTags: hashTags,
   };
-
-  useEffect(() => {
-    if (!category) {
-      setter.setCategory('qna');
-    }
-  }, []);
 
   const { mutate } = useWritePost('community', communityData);
   const { isLoading, isError, data, isFetching } = useCommunityDetail(id);
@@ -64,7 +52,7 @@ export default function CommunityWrite({ id }: ICommunityWriteProps) {
       });
       setter.setHashTags(hashTags);
     } else {
-      setter.setCategory('');
+      setter.setCategory('qna');
       setter.setTitle('');
       setter.setContent('');
       setter.setHashTags([]);
@@ -79,7 +67,8 @@ export default function CommunityWrite({ id }: ICommunityWriteProps) {
         </h1>
         <ul className="my-20">
           <li className="mt-14">
-            <h2 className="text-bs_20 mb-5 font-bold">카테고리 분류</h2>
+            <h2 className="text-bs_20 mb-5 font-bold">커뮤니티 분류</h2>
+
             <OnoffButton
               value={category}
               setValue={setter.setCategory}
