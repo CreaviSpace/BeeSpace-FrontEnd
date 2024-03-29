@@ -29,7 +29,7 @@ export default function Search() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useSearch(PAGE_SIZE, searchValue, searchType);
+  } = useSearch(PAGE_SIZE, searchValue as string, searchType as string);
 
   const categories = [
     {
@@ -50,9 +50,9 @@ export default function Search() {
     { name: '개인 프로젝트', link: 'individual' },
     { name: '팀 프로젝트', link: 'team' },
     { name: '스터디', link: 'study' },
-    { name: '프로젝트 모집', link: 'project' },
+    { name: '프로젝트 모집', link: 'project-recruit' },
     { name: 'Q&A', link: 'qna' },
-    { name: '고민', link: 'worry' },
+    { name: '고민', link: 'concern' },
     { name: '수다', link: 'chat' },
   ];
 
