@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 
-import { IquestionType } from '@/types/global';
+import { IQuestionType } from '@/types/global';
 
 interface IQuestionsBody {
-  questions: IquestionType[];
+  questions: IQuestionType[];
   setQuestions: (
     questions: {
       question: string;
@@ -19,7 +19,7 @@ const useQuestionsData = create<IQuestionsBody>((set) => ({
     { question: '', questionType: '객관식', choiceItems: [''] },
     { question: '', questionType: '체크박스', choiceItems: [''] },
   ],
-  setQuestions: (questions: IquestionType[]) => set(() => ({ questions })),
+  setQuestions: (questions: IQuestionType[]) => set(() => ({ questions })),
 }));
 
 export default useQuestionsData;
