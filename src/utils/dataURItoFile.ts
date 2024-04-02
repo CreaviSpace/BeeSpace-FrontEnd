@@ -1,4 +1,4 @@
-export const dataURItoFile = (dataURI: string) => {
+export const dataURItoFile = (dataURI: string, dataName: string) => {
   const byteString = atob(dataURI.split(',')[1]);
   const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
   const ab = new ArrayBuffer(byteString.length);
@@ -7,5 +7,5 @@ export const dataURItoFile = (dataURI: string) => {
     ia[i] = byteString.charCodeAt(i);
   }
   const blob = new Blob([ab], { type: mimeString });
-  return new File([blob], 'uploadImage', { type: mimeString });
+  return new File([blob], dataName, { type: mimeString });
 };

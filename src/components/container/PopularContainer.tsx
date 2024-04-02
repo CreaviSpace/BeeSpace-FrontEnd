@@ -1,16 +1,22 @@
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 
+import useBanner from '@/hooks/useBanner';
+import { IBannerItem } from '@/types/global';
 import { TransitionEnd } from '@/utils/carousel';
-import { images } from '@/utils/data';
 
 import PopularImageCard from '../card/PopularImageCard';
 import CarouselList from '../CarouselList';
 
-export default function PopularProject() {
-  const [currentIndex, setCurrentIndex] = useState(1);
+interface IPopularProjectProps {
+  postType: string;
+}
 
+export default function PopularProject({ postType }: IPopularProjectProps) {
+  const [currentIndex, setCurrentIndex] = useState(1);
   const listRef = useRef<HTMLDivElement>(null);
+
+  const { isLoading, data, isError, isFetching } = useBanner('project');
 
   const handleTransitionEnd = () => {
     if (listRef.current) {
@@ -18,7 +24,7 @@ export default function PopularProject() {
         listRef.current,
         currentIndex,
         setCurrentIndex,
-        Math.ceil(images.length / 2)
+        Math.ceil(data.length / 2)
       );
     }
   };
@@ -31,36 +37,45 @@ export default function PopularProject() {
           더 보기
         </Link>
       </div>
-
-      <div
-        className="relative right-full flex transition-all"
-        ref={listRef}
-        onTransitionEnd={handleTransitionEnd}>
-        <PopularImageCard
-          img1={images[images.length - 2]}
-          img2={images[images.length - 1]}
-        />
-        {images.map((item, index) => {
-          if (index % 2 == 0) {
-            return (
-              <PopularImageCard
-                key={`pop-${index}`}
-                img1={images[index]}
-                img2={images[index + 1]}
-              />
-            );
-          }
-        })}
-        <PopularImageCard img1={images[0]} img2={images[1]} />
-      </div>
-
-      {listRef && (
-        <CarouselList
-          length={Math.ceil(images.length / 2)}
-          bannerAllRef={listRef}
-          currentIndex={currentIndex}
-          setCurrentIndex={setCurrentIndex}
-        />
+      {isLoading ? (
+        <></>
+      ) : (
+        <>
+          <div
+            className="relative right-full flex transition-all"
+            ref={listRef}
+            onTransitionEnd={handleTransitionEnd}>
+            <PopularImageCard
+              img1={data[data.length - 2].thumbnail}
+              img2={data[data.length - 1].thumbnail}
+            />
+            {data.map((item: IBannerItem, index: number) => {
+              if (index % 2 == 0) {
+                return (
+                  <PopularImageCard
+                    key={`pop-${index}`}
+                    img1={data[index].thumbnail}
+                    img2={data[index + 1].thumbnail}
+                    link1={`/project/${data[index].id}`}
+                    link2={`/project/${data[index + 1].id}`}
+                  />
+                );
+              }
+            })}
+            <PopularImageCard
+              img1={data[0].thumbnail}
+              img2={data[1].thumbnail}
+            />
+          </div>
+          {listRef && (
+            <CarouselList
+              length={Math.ceil(data.length / 2)}
+              bannerAllRef={listRef}
+              currentIndex={currentIndex}
+              setCurrentIndex={setCurrentIndex}
+            />
+          )}
+        </>
       )}
     </div>
   );

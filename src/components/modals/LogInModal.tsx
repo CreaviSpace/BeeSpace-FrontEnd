@@ -17,7 +17,7 @@ export default function LogInModal() {
       title: '구글',
       icon: <FcGoogle key="google" size={45} />,
       style: 'bg-white',
-      link: '/',
+      link: 'https://port-0-creavispace-backend-am952nlsse11uk.sel5.cloudtype.app/oauth2/authorization/google',
     },
     {
       title: '카카오',
@@ -43,9 +43,10 @@ export default function LogInModal() {
         />
       ),
       style: 'bg-green-500 p-3 flex',
-      link: '/',
+      link: 'https://port-0-creavispace-backend-am952nlsse11uk.sel5.cloudtype.app/oauth2/authorization/naver',
     },
   ];
+
   return (
     <Modals isOpen={isOpen} onClose={onClose}>
       <ModalCloseButton />

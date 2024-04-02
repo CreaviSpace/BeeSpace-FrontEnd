@@ -6,11 +6,15 @@ import useRecruit from '@/hooks/useRecruit';
 import { IRecruitType } from '@/types/global';
 
 interface IRecruitmentCardContainerProps {
-  postType?: string;
+  category?: string;
+  size?: number;
+  main?: string;
 }
 
 export default function RecruitmentCardContainer({
-  postType = 'all',
+  category = 'all',
+  size = 6,
+  main,
 }: IRecruitmentCardContainerProps) {
   const {
     isLoading,
@@ -19,7 +23,7 @@ export default function RecruitmentCardContainer({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useRecruit(postType);
+  } = useRecruit(category, size);
 
   const observer: React.MutableRefObject<IntersectionObserver | null> =
     useRef(null);
@@ -34,6 +38,7 @@ export default function RecruitmentCardContainer({
             fetchNextPage();
           }
         },
+
         { threshold: 0.7 }
       );
       if (node) observer.current.observe(node);
@@ -49,22 +54,19 @@ export default function RecruitmentCardContainer({
               <SkeletonRecruitmentCard key={`${item}-${index}`} />
             ))
           : data?.pages.map((pages: IRecruitType[]) => {
-              return pages.map((item, index) => {
-                if (pages.length === index + 1) {
-                  return (
-                    <div ref={lastElementRef} key={`${item}-${index}`}>
-                      <RecruitmentCard item={item} />
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div key={`${item}-${index}`}>
-                      <RecruitmentCard item={item} />
-                    </div>
-                  );
-                }
-              });
+              return pages?.map((item, index) => (
+                <div key={`${item}-${index}`}>
+                  <RecruitmentCard item={item} type="recruitment" />
+                </div>
+              ));
             })}
+        {isFetchingNextPage ? (
+          [1, 2, 3, 4, 5, 6].map((item, index) => (
+            <SkeletonRecruitmentCard key={`${item}-${index}`} />
+          ))
+        ) : (
+          <div ref={lastElementRef} />
+        )}
       </div>
     </div>
   );

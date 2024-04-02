@@ -9,7 +9,11 @@ export default function Footer() {
   const pathname = router.pathname.split('/')[1];
 
   // 채팅창 또는 관리자 페이지 Footer null
-  if (pathname === 'messenger' || pathname === 'manager') {
+  if (
+    pathname === 'messenger' ||
+    pathname === 'manager' ||
+    pathname === 'login'
+  ) {
     return null;
   }
 

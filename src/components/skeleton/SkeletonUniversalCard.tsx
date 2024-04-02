@@ -1,10 +1,17 @@
 interface ISkeletonUniversalCardProps {
-  boxSize: string;
+  size: 'large' | 'small';
 }
 
+const sizeStyles = {
+  large: 'w-[56.25rem] h-[12.8125rem]',
+  small: 'w-[36.875rem] h-[12.8125rem]',
+};
+
 export default function SkeletonUniversalCard({
-  boxSize,
+  size,
 }: ISkeletonUniversalCardProps) {
+  const boxSize = sizeStyles[size || 'small'];
+
   return (
     <div
       className={`${boxSize} m-auto rounded-bs_10 flex border border-gary10 tablet:w-[767px] mobile:w-full my-5`}>

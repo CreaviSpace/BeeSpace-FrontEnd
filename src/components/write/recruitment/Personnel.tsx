@@ -1,18 +1,66 @@
+/* eslint-disable no-unused-vars */
 import { FaPlusCircle } from '@react-icons/all-files/fa/FaPlusCircle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CustomSelect from '@/components/button/CustomSelect';
 
-export default function Personnel() {
+import { parseEnum } from './../../../utils/parseEnum';
+interface IPersonnelProps {
+  amount: number;
+  setAmount: (amount: number) => void;
+  positions: { position: string; amount: number; now: number; id?: number }[];
+  setPositions: (
+    positions: {
+      position: string;
+      amount: number;
+      now: number;
+    }[]
+  ) => void;
+}
+export default function Personnel({
+  amount,
+  setAmount,
+  positions,
+  setPositions,
+}: IPersonnelProps) {
   const [personnel, setPersonnel] = useState<string[]>(['default', 'default']);
   const [personnelNum, setPersonnelNum] = useState<number[]>([1, 1]);
   const [option, setOption] = useState([
-    '백엔드',
+    '디자인',
     '프론트엔드',
-    '디자이너',
+    '백엔드',
     '기획',
   ]);
   const [optionNum] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+  useEffect(() => {
+    const newPersonnel = personnel.map((_, index) => {
+      return {
+        position: parseEnum(personnel[index]),
+        amount: personnelNum[index],
+        now: 0,
+      };
+    });
+    setPositions(newPersonnel);
+  }, [personnel, personnelNum]);
+
+  useEffect(() => {
+    const totalAmount = personnelNum.reduce((a, b) => a + b);
+    setAmount(totalAmount);
+  }, [personnelNum]);
+
+  useEffect(() => {
+    if (positions.length !== 0) {
+      const newPositions = positions.map((item) => {
+        return item.position;
+      });
+      const newAmount = positions.map((item) => {
+        return item.amount;
+      });
+      setPersonnel(newPositions);
+      setPersonnelNum(newAmount);
+    }
+  }, [amount]);
 
   const handlePersonnelPlus = () => {
     if (personnel.length < 4) {

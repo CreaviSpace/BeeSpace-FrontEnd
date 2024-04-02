@@ -4,25 +4,22 @@ import Link from 'next/link';
 import Tag from '@/components/Tag';
 
 import { IProjectType } from '../../types/global';
+import Bookmark from '../button/Bookmark';
+import LikeButton from '../button/LikeButton';
 import Icons from '../Icons';
 
 interface IProjectCardProps {
   item: IProjectType;
   tagName: string;
-  tagCategory: 'team' | 'individual' | 'hashtag' | 'field';
 }
 
-export default function ProjectCard({
-  item,
-  tagName,
-  tagCategory,
-}: IProjectCardProps) {
+export default function ProjectCard({ item, tagName }: IProjectCardProps) {
   return (
     <div className="relative max-w-md w-full m-auto h-[23.75rem] border border-gray10 rounded-b-bs_20">
       <Link href={`${item.postType}/${item.id}`}>
         <Tag
           name={tagName}
-          category={tagCategory}
+          category={item.category as 'team' | 'individual'}
           className="absolute top-3 left-3"
         />
         {item.thumbnail && (
@@ -37,29 +34,31 @@ export default function ProjectCard({
         )}
       </Link>
       <div className="w-full h-fit p-5 rounded-b-bs_20 relative overflow-hidden">
-        {/* <Bookmark
+        <Bookmark
           className="absolute -top-[.3125rem] right-[.375rem]"
           size={35}
           id={item.id}
-          kind={item.kind}
-        /> */}
+          postType={item.postType}
+        />
         <Link href={`${item.postType}/${item.id}`}>
-          <h3 className="text-bs_18 pb-3 font-bold mt-5">{item.title}</h3>
+          <h3 className="text-bs_18 mt-3 font-bold">{item.title}</h3>
           <p
             className={`overflow-hidden text-ellipsis break-keep ${!item.thumbnail ? 'line-clamp-[10]' : 'line-clamp-2'}`}>
             {item.bannerContent}
           </p>
         </Link>
       </div>
-      <div className="flow-root px-5">
-        {/* <LikeButton className="float-start" id={item.id} kind={item.kind} /> */}
-        <ul className="float-end flex gap-1">
-          {item.linkList?.map((item, index) => (
-            <li
-              key={`${item}-${index}`}
-              className="border border-gray20 rounded-full w-6 h-6">
+      <div className="absolute bottom-1 left-0 flex justify-between items-center pl-5 pr-2 w-full h-fit ">
+        <LikeButton
+          className="float-start"
+          id={item.id}
+          postType={item.postType}
+        />
+        <ul className="float-end flex items-center gap-1">
+          {item.links?.map((item, index) => (
+            <li key={`${item}-${index}`}>
               <Link href={item.url}>
-                <Icons icon={item.type} />
+                <Icons icon={item.linkType} />
               </Link>
             </li>
           ))}

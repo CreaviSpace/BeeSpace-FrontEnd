@@ -7,7 +7,7 @@ import useReconfirmModal from '@/store/useReconfirmModal';
 import useReportModal from '@/store/useReportModal';
 
 interface IDetailsTitleProps {
-  type?: string;
+  type: string;
   time: string;
   views: number;
   title: string;
@@ -15,6 +15,7 @@ interface IDetailsTitleProps {
   userName: string;
   className?: string;
   category?: string;
+  id: number;
 }
 
 export default function DetailsTitle({
@@ -26,9 +27,16 @@ export default function DetailsTitle({
   userName,
   likes,
   category,
+  id,
 }: IDetailsTitleProps) {
   const { onOpen: reportOpen } = useReportModal();
-  const { onOpen: reconfirmOpen } = useReconfirmModal();
+  const { onOpen: reconfirmOpen, setPostType, setId } = useReconfirmModal();
+
+  const handleDelete = () => {
+    setId(id);
+    setPostType(type);
+    reconfirmOpen();
+  };
 
   return (
     <div className="w-full h-fit flex flex-col items-center max-w-max_w m-auto">
@@ -52,13 +60,13 @@ export default function DetailsTitle({
       </div>
       <span className="w-full border border-gray10 block" />
       <div className="text-bs_14 flex justify-end w-full px-4 py-2">
-        <Link href={`/write/${type}`}>
+        <Link href={`/write/${type}?id=${id}`}>
           <button>수정</button>
         </Link>
         <span className="mx-2" aria-hidden>
           &#124;
         </span>
-        <button onClick={reconfirmOpen}>삭제</button>
+        <button onClick={handleDelete}>삭제</button>
         <span className="mx-2" aria-hidden>
           &#124;
         </span>

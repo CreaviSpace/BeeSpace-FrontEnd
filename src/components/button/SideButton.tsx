@@ -7,10 +7,12 @@ import LikeButton from '@/components/button/LikeButton';
 import Bookmark from './Bookmark';
 
 interface ISideButtonProps {
+  id: number;
+  type: string;
   className?: string;
 }
 
-export default function SideButton({ className }: ISideButtonProps) {
+export default function SideButton({ id, type, className }: ISideButtonProps) {
   const [isHidden, setIsHidden] = useState(true);
 
   const handleButtonMove = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -45,11 +47,15 @@ export default function SideButton({ className }: ISideButtonProps) {
           <LikeButton
             color="black"
             size={25}
+            id={id}
+            postType={type}
             className={`border rounded-md bg-white p-3 relative bottom-0 tablet:p-2 mobile:p-2 ${isHidden ? 'tablet:relative mobile:relative' : 'tablet:absolute mobile:absolute'}`}
           />
           <Bookmark
             color="black"
             size={25}
+            id={id}
+            postType={type}
             className={`border rounded-md bg-white p-3 relative bottom-0 tablet:p-2 mobile:p-2 ${isHidden ? 'tablet:relative mobile:relative' : 'tablet:absolute mobile:absolute'}`}
           />
 

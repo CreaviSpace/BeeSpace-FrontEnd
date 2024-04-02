@@ -15,10 +15,13 @@ const useImageCompression = () => {
     };
 
     try {
-      const compressedFile = await imageCompression(imageFile, options);
+      const compressedBlob = await imageCompression(imageFile, options);
+
+      const compressedFile = new File([compressedBlob], compressedBlob.name, {
+        type: `${compressedBlob.type}`,
+      });
 
       setIsLoading(false);
-
       return compressedFile;
     } catch (error) {
       setIsLoading(false);

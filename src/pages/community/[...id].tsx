@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import CommentContainer from '@/components/container/CommentContainer';
+import SideButton from '@/components/button/SideButton';
 import DetailsTitle from '@/components/details/DetailsTitle';
 import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import Tag from '@/components/Tag';
@@ -24,35 +24,38 @@ export default function CommunityDetail() {
       {isLoading ? (
         <SkeletonDetail />
       ) : (
-        <section className="max-w-max_w m-auto py-16 px-8 relative mb-5">
-          <DetailsTitle
-            type="community"
-            time={data.modifiedDate}
-            views={data.viewCount}
-            title={data.title}
-            likes={3}
-            userName="author"
-            category={data.category}
-          />
-          {/* <SideButton /> */}
-          <div
-            className="ql_editor"
-            dangerouslySetInnerHTML={{ __html: data.content }}
-          />
-          <div className="mb-4">
-            {data.hashTags?.map((item: IhashTagsItem) => (
-              <Tag
-                key={item.hashTagId}
-                category="hashtag"
-                name={item.hashTag}
-              />
-            ))}
-          </div>
-          <span className="w-full border block border-gray10" />
-          <div className="mt-8">
-            <CommentContainer />
-          </div>
-        </section>
+        data?.id && (
+          <section className="max-w-max_w m-auto p-16 relative mb-5">
+            <DetailsTitle
+              type="community"
+              time={data.modifiedDate}
+              views={data.viewCount}
+              title={data.title}
+              likes={3}
+              userName="author"
+              category={data.category}
+              id={data.id}
+            />
+            <SideButton id={data.id} type={data.postType} />
+            <div
+              className="ql_editor"
+              dangerouslySetInnerHTML={{ __html: data.content }}
+            />
+            <div className="mb-4">
+              {data.hashTags?.map((item: IhashTagsItem) => (
+                <Tag
+                  key={item.hashTagId}
+                  category="hashtag"
+                  name={item.hashTag}
+                />
+              ))}
+            </div>
+            <span className="w-full border block border-gray10" />
+            <div className="mt-8">
+              {/* <CommentContainer id={data.id} type={data.postType} /> */}
+            </div>
+          </section>
+        )
       )}
     </main>
   );

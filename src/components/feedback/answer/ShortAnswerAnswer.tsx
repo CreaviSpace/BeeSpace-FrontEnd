@@ -1,30 +1,29 @@
-import DeleteButton from './DeleteButton';
+import { IQuestionAnswerType } from '@/types/global';
 
-export default function ShortAnswerQuestion() {
-  const handleOptionPlus = () => {};
+interface ICheckBoxAnswerProps {
+  question: IQuestionAnswerType;
+}
+
+export default function ShortAnswerAnswer({ question }: ICheckBoxAnswerProps) {
   return (
     <div className="w-full border border-gray30 rounded-bs_5 py-6 px-8 bg-white relative">
       <label htmlFor="ShortAnswerQuestionInput" className="sr-only">
         질문
       </label>
-      <input
-        type="text"
-        name="ShortAnswerQuestionInput"
-        id="ShortAnswerQuestionInput"
-        placeholder="질문을 입력해주세요."
-        className="w-full border border-gray20 p-2 rounded-bs_5 bg-[#f7f7f7]"
-      />
+      <h2 className="w-full border-b border-gray20 p-2 bg-[#f7f7f7]">
+        {question.question}
+      </h2>
+
       <label htmlFor="ShortAnswerAnswerInput" className="sr-only">
-        대답
+        답변
       </label>
       <input
         type="text"
         name="ShortAnswerAnswerInput"
         id="ShortAnswerAnswerInput"
-        placeholder="단답형 텍스트"
+        placeholder="답변"
         className="w-full border-b border-gray20 p-1 mt-3 text-bs_14"
       />
-      <DeleteButton />
     </div>
   );
 }

@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CustomSelect from '@/components/button/CustomSelect';
 
-export default function Period() {
+interface IPeriodProps {
+  workDay: number;
+  setWorkDay: (workDay: number) => void;
+}
+
+export default function Period({ workDay, setWorkDay }: IPeriodProps) {
   const [period, setPeriod] = useState(['default']);
   const [option] = useState([
     '1월',
@@ -16,6 +21,20 @@ export default function Period() {
     '9월',
     '10월 이상',
   ]);
+
+  useEffect(() => {
+    const periodNumber = period[0].split('월')[0];
+    setWorkDay(parseInt(periodNumber));
+  }, [period]);
+
+  useEffect(() => {
+    if (workDay === 10) {
+      setPeriod([`${workDay}월 이상`]);
+    } else {
+      setPeriod([`${workDay}월`]);
+    }
+  }, [workDay]);
+
   return (
     <div>
       <h2 className="text-bs_20 my-5">진행 기간</h2>

@@ -63,7 +63,7 @@ export default function CustomSelect({
       </label>
 
       {isOnOff && (
-        <ul className="relative mt-[3.75rem] rounded-bs_5 overflow-hidden border border-gray10  bg-white z-[10]">
+        <ul className="relative max-h-[15.625rem] mt-[3.75rem] rounded-bs_5 overflow-y-scroll border border-gray10  bg-white z-[10] custom-scrollbar">
           {option.map((item) => (
             <li
               key={`${item}-${index}`}

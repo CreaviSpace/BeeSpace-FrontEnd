@@ -29,11 +29,11 @@ export default function Category({
   };
 
   return (
-    <nav className="sticky top-16 w-full border-y bg-white border-gray30 mt-10 z-[1]">
+    <nav className="sticky top-16 w-full border-y bg-white border-gray30 mt-10 z-[1] h-[4.6875rem]">
       <div className="max-w-max_w m-auto flex justify-between items-center mobile:justify-center">
         <ul className="flex text-center">
           <Link
-            href={`/${pathname}?type=all${searchValue && '&text=' + searchValue}`}>
+            href={`/${pathname}?type=all${searchValue ? '&text=' + searchValue : ''}`}>
             <li
               className={`${handleCurrentPage('all')} px-2 py-5 mx-10 text-bs_20 cursor-pointer mobile:mx-5`}>
               전체

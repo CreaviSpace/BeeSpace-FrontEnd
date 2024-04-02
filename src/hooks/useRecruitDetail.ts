@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const useRecruitDetail = (id: string) => {
+const useRecruitDetail = (id: string | undefined) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     queryKey: [`recruit-${id}`],
     queryFn: async () => {
