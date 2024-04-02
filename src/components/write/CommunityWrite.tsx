@@ -24,22 +24,22 @@ interface ICommunityWriteProps {
 
 export default function CommunityWrite({ id }: ICommunityWriteProps) {
   const commnuityList = [
-    { key: 'qna', name: 'QnA' },
-    { key: 'chat', name: '수다' },
-    { key: 'concern', name: '고민' },
+    { key: 'QNA', name: 'QnA' },
+    { key: 'CHAT', name: '수다' },
+    { key: 'CONCERN', name: '고민' },
   ];
 
   const { category, title, content, hashTags, setter } = useCommunityData();
 
   const communityData = {
-    category: category,
-    title: title,
-    content: content,
-    hashTags: hashTags,
+    category,
+    title,
+    content,
+    hashTags,
   };
 
-  const { mutate } = useWritePost('community', communityData);
   const { isLoading, isError, data, isFetching } = useCommunityDetail(id);
+  const { mutate } = useWritePost('COMMUNITY', communityData);
 
   useEffect(() => {
     if (!isLoading && id) {
@@ -52,7 +52,7 @@ export default function CommunityWrite({ id }: ICommunityWriteProps) {
       });
       setter.setHashTags(hashTags);
     } else {
-      setter.setCategory('qna');
+      setter.setCategory('QNA');
       setter.setTitle('');
       setter.setContent('');
       setter.setHashTags([]);
