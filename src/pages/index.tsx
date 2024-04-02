@@ -9,7 +9,7 @@ import RecruitmentCardContainer from '@/components/container/RecruitmentCardCont
 
 export default function Home() {
   return (
-    <main className="mx-auto overflow-hidden">
+    <main className="mx-auto overflow-hidden tablet:px-8 mobile:px-4">
       <Banner postType="project" />
       <div className="h-fit mx-auto py-16">
         <section className="max-w-max_w h-fit grid grid-cols-2 mx-auto mt-10 tablet:grid-cols-1 mobile:grid-cols-1">
@@ -35,7 +35,7 @@ export default function Home() {
                 더 보기
               </Link>
             </div>
-            <RecruitmentCardContainer size={6} />
+            <RecruitmentCardContainer size={6} main="main" />
           </div>
         </section>
         <section className="max-w-max_w mx-auto mt-10">
