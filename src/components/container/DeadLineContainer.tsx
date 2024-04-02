@@ -24,7 +24,6 @@ export default function DeadLineContainer() {
           더 보기
         </Link>
       </div>
-      {/* {data.pages.map((item: IDeadLineType) => ( */}
       {data?.map((item: IDeadLineType) => (
         <UniversalCard
           key={`Deadline-${item.id}`}
