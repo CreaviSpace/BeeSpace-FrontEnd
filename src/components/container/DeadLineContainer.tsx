@@ -28,7 +28,7 @@ export default function DeadLineContainer() {
         <UniversalCard
           key={`Deadline-${item.id}`}
           id={item.id}
-          postType="recruitment"
+          postType={item.postType}
           title={item.title}
           content={item.content}
           date={item.modifiedDate}
