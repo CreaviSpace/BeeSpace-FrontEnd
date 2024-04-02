@@ -1,8 +1,6 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import SideButton from '@/components/button/SideButton';
-import CommentContainer from '@/components/container/CommentContainer';
 import DetailsTitle from '@/components/details/DetailsTitle';
 import DistributeLink from '@/components/details/project/DistributeLink';
 import Members from '@/components/details/project/Members';
@@ -51,12 +49,21 @@ export default function ProjectDetail() {
               <DistributeLink links={data.links} />
               <SkillStack techStacks={data.techStacks} />
             </div>
-            <Link href="/feedback">
-              <div className="text-right py-5">
+
+            <div className="w-full text-right">
+              <button
+                className="my-5"
+                onClick={() => router.push(`/feedback/${data.id}`)}>
+                <Tag name={'설문조사 확인'} category={'individual'} />
+              </button>
+              <button
+                className="my-5"
+                onClick={() => router.push(`/feedback/question/${data.id}`)}>
                 <Tag name={'설문조사 참여'} category={'team'} />
-              </div>
-            </Link>
-            <CommentContainer />
+              </button>
+            </div>
+
+            {/* <CommentContainer id={data.id} type={data.postType} /> */}
           </section>
         )
       )}

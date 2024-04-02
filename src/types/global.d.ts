@@ -111,11 +111,25 @@ export interface IUniversalType {
   links: { type: string; url: string }[];
 }
 
-export interface IquestionType {
+export interface IQuestionType {
+  questionId?: number;
   question: string;
-  type: string;
-  chiceItems: string[];
+  questionType: string;
+  choiceItems: string[];
 }
+
+export interface IQuestionAnswerType {
+  question: string;
+  questionType: string;
+  choiceItems: { id: number; item: string }[];
+}
+
+export interface IAnswerType {
+  questionId: number;
+  answer: string;
+  selectedItems: { id: number }[];
+}
+
 export interface ICommentContainerTypes {
   id: number;
   memberId: number;

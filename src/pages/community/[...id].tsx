@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 
 import SideButton from '@/components/button/SideButton';
-import CommentContainer from '@/components/container/CommentContainer';
 import DetailsTitle from '@/components/details/DetailsTitle';
 import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import Tag from '@/components/Tag';
@@ -53,7 +52,7 @@ export default function CommunityDetail() {
             </div>
             <span className="w-full border block border-gray10" />
             <div className="mt-8">
-              <CommentContainer id={data.id} type={data.postType} />
+              {/* <CommentContainer id={data.id} type={data.postType} /> */}
             </div>
           </section>
         )
