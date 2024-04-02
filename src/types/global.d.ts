@@ -118,18 +118,6 @@ export interface IQuestionType {
   choiceItems: string[];
 }
 
-export interface IQuestionAnswerType {
-  question: string;
-  questionType: string;
-  choiceItems: { id: number; item: string }[];
-}
-
-export interface IAnswerType {
-  questionId: number;
-  answer: string;
-  selectedItems: { id: number }[];
-}
-
 export interface ICommentContainerTypes {
   id: number;
   memberId: number;
@@ -144,8 +132,32 @@ export interface ITechStackType {
   techStack: string;
   techStackIcon: string;
 }
+
 export interface IPositionsType {
   position: string;
   now: number;
   amount: number;
+}
+
+export interface IProfileType {
+  memberIdTag: string;
+  memberNickname: string;
+  introduce: string;
+  career: 0;
+  position: string[];
+  profileUrl: string;
+  message: string;
+}
+
+export interface IProfilePost {
+  id: number;
+  postType: string;
+  category: string;
+  title: string;
+  links: {
+    linkType: string;
+    url: string;
+  }[];
+  thumbnail: string;
+  bannerContent: string;
 }
