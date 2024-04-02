@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import CustomSelect from '@/components/button/CustomSelect';
+import { parseEnum } from '@/utils/parseEnum';
+import { parseValue } from '@/utils/parseValue';
 interface ICommunicationProps {
   contact: string;
   setContact: (contact: string) => void;
@@ -14,14 +16,17 @@ export default function Communication({
   setContactWay,
 }: ICommunicationProps) {
   const [communication, setCommunication] = useState(['default']);
-  const [option] = useState(['오픈톡', '이메일', '채팅', '구글폼']);
+  const [option] = useState(['구글폼', '오픈톡', '이메일']);
 
   useEffect(() => {
-    const newCommunication = communication[0];
+    const newCommunication = parseEnum(communication[0]);
 
     setContactWay(newCommunication);
   }, [communication]);
 
+  useEffect(() => {
+    setCommunication([parseValue(contactWay)]);
+  }, [contactWay]);
   return (
     <div>
       <h2 className="text-bs_20 my-5">연락 방법</h2>

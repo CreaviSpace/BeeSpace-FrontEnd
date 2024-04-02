@@ -21,13 +21,13 @@ export default function RecruitDetails({
   const recruitmentDetails = [
     {
       label: '모집 구분',
-      value: category.includes('project-recruit') ? '프로젝트' : '스터디',
+      value: category.includes('PROJECT_RECRUIT') ? '프로젝트' : '스터디',
     },
     {
       label: '연락 방법',
-      value: contactWay.includes('google-form')
+      value: contactWay.includes('GOOGLE_FORM')
         ? '구글폼'
-        : contactWay.includes('opentalk')
+        : contactWay.includes('OPENTALK')
           ? '오픈톡'
           : '이메일',
     },
@@ -37,9 +37,9 @@ export default function RecruitDetails({
   const progressDetails = [
     {
       label: '진행 방식',
-      value: proceedWay.includes('online')
+      value: proceedWay.includes('ONLINE')
         ? '온라인'
-        : proceedWay.includes('offline')
+        : proceedWay.includes('OFFLINE')
           ? '오프라인'
           : '온/오프라인',
     },

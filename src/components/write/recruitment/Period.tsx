@@ -27,6 +27,14 @@ export default function Period({ workDay, setWorkDay }: IPeriodProps) {
     setWorkDay(parseInt(periodNumber));
   }, [period]);
 
+  useEffect(() => {
+    if (workDay === 10) {
+      setPeriod([`${workDay}월 이상`]);
+    } else {
+      setPeriod([`${workDay}월`]);
+    }
+  }, [workDay]);
+
   return (
     <div>
       <h2 className="text-bs_20 my-5">진행 기간</h2>

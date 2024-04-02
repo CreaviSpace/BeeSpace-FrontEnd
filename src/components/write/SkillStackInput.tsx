@@ -36,7 +36,7 @@ export default function SkillStackInput({
         className="w-full h-[3.125rem] px-5 border border-gary10 rounded-bs_5"
       />
 
-      <ul className="relative rounded-bs_5 overflow-hidden border border-gray10  bg-white z-[10]">
+      <ul className="relative rounded-bs_5 overflow-hidden border border-gray10 bg-white z-[10]">
         {!isLoading
           ? '로딩중'
           : data?.length > 0 &&

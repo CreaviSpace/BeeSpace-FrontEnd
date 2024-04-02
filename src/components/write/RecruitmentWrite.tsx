@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import Classification from '@/components/write/recruitment/Classification';
@@ -9,7 +10,9 @@ import Period from '@/components/write/recruitment/Period';
 import Personnel from '@/components/write/recruitment/Personnel';
 import SkillStackInput from '@/components/write/SkillStackInput';
 import TitleEditor from '@/components/write/TextEditor/TitleEditor';
+import useRecruitDetail from '@/hooks/useRecruitDetail';
 import useWritePost from '@/hooks/useWritePost';
+import useWriteUpdate from '@/hooks/useWriteUpdate';
 import useRecruitData from '@/store/useRecruitData';
 
 const TextEditor = dynamic(
@@ -20,7 +23,10 @@ const TextEditor = dynamic(
   { ssr: false }
 );
 
-export default function RecruitmentWrite() {
+interface IRecruitmentWriteProps {
+  id: string | undefined;
+}
+export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
   const {
     category,
     contactWay,
@@ -39,7 +45,6 @@ export default function RecruitmentWrite() {
   const recruitData = {
     category,
     contact,
-    techStacks: [{ tackStackId: 1 }],
     endFormat: 'yyyy-MM-dd',
     contactWay,
     amount,
@@ -49,9 +54,55 @@ export default function RecruitmentWrite() {
     content,
     end,
     positions,
+    techStacks,
   };
 
-  const { mutate } = useWritePost('recruit', recruitData);
+  const { isLoading, isError, data, isFetching } = useRecruitDetail(id);
+  const { mutate: recruitPost } = useWritePost('RECRUIT', recruitData);
+  const { mutate: recrutiUpdate } = useWriteUpdate(
+    parseInt(id as string),
+    'recruit',
+    recruitData
+  );
+
+  useEffect(() => {
+    if (!isLoading && id) {
+      setter.setCategory(data.category);
+      setter.setContact(data.contact);
+      setter.setAmount(data.amount);
+      setter.setProceedWay(data.proceedWay);
+      setter.setWorkDay(data.workDay);
+      setter.setTitle(data.title);
+      setter.setContent(data.content);
+      setter.setEnd(data.end);
+      setter.setPositions(data.positions);
+      if (data.techStacks && data.techStacks.length > 0) {
+        const teachStacks: { techStackId: number }[] = [];
+        data.techStacks.map(
+          (item: {
+            techStackId: number;
+            techStack: string;
+            iconUrl: string;
+          }) => {
+            teachStacks.push({ techStackId: item.techStackId });
+          }
+        );
+        setter.setTechStacks(teachStacks);
+      }
+    } else {
+      setter.setCategory('PROJECT_RECRUIT');
+      setter.setContactWay('');
+      setter.setContact('');
+      setter.setTechStacks([{ techStackId: 0 }]);
+      setter.setAmount(0);
+      setter.setProceedWay('ONLINE');
+      setter.setWorkDay(0);
+      setter.setTitle('');
+      setter.setContent('');
+      setter.setEnd('');
+      setter.setPositions([]);
+    }
+  }, [isFetching, id]);
 
   return (
     <main className="max-w-max_w m-auto p-20">
@@ -91,7 +142,7 @@ export default function RecruitmentWrite() {
             <Communication
               contact={contact}
               setContact={setter.setContact}
-              contactWay={contactWay}
+              contactWay={!isLoading && id && data.contactWay}
               setContactWay={setter.setContactWay}
             />
           </li>
@@ -110,7 +161,13 @@ export default function RecruitmentWrite() {
         <CustomButton
           color="secondary"
           className="py-3 px-10"
-          onClick={() => mutate()}>
+          onClick={() => {
+            if (id && data.id) {
+              recrutiUpdate();
+            } else {
+              recruitPost();
+            }
+          }}>
           작성
         </CustomButton>
       </div>

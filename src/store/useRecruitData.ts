@@ -43,7 +43,7 @@ const useRecruitData = create<IRecruitBody>((set) => ({
   end: '',
   title: '',
   content: '',
-  positions: [{ position: '', amount: 0, now: 0 }],
+  positions: [],
   techStacks: [{ techStackId: 0 }],
   setter: {
     setCategory: (category: string) => set({ category }),

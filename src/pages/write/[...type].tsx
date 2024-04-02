@@ -16,7 +16,9 @@ export default function Write() {
 
   return (
     <div className="py-5">
-      {typeString === 'recruitment' && <RecruitmentWrite />}
+      {typeString === 'recruitment' && (
+        <RecruitmentWrite id={id as string | undefined} />
+      )}
       {typeString === 'community' && (
         <CommunityWrite id={id as string | undefined} />
       )}

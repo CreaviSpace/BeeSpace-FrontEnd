@@ -3,10 +3,12 @@ import { FaPlusCircle } from '@react-icons/all-files/fa/FaPlusCircle';
 import { useEffect, useState } from 'react';
 
 import CustomSelect from '@/components/button/CustomSelect';
+
+import { parseEnum } from './../../../utils/parseEnum';
 interface IPersonnelProps {
   amount: number;
   setAmount: (amount: number) => void;
-  positions: { position: string; amount: number; now: number }[];
+  positions: { position: string; amount: number; now: number; id?: number }[];
   setPositions: (
     positions: {
       position: string;
@@ -24,9 +26,9 @@ export default function Personnel({
   const [personnel, setPersonnel] = useState<string[]>(['default', 'default']);
   const [personnelNum, setPersonnelNum] = useState<number[]>([1, 1]);
   const [option, setOption] = useState([
-    '백엔드',
+    '디자인',
     '프론트엔드',
-    '디자이너',
+    '백엔드',
     '기획',
   ]);
   const [optionNum] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
@@ -34,7 +36,7 @@ export default function Personnel({
   useEffect(() => {
     const newPersonnel = personnel.map((_, index) => {
       return {
-        position: personnel[index],
+        position: parseEnum(personnel[index]),
         amount: personnelNum[index],
         now: 0,
       };
@@ -43,9 +45,22 @@ export default function Personnel({
   }, [personnel, personnelNum]);
 
   useEffect(() => {
-    const newPersonnelNum = personnelNum.reduce((a, b) => a + b);
-    setAmount(newPersonnelNum);
+    const totalAmount = personnelNum.reduce((a, b) => a + b);
+    setAmount(totalAmount);
   }, [personnelNum]);
+
+  useEffect(() => {
+    if (positions.length !== 0) {
+      const newPositions = positions.map((item) => {
+        return item.position;
+      });
+      const newAmount = positions.map((item) => {
+        return item.amount;
+      });
+      setPersonnel(newPositions);
+      setPersonnelNum(newAmount);
+    }
+  }, [amount]);
 
   const handlePersonnelPlus = () => {
     if (personnel.length < 4) {
