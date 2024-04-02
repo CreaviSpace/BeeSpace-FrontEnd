@@ -28,12 +28,14 @@ const useCommunity = (
     staleTime: 30000 * 6, // 30분
     gcTime: 30000 * 6, // 30분
     initialPageParam: 1,
-    getNextPageParam: (lastPage) => {
-      if (lastPage && lastPage.nextCursor) {
-        return lastPage.nextCursor;
-      } else {
+    getNextPageParam: (lastPage, allPages) => {
+      if (!lastPage) {
         return null;
       }
+      const nextPage = allPages.length + 1;
+      return lastPage?.length === 0 || lastPage?.length < size
+        ? undefined
+        : nextPage;
     },
   });
   return {
