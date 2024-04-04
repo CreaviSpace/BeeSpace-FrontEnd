@@ -5,7 +5,7 @@ import { ITechStackType } from '@/types/global';
 import { getCookies } from '@/utils/getCookies';
 
 const useSkillStackSearch = (text: string) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<ITechStackType[]>([]);
   const [isError, setIsError] = useState(false);
   useEffect(() => {
@@ -18,7 +18,7 @@ const useSkillStackSearch = (text: string) => {
         if (response.data.success) {
           setData(response.data.data);
         }
-        setIsLoading(true);
+        setIsLoading(false);
       } catch (e) {
         setIsError(true);
       }
