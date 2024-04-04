@@ -2,14 +2,18 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-import { IQuestionType } from '@/types/global';
+import { IAnswerType, IQuestionType } from '@/types/global';
 import { getCookies } from '@/utils/getCookies';
 
-const useFeedBackPost = (id: number, data: IQuestionType[]) => {
+const useFeedBackPost = (
+  id: number,
+  data: IQuestionType[] | IAnswerType[],
+  type: string
+) => {
   const { mutate } = useMutation({
     mutationFn: async () => {
       return await axios.post(
-        `${process.env.BASE_URL}/feedback/question?projectId=${id}`,
+        `${process.env.BASE_URL}/feedback/${type}?projectId=${id}`,
         data,
         {
           headers: { Authorization: getCookies('jwt') },
