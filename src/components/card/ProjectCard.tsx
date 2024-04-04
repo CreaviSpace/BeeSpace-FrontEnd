@@ -16,7 +16,7 @@ interface IProjectCardProps {
 export default function ProjectCard({ item, tagName }: IProjectCardProps) {
   return (
     <div className="relative max-w-md w-full m-auto h-[23.75rem] border border-gray10 rounded-b-bs_20">
-      <Link href={`${item.postType}/${item.id}`}>
+      <Link href={`project/${item.id}`}>
         <Tag
           name={tagName}
           category={item.category as 'team' | 'individual'}
@@ -40,7 +40,7 @@ export default function ProjectCard({ item, tagName }: IProjectCardProps) {
           id={item.id}
           postType={item.postType}
         />
-        <Link href={`${item.postType}/${item.id}`}>
+        <Link href={`project/${item.id}`}>
           <h3 className="text-bs_18 mt-3 font-bold">{item.title}</h3>
           <p
             className={`overflow-hidden text-ellipsis break-keep ${!item.thumbnail ? 'line-clamp-[10]' : 'line-clamp-2'}`}>

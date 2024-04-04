@@ -40,7 +40,7 @@ export default function UniversalCard({
         size={35}
         className="absolute -top-[0.375rem] right-5"
       />
-      <Link href={`${postType}/${id}`} className="flex w-full">
+      <Link href={`${postType.toLowerCase()}/${id}`} className="flex w-full">
         {image && (
           <div className="relative w-[30%] h-full overflow-hidden ">
             <Image
