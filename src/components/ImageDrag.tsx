@@ -3,16 +3,16 @@ import { FileDrop } from 'react-file-drop';
 
 interface IImageDropProps {
   children: ReactNode;
-  image?: string;
-  setImage?: (image: string) => void;
-  setFile?: (file: File | undefined) => void;
+  handleImageUpload?: (imageFile: File) => void;
+  handleImageDrag?: () => void;
+  className?: string;
 }
 
 export default function ImageDrag({
   children,
-  image,
-  setImage,
-  setFile,
+  handleImageUpload,
+  handleImageDrag,
+  className,
 }: IImageDropProps) {
   const handleDragandDrop = (files: FileList | null) => {
     if (!files) {
@@ -28,7 +28,11 @@ export default function ImageDrag({
       files[0].type == 'image/webp' ||
       files[0].type == 'image/avif'
     ) {
-      //   console.log(filename);
+      if (handleImageUpload) {
+        handleImageUpload(files[0]);
+      } else if (handleImageDrag) {
+        handleImageDrag();
+      }
     }
   };
 
@@ -36,7 +40,8 @@ export default function ImageDrag({
     <FileDrop
       onDrop={async (files: FileList | null) => {
         handleDragandDrop(files);
-      }}>
+      }}
+      className={className}>
       {children}
     </FileDrop>
   );
