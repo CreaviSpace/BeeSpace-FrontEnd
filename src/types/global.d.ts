@@ -161,3 +161,21 @@ export interface IProfilePost {
   thumbnail: string;
   bannerContent: string;
 }
+
+export interface IAnswerType {
+  questionId: number;
+  answer: string;
+  selectedItems: {
+    id: number;
+  }[];
+}
+
+export interface IQuestionAnswerType {
+  questionId: number;
+  question: string;
+  questionType: string;
+  choiceItems: {
+    id: number;
+    item: string;
+  }[];
+}
