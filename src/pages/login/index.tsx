@@ -12,7 +12,7 @@ export default function Login() {
         );
 
         if (response.data) {
-          document.cookie = `jwt=${response.data.jwt};`;
+          document.cookie = `jwt=${response.data.jwt}; max-age=3600;`;
         }
       };
 
