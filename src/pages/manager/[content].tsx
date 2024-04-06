@@ -13,7 +13,7 @@ import ReportManagement from '@/components/manager/ReportManagement';
 import SearchBar from '@/components/manager/SearchBar';
 import UserManagement from '@/components/manager/UserManagement';
 import TotalChart from '@/components/TotalChart';
-import UserConnectiont from '@/components/user/UserConnectiont';
+import UserConnection from '@/components/user/UserConnection';
 export default function Manager() {
   const [isSlide, setIsSlide] = useState(false);
   const router = useRouter();
@@ -137,7 +137,7 @@ export default function Manager() {
                   사용자 로그인 이력 관리
                 </h3>
                 <ul>
-                  <UserConnectiont
+                  <UserConnection
                     value="nickname 님이 로그아웃 했습니다."
                     content="2024.01.01"
                   />
