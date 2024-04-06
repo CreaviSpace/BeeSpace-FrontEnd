@@ -96,7 +96,7 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
       setter.setTechStacks([{ techStackId: 0 }]);
       setter.setAmount(0);
       setter.setProceedWay('ONLINE');
-      setter.setWorkDay(0);
+      setter.setWorkDay(1);
       setter.setTitle('');
       setter.setContent('');
       setter.setEnd('');
