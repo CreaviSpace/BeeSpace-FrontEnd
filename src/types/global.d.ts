@@ -104,7 +104,8 @@ export interface ICommunityBody {
 export interface IUniversalType {
   id: number;
   title: string;
-  bannerContent: string;
+  bannerContent?: string;
+  content: string;
   thumbnail: string;
   category: string;
   postType: string;
