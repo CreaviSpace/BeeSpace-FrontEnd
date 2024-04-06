@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 
 import SideButton from '@/components/button/SideButton';
+import CommentContainer from '@/components/container/CommentContainer';
 import DetailsTitle from '@/components/details/DetailsTitle';
 import DistributeLink from '@/components/details/project/DistributeLink';
 import Members from '@/components/details/project/Members';
@@ -62,8 +63,7 @@ export default function ProjectDetail() {
                 <Tag name={'설문조사 참여'} category={'team'} />
               </button>
             </div>
-
-            {/* <CommentContainer id={data.id} type={data.postType} /> */}
+            <CommentContainer id={data.id} type={data.postType} />
           </section>
         )
       )}
