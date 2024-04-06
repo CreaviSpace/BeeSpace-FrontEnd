@@ -75,7 +75,7 @@ export default function LogInHeader({ onClick }: ILogInHeaderProps) {
         <li
           ref={profileModalRef}
           className="w-32 h-fit bg-white border rounded-bs_10 shadow-md absolute top-[2.8125rem] right-0 flex flex-col gap-y-3 p-4 text-bs_14">
-          <Link href="/profile">내 프로필</Link>
+          <Link href={`/profile/${2}`}>내 프로필</Link>
           <Link href="/">알림</Link>
           <Link href="/">북마크</Link>
           <span className="w-full h-[1px] border block"></span>
