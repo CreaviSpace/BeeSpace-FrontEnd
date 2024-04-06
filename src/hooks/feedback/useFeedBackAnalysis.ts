@@ -1,17 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const useFeedBackGet = (id: number | undefined) => {
+import { getCookies } from '@/utils/getCookies';
+
+const useFeedBackAnalysis = (id: number) => {
   const { isLoading, isError, data, isFetching } = useQuery({
-    enabled: !!id,
-    queryKey: [`feedback-${id}`],
+    queryKey: [`analysis-${id}`],
     queryFn: async () => {
       if (!id) {
         return null;
       }
 
       const response = await axios.get(
-        `${process.env.BASE_URL}/feedback/question?projectId=${id}`
+        `${process.env.BASE_URL}/feedback/analysis?projectId=${id}`,
+        {
+          headers: { Authorization: getCookies('jwt') },
+        }
       );
 
       if (response.data.success) {
@@ -19,6 +23,8 @@ const useFeedBackGet = (id: number | undefined) => {
       }
     },
   });
+
   return { isLoading, isError, data, isFetching };
 };
-export default useFeedBackGet;
+
+export default useFeedBackAnalysis;

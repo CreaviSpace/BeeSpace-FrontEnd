@@ -4,7 +4,6 @@ interface ITitleEditor {
 }
 
 export default function TitleEditor({ title, setTitle }: ITitleEditor) {
-  // const [title, setTitle] = useState('');
   return (
     <div>
       <h1 className="text-bs_20 font-bold my-5">제목</h1>

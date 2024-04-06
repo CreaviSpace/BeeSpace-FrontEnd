@@ -15,8 +15,7 @@ export default function Feedback() {
   const router = useRouter();
   const { id, update } = router.query;
 
-  // const [trash, setTrash] = useState<number[]>([]);
-  const { questions, setQuestions } = useQuestionsData();
+  const { questions, setQuestions, init } = useQuestionsData();
 
   const { isLoading, isError, data, isFetching } = useFeedBackGet(
     (update as string) === 't' ? parseInt(id as string) : undefined
@@ -24,7 +23,8 @@ export default function Feedback() {
 
   const { mutate: feedBackPost } = useFeedBackPost(
     parseInt(id as string),
-    questions
+    questions,
+    'question'
   );
 
   const { mutate: feedBackPut } = useFeedBackPut(
@@ -33,7 +33,7 @@ export default function Feedback() {
   );
 
   useEffect(() => {
-    if (!isLoading && (update as string) === 't') {
+    if (!isLoading && (update as string) === 't' && data) {
       const newQuestions = [...data];
       newQuestions.map((question, index) => {
         const choiceItem: string[] = [];
@@ -43,6 +43,8 @@ export default function Feedback() {
         newQuestions[index].choiceItems = choiceItem;
       });
       setQuestions(newQuestions);
+    } else {
+      init();
     }
   }, [isLoading]);
 
@@ -55,12 +57,6 @@ export default function Feedback() {
   const handelQuestionDelete = (currentIndex: number, id?: number) => {
     const newQuestion = questions.filter((_, index) => index !== currentIndex);
     setQuestions(newQuestion);
-
-    // if (update && update[0] === 't' && id !== undefined) {
-    //   const newTrash: number[] = [...trash];
-    //   newTrash.push(id);
-    //   setTrash(newTrash);
-    // }
   };
 
   const handleQuestionSave = () => {
@@ -82,7 +78,7 @@ export default function Feedback() {
         <QuestionBox questions={questions} setQuestions={setQuestions} />
         <div className="flex flex-col gap-3">
           {questions.map((item, index) => {
-            if (item.questionType === '객관식') {
+            if (item.questionType === 'OBJECTIVE') {
               return (
                 <MultipleChoiceQuestion
                   key={`${item.questionType}-${index}`}
@@ -93,7 +89,7 @@ export default function Feedback() {
                   handelQuestionDelete={handelQuestionDelete}
                 />
               );
-            } else if (item.questionType === '주관식') {
+            } else if (item.questionType === 'SUBJECTIVE') {
               return (
                 <ShortAnswerQuestion
                   key={`${item.questionType}-${index}`}
@@ -103,7 +99,7 @@ export default function Feedback() {
                   handelQuestionDelete={handelQuestionDelete}
                 />
               );
-            } else if (item.questionType === '체크박스') {
+            } else if (item.questionType === 'CHECKBOX') {
               return (
                 <CheckBoxQuestion
                   key={`${item.questionType}-${index}`}

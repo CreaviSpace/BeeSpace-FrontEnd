@@ -37,20 +37,28 @@ export default function SkillStackInput({
       />
 
       <ul className="relative rounded-bs_5 overflow-hidden border border-gray10 bg-white z-[10]">
-        {!isLoading
+        {isLoading
           ? '로딩중'
           : data?.length > 0 &&
-            data?.map((item: ITechStackType) => (
-              <li
-                key={item.techStackId}
-                className="w-full h-[3.125rem] p-[0.625rem] hover:bg-gray10 flex items-center"
-                datatype="0"
-                onClick={() => {
-                  handleTechStackDtosPush(item.techStackId);
-                }}>
-                {item.techStack}
-              </li>
-            ))}
+            data?.map((item: ITechStackType) => {
+              if (
+                item.techStack
+                  .toLocaleLowerCase()
+                  .includes(text.toLocaleLowerCase())
+              ) {
+                return (
+                  <li
+                    key={item.techStackId}
+                    className="w-full h-[3.125rem] max-h-[15.625rem] p-[0.625rem] hover:bg-gray10 flex items-center overflow-y-auto custom-scrollbar"
+                    datatype="0"
+                    onClick={() => {
+                      handleTechStackDtosPush(item.techStackId);
+                    }}>
+                    {item.techStack}
+                  </li>
+                );
+              }
+            })}
       </ul>
 
       <ul className="flex mt-5 gap-2">

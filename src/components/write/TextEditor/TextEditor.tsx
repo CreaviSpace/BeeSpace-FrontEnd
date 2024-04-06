@@ -4,6 +4,8 @@ import { useMemo } from 'react';
 import ReactQuill from 'react-quill';
 
 import ImageDrag from '@/components/ImageDrag';
+import useImageCompression from '@/hooks/useImageCompression';
+import fileUpload from '@/utils/fileUpload';
 
 import CustomToolbar from './CustomToolbar';
 
@@ -35,28 +37,24 @@ export default function TextEditor({ values, setValues }: ITextEditor) {
     return {
       toolbar: {
         container: '#toolbar',
-        // [
-        //   [{ header: [1, 2, false] }],
-        //   ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-        //   [
-        //     { list: 'ordered' },
-        //     { list: 'bullet' },
-        //     { indent: '-1' },
-        //     { indent: '+1' },
-        //   ],
-        //   ['link', 'image'],
-        //   [{ align: [] }, { color: [] }, { background: [] }],
-        //   ['clean'],
-        // ],
       },
     };
   }, []);
+
+  const { isLoading: isCompressLoading, compressImage } = useImageCompression();
+
+  const handleImageUpload = async (imageFile: File) => {
+    const compressedImage = await compressImage(imageFile);
+    const imageURL = await fileUpload(compressedImage);
+    const value = values + `<img src="${imageURL}" />`;
+    setValues(value);
+  };
 
   return (
     <div>
       <h1 className="text-bs_20 font-bold my-5">소개</h1>
       <CustomToolbar />
-      <ImageDrag>
+      <ImageDrag handleImageUpload={handleImageUpload}>
         <ReactQuill
           theme="snow"
           modules={modules}

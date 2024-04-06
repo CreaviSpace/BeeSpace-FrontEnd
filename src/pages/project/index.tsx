@@ -3,18 +3,21 @@ import { useRouter } from 'next/router';
 import Banner from '@/components/banner/Banner';
 import Category from '@/components/Category';
 import ProjectCardContainer from '@/components/container/ProjectCardContainer';
+
+const CATEGORIES = [
+  {
+    name: '개인',
+    link: 'INDIVIDUAL',
+  },
+  {
+    name: '팀',
+    link: 'TEAM',
+  },
+];
+
 export default function Project() {
   const PAGE_SIZE = 20;
-  const categories = [
-    {
-      name: '개인',
-      link: 'individual',
-    },
-    {
-      name: '팀',
-      link: 'team',
-    },
-  ];
+
   const router = useRouter();
   const { type } = router.query;
 
@@ -24,7 +27,7 @@ export default function Project() {
       <section>
         <Banner postType="project" />
       </section>
-      <Category category={categories} btnValue="프로젝트 올리기" />
+      <Category category={CATEGORIES} btnValue="프로젝트 올리기" />
       <section className="flex justify-center pt-14 pb-24">
         <ProjectCardContainer category={type as string} size={PAGE_SIZE} />
       </section>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import CustomSelect from '@/components/button/CustomSelect';
+import { parseEnum } from '@/utils/parseEnum';
 
 interface IMemberListProps {
   positions?: {
@@ -50,7 +51,7 @@ export default function MemberList({
     selectPosition.forEach((_, index) => {
       memberDtos.push({
         memberId: memberId[index],
-        position: selectPosition[index],
+        position: parseEnum(selectPosition[index]),
       });
     });
     setMemberDtos(memberDtos);

@@ -13,7 +13,7 @@ const useSearch = (size: number, text: string, type: string) => {
     queryKey: [`search-${type}-${text}`],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/search?size=${size}&page=${pageParam}&text=${text}${type !== 'all' ? `&type=${type}` : ''}`
+        `${process.env.BASE_URL}/search?size=${size}&page=${pageParam}&text=${text}${type !== 'all' ? `&postType=${type.toUpperCase()}` : ''}`
       );
 
       if (response.data.success) {

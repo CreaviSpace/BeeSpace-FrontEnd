@@ -104,7 +104,8 @@ export interface ICommunityBody {
 export interface IUniversalType {
   id: number;
   title: string;
-  bannerContent: string;
+  bannerContent?: string;
+  content: string;
   thumbnail: string;
   category: string;
   postType: string;
@@ -160,4 +161,22 @@ export interface IProfilePost {
   }[];
   thumbnail: string;
   bannerContent: string;
+}
+
+export interface IAnswerType {
+  questionId: number;
+  answer: string;
+  selectedItems: {
+    id: number;
+  }[];
+}
+
+export interface IQuestionAnswerType {
+  questionId: number;
+  question: string;
+  questionType: string;
+  choiceItems: {
+    id: number;
+    item: string;
+  }[];
 }

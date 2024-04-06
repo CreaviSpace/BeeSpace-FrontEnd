@@ -29,13 +29,18 @@ export default function DetailsTitle({
   category,
   id,
 }: IDetailsTitleProps) {
-  const { onOpen: reportOpen } = useReportModal();
+  const { onOpen: reportOpen, setReportTitle } = useReportModal();
   const { onOpen: reconfirmOpen, setPostType, setId } = useReconfirmModal();
 
   const handleDelete = () => {
     setId(id);
     setPostType(type);
     reconfirmOpen();
+  };
+
+  const handleReport = () => {
+    setReportTitle(title);
+    reportOpen();
   };
 
   return (
@@ -70,7 +75,7 @@ export default function DetailsTitle({
         <span className="mx-2" aria-hidden>
           &#124;
         </span>
-        <button onClick={reportOpen}>신고</button>
+        <button onClick={handleReport}>신고</button>
       </div>
     </div>
   );

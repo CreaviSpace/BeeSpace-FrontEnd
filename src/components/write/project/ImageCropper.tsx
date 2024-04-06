@@ -1,38 +1,26 @@
 import 'cropperjs/dist/cropper.css';
 
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import Cropper, { ReactCropperElement } from 'react-cropper';
 
 interface PropsType {
   onCrop: (image: string) => void;
   aspectRatio: number;
   children: React.ReactNode;
-  onFile: (name: string) => void;
+  image: string | null;
+  setImage: (image: string | null) => void;
+  handleChildrenClick: () => void;
 }
 
-const ImageCropper = ({ children, aspectRatio, onCrop, onFile }: PropsType) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+const ImageCropper = ({
+  children,
+  aspectRatio,
+  onCrop,
+  image,
+  setImage,
+  handleChildrenClick,
+}: PropsType) => {
   const cropperRef = useRef<ReactCropperElement>(null);
-  const [image, setImage] = useState<null | string>(null);
-
-  const handleChildrenClick = () => {
-    if (inputRef.current) inputRef.current.click();
-  };
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-
-    const files = e.target.files;
-
-    if (!files || files.length === 0) return;
-    onFile(files[0].name);
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImage(reader.result as string);
-    };
-    reader.readAsDataURL(files[0]);
-  };
 
   const getCropData = () => {
     if (typeof cropperRef.current?.cropper !== 'undefined') {
@@ -43,13 +31,6 @@ const ImageCropper = ({ children, aspectRatio, onCrop, onFile }: PropsType) => {
 
   return (
     <>
-      <input
-        type="file"
-        id="Imagefile"
-        ref={inputRef}
-        onChange={handleFileChange}
-        className="sr-only"
-      />
       <label
         htmlFor="Imagefile"
         onClick={(e) => {
