@@ -4,6 +4,7 @@ import CustomButton from '@/components/button/CustomButton';
 import CommentCard from '@/components/card/CommentCard';
 import useCommentGetPost from '@/hooks/useCommentGetPost';
 
+import SkeletonCommentCard from '../skeleton/SkeletonCommentCard';
 import { ICommentContainerTypes } from './../../types/global.d';
 
 interface ICommentContainerProps {
@@ -13,9 +14,6 @@ interface ICommentContainerProps {
 
 export default function CommentContainer({ id, type }: ICommentContainerProps) {
   const [value, setValue] = useState('');
-  const comment = [
-    'This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do This is image included post. ',
-  ];
 
   const {
     isLoading,
@@ -27,7 +25,9 @@ export default function CommentContainer({ id, type }: ICommentContainerProps) {
 
   return (
     <div>
-      <h3 className="mb-5 text-bs_18">댓글 ({comment.length})</h3>
+      <h3 className="mb-5 text-bs_18">
+        댓글 ({!isLoading ? data && data.length : 0})
+      </h3>
       <div className="flex gap-5">
         <input
           type="text"
@@ -36,7 +36,7 @@ export default function CommentContainer({ id, type }: ICommentContainerProps) {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setValue(e.target.value);
           }}
-          className="w-full border border-gray10 p-5"
+          className="w-full border border-gray10 p-5 rounded-bs_5"
         />
         <CustomButton
           color="secondary"
@@ -48,9 +48,9 @@ export default function CommentContainer({ id, type }: ICommentContainerProps) {
 
       <div className="mt-10">
         {isLoading ? (
-          <div>Loading</div>
+          <SkeletonCommentCard />
         ) : (
-          data.length > 0 &&
+          data?.length > 0 &&
           data.map((item: ICommentContainerTypes, index: number) => (
             <CommentCard
               key={`${item}-${index}`}
