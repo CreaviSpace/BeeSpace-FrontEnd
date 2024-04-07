@@ -4,7 +4,8 @@ import axios from 'axios';
 const useCommunity = (
   category: string,
   size: number,
-  hashTag: string | undefined
+  hashTag: string | undefined,
+  orderby?: string | undefined
 ) => {
   const {
     isLoading,
@@ -18,7 +19,7 @@ const useCommunity = (
     queryKey: [`community-list-${category}`],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/community?size=${size}&page=${pageParam}${category !== 'all' ? `&category=${category}` : ''}${hashTag ? `&hashTag=${hashTag}` : ''}`
+        `${process.env.BASE_URL}/community?size=${size}&page=${pageParam}${category !== 'all' ? `&category=${category}` : ''}${hashTag ? `&hashTag=${hashTag}` : ''}${orderby ? `&orderby=${orderby}` : ''}`
       );
 
       if (response.data.success) {
