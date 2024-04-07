@@ -12,7 +12,7 @@ const GRIDCOLUMNS = {
 
 const BORDERSTYLE = {
   main: 'border',
-  default: 'border-b',
+  default: 'border-t border-b',
 };
 
 const ORDERBY = [
@@ -77,7 +77,8 @@ export default function CommunityCardContainer({
     <div
       className={`grid ${isActive === 'main' ? GRIDCOLUMNS.main : GRIDCOLUMNS.default} w-full mobile:grid-cols-1`}
       {...restProps}>
-      <ul className="flex gap-3 mt-5 mb-1">
+      <ul
+        className={`${isActive === 'main' ? 'hidden' : 'flex gap-3 mt-5 mb-1'}`}>
         {ORDERBY.map((item, index) => (
           <li key={index} className="flex items-center justify-between ">
             {activeIndex === index ? (
