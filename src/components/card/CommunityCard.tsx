@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import LikeButton from '@/components/button/LikeButton';
 import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
 
@@ -26,7 +27,7 @@ export default function CommunityCard({
   return (
     <>
       <div
-        className={`${className} w-full py-5 px-7 rounded-bs_5 bg-white border-gray10`}>
+        className={`${className} border-t w-full py-5 px-7 rounded-bs_5 bg-white border-gray10`}>
         {/* 사용자 정보, 게시글 날짜 및 시간 */}
         <div className="pb-2 flex items-center justify-between">
           <UserProfileButton userName={userName} />
@@ -39,9 +40,9 @@ export default function CommunityCard({
         <div className="flow-root pt-4">
           <div>
             <Link href={`${type}/${id}`}>
-              <p className="overflow-hidden text-ellipsis break-keep line-clamp-2 mb-3">
-                {contents}
-              </p>
+              <p
+                className="overflow-hidden text-ellipsis break-keep line-clamp-2 mb-3"
+                dangerouslySetInnerHTML={{ __html: contents }}></p>
             </Link>
             <Tag name="example" category="hashtag" />
           </div>
@@ -55,7 +56,7 @@ export default function CommunityCard({
               </p>
             </div>
           </Link>
-          {/* <LikeButton id={id} postType="community" className="pt-4 float-end" /> */}
+          <LikeButton id={id} postType="COMMUNITY" className="pt-4 float-end" />
         </div>
       </div>
     </>
