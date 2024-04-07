@@ -5,7 +5,8 @@ import { getCookies } from '@/utils/getCookies';
 
 const useMemberProfileGet = (memberId: number) => {
   const { isLoading, data, isError, isFetching } = useQuery({
-    queryKey: [`myProfile`],
+    queryKey: [`MemberProfile-${memberId}`],
+    // queryKey: [`MemberProfile-${memberId}`],
     queryFn: async () => {
       const response = await axios.get(
         `${process.env.BASE_URL}/member/read/profile?member-id=${memberId}`,
