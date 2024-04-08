@@ -1,25 +1,34 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const useMemberContents = (
+import { getCookies } from '@/utils/getCookies';
+
+const useMyContent = (
   memberId: number,
   size: number,
   postType: string,
-  sortType: string
+  sortType: string,
+  category: string
 ) => {
+  const apiEndpoints =
+    category === 'project'
+      ? `contents/${postType}?member-id=${memberId}&size=${size}&sort-type=${sortType}`
+      : `${category}?member-id=${memberId}&size=${size}&sort-type=${sortType}&category=${postType}`;
+
   const {
     isLoading,
     isError,
     data,
-    error,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: [`MyContent-list-${memberId}`],
+    enabled: !!memberId,
+    queryKey: [`MyContent-${postType}`, apiEndpoints],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/member/read/contents/${postType}?member-id=${memberId}&size=${size}&page=${pageParam}&sort-type=${sortType}`
+        `${process.env.BASE_URL}/member/read/${apiEndpoints}&page=${pageParam}`,
+        { headers: { Authorization: getCookies('jwt') } }
       );
 
       if (response.data.success) {
@@ -53,4 +62,4 @@ const useMemberContents = (
   };
 };
 
-export default useMemberContents;
+export default useMyContent;
