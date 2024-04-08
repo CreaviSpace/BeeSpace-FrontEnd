@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import { getCookies } from '@/utils/getCookies';
 
-interface IMyProfileProps {
+interface IMyProfileeditorProps {
   nickName: string;
   introduce: string;
   position: string;
@@ -13,18 +13,18 @@ interface IMyProfileProps {
   profileUrl: string;
 }
 
-const useMyProfilePost = (content: IMyProfileProps) => {
+const useMyProfileEditor = (content: IMyProfileeditorProps) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: async () => {
       return await axios.post(
         `${process.env.BASE_URL}/member/mypage/edit`,
-        { content: content },
+        content,
         { headers: { Authorization: getCookies('jwt') } }
       );
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`myProfile`] });
+      queryClient.invalidateQueries({ queryKey: [`MemberProfile-2`] });
     },
     onError: () => {
       toast.error('에러 발생');
@@ -34,4 +34,4 @@ const useMyProfilePost = (content: IMyProfileProps) => {
   return { mutate };
 };
 
-export default useMyProfilePost;
+export default useMyProfileEditor;
