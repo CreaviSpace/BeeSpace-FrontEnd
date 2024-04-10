@@ -16,9 +16,11 @@ export default function Login() {
 
           if (response.data) {
             document.cookie = `jwt=${response.data.jwt}; max-age=3600;`;
-            document.cookie = `MID=${btoa(response.data.memberId)}; max-age=3600;`;
+            document.cookie = `MID=${btoa(response.data.memberIdTag)}; max-age=3600;`;
 
-            if (response.data.memberEnabled) {
+            if (response.data.oldUser) {
+              router.replace('/signup');
+            } else {
               router.back();
             }
           }
