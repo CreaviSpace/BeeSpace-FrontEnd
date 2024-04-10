@@ -11,7 +11,7 @@ interface IUserProfileProps {
 export default function UserProfileButton({
   className,
   userName,
-  // imageURL,
+  imageURL,
 }: IUserProfileProps) {
   return (
     <button
@@ -19,14 +19,23 @@ export default function UserProfileButton({
       <div
         aria-label={`${userName} 프로필 사진`}
         className="bg-white rounded-full">
-        {/* <FaUserCircle color={color} size={size} /> */}
-        <Image
-          src={'/img/user/default.avif'}
-          alt={`${userName} 프로필 사진`}
-          width={40}
-          height={40}
-          className="rounded-full"
-        />
+        {imageURL ? (
+          <Image
+            src={imageURL}
+            alt={`${userName} 프로필 사진`}
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+        ) : (
+          <Image
+            src={'/img/user/default.avif'}
+            alt={`${userName} 프로필 사진`}
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+        )}
       </div>
       <p className="text-gray40 pl-2">{userName}</p>
     </button>
