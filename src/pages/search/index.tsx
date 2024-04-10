@@ -112,7 +112,9 @@ export default function Search() {
                         key={`${item}-${index}`}
                         id={item.id}
                         title={item.title}
-                        content={item.bannerContent}
+                        content={
+                          item.bannerContent ? item.bannerContent : item.content
+                        }
                         image={item.thumbnail}
                         postType={item.postType}
                         size="large"
