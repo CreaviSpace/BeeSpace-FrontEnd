@@ -4,6 +4,27 @@ import { FaGooglePlay } from '@react-icons/all-files/fa/FaGooglePlay';
 import { FaPlusCircle } from '@react-icons/all-files/fa/FaPlusCircle';
 import { IoCloseOutline } from '@react-icons/all-files/io5/IoCloseOutline';
 
+const ICONS = [
+  {
+    id: 'web',
+    title: '웹 사이트',
+    icon: <FaGlobe size={25} />,
+    placeholder: '웹 사이트 배포 링크를 입력해주세요.',
+  },
+  {
+    id: 'android',
+    title: '구글 스토어',
+    icon: <FaGooglePlay size={25} />,
+    placeholder: '구글 스토어 배포 링크를 입력해주세요.',
+  },
+  {
+    id: 'apple',
+    title: '앱 스토어',
+    icon: <FaApple size={25} />,
+    placeholder: '애플 스토어 배포 링크를 입력해주세요.',
+  },
+];
+
 interface IDistributionLinkProps {
   className?: string;
   linkDtos: { linkType: string; url: string }[];
@@ -17,30 +38,9 @@ export default function DistributionLink({
 }: IDistributionLinkProps) {
   const handleAddLink = () => {
     if (linkDtos.length < 5) {
-      setLinkDtos([...linkDtos, { linkType: 'default', url: 'default' }]);
+      setLinkDtos([...linkDtos, { linkType: '', url: '' }]);
     }
   };
-
-  const icons = [
-    {
-      id: 'web',
-      title: '웹 사이트',
-      icon: <FaGlobe size={25} />,
-      placeholder: '웹 사이트 배포 링크를 입력해주세요.',
-    },
-    {
-      id: 'android',
-      title: '구글 스토어',
-      icon: <FaGooglePlay size={25} />,
-      placeholder: '구글 스토어 배포 링크를 입력해주세요.',
-    },
-    {
-      id: 'apple',
-      title: '앱 스토어',
-      icon: <FaApple size={25} />,
-      placeholder: '애플 스토어 배포 링크를 입력해주세요.',
-    },
-  ];
 
   const handleDeleteButton = (index: number) => {
     const newAddLink = linkDtos.filter((_, i) => i !== index);
@@ -86,17 +86,17 @@ export default function DistributionLink({
             return (
               <li key={`${item}-${index}`} className="w-full flex mb-3">
                 <div className="border border-gray30 rounded-full w-fit h-fit p-2">
-                  {icons[index].icon}
+                  {ICONS[index].icon}
                 </div>
-                <label htmlFor={icons[index].id} className="sr-only">
-                  {icons[index].title}
+                <label htmlFor={ICONS[index].id} className="sr-only">
+                  {ICONS[index].title}
                 </label>
                 <input
                   type="text"
-                  name={icons[index].id}
-                  id={icons[index].id}
+                  name={ICONS[index].id}
+                  id={ICONS[index].id}
                   value={item.url} // 임시 나중에 index로
-                  placeholder={icons[index].placeholder}
+                  placeholder={ICONS[index].placeholder}
                   onChange={(e) => {
                     handleChangeLinkInput(index, e.target.value);
                   }}
