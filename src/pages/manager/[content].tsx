@@ -14,6 +14,41 @@ import SearchBar from '@/components/manager/SearchBar';
 import UserManagement from '@/components/manager/UserManagement';
 import TotalChart from '@/components/TotalChart';
 import UserConnection from '@/components/user/UserConnection';
+
+const MENU = [
+  {
+    bigContent: '대시보드',
+    link: 'dashboard',
+    icon: AiOutlineDashboard(),
+    contents: [{ content: '대시보드', link: 'dashboard' }],
+  },
+  {
+    bigContent: '컨텐츠 관리',
+    link: 'content',
+    icon: FaList(),
+    contents: [
+      { content: '프로젝트', link: 'project' },
+      { content: '모임', link: 'recruit' },
+      { content: '커뮤니티', link: 'community' },
+    ],
+  },
+  {
+    bigContent: '사용자',
+    link: 'user',
+    icon: AiOutlineTeam(),
+    contents: [
+      { content: '사용자 관리', link: 'manage' },
+      { content: '로그인 이력 관리', link: 'login' },
+    ],
+  },
+  {
+    bigContent: '신고',
+    link: 'report',
+    icon: AiFillAlert(),
+    contents: [{ content: '신고', link: 'report' }],
+  },
+];
+
 export default function Manager() {
   const [isSlide, setIsSlide] = useState(false);
   const router = useRouter();
@@ -22,41 +57,6 @@ export default function Manager() {
   useEffect(() => {
     setIsSlide(false);
   }, [content, type]);
-
-  const menu = [
-    {
-      bigContent: '대시보드',
-      link: 'dashboard',
-      icon: AiOutlineDashboard(),
-      contents: [{ content: '대시보드', link: 'dashboard' }],
-    },
-    {
-      bigContent: '컨텐츠 관리',
-      link: 'content',
-      icon: FaList(),
-      contents: [
-        { content: '프로젝트', link: 'project' },
-        { content: '모임', link: 'recruitment' },
-        { content: '커뮤니티', link: 'community' },
-        { content: '댓글', link: 'comment' },
-      ],
-    },
-    {
-      bigContent: '사용자',
-      link: 'user',
-      icon: AiOutlineTeam(),
-      contents: [
-        { content: '사용자 관리', link: 'manage' },
-        { content: '로그인 이력 관리', link: 'login' },
-      ],
-    },
-    {
-      bigContent: '신고',
-      link: 'report',
-      icon: AiFillAlert(),
-      contents: [{ content: '신고', link: 'report' }],
-    },
-  ];
 
   const handleNowContentCSS = (url: string) => {
     if (url === type) {
@@ -91,7 +91,7 @@ export default function Manager() {
           </p>
 
           <ul>
-            {menu.map((item1, index) => (
+            {MENU.map((item1, index) => (
               <div
                 key={`${item1}-${index}`}
                 className="border-b border-gray10 font-bold">
