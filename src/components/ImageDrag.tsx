@@ -4,7 +4,7 @@ import { FileDrop } from 'react-file-drop';
 interface IImageDropProps {
   children: ReactNode;
   handleImageUpload?: (imageFile: File) => void;
-  handleImageDrag?: () => void;
+  handleImageDrag?: (image: string) => void;
   className?: string;
 }
 
@@ -31,7 +31,11 @@ export default function ImageDrag({
       if (handleImageUpload) {
         handleImageUpload(files[0]);
       } else if (handleImageDrag) {
-        handleImageDrag();
+        const reader = new FileReader();
+        reader.onload = () => {
+          handleImageDrag(reader.result as string);
+        };
+        reader.readAsDataURL(files[0]);
       }
     }
   };
