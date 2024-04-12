@@ -5,6 +5,7 @@ import { getCookies } from '@/utils/getCookies';
 
 const useProjectDetail = (id: string | undefined) => {
   const { isLoading, isError, data, isFetching } = useQuery({
+    enabled: !!id,
     queryKey: [`project-${id}`],
     queryFn: async () => {
       if (!id) {
