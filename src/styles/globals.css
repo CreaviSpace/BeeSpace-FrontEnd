@@ -32,6 +32,12 @@
     scrollbar-width: none;
   }
 
+  /* 검색 input 안보이게 */
+  input[type='search']::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    display: none;
+  }
+
   /* ql editor 초기 값 */
   .ql_editor {
     padding: 5px;
