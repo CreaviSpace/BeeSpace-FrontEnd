@@ -1,4 +1,5 @@
 import UserProfileButton from '@/components/button/UserProfileButton';
+import { parseValue } from '@/utils/parseValue';
 
 interface IMembersProps {
   positions: {
@@ -19,7 +20,7 @@ export default function Members({ positions }: IMembersProps) {
         <div
           key={item.position}
           className="flex ml-8 p-5 border-l-2 border-gray10 min_mobile:flex-col">
-          <strong className="min-w-20">{item.position}</strong>
+          <strong className="min-w-20">{parseValue(item.position)}</strong>
           <ul
             key={`${item}-${index}`}
             className="flex items-center justify-start flex-wrap gap-2 ml-5 min_mobile:ml-2 mobile:mt-2">
