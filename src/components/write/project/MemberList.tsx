@@ -131,9 +131,7 @@ export default function MemberList({
                 setIsToggle(true);
               }}
               onBlur={() => {
-                if (memberId[index].length >= 8) {
-                  setIsToggle(false);
-                }
+                setIsToggle(false);
               }}
               required
             />
@@ -142,7 +140,11 @@ export default function MemberList({
             !isLoading &&
             isToggle &&
             data?.length > 0 ? (
-              <ul className="border border-gray30 rounded-bs_5 mt-3 max-h-[15.625rem] w-full bg-white relative overflow-auto">
+              <ul
+                className="border border-gray30 rounded-bs_5 mt-3 max-h-[15.625rem] w-full bg-white relative overflow-auto"
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                }}>
                 {data?.map(
                   (item: { memberNickname: string; memberId: string }) => (
                     <li
