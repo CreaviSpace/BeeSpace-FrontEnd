@@ -1,13 +1,17 @@
 import { Cookies } from 'react-cookie';
 
 export const getCookies = (cookieValue: string, decoding?: boolean) => {
-  const cookies = new Cookies();
+  try {
+    const cookies = new Cookies();
 
-  const cookie = cookies.get(cookieValue);
+    const cookie = cookies.get(cookieValue);
 
-  if (decoding && cookie) {
-    return atob(cookie);
+    if (decoding && cookie) {
+      return atob(cookie);
+    }
+
+    return cookie;
+  } catch (error) {
+    console.error(error);
   }
-
-  return cookie;
 };
