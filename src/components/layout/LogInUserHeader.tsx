@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
@@ -17,15 +18,9 @@ export default function LogInHeader({ MID, ACCESE_TOKEN }: ILogInHeaderProps) {
   const profileModalRef = useRef<HTMLLIElement>(null);
   const writingModalRef = useRef<HTMLLIElement>(null);
 
+  const router = useRouter();
+
   const { isLoading, data, isError, isFetching } = useMemberProfileGet(MID);
-
-  const handleProfileModal = () => {
-    setOnProfileModal(!onProfileModal);
-  };
-
-  const handleWritingModal = () => {
-    setOnWritingModal(!onWritingModal);
-  };
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -61,18 +56,23 @@ export default function LogInHeader({ MID, ACCESE_TOKEN }: ILogInHeaderProps) {
       {/* <li>
         <IoChatbubbleEllipsesOutline size={22} />
       </li> */}
-      <li>
+      <li className="min_mobile:hidden">
         <CustomButton
           color="primary"
           className="py-2 px-3 ml-3"
-          onClick={handleWritingModal}>
+          onFocus={() => setOnWritingModal(true)}
+          onBlur={() => setOnWritingModal(false)}>
           글쓰기
         </CustomButton>
       </li>
       {isLoading ? (
         '로딩중'
       ) : data.profileUrl ? (
-        <li className="ml-3 cursor-pointer" onClick={handleProfileModal}>
+        <li
+          className="ml-3 cursor-pointer"
+          tabIndex={0}
+          onFocus={() => setOnProfileModal(true)}
+          onBlur={() => setOnProfileModal(false)}>
           <Image
             src={data.profileUrl}
             alt="유저 아이콘"
@@ -82,7 +82,11 @@ export default function LogInHeader({ MID, ACCESE_TOKEN }: ILogInHeaderProps) {
           />
         </li>
       ) : (
-        <li className="ml-3 cursor-pointer" onClick={handleProfileModal}>
+        <li
+          className="ml-3 cursor-pointer"
+          tabIndex={0}
+          onFocus={() => setOnProfileModal(true)}
+          onBlur={() => setOnProfileModal(false)}>
           <Image
             src="/img/user/default.avif"
             alt="유저 아이콘"
@@ -96,7 +100,15 @@ export default function LogInHeader({ MID, ACCESE_TOKEN }: ILogInHeaderProps) {
       {onProfileModal ? (
         <li
           ref={profileModalRef}
-          className="w-32 h-fit bg-white border rounded-bs_10 shadow-md absolute top-[2.8125rem] right-0 flex flex-col gap-y-3 p-4 text-bs_14">
+          className="w-32 h-fit bg-white border rounded-bs_10 shadow-md absolute top-[2.8125rem] right-0 flex flex-col gap-y-3 p-4 text-bs_14"
+          onMouseDown={(e) => {
+            e.preventDefault();
+          }}>
+          <button
+            className="text-start hidden min_mobile:block"
+            onClick={() => setOnWritingModal(true)}>
+            글 작성하기
+          </button>
           <Link href={`/profile/${MID}`}>내 프로필</Link>
           <Link href="/">알림</Link>
           <Link href="/">북마크</Link>
@@ -109,10 +121,30 @@ export default function LogInHeader({ MID, ACCESE_TOKEN }: ILogInHeaderProps) {
       {onWritingModal ? (
         <li
           ref={writingModalRef}
-          className="w-40 h-fit bg-white border rounded-bs_10 shadow-md absolute top-[2.8125rem] right-0 flex flex-col gap-y-3 p-4 text-bs_14">
-          <Link href="/write/project">프로젝트 올리기</Link>
-          <Link href="/write/recruitment">팀원 모집하기</Link>
-          <Link href="/write/community">커뮤니티 글쓰기</Link>
+          className="w-40 h-fit bg-white border rounded-bs_10 shadow-md absolute top-[2.8125rem] right-0 flex flex-col gap-y-3 p-4 text-bs_14"
+          onMouseDown={(e) => {
+            e.preventDefault();
+          }}>
+          <label
+            htmlFor="write"
+            className="text-center font-bold text-bs_16 hidden min_mobile:block">
+            글 작성
+          </label>
+          <button
+            className="text-start"
+            onClick={() => router.push('/write/project')}>
+            프로젝트 올리기
+          </button>
+          <button
+            className="text-start"
+            onClick={() => router.push('/write/recruitment')}>
+            팀원 모집하기
+          </button>
+          <button
+            className="text-start"
+            onClick={() => router.push('/write/community')}>
+            커뮤니티 글쓰기
+          </button>
         </li>
       ) : null}
     </ul>
