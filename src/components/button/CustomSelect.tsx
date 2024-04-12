@@ -52,8 +52,14 @@ export default function CustomSelect({
       <button
         className="absolute top-0 left-0 px-5 w-full h-[3.125rem] p-[0.625rem] flex justify-between items-center z-[1] cursor-pointer"
         onClick={() => {
-          setIsToggle(true);
-          divRef.current?.focus();
+          if (isToggle) {
+            divRef.current?.blur();
+          } else {
+            divRef.current?.focus();
+          }
+        }}
+        onMouseDown={(e) => {
+          e.preventDefault();
         }}>
         {select[index] !== `default` ? select[index] : '선택해주세요.'}
         <span className={`${isToggle && '-rotate-180 transition-all'}`}>
@@ -61,7 +67,11 @@ export default function CustomSelect({
         </span>
       </button>
 
-      <div ref={divRef} tabIndex={0} onBlur={() => setIsToggle(false)}>
+      <div
+        ref={divRef}
+        tabIndex={0}
+        onFocus={() => setIsToggle(true)}
+        onBlur={() => setIsToggle(false)}>
         {isToggle && (
           <ul className="relative max-h-[15.625rem] mt-[3.75rem] rounded-bs_5 overflow-y-scroll border border-gray10  bg-white z-[10] custom-scrollbar">
             {option.map((item) => (
