@@ -7,15 +7,12 @@ import { getCookies } from '@/utils/getCookies';
 
 const useBookMark = (id?: number, postType?: string) => {
   const { onOpen } = useLoginModal();
+  const token = getCookies('jwt');
 
   const { isLoading, isError, data, isFetching } = useQuery({
-    enabled: !!id,
+    enabled: !!token,
     queryKey: [`bookmark-${id}`],
     queryFn: async () => {
-      if (!id) {
-        return null;
-      }
-
       const response = await axios.get(
         `${process.env.BASE_URL}/bookmark?postId=${id}&postType=${postType}`,
         {
@@ -24,7 +21,6 @@ const useBookMark = (id?: number, postType?: string) => {
           },
         }
       );
-
       if (response.data.success) {
         return response.data.data;
       }
@@ -36,8 +32,6 @@ const useBookMark = (id?: number, postType?: string) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: async () => {
-      const token = getCookies('jwt');
-
       if (!token) {
         return onOpen();
       }
