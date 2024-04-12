@@ -112,7 +112,7 @@ export default function DistributionLink({
               return (
                 <li
                   key={`${item}-${index}`}
-                  className="w-full flex justify-between mb-3">
+                  className="w-full flex justify-between mb-3 mobile:flex-col">
                   <label htmlFor="siteLink" className="sr-only">
                     참고 사이트 이름 입력란
                   </label>
@@ -125,25 +125,27 @@ export default function DistributionLink({
                     onChange={(e) => {
                       handleChangeInput(index, e.target.value, 'type');
                     }}
-                    className="w-1/3 h-[3.125rem] mr-2 border border-gray30 rounded-bs_5 pl-3 text-bs_14"
+                    className="w-1/3 h-[3.125rem] mr-2 border border-gray30 rounded-bs_5 pl-3 text-bs_14 mobile:w-full"
                   />
-                  <label htmlFor="siteLink" className="sr-only">
-                    참고 사이트 입력란
-                  </label>
-                  <input
-                    type="text"
-                    name="siteLink"
-                    id="siteLink"
-                    placeholder="참고 사이트 링크를 입력해주세요."
-                    value={item.url === 'default' ? '' : item.url}
-                    onChange={(e) => {
-                      handleChangeInput(index, e.target.value, 'url');
-                    }}
-                    className="w-full h-[3.125rem] mr-2 border border-gray30 rounded-bs_5 pl-3 text-bs_14"
-                  />
-                  <button onClick={() => handleDeleteButton(index)}>
-                    <IoCloseOutline color="gray" size={30} />
-                  </button>
+                  <div className="w-full flex mobile:mt-1">
+                    <label htmlFor="siteLink" className="sr-only">
+                      참고 사이트 입력란
+                    </label>
+                    <input
+                      type="text"
+                      name="siteLink"
+                      id="siteLink"
+                      placeholder="참고 사이트 링크를 입력해주세요."
+                      value={item.url === 'default' ? '' : item.url}
+                      onChange={(e) => {
+                        handleChangeInput(index, e.target.value, 'url');
+                      }}
+                      className="w-full h-[3.125rem] mr-2 border border-gray30 rounded-bs_5 pl-3 text-bs_14"
+                    />
+                    <button onClick={() => handleDeleteButton(index)}>
+                      <IoCloseOutline color="gray" size={30} />
+                    </button>
+                  </div>
                 </li>
               );
             }
