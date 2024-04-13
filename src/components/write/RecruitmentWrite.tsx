@@ -59,7 +59,7 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
   };
 
   const { isLoading, isError, data, isFetching } = useRecruitDetail(id);
-  const { mutate: recruitPost } = useWritePost('RECRUIT', recruitData);
+  const { mutate: recruitPost } = useWritePost('recruit', recruitData);
   const { mutate: recrutiUpdate } = useWriteUpdate(
     parseInt(id as string),
     'recruit',
