@@ -4,7 +4,7 @@ import axios from 'axios';
 import { getCookies } from '@/utils/getCookies';
 
 const useMyContent = (
-  memberId: number,
+  memberId: string,
   size: number,
   postType: string,
   sortType: string,

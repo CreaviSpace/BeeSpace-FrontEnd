@@ -28,6 +28,7 @@ export default function ProjectCard({ item, tagName }: IProjectCardProps) {
               src={item.thumbnail}
               alt="임시 프로젝트 이미지"
               fill
+              sizes="500px"
               className="object-cover object-top -z-[1] "
             />
           </div>

@@ -7,11 +7,13 @@ interface IUniversalCardProps {
   id: number;
   title: string;
   content: string;
+  type?: string;
   date?: string;
   image?: string;
   postType: string;
   size: 'large' | 'small';
   className?: string;
+  hidden?: true;
 }
 
 const sizeStyles = {
@@ -28,19 +30,25 @@ export default function UniversalCard({
   postType,
   size,
   className,
+  hidden,
+  type,
 }: IUniversalCardProps) {
   const boxSize = sizeStyles[size || 'small'];
 
   return (
     <div
       className={`${boxSize} ${className} relative m-auto rounded-bs_10 border border-gary10 flex overflow-hidden  tablet:w-[767px] mobile:w-full`}>
-      <Bookmark
-        id={id}
-        postType={postType}
-        size={35}
-        className="absolute -top-[0.375rem] right-5"
-      />
-      <Link href={`/${postType.toLowerCase()}/${id}`} className="flex w-full">
+      {hidden && (
+        <Bookmark
+          id={id}
+          postType={postType}
+          size={35}
+          className="absolute -top-[0.375rem] right-5"
+        />
+      )}
+      <Link
+        href={type ? `/${type}/${id}` : `/${postType}/${id}`}
+        className="flex w-full">
         {image && (
           <div className="relative w-[30%] h-full overflow-hidden ">
             <Image

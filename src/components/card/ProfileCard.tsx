@@ -1,37 +1,49 @@
+import Image from 'next/image';
+
 import Tag from '@/components/Tag';
 
-interface IProfileCardProps {
-  profileUrl?: string;
-  memberNickname: string;
-  career: string;
-  position: string;
-  introduce: string;
+interface IMemberProfileType {
+  memberId: 0;
+  profileUrl: 'string';
+  memberNickname: 'string';
+  idTag: 'string';
+  memberCareer: 0;
+  memberPosition: 'string';
+  memberIntroduce: 'string';
+  memberInterestedStack: string[];
 }
 
-export default function ProfileCard({
-  profileUrl,
-  memberNickname,
-  career,
-  position,
-  introduce,
-}: IProfileCardProps) {
+interface IProfileCardProps {
+  items: IMemberProfileType;
+}
+
+export default function ProfileCard({ items }: IProfileCardProps) {
   return (
-    <div className="max-w-[22.4375rem] m-auto flex flex-col items-center gap-y-1">
-      {/* <Image
-        src={profileUrl}
+    <div
+      className="max-w-[22.4375rem] m-auto flex flex-col items-center gap-y-1"
+      key={items.idTag}>
+      <Image
+        src={items.profileUrl}
         alt="유저 사진"
         width={100}
         height={100}
         className="rounded-full"
-      /> */}
-      <h2 className="text-bs_20 font-bold">{memberNickname}</h2>
-      <div className="text-bs_14 my-2">
-        <span aria-label="경력">{career}</span>
-        <p className="font-bold text-bs_16">{position}</p>
+      />
+      <h2 className="text-bs_22 leading-5 font-bold mt-4">
+        {items.memberNickname}
+      </h2>
+      <h3 className="text-base leading-tight text-gray30 font-bold">
+        {items.idTag}
+      </h3>
+      <div className="text-bs_16 my-2 flex gap-2">
+        <span>{`${items.memberCareer}년차`}</span>
+        <p className="font-bold">{items.memberPosition}</p>
       </div>
-      <p className="break-all">{introduce}</p>
-      <div className="mt-3">
-        <Tag name={`skill`} category="skill" />
+      <p className="my-3 break-all">{items.memberIntroduce}</p>
+      <div className="mt-2 flex">
+        {items.memberInterestedStack.map((item, index) => (
+          <Tag key={index} name={item} category="skill" />
+        ))}
       </div>
     </div>
   );

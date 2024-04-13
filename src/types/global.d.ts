@@ -106,6 +106,7 @@ export interface IUniversalType {
   title: string;
   bannerContent?: string;
   content: string;
+  contentsTitle: string;
   thumbnail: string;
   category: string;
   postType: string;

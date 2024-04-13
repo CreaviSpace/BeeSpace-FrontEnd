@@ -11,6 +11,7 @@ interface IBannerProps {
   image?: string;
   skill?: string[];
   date?: string;
+  iconUrl?: string;
 }
 
 export default function BannerItem({
@@ -20,11 +21,13 @@ export default function BannerItem({
   image,
   skill,
   date,
+  id,
+  iconUrl,
 }: IBannerProps) {
   const router = useRouter();
 
   const handleUrlMove = () => {
-    router.push(`/${postType}/1`);
+    router.push(`/${postType}/${id}`);
   };
 
   return (
@@ -35,20 +38,30 @@ export default function BannerItem({
             src={image}
             alt="banner image"
             fill
+            sizes="(max-width: 767px) 400px,(max-width: 550px) 300px"
             className="object-cover object-top"
           />
         </div>
       )}
 
-      <div className="relative pl-5 pt-5 w-full">
-        <div className="border-b border-black pb-5">
-          {date && <div>{date}</div>}
-          <div className="mb-5 text-bs_24 font-bold text-ellipsis break-keep line-clamp-2">
+      <div className="relative pl-5 pt-5 w-full ">
+        <div className="pb-10">
+          {date && (
+            <div className="w-fit text-bs_14 bg-blue30 text-white rounded-bs_5 px-2 py-1 mb-3">
+              {date}
+            </div>
+          )}
+          <h2 className="text-bs_24 font-bold tablet:text-bs_20 mobile:text-bs_18">
             {title}
-          </div>
-          <div className="text-bs_20 text-ellipsis break-keep line-clamp-3">
-            {content}
-          </div>
+          </h2>
+          <p className="text-bs_20 text-black line-clamp-3 mb-5">{content}</p>
+        </div>
+        <div className="border-t pt-3 border-gray30 ">
+          {iconUrl ? (
+            <span className="border p-2 rounded-full bg-white">{iconUrl}</span>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="absolute right-0 bottom-0 mt-5">
           <CustomButton

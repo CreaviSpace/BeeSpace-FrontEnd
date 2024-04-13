@@ -7,6 +7,7 @@ import { TransitionEnd } from '@/utils/carousel';
 
 import PopularImageCard from '../card/PopularImageCard';
 import CarouselList from '../CarouselList';
+import SkeletonPopularCard from '../skeleton/SkeletonPopularCard';
 
 interface IPopularProjectProps {
   postType: string;
@@ -38,33 +39,33 @@ export default function PopularProject({ postType }: IPopularProjectProps) {
         </Link>
       </div>
       {isLoading ? (
-        <></>
-      ) : (
+        <SkeletonPopularCard />
+      ) : data?.length === 0 ? null : (
         <>
           <div
             className="relative right-full flex transition-all"
             ref={listRef}
             onTransitionEnd={handleTransitionEnd}>
             <PopularImageCard
-              img1={data[data.length - 2].thumbnail}
-              img2={data[data.length - 1].thumbnail}
+              img1={data[data?.length - 2].thumbnail}
+              img2={data[data?.length - 1].thumbnail}
             />
             {data.map((item: IBannerItem, index: number) => {
               if (index % 2 == 0) {
                 return (
                   <PopularImageCard
                     key={`pop-${index}`}
-                    img1={data[index].thumbnail}
-                    img2={data[index + 1].thumbnail}
-                    link1={`/project/${data[index].id}`}
-                    link2={`/project/${data[index + 1].id}`}
+                    img1={data[index]?.thumbnail}
+                    img2={data[index + 1]?.thumbnail}
+                    link1={`/project/${data[index]?.id}`}
+                    link2={`/project/${data[index + 1]?.id}`}
                   />
                 );
               }
             })}
             <PopularImageCard
-              img1={data[0].thumbnail}
-              img2={data[1].thumbnail}
+              img1={data[0]?.thumbnail}
+              img2={data[1]?.thumbnail}
             />
           </div>
           {listRef && (

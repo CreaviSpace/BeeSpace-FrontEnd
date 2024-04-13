@@ -6,12 +6,12 @@ import { getCookies } from '@/utils/getCookies';
 const useMemberProfileGet = (memberId: string) => {
   const { isLoading, data, isError, isFetching } = useQuery({
     queryKey: [`MemberProfile-${memberId}`],
-    // queryKey: [`MemberProfile-${memberId}`],
     queryFn: async () => {
       const response = await axios.get(
         `${process.env.BASE_URL}/member/read/profile?member-id=${memberId}`,
         { headers: { Authorization: getCookies('jwt') } }
       );
+
       if (response.data) {
         return response.data;
       } else {

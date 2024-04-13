@@ -1,18 +1,17 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
+import SortButton from '@/components/button/SortButton';
 import ProfileCard from '@/components/card/ProfileCard';
 import UniversalCard from '@/components/card/UniversalCard';
-import Category from '@/components/Category';
+import ProfileCategory from '@/components/ProfileCategory';
 import SkeletonProfile from '@/components/skeleton/SkeletonProfile';
 import SkeletonUniversalCard from '@/components/skeleton/SkeletonUniversalCard';
-import useMemberContents from '@/hooks/profile/useMemberContents';
 import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
+import useMyContent from '@/hooks/profile/useMyContent';
 import { IUniversalType } from '@/types/global';
-
-import SortButton from '../../components/button/SortButton';
 
 const POSTTYPEOTIONS = [
   { type: 'project', name: '프로젝트' },
@@ -21,26 +20,26 @@ const POSTTYPEOTIONS = [
 ];
 
 const SORTTPYEOPTIONS = [
-  { type: 'ASC', name: '오래된 순' },
-  { type: 'DESC', name: '최신순' },
+  { type: 'desc', name: '최신순' },
+  { type: 'asc', name: '오래된 순' },
 ];
 
-const categories = [
+const CATEGORIES = [
   {
-    name: '내 게시글',
-    link: 'myPost',
+    name: '내 게시물',
+    type: 'project',
   },
   {
     name: '받은 피드백',
-    link: 'receivedFeedback',
+    type: 'feedback',
   },
   {
     name: '내 댓글',
-    link: 'myComment',
+    type: 'comment',
   },
   {
     name: '북마크',
-    link: 'bookmark',
+    type: 'bookmark',
   },
 ];
 
@@ -50,27 +49,55 @@ export default function Profile() {
     name: '프로젝트',
   });
   const [sortType, setSortType] = useState({
-    type: 'ASC',
-    name: '오래된 순',
+    type: 'desc',
+    name: '최신순',
   });
+  const [category, setCategory] = useState({
+    type: 'project',
+    name: '내 게시물',
+  });
+
   const router = useRouter();
   const memberId = router.query.id;
 
   const { isLoading: profileLoading, data: profile } = useMemberProfileGet(
-    parseInt(memberId as string)
+    memberId as string
   );
 
   const {
     isLoading: contentsLoading,
     data: contents,
+    isError,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useMemberContents(
-    parseInt(memberId as string),
+  } = useMyContent(
+    memberId as string,
     3,
     postType.type,
-    sortType.type
+    sortType.type,
+    category.type
+  );
+
+  const observer: React.MutableRefObject<IntersectionObserver | null> =
+    useRef(null);
+
+  const lastElementRef = useCallback(
+    (node: HTMLElement | null) => {
+      if (isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && !isError) {
+            fetchNextPage();
+          }
+        },
+
+        { threshold: 0.7 }
+      );
+      if (node) observer.current.observe(node);
+    },
+    [isFetchingNextPage]
   );
 
   return (
@@ -78,22 +105,20 @@ export default function Profile() {
       {profileLoading ? (
         <SkeletonProfile />
       ) : (
-        <section className="max-w-screen-md m-auto mt-[4rem]">
+        <section className="max-w-screen-md m-auto my-[100px]">
           <h1 className="sr-only">내 프로필</h1>
           <Link href={`/profile/editer`} className="flex justify-end mt-10">
             <CustomButton className="px-2 py-1">수정</CustomButton>
           </Link>
-          <ProfileCard
-            profileUrl={profile.profileUrl}
-            memberNickname={profile.memberNickname}
-            career={profile.career}
-            position={profile.position}
-            introduce={profile.introduce}
-          />
+          <ProfileCard items={profile} />
         </section>
       )}
-      <Category category={categories} />
-      <section className="pt-10 pb-24 max-w-max_w m-auto relative">
+      <ProfileCategory
+        category={CATEGORIES}
+        setSelectedTab={setCategory}
+        selectedTab={category}
+      />
+      <section className="pt-10 pb-24 max-w-4xl m-auto relative">
         <div>
           <SortButton
             select={sortType}
@@ -108,7 +133,7 @@ export default function Profile() {
             className="right-0"
           />
         </div>
-        <div className="mt-7 flex flex-col justify-center border">
+        <div className="mt-7 flex flex-col justify-center">
           {contentsLoading ? (
             [1, 2, 3].map((item, index) => (
               <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
@@ -118,20 +143,27 @@ export default function Profile() {
               {contents?.pages.map((item, index) =>
                 item?.map((item: IUniversalType) => (
                   <UniversalCard
-                    key={`myContent-list-${index}`}
+                    key={`myContent-list-${item.id}`}
                     id={item.id}
                     postType={item.postType}
-                    title={item.title}
+                    title={item.title ? item.title : item.contentsTitle}
                     content={
                       item.bannerContent ? item.bannerContent : item.content
                     }
                     image={item.thumbnail ? item.thumbnail : ''}
-                    size="small"
+                    size="large"
                     className="my-2 w-full"
                   />
                 ))
               )}
             </>
+          )}
+          {isFetchingNextPage ? (
+            [1, 2, 3].map((item, index) => (
+              <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
+            ))
+          ) : (
+            <div ref={lastElementRef}></div>
           )}
         </div>
       </section>
