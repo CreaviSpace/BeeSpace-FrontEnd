@@ -28,9 +28,9 @@ export default function BannerItem({
   };
 
   return (
-    <div className="max-w-max_w h-[21.875rem] bg-blue10 rounded-bs_20 mx-auto p-10 flex tablet:rounded-none mobile:rounded-none">
+    <div className="max-w-max_w h-[21.875rem] bg-blue10 rounded-bs_20 mx-auto p-10 flex tablet:rounded-none mobile:rounded-none min_mobile:aspect-w-16 min_mobile::aspect-h-9">
       {image && (
-        <div className="relative w-[40rem] h-full rounded-bs_20 overflow-hidden">
+        <div className="relative w-[40rem] h-full rounded-bs_20 overflow-hidden min_mobile:blur-sm">
           <Image
             src={image}
             alt="banner image"
@@ -40,11 +40,15 @@ export default function BannerItem({
         </div>
       )}
 
-      <div className="relative pl-5 pt-5 w-full ">
+      <div className="relative pl-5 pt-5 w-full">
         <div className="border-b border-black pb-5">
           {date && <div>{date}</div>}
-          <div className="mb-5 text-bs_24 font-bold">{title}</div>
-          <div className="text-bs_20 line-clamp-3 ">{content}</div>
+          <div className="mb-5 text-bs_24 font-bold text-ellipsis break-keep line-clamp-2">
+            {title}
+          </div>
+          <div className="text-bs_20 text-ellipsis break-keep line-clamp-3">
+            {content}
+          </div>
         </div>
         <div className="absolute right-0 bottom-0 mt-5">
           <CustomButton

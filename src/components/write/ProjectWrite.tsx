@@ -53,16 +53,16 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
     content,
     techStackDtos,
     field,
-    linkDtos,
+    linkDtos: linkDtos.filter((item) => item.url !== ''),
     thumbnail,
     bannerContent,
   };
 
   const { isLoading, isError, data, isFetching } = useProjectDetail(id);
-  const { mutate: projectPost } = useWritePost('PROJECT', projectData);
+  const { mutate: projectPost } = useWritePost('project', projectData);
   const { mutate: projectUpdate } = useWriteUpdate(
     parseInt(id as string),
-    'PROJECT',
+    'project',
     projectData
   );
 
@@ -90,12 +90,16 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
       }
     } else {
       setter.setCategory('INDIVIDUAL');
-      setter.setMemberDtos([{ memberId: 0, position: 'default' }]);
+      setter.setMemberDtos([{ memberId: 'default', position: 'default' }]);
       setter.setTitle('');
       setter.setContent('');
-      setter.setTechStackDtos([{ techStackId: 0 }]);
+      setter.setTechStackDtos([]);
       setter.setfield('');
-      setter.setLinkDtos([{ linkType: '', url: '' }]);
+      setter.setLinkDtos([
+        { linkType: 'web', url: '' },
+        { linkType: 'android', url: '' },
+        { linkType: 'ios', url: '' },
+      ]);
       setter.setThumbnail('');
       setter.setBannerContent('');
     }

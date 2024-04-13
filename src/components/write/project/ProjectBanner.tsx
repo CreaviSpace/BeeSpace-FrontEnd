@@ -1,6 +1,6 @@
 import { FaImage } from '@react-icons/all-files/fa/FaImage';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import ImageDrag from '@/components/ImageDrag';
@@ -23,11 +23,8 @@ export default function ProjectBanner({
   const [imageName, setImageName] = useState<string>(''); // 이미지 이름
   const [compressedImage, setCompressedImage] = useState<string | null>(null); // 압축 이미지
   const [image, setImage] = useState<null | string>(null); // ImageCropper에서 보여주는 이미지
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const { isLoading: isCompressLoading, compressImage } = useImageCompress();
-
-  const handleUploadImage = (image: string) => setUploadImage(image);
 
   const handleCompressImage = async () => {
     if (!uploadImage) return;
@@ -44,26 +41,6 @@ export default function ProjectBanner({
     setThumbnail('');
   };
 
-  // 파일 클릭
-  const handleChildrenClick = () => {
-    if (inputRef.current) inputRef.current.click();
-  };
-
-  // 파일 목록 들어가기
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const files = e.target.files;
-
-    if (!files || files.length === 0) return;
-    setImageName(files[0].name);
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImage(reader.result as string);
-    };
-    reader.readAsDataURL(files[0]);
-  };
-
   useEffect(() => {
     if (uploadImage) {
       handleCompressImage();
@@ -74,7 +51,7 @@ export default function ProjectBanner({
     // h-[21.875rem]
     <div className="relative w-[35rem] mobile:w-full">
       <ImageDrag
-        handleImageDrag={handleChildrenClick}
+        handleImageDrag={setImage}
         className="relative aspect-w-16 aspect-h-10">
         {compressedImage ? (
           <Image
@@ -97,19 +74,12 @@ export default function ProjectBanner({
         )}
       </ImageDrag>
 
-      <input
-        type="file"
-        id="Imagefile"
-        ref={inputRef}
-        onChange={handleFileChange}
-        className="sr-only"
-      />
       <ImageCropper
         aspectRatio={16 / 10}
-        onCrop={handleUploadImage}
+        onCrop={setUploadImage}
         image={image}
         setImage={setImage}
-        handleChildrenClick={handleChildrenClick}>
+        setImageName={setImageName}>
         <CustomButton
           onClick={handleDeleteImage}
           color="primary"

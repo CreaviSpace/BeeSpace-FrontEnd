@@ -7,7 +7,7 @@ interface IProjectBody {
   field: string;
   thumbnail: string;
   bannerContent: string;
-  memberDtos: { memberId: number; position: string }[];
+  memberDtos: { memberId: string; position: string }[];
   techStackDtos: { techStackId: number }[];
   linkDtos: { linkType: string; url: string }[];
   setter: {
@@ -17,7 +17,7 @@ interface IProjectBody {
     setfield: (field: string) => void;
     setTechStackDtos: (techStackDtos: { techStackId: number }[]) => void;
     setMemberDtos: (
-      memberDtos: { memberId: number; position: string }[]
+      memberDtos: { memberId: string; position: string }[]
     ) => void;
     setLinkDtos: (linkDtos: { linkType: string; url: string }[]) => void;
     setThumbnail: (thumbnail: string) => void;
@@ -32,8 +32,8 @@ const useProjectData = create<IProjectBody>((set) => ({
   field: '',
   thumbnail: '',
   bannerContent: '',
-  memberDtos: [{ memberId: 0, position: '' }],
-  techStackDtos: [{ techStackId: 0 }],
+  memberDtos: [{ memberId: '', position: '' }],
+  techStackDtos: [],
   linkDtos: [
     { linkType: 'web', url: '' },
     { linkType: 'android', url: '' },
@@ -44,7 +44,7 @@ const useProjectData = create<IProjectBody>((set) => ({
     setTitle: (title: string) => set(() => ({ title: title })),
     setContent: (content: string) => set(() => ({ content: content })),
     setfield: (field: string) => set(() => ({ field: field })),
-    setMemberDtos: (memberDtos: { memberId: number; position: string }[]) =>
+    setMemberDtos: (memberDtos: { memberId: string; position: string }[]) =>
       set(() => ({ memberDtos: memberDtos })),
     setTechStackDtos: (techStackDtos: { techStackId: number }[]) =>
       set(() => ({ techStackDtos: techStackDtos })),

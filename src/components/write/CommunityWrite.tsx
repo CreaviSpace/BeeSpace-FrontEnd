@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import OnoffButton from '@/components/button/OnOffButton';
 import useCommunityDetail from '@/hooks/useCommunityDetail';
 import useWritePost from '@/hooks/useWritePost';
+import useWriteUpdate from '@/hooks/useWriteUpdate';
 import useCommunityData from '@/store/useCommunityData';
 
 import CustomButton from '../button/CustomButton';
@@ -39,7 +40,12 @@ export default function CommunityWrite({ id }: ICommunityWriteProps) {
   };
 
   const { isLoading, isError, data, isFetching } = useCommunityDetail(id);
-  const { mutate } = useWritePost('COMMUNITY', communityData);
+  const { mutate: communityPost } = useWritePost('community', communityData);
+  const { mutate: communityUpdate } = useWriteUpdate(
+    parseInt(id as string),
+    'community',
+    communityData
+  );
 
   useEffect(() => {
     if (!isLoading && id) {
@@ -94,7 +100,11 @@ export default function CommunityWrite({ id }: ICommunityWriteProps) {
               color="secondary"
               className="py-3 px-10"
               onClick={() => {
-                mutate();
+                if (id && data.id) {
+                  communityUpdate();
+                } else {
+                  communityPost();
+                }
               }}>
               작성
             </CustomButton>

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { getCookies } from '@/utils/getCookies';
 
-const useMemberProfileGet = (memberId: number) => {
+const useMemberProfileGet = (memberId: string) => {
   const { isLoading, data, isError, isFetching } = useQuery({
     queryKey: [`MemberProfile-${memberId}`],
     // queryKey: [`MemberProfile-${memberId}`],

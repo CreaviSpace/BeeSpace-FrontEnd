@@ -77,7 +77,7 @@ export interface IRecruitBody {
 export interface IProjectBody {
   category: string;
   memberDtos: {
-    memberId: number;
+    memberId: string;
     position: string;
   }[];
   title: string;
@@ -180,4 +180,17 @@ export interface IQuestionAnswerType {
     id: number;
     item: string;
   }[];
+}
+
+interface IAdminMemberType {
+  id: number;
+  loginId: string;
+  memberEmail: string;
+  memberName: string;
+  memberNickname: string;
+  loginType: string;
+  role: string;
+  idTag: string;
+  memberPosition: string;
+  memberCareer: number;
 }
