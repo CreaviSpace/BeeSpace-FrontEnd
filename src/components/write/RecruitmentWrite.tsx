@@ -27,6 +27,7 @@ interface IRecruitmentWriteProps {
   id: string | undefined;
 }
 export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
+  const today = new Date().toString();
   const {
     category,
     contactWay,
@@ -99,7 +100,7 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
       setter.setWorkDay(1);
       setter.setTitle('');
       setter.setContent('');
-      setter.setEnd('');
+      setter.setEnd(today);
       setter.setPositions([]);
     }
   }, [isFetching, id]);
