@@ -33,7 +33,7 @@ const useProject = (category: string, size: number) => {
         return null;
       }
 
-      return lastPage.length === 0 || lastPage?.length < size
+      return lastPage?.length === 0 || lastPage?.length < size
         ? undefined
         : nextPage;
     },
