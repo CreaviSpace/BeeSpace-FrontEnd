@@ -107,6 +107,7 @@ export default function CommunityCardContainer({
                       className={`mt-2 ${isActive === 'main' ? BORDERSTYLE.main : BORDERSTYLE.default}`}
                       id={item.id}
                       type="community"
+                      title={item.title}
                       contents={item.content}
                       userName={`임시 유저 이름`}
                       date={item.modifiedDate}
@@ -122,6 +123,7 @@ export default function CommunityCardContainer({
                       className={`mt-2 ${isActive === 'main' ? BORDERSTYLE.main : BORDERSTYLE.default}`}
                       id={item.id}
                       type="community"
+                      title={item.title}
                       contents={item.content}
                       userName={`임시 유저 이름`}
                       date={item.modifiedDate}
