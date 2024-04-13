@@ -19,9 +19,9 @@ export default function Login() {
             document.cookie = `MID=${btoa(response.data.memberId)}; max-age=3600;`;
 
             if (response.data.oldUser) {
-              router.replace('/signup');
-            } else {
               router.back();
+            } else {
+              router.replace('/signup');
             }
           }
         } catch (error) {
