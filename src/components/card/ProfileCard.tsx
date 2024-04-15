@@ -22,13 +22,23 @@ export default function ProfileCard({ items }: IProfileCardProps) {
     <div
       className="max-w-[22.4375rem] m-auto flex flex-col items-center gap-y-1"
       key={items.idTag}>
-      <Image
-        src={items.profileUrl}
-        alt="유저 사진"
-        width={100}
-        height={100}
-        className="rounded-full"
-      />
+      {items.profileUrl ? (
+        <Image
+          src={items.profileUrl}
+          alt="유저 사진"
+          width={100}
+          height={100}
+          className="rounded-full"
+        />
+      ) : (
+        <Image
+          src="/img/user/default.avif"
+          alt="유저 사진"
+          width={100}
+          height={100}
+          className="rounded-full"
+        />
+      )}
       <h2 className="text-bs_22 leading-5 font-bold mt-4">
         {items.memberNickname}
       </h2>

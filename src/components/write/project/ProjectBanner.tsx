@@ -1,3 +1,4 @@
+import { AiFillPlusCircle } from '@react-icons/all-files/ai/AiFillPlusCircle';
 import { FaImage } from '@react-icons/all-files/fa/FaImage';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -11,11 +12,13 @@ import fileUpload from '@/utils/fileUpload';
 import ImageCropper from './ImageCropper';
 
 interface IProjectBanner {
+  hidden?: boolean;
   thumbnail: string;
   setThumbnail: (thumbnail: string) => void;
 }
 
 export default function ProjectBanner({
+  hidden,
   thumbnail,
   setThumbnail,
 }: IProjectBanner) {
@@ -49,30 +52,65 @@ export default function ProjectBanner({
 
   return (
     // h-[21.875rem]
-    <div className="relative w-[35rem] mobile:w-full">
-      <ImageDrag
-        handleImageDrag={setImage}
-        className="relative aspect-w-16 aspect-h-10">
-        {compressedImage ? (
-          <Image
-            src={compressedImage}
-            alt="bannerImage"
-            fill
-            className="object-cover object-top rounded-bs_10"
-          />
-        ) : thumbnail ? (
-          <Image
-            src={thumbnail}
-            alt="bannerImage"
-            fill
-            className="object-cover object-top rounded-bs_10"
-          />
-        ) : (
-          <div className="absolute w-full h-full bg-gray10 flex items-center justify-center text-white rounded-bs_10">
-            {isCompressLoading ? '이미지 압축 중..' : <FaImage size={50} />}
-          </div>
-        )}
-      </ImageDrag>
+    <div className={`${hidden ? 'w-[9rem]' : 'w-[35rem]'} relative`}>
+      {hidden ? (
+        <ImageDrag
+          handleImageDrag={setImage}
+          className="relative aspect-w-16 aspect-h-16">
+          {compressedImage ? (
+            <Image
+              src={compressedImage}
+              alt="userImage"
+              fill
+              className="object-cover object-top rounded-full"
+            />
+          ) : thumbnail ? (
+            <Image
+              src={thumbnail}
+              alt="userImage"
+              fill
+              className="object-cover object-top rounded-full"
+            />
+          ) : (
+            <div className="absolute w-full h-full bg-gray10 flex items-center justify-center text-white rounded-full ">
+              {isCompressLoading ? (
+                '이미지 압축 중..'
+              ) : (
+                <Image
+                  src="/img/user/default.avif"
+                  alt="userImage"
+                  fill
+                  className="rounded-full"
+                />
+              )}
+            </div>
+          )}
+        </ImageDrag>
+      ) : (
+        <ImageDrag
+          handleImageDrag={setImage}
+          className="relative aspect-w-16 aspect-h-10">
+          {compressedImage ? (
+            <Image
+              src={compressedImage}
+              alt="bannerImage"
+              fill
+              className="object-cover object-top rounded-bs_10"
+            />
+          ) : thumbnail ? (
+            <Image
+              src={thumbnail}
+              alt="bannerImage"
+              fill
+              className="object-cover object-top rounded-bs_10"
+            />
+          ) : (
+            <div className="absolute w-full h-full bg-gray10 flex items-center justify-center text-white rounded-bs_10">
+              {isCompressLoading ? '이미지 압축 중..' : <FaImage size={50} />}
+            </div>
+          )}
+        </ImageDrag>
+      )}
 
       <ImageCropper
         aspectRatio={16 / 10}
@@ -80,19 +118,28 @@ export default function ProjectBanner({
         image={image}
         setImage={setImage}
         setImageName={setImageName}>
+        {hidden ? (
+          <button
+            className="absolute right-0 bottom-2"
+            onClick={handleDeleteImage}>
+            <AiFillPlusCircle size={40} />
+          </button>
+        ) : (
+          <CustomButton
+            onClick={handleDeleteImage}
+            color="primary"
+            className=" w-full h-[3.125rem] mt-3">
+            이미지 추가
+          </CustomButton>
+        )}
+      </ImageCropper>
+      {!hidden && (
         <CustomButton
           onClick={handleDeleteImage}
-          color="primary"
-          className=" w-full h-[3.125rem] mt-3">
-          이미지 추가
+          className="w-full h-[3.125rem] mt-2">
+          이미지 제거
         </CustomButton>
-      </ImageCropper>
-
-      <CustomButton
-        onClick={handleDeleteImage}
-        className="w-full h-[3.125rem] mt-2">
-        이미지 제거
-      </CustomButton>
+      )}
     </div>
   );
 }
