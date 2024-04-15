@@ -6,7 +6,7 @@ import CustomButton from '@/components/button/CustomButton';
 import SortButton from '@/components/button/SortButton';
 import ProfileCard from '@/components/card/ProfileCard';
 import UniversalCard from '@/components/card/UniversalCard';
-import ProfileCategory from '@/components/ProfileCategory';
+import ProfileCategory from '@/components/profile/ProfileCategory';
 import SkeletonProfile from '@/components/skeleton/SkeletonProfile';
 import SkeletonUniversalCard from '@/components/skeleton/SkeletonUniversalCard';
 import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
