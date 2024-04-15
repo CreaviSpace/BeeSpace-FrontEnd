@@ -2,14 +2,14 @@ import { ButtonHTMLAttributes } from 'react';
 
 interface ITagProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset';
-  category: 'team' | 'individual' | 'hashtag' | 'field' | 'skill';
+  category: 'TEAM' | 'INDIVIDUAL' | 'hashtag' | 'field' | 'skill';
   name?: string;
   className?: string;
 }
 
 const tagStyle = {
-  team: 'bg-primary',
-  individual: 'bg-secondary text-white',
+  TEAM: 'bg-primary',
+  INDIVIDUAL: 'bg-secondaKry text-white',
   hashtag: 'bg-blue10',
   field: 'bg-blue10 px-4 rounded-[.625rem]',
   skill: 'border bg-white border-black rounded-full text-bs_14',
