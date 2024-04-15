@@ -13,14 +13,15 @@ export default function ProfileCategory({
     setSelectedTab(item);
   };
   return (
-    <nav className="sticky top-16 w-full border-y bg-white border-gray30 mt-10 z-[1] h-[4.6875rem]">
-      <div className="max-w-max_w m-auto flex justify-between items-center mobile:justify-center">
-        <ul className="flex text-center">
+    <nav className="sticky top-16 w-full border-y bg-white border-gray30 mt-10 z-[1]">
+      <div className=" max-w-4xl m-auto flex justify-between items-center mobile:justify-center">
+        <ul className="flex text-center gap-12 min_mobile:gap-3">
           {category.map((item, index) => (
             <li
               key={index}
-              className="px-2 py-5 mx-10 text-bs_20 cursor-pointer mobile:mx-5">
-              <button onClick={() => handleTab(item)}>{item.name}</button>
+              onClick={() => handleTab(item)}
+              className="px-2 py-8 text-bs_20 cursor-pointer mobile:mx-5  min_mobile:text-bs_16">
+              <button>{item.name}</button>
             </li>
           ))}
         </ul>
