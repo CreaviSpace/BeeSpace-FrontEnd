@@ -19,7 +19,7 @@ export default function Recruitment() {
         <Banner postType="recruitment" />
       </section>
       <Category category={category} btnValue="팀원 모집하기" />
-      <section className="flex justify-center pt-14 pb-24 tablet:px-8 mobile:px-8">
+      <section className="flex justify-center pt-14 pb-24 tablet:px-8 mobile:px-6">
         <RecruitmentCardContainer category={type as string} size={10} />
       </section>
     </main>

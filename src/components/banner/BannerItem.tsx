@@ -44,26 +44,20 @@ export default function BannerItem({
         </div>
       )}
 
-      <div className="relative pl-5 pt-5 w-full ">
-        <div className="pb-10">
+      <div className="relative pl-5 pt-8 w-full">
+        <div className="">
           {date && (
             <div className="w-fit text-bs_14 bg-blue30 text-white rounded-bs_5 px-2 py-1 mb-3">
               {date}
             </div>
           )}
-          <h2 className="text-bs_24 font-bold tablet:text-bs_20 mobile:text-bs_18">
+          <h2 className="text-bs_24 font-bold mb-2 mobile:text-bs_20">
             {title}
           </h2>
-          <p className="text-bs_20 text-black line-clamp-3 mb-5">{content}</p>
+          <p className="text-bs_18 mobile:text-bs_16 line-clamp-3">{content}</p>
         </div>
-        <div className="border-t pt-3 border-gray30 ">
-          {iconUrl ? (
-            <span className="border p-2 rounded-full bg-white">{iconUrl}</span>
-          ) : (
-            <></>
-          )}
-        </div>
-        <div className="absolute right-0 bottom-0 mt-5">
+        <div className="border-b pt-3 h-0 border-gray30 mobile:hidden"></div>
+        <div className="absolute right-0 bottom-0 mt-5 mobile:bottom-5 mobile:-translate-x-1/2">
           <CustomButton
             color="secondary"
             className="px-10 py-2 rounded-bs_20"

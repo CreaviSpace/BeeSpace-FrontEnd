@@ -12,7 +12,7 @@ export default function OnoffButton({
   list,
 }: IOnoffButtonProps) {
   return (
-    <>
+    <div className="min_mobile:flex min_mobile:flex-col min_mobile:gap-2">
       {list.map((item, index) => (
         <CustomButton
           key={`${item}-${index}`}
@@ -24,6 +24,6 @@ export default function OnoffButton({
           {item.name}
         </CustomButton>
       ))}
-    </>
+    </div>
   );
 }

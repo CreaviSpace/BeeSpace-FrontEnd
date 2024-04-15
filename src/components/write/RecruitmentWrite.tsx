@@ -106,12 +106,12 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
   }, [isFetching, id]);
 
   return (
-    <main className="max-w-max_w m-auto p-20">
+    <main className="max-w-max_w m-auto p-20 mobile:p-6">
       <section>
         <h1 className="text-center text-[2rem] font-bold">
           모집 정보를 입력해주세요
         </h1>
-        <ul className="my-20 grid grid-cols-2 gap-x-20">
+        <ul className="my-20 grid grid-cols-2 gap-x-20 tablet:grid-cols-1 mobile:grid-cols-1">
           <li className="mt-14">
             <Classification
               category={category}

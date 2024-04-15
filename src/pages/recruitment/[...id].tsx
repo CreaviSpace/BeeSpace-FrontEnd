@@ -16,7 +16,7 @@ export default function RecruitmentDetail() {
     id as string
   );
   return (
-    <main className="h-full gap-5 max-w-max_w m-auto py-10 px-16 relative">
+    <main className="h-full gap-5 max-w-max_w m-auto py-10 px-16 relative mobile:px-4">
       {isLoading ? (
         <SkeletonDetail />
       ) : (
@@ -42,7 +42,7 @@ export default function RecruitmentDetail() {
               workDay={data.workDay}
               end={data.end}
             />
-            <div className="p-6 border-b flex justify-between">
+            <div className="p-6 border-b flex justify-between mobile:flex-col gap-10">
               <RecruitPosition positions={data.positions} />
               <TechStackList techStacks={data.techStacks} />
             </div>
