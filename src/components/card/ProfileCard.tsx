@@ -3,13 +3,13 @@ import Image from 'next/image';
 import Tag from '@/components/Tag';
 
 interface IMemberProfileType {
-  memberId: 0;
-  profileUrl: 'string';
-  memberNickname: 'string';
-  idTag: 'string';
+  memberId: number;
+  profileUrl: string;
+  memberNickname: string;
+  idTag: string;
   memberCareer: 0;
-  memberPosition: 'string';
-  memberIntroduce: 'string';
+  memberPosition: string;
+  memberIntroduce: string;
   memberInterestedStack: string[];
 }
 
@@ -21,7 +21,7 @@ export default function ProfileCard({ items }: IProfileCardProps) {
   return (
     <div
       className="max-w-[22.4375rem] m-auto flex flex-col items-center gap-y-1"
-      key={items.idTag}>
+      key={items.memberId}>
       {items.profileUrl ? (
         <Image
           src={items.profileUrl}
@@ -43,7 +43,7 @@ export default function ProfileCard({ items }: IProfileCardProps) {
         {items.memberNickname}
       </h2>
       <h3 className="text-base leading-tight text-gray30 font-bold">
-        {items.idTag}
+        {items.memberId}
       </h3>
       <div className="text-bs_16 my-2 flex gap-2">
         <span>{`${items.memberCareer}년차`}</span>
