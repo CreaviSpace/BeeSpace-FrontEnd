@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
 import { getCookies } from '@/utils/getCookies';
@@ -14,6 +15,8 @@ interface IMyProfileeditorProps {
 }
 
 const useMyProfileEditor = (content: IMyProfileeditorProps) => {
+  const router = useRouter();
+  const MID = getCookies('MID', true);
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: async () => {
@@ -24,7 +27,8 @@ const useMyProfileEditor = (content: IMyProfileeditorProps) => {
       );
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`MemberProfile-2`] });
+      queryClient.invalidateQueries({ queryKey: [`MemberProfile`] });
+      router.replace(`/profile/${MID}`);
     },
     onError: () => {
       toast.error('에러 발생');

@@ -9,20 +9,17 @@ import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
 import useMyProfileEditor from '@/hooks/profile/useMyProfileEditor';
 import { getCookies } from '@/utils/getCookies';
 
-const MEMBERID = '810cfc7e';
-
 export default function ProfileEdit() {
-  const { isLoading, data } = useMemberProfileGet(MEMBERID);
+  const MID = getCookies('MID', true);
+
+  const { isLoading, data } = useMemberProfileGet(MID);
 
   const [profileUrl, setProfileUrl] = useState<string>('');
   const [nickName, setNameValue] = useState<string>('');
   const [introduce, setintroduce] = useState<string>('');
-  const [position, setPosition] = useState<string[]>(['없음', 'default']);
-  const [career, setCareer] = useState<string[]>(['0년', 'default']);
-  const [interestedStack, setInterestedStack] = useState<string[]>([
-    '',
-    'default',
-  ]);
+  const [position, setPosition] = useState<string[]>(['default']);
+  const [career, setCareer] = useState<string[]>(['0년']);
+  const [interestedStack, setInterestedStack] = useState<string[]>(['default']);
 
   const [jobOption] = useState(['백엔드', '프론트엔드', '디자이너', '기획']);
 
@@ -41,18 +38,18 @@ export default function ProfileEdit() {
   ]);
 
   const router = useRouter();
-  const closeButton = () => router.replace(`/profile/${MEMBERID}`);
+  const closeButton = () => router.replace(`/profile/${MID}`);
 
   useEffect(() => {
     if (isLoading === false) {
-      setPosition([0, data.memberPosition]);
-      setCareer(['0', `${data.memberCareer}년`]);
-      setInterestedStack([null, data.memberInterestedStack[0]]);
+      setPosition([data.memberPosition]);
+      setCareer([`${data.memberCareer}년`]);
+      setInterestedStack([...data.memberInterestedStack]);
       setNameValue(data.memberNickname);
       setintroduce(data.memberIntroduce);
       setProfileUrl(data.profileUrl);
     }
-  }, [isLoading, MEMBERID]);
+  }, [isLoading, MID]);
 
   const handlerExpireMember = async () => {
     return await axios.post(`${process.env.BASE_URL}/member/mypage/edit`, {
@@ -73,7 +70,7 @@ export default function ProfileEdit() {
   const newContent = {
     nickName,
     introduce,
-    position: position[1],
+    position: position[0],
     career: parseInt(career[0].split('년')[0]),
     interestedStack: interestedStack,
     profileUrl,
@@ -133,7 +130,7 @@ export default function ProfileEdit() {
                 setSelect={
                   setPosition as (position: (string | number)[]) => void
                 }
-                index={1}
+                index={0}
                 className="border-gray30"
               />
             </li>
@@ -144,7 +141,7 @@ export default function ProfileEdit() {
                 option={careerOption}
                 select={career}
                 setSelect={setCareer as (career: (string | number)[]) => void}
-                index={1}
+                index={0}
                 className="border-gray30"
               />
             </li>
@@ -160,7 +157,6 @@ export default function ProfileEdit() {
                 className="py-2 px-5"
                 onClick={() => {
                   mutate();
-                  // if(){closeButton()};
                 }}>
                 확인
               </CustomButton>
