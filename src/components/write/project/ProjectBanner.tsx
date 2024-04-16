@@ -128,7 +128,7 @@ export default function ProjectBanner({
           <CustomButton
             onClick={handleDeleteImage}
             color="primary"
-            className=" w-full h-[3.125rem] mt-3">
+            className=" w-full h-[3.125rem] mt-3 text-black">
             이미지 추가
           </CustomButton>
         )}
@@ -136,7 +136,7 @@ export default function ProjectBanner({
       {!hidden && (
         <CustomButton
           onClick={handleDeleteImage}
-          className="w-full h-[3.125rem] mt-2">
+          className="w-full h-[3.125rem] mt-2 text-black">
           이미지 제거
         </CustomButton>
       )}

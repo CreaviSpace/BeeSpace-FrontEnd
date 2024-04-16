@@ -1,32 +1,41 @@
+import { useState } from 'react';
+
+import useAdmin from '@/hooks/useAdmin';
+import { IReportType } from '@/types/global';
+
 import ReportContent from './ReportContent';
 
-export default function ReportManagement() {
-  const trashData = [1, 2, 3];
+const SIZE = 1000;
+const TYPE = 'reports';
 
-  const title = [
-    '번호',
-    '날짜',
-    '유형',
-    '신고한 계정',
-    '신고받은 계정',
-    '링크',
-    '',
-  ];
+export default function ReportManagement() {
+  const [sorting, setSorting] = useState('DESC');
+
+  const {
+    isLoading,
+    isError,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useAdmin(SIZE, sorting, TYPE);
 
   return (
-    <section className="w-full p-3">
-      <table className="p-3 bg-blue10 w-full">
-        <tr className="text-left border-y border-black">
-          {title.map((item) => (
-            <th key={item} className="w-auto p-4">
-              {item}
-            </th>
-          ))}
-        </tr>
-        {trashData.map((item, index) => (
-          <ReportContent key={`${item}-${index}`} />
-        ))}
-      </table>
+    <section className="w-full min-w-min_w p-3">
+      <div className="bg-blue10 w-full">
+        <ul className="text-left border-t border-black flex">
+          <li className="w-[25%] p-4">번호</li>
+          <li className="w-[25%] p-4 mobile:hidden">날짜</li>
+          <li className="w-[25%] p-4 mobile:w-[50%]">유형</li>
+        </ul>
+      </div>
+      {isLoading
+        ? null
+        : data?.pages.map((page) => {
+            return page.map((item: IReportType, index: number) => (
+              <ReportContent key={`${index}`} item={item} />
+            ));
+          })}
     </section>
   );
 }

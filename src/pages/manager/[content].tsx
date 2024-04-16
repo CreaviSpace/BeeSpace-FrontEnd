@@ -38,7 +38,7 @@ const MENU = [
     icon: AiOutlineTeam(),
     contents: [
       { content: '사용자 관리', link: 'manage' },
-      { content: '로그인 이력 관리', link: 'login' },
+      // { content: '로그인 이력 관리', link: 'login' },
     ],
   },
   {
@@ -79,7 +79,7 @@ export default function Manager() {
           <FaList size={20} />
         </button>
         <aside
-          className={`w-60 h-screen border-x border-gray10 bg-blue10 z-10 transition-all mobile:absolute mobile:top-0 mobile:${isSlide ? 'left-0' : '-left-[100%]'}`}>
+          className={`w-60 h-screen border-x border-gray10 bg-blue10 z-10 transition-all mobile:absolute mobile:top-0 ${isSlide ? 'mobile:left-0' : 'mobile:-left-[100%]'}`}>
           <p className="relative w-fill h-fit p-5 text-center flex justify-center items-center border-b border-gary10">
             <Image
               src="/BS_Logo315x114.png"
@@ -117,7 +117,7 @@ export default function Manager() {
           </ul>
         </aside>
 
-        <div className="w-full h-[calc(100vh_-_4rem)] overflow-auto">
+        <div className="w-full h-[calc(100vh)] overflow-auto">
           <div className="w-full bg-blue10 p-3 text-right">
             <button
               className="px-3 font-bold transition-all"

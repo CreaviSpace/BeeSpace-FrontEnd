@@ -8,14 +8,14 @@ import {
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import useReport from '@/hooks/report/useReport';
+import useReportPost from '@/hooks/report/useReportPost';
 import useReportModal from '@/store/useReportModal';
 import { parseEnum } from '@/utils/parseEnum';
 
 import CustomSelect from '../button/CustomSelect';
 import Modals from './Modals';
 
-const option = [
+const OPTIONS = [
   '스팸',
   '음란물',
   '폭력',
@@ -25,7 +25,7 @@ const option = [
 ];
 
 export default function ReportModal() {
-  const { isOpen, onOpen, onClose } = useReportModal();
+  const { isOpen, onClose } = useReportModal();
   const router = useRouter();
   const { id } = router.query;
   const pathname = router.pathname.split('/')[1];
@@ -35,12 +35,12 @@ export default function ReportModal() {
 
   const data = {
     postId: parseInt(id as string),
-    postType: pathname,
+    postType: pathname.toUpperCase(),
     category: parseEnum(select[0]),
     content: value,
   };
 
-  const { mutate, isSuccess } = useReport(data);
+  const { mutate, isSuccess } = useReportPost(data);
 
   const { reportTitle } = useReportModal();
 
@@ -62,7 +62,7 @@ export default function ReportModal() {
         <section className="my-5">
           <p className="font-bold mb-2">신고 유형</p>
           <CustomSelect
-            option={option}
+            option={OPTIONS}
             select={select}
             setSelect={setSelect as (personnel: (string | number)[]) => void}
             index={0}
