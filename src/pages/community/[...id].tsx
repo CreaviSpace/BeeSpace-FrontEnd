@@ -32,7 +32,6 @@ export default function CommunityDetail() {
               time={data.modifiedDate}
               views={data.viewCount}
               title={data.title}
-              likes={3}
               userName="author"
               category={data.category}
               id={data.id}

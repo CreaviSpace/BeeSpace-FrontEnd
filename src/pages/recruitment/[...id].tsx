@@ -29,7 +29,6 @@ export default function RecruitmentDetail() {
               time={data.modifiedDate}
               views={data.viewCount}
               title={data.title}
-              likes={data.commont}
               userName={`user`}
             />
             <SideButton id={data.id} type={data.postType} />

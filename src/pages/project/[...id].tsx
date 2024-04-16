@@ -30,7 +30,6 @@ export default function ProjectDetail() {
               type="project"
               time={data.modifiedDate}
               views={data.viewCount}
-              likes={3}
               title={data.title}
               userName="author"
               category={data.category}
