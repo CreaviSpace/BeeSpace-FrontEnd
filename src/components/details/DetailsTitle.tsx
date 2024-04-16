@@ -3,6 +3,7 @@ import React from 'react';
 
 import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
+import useLikeView from '@/hooks/useLikeView';
 import useReconfirmModal from '@/store/useReconfirmModal';
 import useReportModal from '@/store/useReportModal';
 
@@ -11,7 +12,6 @@ interface IDetailsTitleProps {
   time: string;
   views: number;
   title: string;
-  likes: number;
   userName: string;
   className?: string;
   category?: string;
@@ -25,12 +25,16 @@ export default function DetailsTitle({
   views,
   className,
   userName,
-  likes,
   category,
   id,
 }: IDetailsTitleProps) {
   const { onOpen: reportOpen, setReportTitle } = useReportModal();
   const { onOpen: reconfirmOpen, setPostType, setId } = useReconfirmModal();
+
+  const { isLoading, isError, data, isFetching } = useLikeView(
+    id,
+    type.toUpperCase()
+  );
 
   const handleDelete = () => {
     setId(id);
@@ -55,7 +59,7 @@ export default function DetailsTitle({
           </p>
           <span aria-hidden>|</span>
           <p>
-            좋아요&nbsp;<span>{likes}</span>
+            좋아요&nbsp;<span>{!isLoading && data?.likeCount}</span>
           </p>
           <span aria-hidden>|</span>
           <p>
