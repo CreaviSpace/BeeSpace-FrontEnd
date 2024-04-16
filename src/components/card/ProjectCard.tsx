@@ -19,7 +19,7 @@ export default function ProjectCard({ item, tagName }: IProjectCardProps) {
       <Link href={`project/${item.id}`}>
         <Tag
           name={tagName}
-          category={item.category as 'team' | 'individual'}
+          category={item.category as 'TEAM' | 'INDIVIDUAL'}
           className="absolute top-3 left-3"
         />
         {item.thumbnail && (
@@ -42,7 +42,9 @@ export default function ProjectCard({ item, tagName }: IProjectCardProps) {
           postType={item.postType}
         />
         <Link href={`project/${item.id}`}>
-          <h3 className="text-bs_18 mt-3 font-bold">{item.title}</h3>
+          <h3 className="text-bs_18 mt-3 font-bold overflow-hidden text-ellipsis whitespace-nowrap">
+            {item.title}
+          </h3>
           <p
             className={`overflow-hidden text-ellipsis break-keep ${!item.thumbnail ? 'line-clamp-[10]' : 'line-clamp-2'}`}>
             {item.bannerContent}
