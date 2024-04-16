@@ -18,11 +18,11 @@ interface IBannerItem {
   thumbnail?: string;
   category: string;
   bannerContent: string;
-  // techStacks: {
-  //   techStackId: 0;
-  //   techStack: 'string';
-  //   iconUrl: 'string';
-  // }[];
+  techStacks: {
+    techStackId: number;
+    techStack: string;
+    iconUrl: string;
+  }[];
   iconUrl: 'string';
 }
 
