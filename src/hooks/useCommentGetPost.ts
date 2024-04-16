@@ -12,7 +12,7 @@ const useCommentGetPost = (id: number, type: string, content: string) => {
         `${process.env.BASE_URL}/comment?postId=${id}&postType=${type}`
       );
 
-      if (!response.data.success) {
+      if (response.data.success) {
         return response.data.data;
       }
     },
