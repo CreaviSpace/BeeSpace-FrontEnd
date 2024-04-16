@@ -31,7 +31,7 @@ export default function Header() {
 
   const { onOpen: openLogin } = useLoginModal();
   const { onOpen: openSignUp } = useSignUpModal();
-  const { onOpen } = useSearchErrorModal();
+  const { onOpen: openSearchError } = useSearchErrorModal();
 
   const MID = getCookies('MID', true);
   const ACCESE_TOKEN = getCookies('jwt');
@@ -40,7 +40,7 @@ export default function Header() {
     if (MID && ACCESE_TOKEN) {
       setLogin(true);
     }
-  }, []);
+  }, [MID, ACCESE_TOKEN]);
 
   const handleSearchToggle = () => {
     setIsSearchVisible(!isSearchVisible);
@@ -60,7 +60,7 @@ export default function Header() {
     if (value.trim().length >= 1) {
       router.push(`/search?type=all&text=${value}`);
     } else {
-      onOpen();
+      openSearchError();
     }
   };
 
