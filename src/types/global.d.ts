@@ -145,7 +145,7 @@ export interface IProfileType {
   memberIdTag: string;
   memberNickname: string;
   introduce: string;
-  career: 0;
+  career: number;
   position: string[];
   profileUrl: string;
   message: string;
@@ -182,7 +182,7 @@ export interface IQuestionAnswerType {
   }[];
 }
 
-interface IAdminMemberType {
+export interface IAdminMemberType {
   id: number;
   loginId: string;
   memberEmail: string;
@@ -193,4 +193,34 @@ interface IAdminMemberType {
   idTag: string;
   memberPosition: string;
   memberCareer: number;
+}
+
+export interface IReportType {
+  createdDate: string;
+  modifiedDate: string;
+  id: number;
+  member: {
+    createdDate: string;
+    modifiedDate: string;
+    id: string;
+    loginId: string;
+    memberEmail: string;
+    memberName: string;
+    memberNickname: string;
+    profileUrl: string;
+    loginType: string;
+    role: string;
+    memberIntroduce: string;
+    expired: true;
+    enabled: true;
+    memberPosition: string;
+    memberCareer: number;
+    interestedStack: string[];
+    roleKey: string;
+  };
+  category: SPAM;
+  postType: PROJECT;
+  postId: number;
+  content: string;
+  status: true;
 }
