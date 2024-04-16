@@ -29,7 +29,6 @@ export default function DeadLineContainer() {
           key={`Deadline-${item.id}`}
           id={item.id}
           postType={item.postType}
-          type="recruitment"
           title={item.title}
           content={item.content}
           date={item.modifiedDate}

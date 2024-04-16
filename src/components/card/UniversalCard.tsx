@@ -7,7 +7,6 @@ interface IUniversalCardProps {
   id: number;
   title: string;
   content: string;
-  type?: string;
   date?: string;
   image?: string;
   postType: string;
@@ -31,7 +30,6 @@ export default function UniversalCard({
   size,
   className,
   hidden = true,
-  type,
 }: IUniversalCardProps) {
   const boxSize = sizeStyles[size || 'small'];
 
@@ -47,7 +45,11 @@ export default function UniversalCard({
         />
       )}
       <Link
-        href={type ? `/${type}/${id}` : `/${postType}/${id}`}
+        href={
+          postType.toLocaleLowerCase() === 'recruit'
+            ? `/recruitment/${id}`
+            : `/${postType}/${id}`
+        }
         className="flex w-full">
         {image && (
           <div className="relative w-[30%] h-full overflow-hidden ">

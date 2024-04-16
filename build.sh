@@ -1,4 +1,4 @@
 cd ../
 mkdir output
-cp -R ./CreaviSpace-FrontEnd/* ./output
-cp -R ./output ./CreaviSpace-FrontEnd/
+cp -R ./BeeSpace-FrontEnd/* ./output
+cp -R ./output ./BeeSpace-FrontEnd/

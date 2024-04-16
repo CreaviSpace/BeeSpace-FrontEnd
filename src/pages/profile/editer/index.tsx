@@ -4,7 +4,6 @@ import { SetStateAction, useEffect, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import CustomSelect from '@/components/button/CustomSelect';
-import ProfileEditSkillStack from '@/components/profile/ProfileEditSkillStack';
 import ProjectBanner from '@/components/write/project/ProjectBanner';
 import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
 import useMyProfileEditor from '@/hooks/profile/useMyProfileEditor';
@@ -151,27 +150,6 @@ export default function ProfileEdit() {
             </li>
             <li className="flex flex-col gap-2 mt-8">
               <h2 className="font-bold">관심스택</h2>
-              {/* <CustomSelect
-                htmlFor="interestSkill"
-                option={skillOption}
-                select={interestedStack}
-                setSelect={
-                  setInterestedStack as (
-                    interestedStack: (string | number)[]
-                  ) => void
-                }
-                index={1}
-                className="border-gray30"
-              /> */}
-              <ProfileEditSkillStack
-                data={data.memberInterestedStack}
-                interestedStack={interestedStack}
-                setSelect={
-                  setInterestedStack as (
-                    interestedStack: (string | number)[]
-                  ) => void
-                }
-              />
             </li>
             <li className="text-right mt-14">
               <CustomButton className="py-2 px-5 mr-3" onClick={closeButton}>
