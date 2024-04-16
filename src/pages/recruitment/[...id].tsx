@@ -15,47 +15,45 @@ export default function RecruitmentDetail() {
   const { isLoading, isError, data, isFetching } = useRecruitDetail(
     id as string
   );
-
-  // const commonDetailsProps = {
-  //   className: 'hidden',
-  //   time: data.modifiedDate,
-  //   views: data.viewCount,
-  //   title: data.title,
-  //   likes: data.comment,
-  //   userName: data.name,
-  // };
-
   return (
-    <main className="h-full gap-5 max-w-max_w m-auto py-10 px-16 relative">
-      <section className="m-auto max-w-max_w mb-5">
-        {isLoading ? (
-          <SkeletonDetail />
-        ) : (
-          <>
+    <main className="h-full gap-5 max-w-max_w m-auto py-10 px-16 relative mobile:px-4">
+      {isLoading ? (
+        <SkeletonDetail />
+      ) : (
+        data?.id && (
+          <section className="m-auto max-w-max_w mb-5">
             <DetailsTitle
+              id={data.id}
               type="recruitment"
               className="hidden"
               time={data.modifiedDate}
               views={data.viewCount}
               title={data.title}
-              likes={data.commont}
               userName={`user`}
             />
-            <SideButton />
-            <RecruitDetails />
-            <div className="p-6 border-b flex justify-between">
-              <RecruitPosition />
-              <TechStackList />
+            <SideButton id={data.id} type={data.postType} />
+            <RecruitDetails
+              category={data.category}
+              contactWay={data.contactWay}
+              contact={data.contact}
+              amount={data.amount}
+              proceedWay={data.proceedWay}
+              workDay={data.workDay}
+              end={data.end}
+            />
+            <div className="p-6 border-b flex justify-between mobile:flex-col gap-10">
+              <RecruitPosition positions={data.positions} />
+              <TechStackList techStacks={data.techStacks} />
             </div>
             <div
               className="py-5 px-3 ql_editor"
               dangerouslySetInnerHTML={{ __html: data.content }}
             />
-            <span className="w-full border block border-gray10" />
-          </>
-        )}
-      </section>
-      <CommentContainer />
+            <span className="w-full border block border-gray10 mb-5" />
+            <CommentContainer id={data.id} type={data.postType} />
+          </section>
+        )
+      )}
     </main>
   );
 }

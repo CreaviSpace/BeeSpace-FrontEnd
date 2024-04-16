@@ -3,27 +3,23 @@ import { FaChevronUp } from '@react-icons/all-files/fa/FaChevronUp';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 
-export default function ReportContent() {
-  const tdRef = useRef<HTMLTableDataCellElement>(null);
+import { IReportType } from '@/types/global';
+
+interface IReportContentProps {
+  item: IReportType;
+}
+
+export default function ReportContent({ item }: IReportContentProps) {
+  const ulRef = useRef<HTMLUListElement>(null);
   const [isArrow, setIsArrow] = useState(true);
 
-  const trashContent = {
-    Id: 1,
-    Date: '2024.01.01',
-    title: '집단간 싸움 유발',
-    you: 'author',
-    my: 'author',
-    link: '/',
-    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mollis convallis ligula ac hendrerit. Donec non accumsan orci. Sed mattis neque sit amet vulputate suscipit. Praesent volutpat iaculis orci. Sed accumsan nibh sit amet feugiat placerat.`,
-  };
-
   const handleMelodeon = () => {
-    if (tdRef.current) {
-      if (tdRef.current.style.display === 'table-cell') {
-        tdRef.current.style.display = 'none';
+    if (ulRef.current) {
+      if (ulRef.current.style.display === 'table-cell') {
+        ulRef.current.style.display = 'none';
         setIsArrow(true);
       } else {
-        tdRef.current.style.display = 'table-cell';
+        ulRef.current.style.display = 'table-cell';
         setIsArrow(false);
       }
     }
@@ -31,16 +27,11 @@ export default function ReportContent() {
 
   return (
     <>
-      <tr className="bg-white">
-        <td className="p-4">{trashContent.Id}</td>
-        <td className="p-4">{trashContent.Date}</td>
-        <td className="p-4">{trashContent.title}</td>
-        <td className="p-4">{trashContent.you}</td>
-        <td className="p-4">{trashContent.my}</td>
-        <td className="p-4">
-          <Link href={trashContent.link}>게시판 이동</Link>
-        </td>
-        <td className="p-4">
+      <ul className="flex w-full relative border-y border-black bg-blue10 ">
+        <li className="p-4 w-[25%]">{item.id}</li>
+        <li className="p-4 w-[25%] mobile:hidden">{item.createdDate}</li>
+        <li className="p-4 w-[25%] mobile:w-[50%]">{item.category}</li>
+        <li className="absolute right-0 p-4 ">
           {isArrow ? (
             <FaChevronDown
               size={20}
@@ -54,13 +45,32 @@ export default function ReportContent() {
               onClick={handleMelodeon}
             />
           )}
-        </td>
-      </tr>
-      <tr className="border-b border-black bg-white">
-        <td colSpan={7} className="p-4 hidden" ref={tdRef}>
-          {trashContent.content}
-        </td>
-      </tr>
+        </li>
+      </ul>
+
+      <ul className="bg-white hidden w-fit" ref={ulRef}>
+        <li className="p-4">
+          <span className="font-bold">신고 유형 : </span>
+          {item.category}
+        </li>
+        <li className="p-4">
+          <span className="font-bold">신고한 계정 : </span>
+          {item.member.memberName}
+        </li>
+        <li className="p-4">
+          <span className="font-bold">신고받은 게시글 : </span>
+          {item.postId}
+        </li>
+        <li className="p-4">
+          <Link href={`/${item.postType}/${item.postId}`} className="font-bold">
+            게시글 이동
+          </Link>
+        </li>
+        <li className="p-4">
+          <span className="font-bold">신고 내용 : </span>
+          {item.content}
+        </li>
+      </ul>
     </>
   );
 }

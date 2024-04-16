@@ -1,38 +1,47 @@
+import { AiFillPlusCircle } from '@react-icons/all-files/ai/AiFillPlusCircle';
 import { FaImage } from '@react-icons/all-files/fa/FaImage';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
+import ImageDrag from '@/components/ImageDrag';
 import useImageCompress from '@/hooks/useImageCompression';
 import { dataURItoFile } from '@/utils/dataURItoFile';
+import fileUpload from '@/utils/fileUpload';
 
 import ImageCropper from './ImageCropper';
 
-export default function ProjectBanner() {
-  const [uploadImage, setUploadImage] = useState<string | null>(null);
-  const [compressedImage, setCompressedImage] = useState<string | null>(null);
-  const { isLoading: isCompressLoading, compressImage } = useImageCompress();
+interface IProjectBanner {
+  hidden?: boolean;
+  thumbnail: string;
+  setThumbnail: (thumbnail: string) => void;
+}
 
-  const handleUploadImage = (image: string) => setUploadImage(image);
+export default function ProjectBanner({
+  hidden,
+  thumbnail,
+  setThumbnail,
+}: IProjectBanner) {
+  const [uploadImage, setUploadImage] = useState<string | null>(null); // 업로드 된 이미지
+  const [imageName, setImageName] = useState<string>(''); // 이미지 이름
+  const [compressedImage, setCompressedImage] = useState<string | null>(null); // 압축 이미지
+  const [image, setImage] = useState<null | string>(null); // ImageCropper에서 보여주는 이미지
+
+  const { isLoading: isCompressLoading, compressImage } = useImageCompress();
 
   const handleCompressImage = async () => {
     if (!uploadImage) return;
 
-    const imageFile = dataURItoFile(uploadImage);
-
+    const imageFile = dataURItoFile(uploadImage, imageName);
     const compressedImage = await compressImage(imageFile);
 
-    // 이미지 서버 저장 로직
-    if (!compressedImage) return;
-    const imageUrl = URL.createObjectURL(compressedImage);
-    setCompressedImage(imageUrl);
+    const imageURL = await fileUpload(compressedImage, setCompressedImage);
+    setThumbnail(imageURL);
   };
 
   const handleDeleteImage = () => {
     setCompressedImage(null);
-    // const fileInput = useRef(null)
-    // if (fileInput) {
-    //   fileInput.value = '';
+    setThumbnail('');
   };
 
   useEffect(() => {
@@ -42,36 +51,95 @@ export default function ProjectBanner() {
   }, [uploadImage]);
 
   return (
-    <div className="relative w-[35rem] h-[21.875rem] mobile:w-full">
-      <div className="aspect-w-16 aspect-h-10">
-        {compressedImage ? (
-          <Image
-            src={compressedImage}
-            alt="bannerImage"
-            fill
-            className="object-cover object-top rounded-bs_10"
-          />
+    // h-[21.875rem]
+    <div className={`${hidden ? 'w-[9rem]' : 'w-[35rem]'} relative`}>
+      {hidden ? (
+        <ImageDrag
+          handleImageDrag={setImage}
+          className="relative aspect-w-16 aspect-h-16">
+          {compressedImage ? (
+            <Image
+              src={compressedImage}
+              alt="userImage"
+              fill
+              className="object-cover object-top rounded-full"
+            />
+          ) : thumbnail ? (
+            <Image
+              src={thumbnail}
+              alt="userImage"
+              fill
+              className="object-cover object-top rounded-full"
+            />
+          ) : (
+            <div className="absolute w-full h-full bg-gray10 flex items-center justify-center text-white rounded-full ">
+              {isCompressLoading ? (
+                '이미지 압축 중..'
+              ) : (
+                <Image
+                  src="/img/user/default.avif"
+                  alt="userImage"
+                  fill
+                  className="rounded-full"
+                />
+              )}
+            </div>
+          )}
+        </ImageDrag>
+      ) : (
+        <ImageDrag
+          handleImageDrag={setImage}
+          className="relative aspect-w-16 aspect-h-10">
+          {compressedImage ? (
+            <Image
+              src={compressedImage}
+              alt="bannerImage"
+              fill
+              className="object-cover object-top rounded-bs_10"
+            />
+          ) : thumbnail ? (
+            <Image
+              src={thumbnail}
+              alt="bannerImage"
+              fill
+              className="object-cover object-top rounded-bs_10"
+            />
+          ) : (
+            <div className="absolute w-full h-full bg-gray10 flex items-center justify-center text-white rounded-bs_10">
+              {isCompressLoading ? '이미지 압축 중..' : <FaImage size={50} />}
+            </div>
+          )}
+        </ImageDrag>
+      )}
+
+      <ImageCropper
+        aspectRatio={16 / 10}
+        onCrop={setUploadImage}
+        image={image}
+        setImage={setImage}
+        setImageName={setImageName}>
+        {hidden ? (
+          <button
+            className="absolute right-0 bottom-2"
+            onClick={handleDeleteImage}>
+            <AiFillPlusCircle size={40} />
+          </button>
         ) : (
-          <div className="absolute w-full h-full bg-gray10 flex items-center justify-center text-white rounded-bs_10">
-            {isCompressLoading ? '이미지 압축 중..' : <FaImage size={50} />}
-          </div>
+          <CustomButton
+            onClick={handleDeleteImage}
+            color="primary"
+            className=" w-full h-[3.125rem] mt-3 text-black">
+            이미지 추가
+          </CustomButton>
         )}
-        <ImageCropper aspectRatio={16 / 10} onCrop={handleUploadImage}>
-          <div className="w-full absolute -bottom-[7.5rem]">
-            <CustomButton
-              onClick={handleDeleteImage}
-              color="primary"
-              className=" w-full h-[3.125rem] mt-3">
-              이미지 추가
-            </CustomButton>
-            <CustomButton
-              onClick={handleDeleteImage}
-              className="w-full h-[3.125rem] mt-2">
-              이미지 제거
-            </CustomButton>
-          </div>
-        </ImageCropper>
-      </div>
+      </ImageCropper>
+      {!hidden && (
+        <CustomButton
+          onClick={handleDeleteImage}
+          className="w-full h-[3.125rem] mt-2 text-black">
+          이미지 제거
+        </CustomButton>
+      )}
     </div>
   );
 }

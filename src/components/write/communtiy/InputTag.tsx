@@ -1,11 +1,11 @@
 import { IoCloseOutline } from '@react-icons/all-files/io5/IoCloseOutline';
-import { SetStateAction, useRef, useState } from 'react';
+import { SetStateAction, useEffect, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 
 interface IInputTagProps {
   className?: string;
-  value?: string | string[];
+  value: string | string[];
   setValue: (value: string | string[]) => void;
 }
 
@@ -18,39 +18,38 @@ export default function InputTag({
   const [displayedValues, setDisplayedValues] = useState<string[]>([]);
   const inputRef = useRef(null);
 
+  useEffect(
+    function updateValue() {
+      if (value) {
+        if (typeof value === 'string') {
+          const newValue = [value];
+          setDisplayedValues(newValue);
+        } else if (typeof value === 'object') {
+          const newValue = [...value];
+          setDisplayedValues(newValue);
+        }
+      }
+    },
+    [value]
+  );
+
   const handleInputChange = (e: {
     target: { value: SetStateAction<string> };
   }) => {
     setInputValue(e.target.value);
   };
 
-  const handleInputKey = (e: { key: string }) => {
-    // 'Enter' 키 입력시
-    if (e.key === 'Enter') {
-      // value 값 배열 생성
-      setDisplayedValues((prevValues) => [...prevValues, inputValue]);
-      // 전역 상태에 저장
-      if (typeof value === 'string') {
-        setValue(inputValue);
-      } else if (typeof value === 'object') {
-        setValue([...displayedValues, inputValue]);
+  const handleInputKey = (e: { key: string; keyCode: number }) => {
+    if (e.key === 'Enter' || e.key === ',' || e.keyCode === 32) {
+      let newValues;
+      if (e.key === ',') {
+        newValues = [...displayedValues, inputValue.replace(/,/g, '')];
+      } else {
+        newValues = [...displayedValues, inputValue];
       }
-      // input 태그 value 삭제
-      setInputValue('');
-    } else if (e.key === ',') {
-      // ',' 입력시 쉼표를 제거하고 value 값 배열 생성
-      setDisplayedValues((prevValues) => [
-        ...prevValues,
-        inputValue.replace(/,/g, ''),
-      ]);
 
-      // 전역 상태에 저장
-      if (typeof value === 'string') {
-        setValue(inputValue.replace(/,/g, ''));
-      } else if (typeof value === 'object') {
-        setValue([...displayedValues, inputValue.replace(/,/g, '')]);
-      }
-      // input 태그 value 삭제
+      setValue(typeof value === 'string' ? inputValue : newValues);
+
       setInputValue('');
     }
   };
@@ -63,8 +62,6 @@ export default function InputTag({
     );
     setValue(displayedValues.filter((_, i) => i !== index));
   };
-
-  // useEffect(() => {}, [displayedValues]);
 
   return (
     <div className={`${className} w-full`}>

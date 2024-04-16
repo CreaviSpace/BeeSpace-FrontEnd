@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const useSearch = (size: number, page: number, text: string, type: string) => {
+const useSearch = (size: number, text: string, type: string) => {
   const {
     isLoading,
     isError,
@@ -10,10 +10,10 @@ const useSearch = (size: number, page: number, text: string, type: string) => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: [`search-${page}`],
-    queryFn: async () => {
+    queryKey: [`search-${type}-${text}`],
+    queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/search?size=${size}&page=${page}&text=${text}&type=${type}`
+        `${process.env.BASE_URL}/search?size=${size}&page=${pageParam}&text=${text}${type !== 'all' ? `&postType=${type.toUpperCase()}` : ''}`
       );
 
       if (response.data.success) {
@@ -23,7 +23,16 @@ const useSearch = (size: number, page: number, text: string, type: string) => {
     gcTime: 30000,
     staleTime: 30000,
     initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    getNextPageParam: (lastPage, allPages) => {
+      const nextPage = allPages.length + 1;
+      if (!lastPage) {
+        return null;
+      }
+
+      return lastPage.length === 0 || lastPage?.length < size
+        ? undefined
+        : nextPage;
+    },
   });
 
   return {

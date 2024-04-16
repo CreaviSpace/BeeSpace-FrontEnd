@@ -4,12 +4,18 @@ import CustomButton from '@/components/button/CustomButton';
 import CustomSelect from '@/components/button/CustomSelect';
 
 export default function SignUp() {
-  const [personnel, setPersonnel] = useState<string[]>(['default', 'default']);
-  const [jopOption, setJobOption] = useState([
+  const [job, setJob] = useState<string[]>(['default', 'default']);
+  const [stack, setStack] = useState<string[]>(['default', 'default']);
+  const [jobOption, setJobOption] = useState([
     '백엔드',
     '프론트엔드',
     '디자이너',
     '기획',
+  ]);
+  const [stackOption, setstackOption] = useState([
+    'Javascript',
+    'React',
+    'Java',
   ]);
 
   return (
@@ -29,26 +35,22 @@ export default function SignUp() {
           <li className="flex flex-col gap-2 mt-8">
             <label htmlFor="job">직무</label>
             <CustomSelect
-              option={jopOption}
-              select={personnel}
-              setSelect={
-                setPersonnel as (personnel: (string | number)[]) => void
-              }
+              option={jobOption}
+              select={job}
+              setSelect={setJob as (job: (string | number)[]) => void}
               index={1}
               className="border-gray30"
             />
           </li>
           <li className="flex flex-col gap-2 mt-8 ">
             <label htmlFor="interestSkill">관심스택</label>
-            <select
-              name="skill"
-              id="interestSkill"
-              className="border border-gray30 px-4 py-2 rounded-bs_5 h-[3.125rem] ">
-              <option value="select">선택해주세요</option>
-              <option value="Javascript">Javascript</option>
-              <option value="React">React</option>
-              <option value="Java">Java</option>
-            </select>
+            <CustomSelect
+              option={stackOption}
+              select={stack}
+              setSelect={setStack as (stack: (string | number)[]) => void}
+              index={1}
+              className="border-gray30"
+            />
           </li>
           <li className="w-full mt-8">
             <CustomButton color="primary" className="w-full h-12">

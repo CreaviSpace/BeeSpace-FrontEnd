@@ -1,33 +1,47 @@
 import { Button, ModalFooter, ModalHeader } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 
+import useWriteDelete from '@/hooks/useWriteDelete';
 import useReconfirmModal from '@/store/useReconfirmModal';
 
 import Modals from './Modals';
 
-interface IReconfirmModalProps {
-  value: string;
-}
+export default function ReconfirmModal() {
+  const router = useRouter();
+  const { isOpen, onOpen, onClose, id, postType, setId, setPostType } =
+    useReconfirmModal();
 
-export default function ReconfirmModal({ value }: IReconfirmModalProps) {
-  const { isOpen, onOpen, onClose } = useReconfirmModal();
+  const { mutate } = useWriteDelete(id, postType);
+
+  const handleReconfirmCancel = () => {
+    setId(0);
+    setPostType('');
+    onClose();
+  };
+
+  const handleReconfirm = () => {
+    mutate();
+    onClose();
+    router.push(`/${postType}?type=all`);
+  };
 
   return (
     <Modals isOpen={isOpen} onClose={onClose}>
       <ModalHeader className="text-center">
-        {value}을 삭제하시겠습니까?
+        게시글을 삭제하시겠습니까?
       </ModalHeader>
       <ModalFooter className="gap-2">
         <Button
           colorScheme="gary"
           color="black"
-          onClick={onClose}
+          onClick={handleReconfirmCancel}
           className="w-full bg-gray-100 text-bs_20 ">
           취소
         </Button>
         <Button
           colorScheme="secondary"
           color="black"
-          onClick={onClose}
+          onClick={handleReconfirm}
           className="w-full bg-blue20 text-bs_20 ">
           확인
         </Button>

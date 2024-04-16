@@ -1,17 +1,33 @@
 import { useState } from 'react';
 
-import CustomButton from '../button/CustomButton';
-import UserProfileButton from '../button/UserProfileButton';
+import CustomButton from '@/components/button/CustomButton';
+import CommentCard from '@/components/card/CommentCard';
+import useCommentGetPost from '@/hooks/useCommentGetPost';
 
-export default function CommentContainer() {
+import SkeletonCommentCard from '../skeleton/SkeletonCommentCard';
+import { ICommentContainerTypes } from './../../types/global.d';
+
+interface ICommentContainerProps {
+  id: number;
+  type: string;
+}
+
+export default function CommentContainer({ id, type }: ICommentContainerProps) {
   const [value, setValue] = useState('');
-  const comment = [
-    'This is image included post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do This is image included post. ',
-  ];
+
+  const {
+    isLoading,
+    isError,
+    data,
+    isFetching,
+    mutate: mutatePost,
+  } = useCommentGetPost(id, type, value);
 
   return (
     <div>
-      <h3 className="mb-5 text-bs_18">댓글 ({comment.length})</h3>
+      <h3 className="mb-5 text-bs_18">
+        댓글 ({!isLoading ? data && data.length : 0})
+      </h3>
       <div className="flex gap-5">
         <input
           type="text"
@@ -20,25 +36,30 @@ export default function CommentContainer() {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setValue(e.target.value);
           }}
-          className="w-full border border-gray10 p-5"
+          className="w-full border border-gray10 p-5 rounded-bs_5"
         />
-        <CustomButton color="secondary" className="w-[6.25rem]">
+        <CustomButton
+          color="secondary"
+          className="w-[6.25rem]"
+          onClick={() => mutatePost()}>
           등록
         </CustomButton>
       </div>
 
       <div className="mt-10">
-        {comment.map((item, index) => (
-          <div key={`${item}-${index}`} className="py-5 border-b border-gray10">
-            <div className="flex justify-between items-center">
-              <UserProfileButton userName="author" />
-              <div>
-                <button>수정</button>&nbsp;&#124;&nbsp;<button>삭제</button>
-              </div>
-            </div>
-            <div className="mt-3 text-bs_18">{item}</div>
-          </div>
-        ))}
+        {isLoading ? (
+          <SkeletonCommentCard />
+        ) : (
+          data?.length > 0 &&
+          data.map((item: ICommentContainerTypes, index: number) => (
+            <CommentCard
+              key={`${item}-${index}`}
+              postid={id}
+              item={item}
+              type={type}
+            />
+          ))
+        )}
       </div>
     </div>
   );

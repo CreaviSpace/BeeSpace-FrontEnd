@@ -6,7 +6,7 @@ import RecruitmentWrite from '@/components/write/RecruitmentWrite';
 
 export default function Write() {
   const router = useRouter();
-  const { type } = router.query;
+  const { type, id } = router.query;
 
   if (!type) {
     return <div>잘못된 페이지</div>;
@@ -16,9 +16,15 @@ export default function Write() {
 
   return (
     <div className="py-5">
-      {typeString === 'recruitment' && <RecruitmentWrite />}
-      {typeString === 'community' && <CommunityWrite />}
-      {typeString === 'project' && <ProjectWrite />}
+      {typeString === 'recruitment' && (
+        <RecruitmentWrite id={id as string | undefined} />
+      )}
+      {typeString === 'community' && (
+        <CommunityWrite id={id as string | undefined} />
+      )}
+      {typeString === 'project' && (
+        <ProjectWrite id={id as string | undefined} />
+      )}
     </div>
   );
 }

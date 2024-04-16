@@ -1,5 +1,5 @@
 import { IoIosArrowDown } from '@react-icons/all-files/io/IoIosArrowDown';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 interface ICustomSelectProps {
   option: string[] | number[];
@@ -22,11 +22,8 @@ export default function CustomSelect({
   handler,
   htmlFor,
 }: ICustomSelectProps) {
-  const [isOnOff, setIsOnOff] = useState(false);
-
-  const handleOnOffToggle = () => {
-    setIsOnOff(!isOnOff);
-  };
+  const [isToggle, setIsToggle] = useState(false);
+  const divRef = useRef<HTMLDivElement>(null);
 
   const handleOptionValue = (item: string | number) => {
     const copyPersonnel = [...select];
@@ -49,33 +46,53 @@ export default function CustomSelect({
     }
   };
 
+  const handleButtonOnClick = () => {
+    if (isToggle) {
+      divRef.current?.blur();
+    } else {
+      divRef.current?.focus();
+    }
+    setIsToggle(!isToggle);
+  };
+
+  const handleItemOnClick = (item: string | number) => {
+    setIsToggle(false);
+    handleOptionValue(item);
+  };
+
   return (
     <section
-      className={`relative w-full h-[3.125rem] mb-2 mr-2 border border-gray10 rounded-bs_5 ${className}`}
-      onClick={handleOnOffToggle}>
-      <label
-        htmlFor={htmlFor}
-        className="absolute top-0 left-0 px-5 w-full h-[3.125rem] p-[0.625rem] flex justify-between items-center z-[1] cursor-pointer">
+      className={`relative w-full h-[3.125rem] mb-2 mr-2 border border-gray10 rounded-bs_5 ${className}`}>
+      <button
+        className="absolute top-0 left-0 px-5 w-full h-[3.125rem] p-[0.625rem] flex justify-between items-center z-[1] cursor-pointer"
+        onClick={handleButtonOnClick}
+        onMouseDown={(e) => {
+          e.preventDefault();
+        }}>
         {select[index] !== `default` ? select[index] : '선택해주세요.'}
-        <span className={`${isOnOff && '-rotate-180 transition-all'}`}>
+        <span className={`${isToggle && '-rotate-180 transition-all'}`}>
           <IoIosArrowDown size={20} />
         </span>
-      </label>
+      </button>
 
-      {isOnOff && (
-        <ul className="relative mt-[3.75rem] rounded-bs_5 overflow-hidden border border-gray10  bg-white z-[10]">
-          {option.map((item) => (
-            <li
-              key={`${item}-${index}`}
-              className="w-full h-[3.125rem] p-[0.625rem] hover:bg-gray10 flex items-center cursor-pointer"
-              onClick={() => {
-                handleOptionValue(item);
-              }}>
-              {item}
-            </li>
-          ))}
-        </ul>
-      )}
+      <div
+        ref={divRef}
+        tabIndex={0}
+        onFocus={() => setIsToggle(true)}
+        onBlur={() => setIsToggle(false)}>
+        {isToggle && (
+          <ul className="relative max-h-[15.625rem] mt-[3.75rem] rounded-bs_5 overflow-y-scroll border border-gray10  bg-white z-[10] custom-scrollbar">
+            {option.map((item) => (
+              <li
+                key={`${item}-${index}`}
+                className="w-full h-[3.125rem] p-[0.625rem] hover:bg-gray10 flex items-center cursor-pointer"
+                onClick={() => handleItemOnClick(item)}>
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </section>
   );
 }

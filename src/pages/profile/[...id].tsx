@@ -1,122 +1,170 @@
-import Image from 'next/image';
-import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useCallback, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
-import CustomSelect from '@/components/button/CustomSelect';
+import SortButton from '@/components/button/SortButton';
+import ProfileCard from '@/components/card/ProfileCard';
+import UniversalCard from '@/components/card/UniversalCard';
+import ProfileCategory from '@/components/profile/ProfileCategory';
+import SkeletonProfile from '@/components/skeleton/SkeletonProfile';
+import SkeletonUniversalCard from '@/components/skeleton/SkeletonUniversalCard';
+import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
+import useMyContent from '@/hooks/profile/useMyContent';
+import { IUniversalType } from '@/types/global';
 
-export default function ProfileEdit() {
-  const [jop, setJop] = useState<string[]>(['백엔드', 'default']);
-  const [career, setCareer] = useState<string[]>(['없음', 'default']);
-  const [skill, setSkill] = useState<string[]>(['없음', 'default']);
-  const [jopOption, setJobOption] = useState([
-    '백엔드',
-    '프론트엔드',
-    '디자이너',
-    '기획',
-  ]);
-  const [careerOption, setCareerOption] = useState([
-    '없음',
-    '1년',
-    '2년',
-    '3년',
-    '4년',
-    '5년',
-    '6년',
-    '7년',
-    '8년',
-    '9년',
-    '10년 이상',
-  ]);
-  const [skillOption, setskillOption] = useState([
-    'Java',
-    'Javascript',
-    'Spring',
-    'HTML/CSS',
-    'jQuery',
-    'JSp',
-    'Vue.js',
-    'Oracle',
-    'MySQL',
-    'React',
-    'Spring Boot',
-    'PHP',
-    'Python',
-    'Node,js',
-    'C#',
-  ]);
+const POSTTYPEOTIONS = [
+  { type: 'project', name: '프로젝트' },
+  { type: 'recruit', name: '모집' },
+  { type: 'community', name: '커뮤니티' },
+];
+
+const SORTTPYEOPTIONS = [
+  { type: 'desc', name: '최신순' },
+  { type: 'asc', name: '오래된 순' },
+];
+
+const CATEGORIES = [
+  {
+    name: '내 게시물',
+    type: 'project',
+  },
+  {
+    name: '받은 피드백',
+    type: 'feedback',
+  },
+  {
+    name: '내 댓글',
+    type: 'comment',
+  },
+  {
+    name: '북마크',
+    type: 'bookmark',
+  },
+];
+
+export default function Profile() {
+  const [postType, setPostType] = useState({
+    type: 'project',
+    name: '프로젝트',
+  });
+  const [sortType, setSortType] = useState({
+    type: 'desc',
+    name: '최신순',
+  });
+  const [category, setCategory] = useState({
+    type: 'project',
+    name: '내 게시물',
+  });
+
+  const router = useRouter();
+  const memberId = router.query.id;
+
+  const { isLoading: profileLoading, data: profile } = useMemberProfileGet(
+    memberId as string
+  );
+
+  const {
+    isLoading: contentsLoading,
+    data: contents,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useMyContent(
+    memberId as string,
+    3,
+    postType.type,
+    sortType.type,
+    category.type
+  );
+
+  const observer: React.MutableRefObject<IntersectionObserver | null> =
+    useRef(null);
+
+  const lastElementRef = useCallback(
+    (node: HTMLElement | null) => {
+      if (isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && !isError) {
+            fetchNextPage();
+          }
+        },
+
+        { threshold: 0.7 }
+      );
+      if (node) observer.current.observe(node);
+    },
+    [isFetchingNextPage]
+  );
+
   return (
-    <main className="py-28">
-      <section className="w-[600px] m-auto flex flex-col items-center">
-        <h1 className="sr-only">프로필 수정</h1>
-        <Image
-          src="/img/user/default.avif"
-          alt="유저 사진"
-          width={100}
-          height={100}
-          className="rounded-full"
-        />
-        <ul className="w-full my-8">
-          <li className="flex flex-col gap-2">
-            <label htmlFor="nickName">닉네임</label>
-            <input
-              type="text"
-              id="nickName"
-              placeholder="닉네임을 기재해 주세요."
-              className="px-4 py-3 border border-gray30 rounded-bs_5"
-            />
-          </li>
-          <li className="flex flex-col gap-2 mt-8">
-            <label htmlFor="introduction">자기소개</label>
-            <textarea
-              name="introduction"
-              id="introduction"
-              placeholder="자신을 소개해 주세요."
-              className="p-4 border border-gray30 rounded-bs_5"></textarea>
-          </li>
-          <li className="flex flex-col gap-2 mt-8">
-            <label htmlFor="job">직무</label>
-            <CustomSelect
-              htmlFor="job"
-              option={jopOption}
-              select={jop}
-              setSelect={setJop as (jop: (string | number)[]) => void}
-              index={1}
-              className="border-gray30"
-            />
-          </li>
-          <li className="flex flex-col gap-2 mt-8">
-            <label htmlFor="career">경력</label>
-            <CustomSelect
-              htmlFor="career"
-              option={careerOption}
-              select={career}
-              setSelect={setCareer as (career: (string | number)[]) => void}
-              index={1}
-              className="border-gray30"
-            />
-          </li>
-          <li className="flex flex-col gap-2 mt-8">
-            <label htmlFor="interestSkill">관심스택</label>
-            <CustomSelect
-              htmlFor="interestSkill"
-              option={skillOption}
-              select={skill}
-              setSelect={setSkill as (skill: (string | number)[]) => void}
-              index={1}
-              className="border-gray30"
-            />
-          </li>
-          <li className="text-right mt-14">
-            <CustomButton className="py-2 px-5 mr-3">취소</CustomButton>
-            <CustomButton color="secondary" className="py-2 px-5">
-              확인
-            </CustomButton>
-          </li>
-        </ul>
-        <span className="w-full h-[1px] bg-gray10"></span>
-        <div className="w-full flex justify-between my-10">
-          <CustomButton className="py-1 px-3">회원탈퇴</CustomButton>
-          <CustomButton className="py-1 px-3">비밀번호 변경</CustomButton>
+    <main className="relative flow-root">
+      {profileLoading ? (
+        <SkeletonProfile />
+      ) : (
+        <section className="max-w-screen-md m-auto my-[100px]">
+          <h1 className="sr-only">내 프로필</h1>
+          <Link href={`/profile/editer`} className="flex justify-end mt-10">
+            <CustomButton className="px-2 py-1">수정</CustomButton>
+          </Link>
+          <ProfileCard items={profile} />
+        </section>
+      )}
+      <ProfileCategory
+        category={CATEGORIES}
+        setSelectedTab={setCategory}
+        selectedTab={category}
+      />
+      <section className="pt-10 pb-24 max-w-4xl m-auto relative">
+        <div>
+          <SortButton
+            select={sortType}
+            setSelect={setSortType}
+            options={SORTTPYEOPTIONS}
+            className="right-[6.25rem]"
+          />
+          <SortButton
+            select={postType}
+            setSelect={setPostType}
+            options={POSTTYPEOTIONS}
+            className="right-0"
+          />
+        </div>
+        <div className="mt-7 flex flex-col justify-center">
+          {contentsLoading ? (
+            [1, 2, 3].map((item, index) => (
+              <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
+            ))
+          ) : (
+            <>
+              {contents?.pages.map((item, index) =>
+                item?.map((item: IUniversalType) => (
+                  <UniversalCard
+                    key={`myContent-list-${item.id}`}
+                    id={item.id}
+                    postType={item.postType}
+                    title={item.title ? item.title : item.contentsTitle}
+                    content={
+                      item.bannerContent ? item.bannerContent : item.content
+                    }
+                    image={item.thumbnail ? item.thumbnail : ''}
+                    size="large"
+                    className="my-2 w-full"
+                  />
+                ))
+              )}
+            </>
+          )}
+          {isFetchingNextPage ? (
+            [1, 2, 3].map((item, index) => (
+              <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
+            ))
+          ) : (
+            <div ref={lastElementRef}></div>
+          )}
         </div>
       </section>
     </main>

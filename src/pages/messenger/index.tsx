@@ -4,7 +4,7 @@ import { FaRegImages } from '@react-icons/all-files/fa/FaRegImages';
 import { FaTelegramPlane } from '@react-icons/all-files/fa/FaTelegramPlane';
 
 import UserProfileButton from '@/components/button/UserProfileButton';
-import UserConnectiont from '@/components/user/UserConnectiont';
+import UserConnection from '@/components/user/UserConnection';
 
 export default function Messenger() {
   const user = [1, 2, 3];
@@ -42,7 +42,7 @@ export default function Messenger() {
           </div>
           <ul>
             {user.map((item) => (
-              <UserConnectiont
+              <UserConnection
                 key={item}
                 value="nickname"
                 content="안녕하세요"

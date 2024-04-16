@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { card, images } from '@/utils/data';
+import UniversalCard from '@/components/card/UniversalCard';
+import useBanner from '@/hooks/useBanner';
+import { IDeadLineType } from '@/types/global';
 
-import UniversalCard from '../card/UniversalCard';
-
-export default function DeadLine() {
-  const data = ['1', '2', '3'];
+export default function DeadLineContainer() {
+  const { isLoading, isError, data, isFetching } = useBanner('recruitment');
 
   return (
     <div className="w-full tablet:w-[767px] mx-auto mb-auto">
@@ -20,18 +20,19 @@ export default function DeadLine() {
           />
           <h2 className="text-bs_24 font-bold">마감 모집</h2>
         </div>
-        <Link href={`/recruitment?type=all`} className="text-gray20 text-bs_16">
+        <Link href={`/recruitment?type=all`} className="text-gray40 text-bs_16">
           더 보기
         </Link>
       </div>
-      {data.map((item) => (
+      {data?.map((item: IDeadLineType) => (
         <UniversalCard
-          key={`card-${item}`}
-          id={card.id}
-          title={card.title}
-          content={card.content}
-          date={'2020-02-12'}
-          image={images[0]}
+          key={`Deadline-${item.id}`}
+          id={item.id}
+          postType={item.postType}
+          type="recruitment"
+          title={item.title}
+          content={item.content}
+          date={item.modifiedDate}
           size="small"
           className="my-5"
         />

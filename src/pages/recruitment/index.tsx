@@ -4,13 +4,10 @@ import Banner from '@/components/banner/Banner';
 import Category from '@/components/Category';
 import RecruitmentCardContainer from '@/components/container/RecruitmentCardContainer';
 
-interface IRecruitKind {
-  recruitment: string;
-}
-export default function Recruitment({ recruitment }: IRecruitKind) {
+export default function Recruitment() {
   const category = [
-    { name: '프로젝트', link: 'project' },
-    { name: '스터디', link: 'study' },
+    { name: '모집', link: 'PROJECT_RECRUIT' },
+    { name: '스터디', link: 'STUDY' },
   ];
 
   const router = useRouter();
@@ -21,9 +18,9 @@ export default function Recruitment({ recruitment }: IRecruitKind) {
       <section>
         <Banner postType="recruitment" />
       </section>
-      <Category category={category} btnValue="프로젝트 올리기" />
-      <section className="flex justify-center pt-14 pb-24">
-        <RecruitmentCardContainer postType={type as string} />
+      <Category category={category} btnValue="팀원 모집하기" />
+      <section className="flex justify-center pt-14 pb-24 tablet:px-8 mobile:px-6">
+        <RecruitmentCardContainer category={type as string} size={10} />
       </section>
     </main>
   );
