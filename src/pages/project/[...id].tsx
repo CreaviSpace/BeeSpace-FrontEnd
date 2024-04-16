@@ -58,13 +58,13 @@ export default function ProjectDetail() {
                 <button
                   className="my-5"
                   onClick={() => router.push(`/feedback/${data.id}`)}>
-                  <Tag name={'설문조사 확인'} category={'individual'} />
+                  <Tag name={'설문조사 확인'} category={'INDIVIDUAL'} />
                 </button>
               )}
               <button
                 className="my-5"
                 onClick={() => router.push(`/feedback/question/${data.id}`)}>
-                <Tag name={'설문조사 참여'} category={'team'} />
+                <Tag name={'설문조사 참여'} category={'TEAM'} />
               </button>
             </div>
             <CommentContainer id={data.id} type={data.postType} />
