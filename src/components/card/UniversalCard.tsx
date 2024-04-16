@@ -13,7 +13,7 @@ interface IUniversalCardProps {
   postType: string;
   size: 'large' | 'small';
   className?: string;
-  hidden?: true;
+  hidden?: boolean;
 }
 
 const sizeStyles = {
@@ -30,7 +30,7 @@ export default function UniversalCard({
   postType,
   size,
   className,
-  hidden,
+  hidden = true,
   type,
 }: IUniversalCardProps) {
   const boxSize = sizeStyles[size || 'small'];
@@ -59,12 +59,22 @@ export default function UniversalCard({
             />
           </div>
         )}
-        <ul className={`${image ? 'w-[70%] ' : 'w-full'} p-10`}>
-          <li className="text-bs_24">{title}</li>
-          <li
-            className="text-bs_16 my-1 line-clamp-3"
-            dangerouslySetInnerHTML={{ __html: content }}></li>
-          {date && <li className="text-bs_16 text-gray10">{date}</li>}
+        <ul className={`${image ? 'w-[70%] ' : 'w-full'} p-10 relative`}>
+          <li className="mb-2">
+            <h3 className="text-bs_24 overflow-hidden text-ellipsis whitespace-nowrap">
+              {title}
+            </h3>
+          </li>
+          <li>
+            <p
+              className="text-bs_16 my-1 line-clamp-3"
+              dangerouslySetInnerHTML={{ __html: content }}></p>
+          </li>
+          {date && (
+            <li className="text-bs_16 text-gray20 absolute bottom-6 right-8">
+              <span>{date}</span>
+            </li>
+          )}
         </ul>
       </Link>
     </div>
