@@ -46,18 +46,26 @@ export default function CustomSelect({
     }
   };
 
+  const handleButtonOnClick = () => {
+    if (isToggle) {
+      divRef.current?.blur();
+    } else {
+      divRef.current?.focus();
+    }
+    setIsToggle(!isToggle);
+  };
+
+  const handleItemOnClick = (item: string | number) => {
+    setIsToggle(false);
+    handleOptionValue(item);
+  };
+
   return (
     <section
       className={`relative w-full h-[3.125rem] mb-2 mr-2 border border-gray10 rounded-bs_5 ${className}`}>
       <button
         className="absolute top-0 left-0 px-5 w-full h-[3.125rem] p-[0.625rem] flex justify-between items-center z-[1] cursor-pointer"
-        onClick={() => {
-          if (isToggle) {
-            divRef.current?.blur();
-          } else {
-            divRef.current?.focus();
-          }
-        }}
+        onClick={handleButtonOnClick}
         onMouseDown={(e) => {
           e.preventDefault();
         }}>
@@ -78,10 +86,7 @@ export default function CustomSelect({
               <li
                 key={`${item}-${index}`}
                 className="w-full h-[3.125rem] p-[0.625rem] hover:bg-gray10 flex items-center cursor-pointer"
-                onClick={() => {
-                  setIsToggle(false);
-                  handleOptionValue(item);
-                }}>
+                onClick={() => handleItemOnClick(item)}>
                 {item}
               </li>
             ))}
