@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Bookmark from '../button/Bookmark';
+import BookmarkButton from '../button/BookmarkButton';
 
 interface IUniversalCardProps {
   id: number;
@@ -37,7 +37,7 @@ export default function UniversalCard({
     <div
       className={`${boxSize} ${className} relative m-auto rounded-bs_10 border border-gary10 flex overflow-hidden  tablet:w-[767px] mobile:w-full`}>
       {hidden && (
-        <Bookmark
+        <BookmarkButton
           id={id}
           postType={postType.toUpperCase()}
           size={35}
@@ -46,7 +46,7 @@ export default function UniversalCard({
       )}
       <Link
         href={
-          postType.toLocaleLowerCase() === 'recruit'
+          postType.toLowerCase() === 'recruit'
             ? `/recruitment/${id}`
             : `/${postType}/${id}`
         }

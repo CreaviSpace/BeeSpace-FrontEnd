@@ -31,6 +31,11 @@ export default function Messenger() {
       date: '2020-02-01',
     },
   ];
+
+  if (true) {
+    return null;
+  }
+
   return (
     <main className="w-full h-[calc(100vh_-_4rem)] overflow-hidden">
       <div className="max-w-max_w h-full border-x m-auto flex">

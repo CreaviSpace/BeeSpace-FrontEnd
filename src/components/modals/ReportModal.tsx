@@ -9,10 +9,10 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import useReportPost from '@/hooks/report/useReportPost';
-import useReportModal from '@/store/useReportModal';
+import useReportModal from '@/store/modal/useReportModal';
 import { parseEnum } from '@/utils/parseEnum';
 
-import CustomSelect from '../button/CustomSelect';
+import SelectButton from '../button/SelectButton';
 import Modals from './Modals';
 
 const OPTIONS = [
@@ -61,7 +61,7 @@ export default function ReportModal() {
 
         <section className="my-5">
           <p className="font-bold mb-2">신고 유형</p>
-          <CustomSelect
+          <SelectButton
             option={OPTIONS}
             select={select}
             setSelect={setSelect as (personnel: (string | number)[]) => void}

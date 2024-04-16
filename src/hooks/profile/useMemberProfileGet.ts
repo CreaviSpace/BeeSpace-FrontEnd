@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
+import useLogin from '@/store/useLogin';
 import { getCookies } from '@/utils/getCookies';
 
 const useMemberProfileGet = (memberId: string) => {
+  const { setLogin } = useLogin();
   const { isLoading, data, isError, isFetching } = useQuery({
     queryKey: [`MemberProfile-${memberId}`],
     queryFn: async () => {
@@ -13,6 +15,7 @@ const useMemberProfileGet = (memberId: string) => {
       );
 
       if (response.data) {
+        setLogin();
         return response.data;
       } else {
         throw new Error(response.data.error);

@@ -5,7 +5,7 @@ import CommentContainer from '@/components/container/CommentContainer';
 import DetailsTitle from '@/components/details/DetailsTitle';
 import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import Tag from '@/components/Tag';
-import useCommunityDetail from '@/hooks/useCommunityDetail';
+import useCommunityDetail from '@/hooks/community/useCommunityDetail';
 
 interface IhashTagsItem {
   hashTagId: number;

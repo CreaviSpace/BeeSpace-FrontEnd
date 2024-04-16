@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { IRecruitType } from '@/types/global';
 
-import Bookmark from '../button/Bookmark';
+import BookmarkButton from '../button/BookmarkButton';
 
 interface IRecruitmentCardProps {
   item: IRecruitType;
@@ -12,7 +12,7 @@ interface IRecruitmentCardProps {
 export default function RecruitmentCard({ item, type }: IRecruitmentCardProps) {
   return (
     <div className="relative w-full h-[17.8125rem] bg-white border border-gray10 rounded-bs_10 py-8 px-5 overflow-hidden">
-      <Bookmark
+      <BookmarkButton
         id={item.id}
         postType={item.postType}
         size={35}

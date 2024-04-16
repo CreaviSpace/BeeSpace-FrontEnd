@@ -4,8 +4,9 @@ import React from 'react';
 import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
 import useLikeView from '@/hooks/useLikeView';
-import useReconfirmModal from '@/store/useReconfirmModal';
-import useReportModal from '@/store/useReportModal';
+import useReconfirmModal from '@/store/modal/useReconfirmModal';
+import useReportModal from '@/store/modal/useReportModal';
+import useLogin from '@/store/useLogin';
 
 interface IDetailsTitleProps {
   type: string;
@@ -28,6 +29,8 @@ export default function DetailsTitle({
   category,
   id,
 }: IDetailsTitleProps) {
+  const { login } = useLogin();
+
   const { onOpen: reportOpen, setReportTitle } = useReportModal();
   const { onOpen: reconfirmOpen, setPostType, setId } = useReconfirmModal();
 
@@ -59,7 +62,7 @@ export default function DetailsTitle({
           </p>
           <span aria-hidden>|</span>
           <p>
-            좋아요&nbsp;<span>{!isLoading && data?.likeCount}</span>
+            좋아요&nbsp;<span>{isLoading ? 0 : data?.likeCount}</span>
           </p>
           <span aria-hidden>|</span>
           <p>
@@ -68,19 +71,23 @@ export default function DetailsTitle({
         </div>
       </div>
       <span className="w-full border border-gray10 block" />
-      <div className="text-bs_14 flex justify-end w-full px-4 py-2">
-        <Link href={`/write/${type}?id=${id}`}>
-          <button>수정</button>
-        </Link>
-        <span className="mx-2" aria-hidden>
-          &#124;
-        </span>
-        <button onClick={handleDelete}>삭제</button>
-        <span className="mx-2" aria-hidden>
-          &#124;
-        </span>
-        <button onClick={handleReport}>신고</button>
-      </div>
+
+      {login && (
+        <div className="text-bs_14 flex justify-end w-full px-4 py-2">
+          <Link
+            href={`/write/${type.toLowerCase() === 'recruit' ? 'recruitment' : type}?id=${id}`}>
+            <button>수정</button>
+          </Link>
+          <span className="mx-2" aria-hidden>
+            &#124;
+          </span>
+          <button onClick={handleDelete}>삭제</button>
+          <span className="mx-2" aria-hidden>
+            &#124;
+          </span>
+          <button onClick={handleReport}>신고</button>
+        </div>
+      )}
     </div>
   );
 }

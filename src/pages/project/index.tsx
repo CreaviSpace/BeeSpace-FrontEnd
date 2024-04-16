@@ -15,9 +15,9 @@ const CATEGORIES = [
   },
 ];
 
-export default function Project() {
-  const PAGE_SIZE = 20;
+const PAGE_SIZE = 24;
 
+export default function Project() {
   const router = useRouter();
   const { type } = router.query;
 

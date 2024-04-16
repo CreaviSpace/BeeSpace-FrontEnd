@@ -17,7 +17,7 @@ export default function PopularImageCard({
   return (
     <div className="w-full p-1">
       <Link href={`${link1}` ? `${link1}` : '/'}>
-        <div className="relative right-0 my-5 h-80 w-[34.375rem] tablet:w-[47.9375rem] tablet:h-[27.875rem] min_mobile:w-[20.625rem]  min_mobile:h-[11.625rem]">
+        <div className="relative right-0 my-5 h-80 w-[34.375rem]">
           <Image
             src={img1}
             alt="프로젝트 이미지"
@@ -27,7 +27,7 @@ export default function PopularImageCard({
         </div>
       </Link>
       <Link href={`${link2}` ? `${link2}` : '/'}>
-        <div className="relative right-0 my-5 h-80 w-[34.375rem] tablet:w-[47.9375rem] tablet:h-[27.875rem] min_mobile:w-[20.625rem]  min_mobile:h-[11.625rem]">
+        <div className="relative right-0 my-5 h-80 w-[34.375rem]">
           <Image
             src={img2}
             alt="프로젝트 이미지"

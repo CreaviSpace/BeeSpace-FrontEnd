@@ -23,12 +23,12 @@ export default function LikeButton({
     postType
   );
 
-  const handleToggleBookmark = () => {
+  const handleToggleLike = () => {
     mutate();
   };
 
   return (
-    <button type="button" onClick={handleToggleBookmark} className={className}>
+    <button type="button" onClick={handleToggleLike} className={className}>
       {!isLoading && data?.likeStatus ? (
         <FaHeart color={color} size={size} aria-label="북마크 활성화" />
       ) : (

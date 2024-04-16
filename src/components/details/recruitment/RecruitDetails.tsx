@@ -1,3 +1,5 @@
+import { parseValue } from '@/utils/parseValue';
+
 import RecruitContactLink from './RecruitContactLink';
 
 interface IRecruitDetailsProps {
@@ -21,15 +23,11 @@ export default function RecruitDetails({
   const recruitmentDetails = [
     {
       label: '모집 구분',
-      value: category.includes('PROJECT_RECRUIT') ? '프로젝트' : '스터디',
+      value: parseValue(category),
     },
     {
       label: '연락 방법',
-      value: contactWay.includes('GOOGLE_FORM')
-        ? '구글폼'
-        : contactWay.includes('OPENTALK')
-          ? '오픈톡'
-          : '이메일',
+      value: parseValue(contactWay),
     },
     { label: '모집 인원', value: `${amount}명` },
   ];
@@ -37,11 +35,7 @@ export default function RecruitDetails({
   const progressDetails = [
     {
       label: '진행 방식',
-      value: proceedWay.includes('ONLINE')
-        ? '온라인'
-        : proceedWay.includes('OFFLINE')
-          ? '오프라인'
-          : '온/오프라인',
+      value: parseValue(proceedWay),
     },
     { label: '진행 기간', value: `${workDay}개월` },
     { label: '모집 마감', value: end },

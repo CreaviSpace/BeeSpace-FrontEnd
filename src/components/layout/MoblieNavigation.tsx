@@ -5,7 +5,7 @@ interface IMoblieCategoryProps {
   handleMenuToggle: () => void;
 }
 
-export default function MoblieCategory({
+export default function MoblieNavigation({
   menu,
   handleMenuToggle,
 }: IMoblieCategoryProps) {

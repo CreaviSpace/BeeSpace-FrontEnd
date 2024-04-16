@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 
 import OnoffButton from '@/components/button/OnOffButton';
-import useCommunityDetail from '@/hooks/useCommunityDetail';
+import useCommunityDetail from '@/hooks/community/useCommunityDetail';
 import useWritePost from '@/hooks/useWritePost';
 import useWriteUpdate from '@/hooks/useWriteUpdate';
 import useCommunityData from '@/store/useCommunityData';

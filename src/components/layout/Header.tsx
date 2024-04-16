@@ -7,18 +7,21 @@ import { useEffect, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import LogInUserHeader from '@/components/layout/LogInUserHeader';
-import useLoginModal from '@/store/useLoginModal';
-import useSearchErrorModal from '@/store/useSearchErrorModal';
-import useSignUpModal from '@/store/useSignUpModal';
+import useLoginModal from '@/store/modal/useLoginModal';
+import useSearchErrorModal from '@/store/modal/useSearchErrorModal';
+import useSignUpModal from '@/store/modal/useSignUpModal';
 import { getCookies } from '@/utils/getCookies';
 
-import MoblieCategory from './MoblieCategory';
+import MoblieNavigation from './MoblieNavigation';
 
 const MENU = [
   { name: '프로젝트', link: '/project?type=all' },
   { name: '모집', link: '/recruitment?type=all' },
   { name: '커뮤니티', link: '/community?type=all' },
 ];
+
+const MID = getCookies('MID', true);
+const ACCESE_TOKEN = getCookies('jwt');
 
 export default function Header() {
   const [value, setValue] = useState('');
@@ -32,9 +35,6 @@ export default function Header() {
   const { onOpen: openLogin } = useLoginModal();
   const { onOpen: openSignUp } = useSignUpModal();
   const { onOpen: openSearchError } = useSearchErrorModal();
-
-  const MID = getCookies('MID', true);
-  const ACCESE_TOKEN = getCookies('jwt');
 
   useEffect(() => {
     if (MID && ACCESE_TOKEN) {
@@ -102,7 +102,10 @@ export default function Header() {
               ))}
             </ul>
             {isMCategoryVisible && (
-              <MoblieCategory menu={MENU} handleMenuToggle={handleMenuToggle} />
+              <MoblieNavigation
+                menu={MENU}
+                handleMenuToggle={handleMenuToggle}
+              />
             )}
             <div
               className="p-5 text-center block cursor-pointer mobile:p-2"

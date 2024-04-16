@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from 'react';
 
 import CommunityCard from '@/components/card/CommunityCard';
 import SkeletonCommunityCard from '@/components/skeleton/SkeletonCommunityCard';
-import useCommunity from '@/hooks/useCommunity';
+import useCommunity from '@/hooks/community/useCommunity';
 import { ICommunityType } from '@/types/global';
 
 const GRIDCOLUMNS = {

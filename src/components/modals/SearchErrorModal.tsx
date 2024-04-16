@@ -1,6 +1,6 @@
 import { Button, ModalFooter, ModalHeader } from '@chakra-ui/react';
 
-import useSearchErrorModal from '@/store/useSearchErrorModal';
+import useSearchErrorModal from '@/store/modal/useSearchErrorModal';
 
 import Modals from './Modals';
 

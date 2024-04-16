@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Tag from '@/components/Tag';
 
 import { IProjectType } from '../../types/global';
-import Bookmark from '../button/Bookmark';
+import BookmarkButton from '../button/BookmarkButton';
 import LikeButton from '../button/LikeButton';
 import Icons from '../Icons';
 
@@ -35,7 +35,7 @@ export default function ProjectCard({ item, tagName }: IProjectCardProps) {
         )}
       </Link>
       <div className="w-full h-fit p-5 rounded-b-bs_20 relative overflow-hidden">
-        <Bookmark
+        <BookmarkButton
           className="absolute -top-[.3125rem] right-[.375rem]"
           size={35}
           id={item.id}

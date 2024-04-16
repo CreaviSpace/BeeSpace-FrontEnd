@@ -2,7 +2,7 @@ import { Button, ModalFooter, ModalHeader } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 import useWriteDelete from '@/hooks/useWriteDelete';
-import useReconfirmModal from '@/store/useReconfirmModal';
+import useReconfirmModal from '@/store/modal/useReconfirmModal';
 
 import Modals from './Modals';
 

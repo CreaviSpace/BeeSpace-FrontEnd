@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-import useReportModal from '@/store/useReportModal';
+import useReportModal from '@/store/modal/useReportModal';
 import { getCookies } from '@/utils/getCookies';
 
 interface IuseReportPostProps {

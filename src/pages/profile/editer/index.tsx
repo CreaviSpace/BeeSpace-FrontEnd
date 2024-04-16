@@ -3,15 +3,15 @@ import { useRouter } from 'next/router';
 import { SetStateAction, useEffect, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
-import CustomSelect from '@/components/button/CustomSelect';
+import SelectButton from '@/components/button/SelectButton';
 import ProjectBanner from '@/components/write/project/ProjectBanner';
 import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
 import useMyProfileEditor from '@/hooks/profile/useMyProfileEditor';
 import { getCookies } from '@/utils/getCookies';
 
-export default function ProfileEdit() {
-  const MID = getCookies('MID', true);
+const MID = getCookies('MID', true);
 
+export default function ProfileEdit() {
   const { isLoading, data } = useMemberProfileGet(MID);
 
   const [profileUrl, setProfileUrl] = useState<string>('');
@@ -21,9 +21,14 @@ export default function ProfileEdit() {
   const [career, setCareer] = useState<string[]>(['0년']);
   const [interestedStack, setInterestedStack] = useState<string[]>(['default']);
 
-  const [jobOption] = useState(['백엔드', '프론트엔드', '디자이너', '기획']);
+  const [jobOption, setJobOption] = useState([
+    '백엔드',
+    '프론트엔드',
+    '디자이너',
+    '기획',
+  ]);
 
-  const [careerOption] = useState([
+  const [careerOption, setCareerOption] = useState([
     '0년',
     '1년',
     '2년',
@@ -123,9 +128,12 @@ export default function ProfileEdit() {
               <label htmlFor="job" className="font-bold">
                 직무
               </label>
-              <CustomSelect
+              <SelectButton
                 htmlFor="job"
                 option={jobOption}
+                setOption={
+                  setJobOption as (option: (string | number)[]) => void
+                }
                 select={position}
                 setSelect={
                   setPosition as (position: (string | number)[]) => void
@@ -136,9 +144,12 @@ export default function ProfileEdit() {
             </li>
             <li className="flex flex-col gap-2 mt-8">
               <h2 className="font-bold">경력</h2>
-              <CustomSelect
+              <SelectButton
                 htmlFor="career"
                 option={careerOption}
+                setOption={
+                  setCareerOption as (option: (string | number)[]) => void
+                }
                 select={career}
                 setSelect={setCareer as (career: (string | number)[]) => void}
                 index={0}

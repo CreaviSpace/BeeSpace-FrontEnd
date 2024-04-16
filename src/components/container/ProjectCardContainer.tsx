@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react';
 
 import ProjectCard from '@/components/card/ProjectCard';
-import useProject from '@/hooks/useProject';
+import useProject from '@/hooks/project/useProject';
 
 import { IProjectType } from '../../types/global';
 import SkeletonProjectCard from '../skeleton/SkeletonProjectCard';

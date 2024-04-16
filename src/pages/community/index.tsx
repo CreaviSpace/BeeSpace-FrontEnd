@@ -17,6 +17,8 @@ const CATEGORIES = [
   },
 ];
 
+const PAGE_SIZE = 24;
+
 export default function Community() {
   const { data, isLoading } = usePopularTag();
 
@@ -32,7 +34,7 @@ export default function Community() {
         ) : (
           <PopularTag tags={data} />
         )}
-        <CommunityCardContainer size={6} />
+        <CommunityCardContainer size={PAGE_SIZE} />
       </section>
     </main>
   );

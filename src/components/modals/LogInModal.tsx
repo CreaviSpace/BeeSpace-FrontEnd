@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import useLoginModal from '@/store/useLoginModal';
+import useLoginModal from '@/store/modal/useLoginModal';
 
 import Modals from './Modals';
 

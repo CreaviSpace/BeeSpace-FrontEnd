@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import CustomSelect from '@/components/button/CustomSelect';
+import SelectButton from '@/components/button/SelectButton';
 
 interface IPeriodProps {
   workDay: number;
@@ -38,7 +38,7 @@ export default function Period({ workDay, setWorkDay }: IPeriodProps) {
   return (
     <div>
       <h2 className="text-bs_20 my-5">진행 기간</h2>
-      <CustomSelect
+      <SelectButton
         option={option}
         select={period}
         setSelect={setPeriod as (personnel: (string | number)[]) => void}

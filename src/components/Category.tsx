@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import useLoginModal from '@/store/useLoginModal';
+import useLoginModal from '@/store/modal/useLoginModal';
 import { getCookies } from '@/utils/getCookies';
 
 import CustomButton from './button/CustomButton';

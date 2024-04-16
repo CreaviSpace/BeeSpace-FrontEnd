@@ -1,7 +1,7 @@
 import { IoIosArrowDown } from '@react-icons/all-files/io/IoIosArrowDown';
 import { useRef, useState } from 'react';
 
-interface ICustomSelectProps {
+interface ISelectButtonProps {
   option: string[] | number[];
   setOption?: (option: (string | number)[]) => void;
   select: string[] | number[];
@@ -12,7 +12,7 @@ interface ICustomSelectProps {
   htmlFor?: string;
 }
 
-export default function CustomSelect({
+export default function SelectButton({
   option,
   setOption,
   select,
@@ -21,7 +21,7 @@ export default function CustomSelect({
   className,
   handler,
   htmlFor,
-}: ICustomSelectProps) {
+}: ISelectButtonProps) {
   const [isToggle, setIsToggle] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -69,7 +69,9 @@ export default function CustomSelect({
         onMouseDown={(e) => {
           e.preventDefault();
         }}>
-        {select[index] !== `default` ? select[index] : '선택해주세요.'}
+        {select[index] === `default` || select[index] === ''
+          ? '선택해주세요.'
+          : select[index]}
         <span className={`${isToggle && '-rotate-180 transition-all'}`}>
           <IoIosArrowDown size={20} />
         </span>

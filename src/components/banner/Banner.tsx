@@ -3,9 +3,9 @@ import { useRef, useState } from 'react';
 import useBanner from '@/hooks/useBanner';
 import { TransitionEnd } from '@/utils/carousel';
 
-import CarouselList from '../CarouselList';
 import SkeletonBanner from '../skeleton/SkeletonBanner';
 import BannerItem from './BannerItem';
+import CarouselList from './CarouselList';
 
 interface IBannerProps {
   postType: string;

@@ -1,28 +1,28 @@
 import { useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
-import CustomSelect from '@/components/button/CustomSelect';
+import SelectButton from '@/components/button/SelectButton';
+import ProjectBanner from '@/components/write/project/ProjectBanner';
+
+const JOPOPTION = ['백엔드', '프론트엔드', '디자이너', '기획'];
 
 export default function SignUp() {
-  const [job, setJob] = useState<string[]>(['default', 'default']);
+  const [job, setJob] = useState<string[]>(['default']);
   const [stack, setStack] = useState<string[]>(['default', 'default']);
-  const [jobOption, setJobOption] = useState([
-    '백엔드',
-    '프론트엔드',
-    '디자이너',
-    '기획',
-  ]);
-  const [stackOption, setstackOption] = useState([
-    'Javascript',
-    'React',
-    'Java',
-  ]);
+  const [profileUrl, setProfileUrl] = useState<string>('');
 
   return (
     <main className="py-28">
       <section className="w-[300px] m-auto flex flex-col items-center">
         <h1 className="text-bs_20 font-bold">회원가입</h1>
         <ul className="w-full my-8">
+          <li className="flex justify-center">
+            <ProjectBanner
+              hidden
+              thumbnail={profileUrl}
+              setThumbnail={setProfileUrl}
+            />
+          </li>
           <li className="flex flex-col gap-2">
             <label htmlFor="nickName">닉네임</label>
             <input
@@ -34,8 +34,8 @@ export default function SignUp() {
           </li>
           <li className="flex flex-col gap-2 mt-8">
             <label htmlFor="job">직무</label>
-            <CustomSelect
-              option={jobOption}
+            <SelectButton
+              option={JOPOPTION}
               select={job}
               setSelect={setJob as (job: (string | number)[]) => void}
               index={1}
@@ -44,8 +44,8 @@ export default function SignUp() {
           </li>
           <li className="flex flex-col gap-2 mt-8 ">
             <label htmlFor="interestSkill">관심스택</label>
-            <CustomSelect
-              option={stackOption}
+            <SelectButton
+              option={JOPOPTION}
               select={stack}
               setSelect={setStack as (stack: (string | number)[]) => void}
               index={1}

@@ -18,7 +18,7 @@ const SIDE_CATEGORIES = [
   { name: '수다', link: 'CHAT' },
 ];
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 24;
 
 export default function Search() {
   const router = useRouter();

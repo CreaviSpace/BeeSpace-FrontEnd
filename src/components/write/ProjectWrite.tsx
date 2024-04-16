@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import OnoffButton from '@/components/button/OnOffButton';
-import useProjectDetail from '@/hooks/useProjectDetail';
+import useProjectDetail from '@/hooks/project/useProjectDetail';
 import useWritePost from '@/hooks/useWritePost';
 import useWriteUpdate from '@/hooks/useWriteUpdate';
 import useProjectData from '@/store/useProjectData';
@@ -27,7 +27,7 @@ interface IProjectWriteProps {
   id: string | undefined;
 }
 
-const commnuityList = [
+const COMMNUITYLIST = [
   { key: 'INDIVIDUAL', name: '개인 프로젝트' },
   { key: 'TEAM', name: '팀 프로젝트' },
 ];
@@ -123,7 +123,7 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
             <OnoffButton
               value={category}
               setValue={setter.setCategory}
-              list={commnuityList}
+              list={COMMNUITYLIST}
             />
           </li>
           <li className="mt-14">
@@ -165,7 +165,7 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
       </section>
       <section>
         <div className="flex justify-between mt-14 tablet:flex-col mobile:flex-col">
-          <div className="mx-auto tablet:mb-36 mobile:mb-36 mobile:w-full">
+          <div className="mx-auto mobile:w-full">
             <h2 className="text-bs_20 my-5 font-bold">프로젝트 배너</h2>
             <ProjectBanner
               thumbnail={thumbnail}

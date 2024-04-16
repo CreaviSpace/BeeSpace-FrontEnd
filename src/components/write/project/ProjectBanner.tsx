@@ -51,8 +51,8 @@ export default function ProjectBanner({
   }, [uploadImage]);
 
   return (
-    // h-[21.875rem]
-    <div className={`${hidden ? 'w-[9rem]' : 'w-[35rem]'} relative`}>
+    <div
+      className={`${hidden ? 'w-[9rem]' : 'w-[35rem] mobile:w-full'} relative`}>
       {hidden ? (
         <ImageDrag
           handleImageDrag={setImage}

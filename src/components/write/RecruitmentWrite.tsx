@@ -7,10 +7,10 @@ import Communication from '@/components/write/recruitment/Communication';
 import Deadline from '@/components/write/recruitment/Deadline';
 import OnOffLine from '@/components/write/recruitment/OnOffLine';
 import Period from '@/components/write/recruitment/Period';
-import Personnal from '@/components/write/recruitment/Personnal';
+import RecruitPersonnel from '@/components/write/recruitment/RecruitPersonnel';
 import SkillStackInput from '@/components/write/SkillStackInput';
 import TitleEditor from '@/components/write/TextEditor/TitleEditor';
-import useRecruitDetail from '@/hooks/useRecruitDetail';
+import useRecruitDetail from '@/hooks/recruit/useRecruitDetail';
 import useWritePost from '@/hooks/useWritePost';
 import useWriteUpdate from '@/hooks/useWriteUpdate';
 import useRecruitData from '@/store/useRecruitData';
@@ -125,7 +125,7 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
             />
           </li>
           <li className="mt-14">
-            <Personnal
+            <RecruitPersonnel
               amount={amount}
               setAmount={setter.setAmount}
               positions={positions}

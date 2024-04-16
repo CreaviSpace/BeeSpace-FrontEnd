@@ -5,8 +5,8 @@ import useBanner from '@/hooks/useBanner';
 import { IBannerItem } from '@/types/global';
 import { TransitionEnd } from '@/utils/carousel';
 
+import CarouselList from '../banner/CarouselList';
 import PopularImageCard from '../card/PopularImageCard';
-import CarouselList from '../CarouselList';
 import SkeletonPopularCard from '../skeleton/SkeletonPopularCard';
 
 interface IPopularProjectProps {

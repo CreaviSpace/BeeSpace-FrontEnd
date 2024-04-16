@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-import useLoginModal from '@/store/useLoginModal';
+import useLoginModal from '@/store/modal/useLoginModal';
 import { getCookies } from '@/utils/getCookies';
 
 const useLike = (id?: number, postType?: string) => {

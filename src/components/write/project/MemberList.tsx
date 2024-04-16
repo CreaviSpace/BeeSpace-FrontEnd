@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import CustomSelect from '@/components/button/CustomSelect';
+import SelectButton from '@/components/button/SelectButton';
 import useMemberSearch from '@/hooks/useMemberSearch';
 import { parseEnum } from '@/utils/parseEnum';
 import { parseValue } from '@/utils/parseValue';
@@ -94,7 +94,7 @@ export default function MemberList({
       <label htmlFor="memberNum" className="sr-only">
         멤버 수
       </label>
-      <CustomSelect
+      <SelectButton
         option={OPTIONSNUM}
         select={selectNum}
         setSelect={
@@ -106,7 +106,7 @@ export default function MemberList({
 
       {selectPosition.map((_, index) => (
         <div key={index} className="flex gap-2 min_mobile:flex-col">
-          <CustomSelect
+          <SelectButton
             option={OPTIONS}
             select={selectPosition}
             setSelect={

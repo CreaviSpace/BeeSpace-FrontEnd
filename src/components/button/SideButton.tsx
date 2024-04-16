@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import LikeButton from '@/components/button/LikeButton';
 
-import Bookmark from './Bookmark';
+import BookmarkButton from './BookmarkButton';
 
 interface ISideButtonProps {
   id: number;
@@ -51,7 +51,7 @@ export default function SideButton({ id, type, className }: ISideButtonProps) {
             postType={type}
             className={`border rounded-md bg-white p-3 relative bottom-0 tablet:p-2 mobile:p-2 ${isHidden ? 'tablet:relative mobile:relative' : 'tablet:absolute mobile:absolute'}`}
           />
-          <Bookmark
+          <BookmarkButton
             color="black"
             size={25}
             id={id}
