@@ -8,10 +8,10 @@ export const parseValue = (type: string) => {
     case 'CONCERN':
       return '고민';
     // 프로젝트 게시글
-    // case 'TEAM':
-    //   return '팀';
-    // case 'INDIVIDUAL':
-    //   return '개인';
+    case 'TEAM':
+      return '팀';
+    case 'INDIVIDUAL':
+      return '개인';
     // 모집 게시글
     case 'PROJECT_RECRUIT':
       return '프로젝트모집';
@@ -40,12 +40,12 @@ export const parseValue = (type: string) => {
     case 'INAPPROPRIATE_CONTENT':
       return '부적절한 콘텐츠';
     // 정렬 순서
-    // case 'LATEST_ACTIVITY':
-    //   return '최신활동순';
-    // case 'RECOMMENDED':
-    //   return '추천순';
-    // case 'MOST_VIEWED':
-    //   return '조회수순';
+    case 'LATEST_ACTIVITY':
+      return '최신활동순';
+    case 'RECOMMENDED':
+      return '추천순';
+    case 'MOST_VIEWED':
+      return '조회수순';
     // 모집게시글 연락방법
     case 'OPENTALK':
       return '오픈톡';
@@ -54,19 +54,19 @@ export const parseValue = (type: string) => {
     case 'GOOGLE_FORM':
       return '구글폼';
     // 모집게시글 진행방식
-    // case 'ONLINE':
-    //   return '온라인';
-    // case 'OFFLINE':
-    //   return '오프라인';
-    // case 'ON_OFFLINE':
-    //   return '온/오프라인';
+    case 'ONLINE':
+      return '온라인';
+    case 'OFFLINE':
+      return '오프라인';
+    case 'ON_OFFLINE':
+      return '온/오프라인';
     // 피드맥 질문
-    // case 'SUBJECTIVE':
-    //   return '주관식';
-    // case 'OBJECTIVE':
-    //   return '객관식';
-    // case 'CHECKBOX':
-    //   return '체크박스';
+    case 'SUBJECTIVE':
+      return '주관식';
+    case 'OBJECTIVE':
+      return '객관식';
+    case 'CHECKBOX':
+      return '체크박스';
     default:
       return 'default';
   }
