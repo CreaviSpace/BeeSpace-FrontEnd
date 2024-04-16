@@ -46,7 +46,7 @@ const ICONS = [
 ];
 
 export default function LogInModal() {
-  const { isOpen, onOpen, onClose } = useLoginModal();
+  const { isOpen, onClose } = useLoginModal();
   const [modalSize, setModalSize] = useState('md');
 
   useEffect(() => {
