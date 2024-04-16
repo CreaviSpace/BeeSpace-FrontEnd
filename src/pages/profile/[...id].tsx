@@ -145,7 +145,7 @@ export default function Profile() {
                   <UniversalCard
                     key={`myContent-list-${item.id}`}
                     id={item.id}
-                    postType={item.postType}
+                    postType={postType.type}
                     title={item.title ? item.title : item.contentsTitle}
                     content={
                       item.bannerContent ? item.bannerContent : item.content
