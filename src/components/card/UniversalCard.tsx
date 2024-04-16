@@ -39,7 +39,7 @@ export default function UniversalCard({
       {hidden && (
         <Bookmark
           id={id}
-          postType={postType}
+          postType={postType.toUpperCase()}
           size={35}
           className="absolute -top-[0.375rem] right-5"
         />
