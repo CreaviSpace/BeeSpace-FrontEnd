@@ -1,18 +1,29 @@
-import { IQuestionAnswerType } from '@/types/global';
+import { IAnswerType, IQuestionAnswerType } from '@/types/global';
+
+import AnswerTitle from '../AnswerTitle';
 
 interface ICheckBoxAnswerProps {
   question: IQuestionAnswerType;
+  answer: IAnswerType[];
+  setAnswer: (answer: IAnswerType[]) => void;
+  currentIndex: number;
 }
 
-export default function ShortAnswerAnswer({ question }: ICheckBoxAnswerProps) {
+export default function ShortAnswerAnswer({
+  question,
+  answer,
+  setAnswer,
+  currentIndex,
+}: ICheckBoxAnswerProps) {
+  const handelChangeValue = (value: string) => {
+    const newAnswer = [...answer];
+    newAnswer[currentIndex].answer = value;
+    setAnswer(newAnswer);
+  };
+
   return (
     <div className="w-full border border-gray30 rounded-bs_5 py-6 px-8 bg-white relative">
-      <label htmlFor="ShortAnswerQuestionInput" className="sr-only">
-        질문
-      </label>
-      <h2 className="w-full border-b border-gray20 p-2 bg-[#f7f7f7]">
-        {question.question}
-      </h2>
+      <AnswerTitle question={question.question} />
 
       <label htmlFor="ShortAnswerAnswerInput" className="sr-only">
         답변
@@ -21,6 +32,8 @@ export default function ShortAnswerAnswer({ question }: ICheckBoxAnswerProps) {
         type="text"
         name="ShortAnswerAnswerInput"
         id="ShortAnswerAnswerInput"
+        value={answer[currentIndex]?.answer}
+        onChange={(e) => handelChangeValue(e.target.value)}
         placeholder="답변"
         className="w-full border-b border-gray20 p-1 mt-3 text-bs_14"
       />

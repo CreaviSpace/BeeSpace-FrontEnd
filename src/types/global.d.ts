@@ -77,7 +77,7 @@ export interface IRecruitBody {
 export interface IProjectBody {
   category: string;
   memberDtos: {
-    memberId: number;
+    memberId: string;
     position: string;
   }[];
   title: string;
@@ -104,7 +104,9 @@ export interface ICommunityBody {
 export interface IUniversalType {
   id: number;
   title: string;
-  bannerContent: string;
+  bannerContent?: string;
+  content: string;
+  contentsTitle: string;
   thumbnail: string;
   category: string;
   postType: string;
@@ -143,7 +145,7 @@ export interface IProfileType {
   memberIdTag: string;
   memberNickname: string;
   introduce: string;
-  career: 0;
+  career: number;
   position: string[];
   profileUrl: string;
   message: string;
@@ -160,4 +162,65 @@ export interface IProfilePost {
   }[];
   thumbnail: string;
   bannerContent: string;
+}
+
+export interface IAnswerType {
+  questionId: number;
+  answer: string;
+  selectedItems: {
+    id: number;
+  }[];
+}
+
+export interface IQuestionAnswerType {
+  questionId: number;
+  question: string;
+  questionType: string;
+  choiceItems: {
+    id: number;
+    item: string;
+  }[];
+}
+
+export interface IAdminMemberType {
+  id: number;
+  loginId: string;
+  memberEmail: string;
+  memberName: string;
+  memberNickname: string;
+  loginType: string;
+  role: string;
+  idTag: string;
+  memberPosition: string;
+  memberCareer: number;
+}
+
+export interface IReportType {
+  createdDate: string;
+  modifiedDate: string;
+  id: number;
+  member: {
+    createdDate: string;
+    modifiedDate: string;
+    id: string;
+    loginId: string;
+    memberEmail: string;
+    memberName: string;
+    memberNickname: string;
+    profileUrl: string;
+    loginType: string;
+    role: string;
+    memberIntroduce: string;
+    expired: true;
+    enabled: true;
+    memberPosition: string;
+    memberCareer: number;
+    interestedStack: string[];
+    roleKey: string;
+  };
+  category: SPAM;
+  postType: PROJECT;
+  postId: number;
+  content: string;
+  status: true;
 }

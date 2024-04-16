@@ -37,13 +37,14 @@ export default function CommentCard({ item, type, postid }: ICommentCardType) {
       {click ? (
         <div className="flex justify-between">
           <input
-            className="mt-3 text-bs_18 border w-full p-2"
+            className="mt-3 text-bs_18 border w-full p-2 rounded-bs_5"
             type="text"
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
           <CustomButton
-            className=""
+            className="p-3 mt-3 ml-3 w-[6rem]"
+            color="secondary"
             onClick={() => {
               mutatePut();
               if (isSuccess) handlePutComment();

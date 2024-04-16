@@ -7,7 +7,7 @@ import Communication from '@/components/write/recruitment/Communication';
 import Deadline from '@/components/write/recruitment/Deadline';
 import OnOffLine from '@/components/write/recruitment/OnOffLine';
 import Period from '@/components/write/recruitment/Period';
-import Personnel from '@/components/write/recruitment/Personnel';
+import Personnal from '@/components/write/recruitment/Personnal';
 import SkillStackInput from '@/components/write/SkillStackInput';
 import TitleEditor from '@/components/write/TextEditor/TitleEditor';
 import useRecruitDetail from '@/hooks/useRecruitDetail';
@@ -27,6 +27,7 @@ interface IRecruitmentWriteProps {
   id: string | undefined;
 }
 export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
+  const today = new Date().toString();
   const {
     category,
     contactWay,
@@ -58,7 +59,7 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
   };
 
   const { isLoading, isError, data, isFetching } = useRecruitDetail(id);
-  const { mutate: recruitPost } = useWritePost('RECRUIT', recruitData);
+  const { mutate: recruitPost } = useWritePost('recruit', recruitData);
   const { mutate: recrutiUpdate } = useWriteUpdate(
     parseInt(id as string),
     'recruit',
@@ -96,21 +97,21 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
       setter.setTechStacks([{ techStackId: 0 }]);
       setter.setAmount(0);
       setter.setProceedWay('ONLINE');
-      setter.setWorkDay(0);
+      setter.setWorkDay(1);
       setter.setTitle('');
       setter.setContent('');
-      setter.setEnd('');
+      setter.setEnd(today);
       setter.setPositions([]);
     }
   }, [isFetching, id]);
 
   return (
-    <main className="max-w-max_w m-auto p-20">
+    <main className="max-w-max_w m-auto p-20 mobile:p-6">
       <section>
         <h1 className="text-center text-[2rem] font-bold">
           모집 정보를 입력해주세요
         </h1>
-        <ul className="my-20 grid grid-cols-2 gap-x-20">
+        <ul className="my-20 grid grid-cols-2 gap-x-20 tablet:grid-cols-1 mobile:grid-cols-1">
           <li className="mt-14">
             <Classification
               category={category}
@@ -124,7 +125,7 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
             />
           </li>
           <li className="mt-14">
-            <Personnel
+            <Personnal
               amount={amount}
               setAmount={setter.setAmount}
               positions={positions}

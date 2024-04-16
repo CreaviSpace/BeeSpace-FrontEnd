@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import useSkillStackSearch from '@/hooks/useSkillStackSearch';
 import { ITechStackType } from '@/types/global';
@@ -13,7 +13,9 @@ export default function SkillStackInput({
   setTechStackDtos,
 }: SkillStackInput) {
   const [text, setText] = useState('');
+  const [isToggle, setIsToggle] = useState(false);
   const { isLoading, isError, data } = useSkillStackSearch(text);
+  const divRef = useRef<HTMLDivElement>(null);
 
   const handleTechStackDtosPush = (id: number) => {
     if (techStackDtos.some((item) => item.techStackId === 0)) {
@@ -21,6 +23,7 @@ export default function SkillStackInput({
     } else if (!techStackDtos.some((item) => item.techStackId === id)) {
       setTechStackDtos([{ techStackId: id }, ...techStackDtos]);
     }
+    setIsToggle(false);
   };
 
   return (
@@ -33,25 +36,41 @@ export default function SkillStackInput({
         onChange={(e) => {
           setText(e.target.value);
         }}
+        onFocus={() => divRef.current?.focus()}
         className="w-full h-[3.125rem] px-5 border border-gary10 rounded-bs_5"
       />
 
-      <ul className="relative rounded-bs_5 overflow-hidden border border-gray10 bg-white z-[10]">
-        {!isLoading
+      <div
+        ref={divRef}
+        tabIndex={0}
+        onFocus={() => setIsToggle(true)}
+        onBlur={() => setIsToggle(false)}>
+        {isLoading
           ? '로딩중'
           : data?.length > 0 &&
-            data?.map((item: ITechStackType) => (
-              <li
-                key={item.techStackId}
-                className="w-full h-[3.125rem] p-[0.625rem] hover:bg-gray10 flex items-center"
-                datatype="0"
-                onClick={() => {
-                  handleTechStackDtosPush(item.techStackId);
-                }}>
-                {item.techStack}
-              </li>
-            ))}
-      </ul>
+            isToggle && (
+              <ul className="relative rounded-bs_5 overflow-hidden border border-gray10 bg-white z-[10] mt-3">
+                {data?.map((item: ITechStackType) => {
+                  if (
+                    item.techStack
+                      .toLocaleLowerCase()
+                      .includes(text.toLocaleLowerCase())
+                  ) {
+                    return (
+                      <li
+                        key={item.techStackId}
+                        className="w-full h-[3.125rem] max-h-[15.625rem] p-[0.625rem] hover:bg-gray10 flex items-center overflow-y-auto cursor-pointer custom-scrollbar"
+                        onClick={() =>
+                          handleTechStackDtosPush(item.techStackId)
+                        }>
+                        {item.techStack}
+                      </li>
+                    );
+                  }
+                })}
+              </ul>
+            )}
+      </div>
 
       <ul className="flex mt-5 gap-2">
         {techStackDtos?.map((item) => (

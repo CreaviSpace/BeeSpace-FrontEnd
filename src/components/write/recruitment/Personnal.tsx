@@ -3,8 +3,9 @@ import { FaPlusCircle } from '@react-icons/all-files/fa/FaPlusCircle';
 import { useEffect, useState } from 'react';
 
 import CustomSelect from '@/components/button/CustomSelect';
+import { parseValue } from '@/utils/parseValue';
 
-import { parseEnum } from './../../../utils/parseEnum';
+import { parseEnum } from '../../../utils/parseEnum';
 interface IPersonnelProps {
   amount: number;
   setAmount: (amount: number) => void;
@@ -17,7 +18,7 @@ interface IPersonnelProps {
     }[]
   ) => void;
 }
-export default function Personnel({
+export default function Personnal({
   amount,
   setAmount,
   positions,
@@ -31,6 +32,7 @@ export default function Personnel({
     '백엔드',
     '기획',
   ]);
+
   const [optionNum] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
   useEffect(() => {
@@ -52,7 +54,7 @@ export default function Personnel({
   useEffect(() => {
     if (positions.length !== 0) {
       const newPositions = positions.map((item) => {
-        return item.position;
+        return parseValue(item.position);
       });
       const newAmount = positions.map((item) => {
         return item.amount;
@@ -94,13 +96,16 @@ export default function Personnel({
         )}
       </div>
       {personnel.map((item, index) => (
-        <div className="flex" key={`${item}-${index}`}>
+        <div
+          className="flex min_mobile:flex-col mobile:mb-4"
+          key={`${item}-${index}`}>
           <CustomSelect
             option={option}
             setOption={setOption as (option: (string | number)[]) => void}
             select={personnel}
             setSelect={setPersonnel as (personnel: (string | number)[]) => void}
             index={index}
+            className="desktop:w-2/3 tablet:w-2/3"
           />
           <CustomSelect
             option={optionNum}
@@ -110,7 +115,7 @@ export default function Personnel({
             }
             index={index}
             handler={handlePersonnelDelete}
-            className="bg-primary border-none"
+            className="bg-primary border-none desktop:w-1/3 tablet:w-1/3"
           />
         </div>
       ))}

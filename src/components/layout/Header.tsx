@@ -3,24 +3,26 @@ import { FaListUl } from '@react-icons/all-files/fa/FaListUl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
-import LogInUserHeader from '@/components/LogInUserHeader';
+import LogInUserHeader from '@/components/layout/LogInUserHeader';
 import useLoginModal from '@/store/useLoginModal';
 import useSearchErrorModal from '@/store/useSearchErrorModal';
 import useSignUpModal from '@/store/useSignUpModal';
+import { getCookies } from '@/utils/getCookies';
 
 import MoblieCategory from './MoblieCategory';
 
-interface MenuItem {
-  name: string;
-  link: string;
-}
+const MENU = [
+  { name: '프로젝트', link: '/project?type=all' },
+  { name: '모집', link: '/recruitment?type=all' },
+  { name: '커뮤니티', link: '/community?type=all' },
+];
 
 export default function Header() {
   const [value, setValue] = useState('');
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setLogin] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isMCategoryVisible, setIsMCategoryVisible] = useState(false);
 
@@ -29,35 +31,36 @@ export default function Header() {
 
   const { onOpen: openLogin } = useLoginModal();
   const { onOpen: openSignUp } = useSignUpModal();
-  const { onOpen } = useSearchErrorModal();
+  const { onOpen: openSearchError } = useSearchErrorModal();
 
-  const menu: Array<MenuItem> = [
-    { name: '프로젝트', link: '/project?type=all' },
-    { name: '모집', link: '/recruitment?type=all' },
-    { name: '커뮤니티', link: '/community?type=all' },
-  ];
+  const MID = getCookies('MID', true);
+  const ACCESE_TOKEN = getCookies('jwt');
+
+  useEffect(() => {
+    if (MID && ACCESE_TOKEN) {
+      setLogin(true);
+    }
+  }, [MID, ACCESE_TOKEN]);
 
   const handleSearchToggle = () => {
     setIsSearchVisible(!isSearchVisible);
+    setIsMCategoryVisible(false);
   };
 
-  const handleSignInOut = () => {
-    setIsLogin(!isLogin);
+  const handleMenuToggle = () => {
+    setIsMCategoryVisible(!isMCategoryVisible);
+    setIsSearchVisible(false);
   };
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
-  const handleCategoryToggle = () => {
-    setIsMCategoryVisible(!isMCategoryVisible);
-  };
-
   const handleSearch = () => {
     if (value.trim().length >= 1) {
       router.push(`/search?type=all&text=${value}`);
     } else {
-      onOpen();
+      openSearchError();
     }
   };
 
@@ -85,10 +88,10 @@ export default function Header() {
             <FaListUl
               size={25}
               className="hidden mobile:block"
-              onClick={handleCategoryToggle}
+              onClick={handleMenuToggle}
             />
             <ul className="flex mobile:hidden">
-              {menu.map((item, index) => (
+              {MENU.map((item, index) => (
                 <li key={index}>
                   <Link
                     href={item.link}
@@ -98,24 +101,23 @@ export default function Header() {
                 </li>
               ))}
             </ul>
-            {isMCategoryVisible && <MoblieCategory menu={menu} />}
-
+            {isMCategoryVisible && (
+              <MoblieCategory menu={MENU} handleMenuToggle={handleMenuToggle} />
+            )}
             <div
-              className="p-5 text-center block cursor-pointer"
+              className="p-5 text-center block cursor-pointer mobile:p-2"
               aria-label="검색 버튼"
               onClick={handleSearchToggle}>
               <AiOutlineSearch size={22} />
             </div>
             {isLogin ? (
+              <LogInUserHeader MID={MID} ACCESE_TOKEN={ACCESE_TOKEN} />
+            ) : (
               <ul className="flex">
                 <li>
                   <CustomButton
-                    // onClick={handleSignInOut}
-                    onClick={() => {
-                      openLogin();
-                      handleSignInOut();
-                    }}
-                    className="py-2 px-4 mr-3"
+                    onClick={openLogin}
+                    className="py-2 px-4 mr-3 mobile:mr-0"
                     color="primary">
                     로그인
                   </CustomButton>
@@ -126,8 +128,6 @@ export default function Header() {
                   </CustomButton>
                 </li>
               </ul>
-            ) : (
-              <LogInUserHeader onClick={handleSignInOut} />
             )}
           </div>
         </div>

@@ -10,8 +10,13 @@ const useProject = (category: string, size: number) => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
+    enabled: !!category,
     queryKey: [`project-list-${category}`],
     queryFn: async ({ pageParam = 1 }) => {
+      if (!category) {
+        return;
+      }
+
       const response = await axios.get(
         `${process.env.BASE_URL}/project?size=${size}&page=${pageParam}${category !== 'all' ? `&category=${category}` : ''}`
       );
@@ -28,7 +33,7 @@ const useProject = (category: string, size: number) => {
         return null;
       }
 
-      return lastPage.length === 0 || lastPage?.length < size
+      return lastPage?.length === 0 || lastPage?.length < size
         ? undefined
         : nextPage;
     },

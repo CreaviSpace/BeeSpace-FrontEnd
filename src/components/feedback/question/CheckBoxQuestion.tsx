@@ -82,7 +82,7 @@ export default function CheckBoxQuestion({
               disabled={questions[currentIndex].questionId ? true : false}
               className="w-full border-b border-gray20 p-2"
             />
-            {index > 0 && !questions[currentIndex].questionId && (
+            {index > 1 && !questions[currentIndex].questionId && (
               <span
                 className="cursor-pointer"
                 onClick={() => {

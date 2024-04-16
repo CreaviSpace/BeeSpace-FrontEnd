@@ -7,11 +7,13 @@ interface IUniversalCardProps {
   id: number;
   title: string;
   content: string;
+  type?: string;
   date?: string;
   image?: string;
   postType: string;
   size: 'large' | 'small';
   className?: string;
+  hidden?: boolean;
 }
 
 const sizeStyles = {
@@ -28,19 +30,25 @@ export default function UniversalCard({
   postType,
   size,
   className,
+  hidden = true,
+  type,
 }: IUniversalCardProps) {
   const boxSize = sizeStyles[size || 'small'];
 
   return (
     <div
       className={`${boxSize} ${className} relative m-auto rounded-bs_10 border border-gary10 flex overflow-hidden  tablet:w-[767px] mobile:w-full`}>
-      <Bookmark
-        id={id}
-        postType={postType}
-        size={35}
-        className="absolute -top-[0.375rem] right-5"
-      />
-      <Link href={`${postType}/${id}`} className="flex w-full">
+      {hidden && (
+        <Bookmark
+          id={id}
+          postType={postType}
+          size={35}
+          className="absolute -top-[0.375rem] right-5"
+        />
+      )}
+      <Link
+        href={type ? `/${type}/${id}` : `/${postType}/${id}`}
+        className="flex w-full">
         {image && (
           <div className="relative w-[30%] h-full overflow-hidden ">
             <Image
@@ -51,12 +59,22 @@ export default function UniversalCard({
             />
           </div>
         )}
-        <ul className={`${image ? 'w-[70%] ' : 'w-full'} p-10`}>
-          <li className="text-bs_24">{title}</li>
-          <li
-            className="text-bs_16 my-1 line-clamp-3"
-            dangerouslySetInnerHTML={{ __html: content }}></li>
-          {date && <li className="text-bs_16 text-gray10">{date}</li>}
+        <ul className={`${image ? 'w-[70%] ' : 'w-full'} p-10 relative`}>
+          <li className="mb-2">
+            <h3 className="text-bs_24 overflow-hidden text-ellipsis whitespace-nowrap">
+              {title}
+            </h3>
+          </li>
+          <li>
+            <p
+              className="text-bs_16 my-1 line-clamp-3"
+              dangerouslySetInnerHTML={{ __html: content }}></p>
+          </li>
+          {date && (
+            <li className="text-bs_16 text-gray20 absolute bottom-6 right-8">
+              <span>{date}</span>
+            </li>
+          )}
         </ul>
       </Link>
     </div>

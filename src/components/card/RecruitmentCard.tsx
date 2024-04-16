@@ -19,7 +19,9 @@ export default function RecruitmentCard({ item, type }: IRecruitmentCardProps) {
         className="absolute -top-[0.375rem] right-5"
       />
       <Link href={`${type}/${item.id}`}>
-        <h3 className="text-bs_18 pb-3 font-bold">{item.title}</h3>
+        <h3 className="text-bs_18 pb-3 font-bold overflow-hidden text-ellipsis whitespace-nowrap">
+          {item.title}
+        </h3>
         <p
           className="overflow-hidden text-ellipsis break-keep line-clamp-3"
           dangerouslySetInnerHTML={{ __html: item.content }}></p>
@@ -28,7 +30,7 @@ export default function RecruitmentCard({ item, type }: IRecruitmentCardProps) {
             {item.techStack}
           </li>
         </ul>
-        <div>
+        <div className="">
           모집인원 ({item.now}/{item.amount})
         </div>
       </Link>

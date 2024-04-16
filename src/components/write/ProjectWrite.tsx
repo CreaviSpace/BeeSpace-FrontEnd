@@ -27,6 +27,11 @@ interface IProjectWriteProps {
   id: string | undefined;
 }
 
+const commnuityList = [
+  { key: 'INDIVIDUAL', name: '개인 프로젝트' },
+  { key: 'TEAM', name: '팀 프로젝트' },
+];
+
 export default function ProjectWrite({ id }: IProjectWriteProps) {
   const {
     category,
@@ -41,13 +46,6 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
     setter,
   } = useProjectData();
 
-  useEffect(() => {
-    if (!category) {
-      setter.setCategory('individual');
-    }
-  }, []);
-
-  // memberId랑 teachStackId는 테스트 용
   const projectData = {
     category,
     memberDtos,
@@ -55,7 +53,7 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
     content,
     techStackDtos,
     field,
-    linkDtos,
+    linkDtos: linkDtos.filter((item) => item.url !== ''),
     thumbnail,
     bannerContent,
   };
@@ -91,22 +89,21 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
         setter.setTechStackDtos(teachStackDtos);
       }
     } else {
-      setter.setCategory('individual');
-      setter.setMemberDtos([{ memberId: 0, position: 'default' }]);
+      setter.setCategory('INDIVIDUAL');
+      setter.setMemberDtos([{ memberId: 'default', position: 'default' }]);
       setter.setTitle('');
       setter.setContent('');
-      setter.setTechStackDtos([{ techStackId: 0 }]);
+      setter.setTechStackDtos([]);
       setter.setfield('');
-      setter.setLinkDtos([{ linkType: '', url: '' }]);
+      setter.setLinkDtos([
+        { linkType: 'web', url: '' },
+        { linkType: 'android', url: '' },
+        { linkType: 'ios', url: '' },
+      ]);
       setter.setThumbnail('');
       setter.setBannerContent('');
     }
   }, [isFetching, id]);
-
-  const commnuityList = [
-    { key: 'individual', name: '개인 프로젝트' },
-    { key: 'team', name: '팀 프로젝트' },
-  ];
 
   const handleBannerContentChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
@@ -115,7 +112,7 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
   };
 
   return (
-    <main className="max-w-max_w min-w-min_w m-auto p-20 mobile:p-3">
+    <main className="max-w-max_w min-w-min_w m-auto p-20 mobile:p-6">
       <section className="border-b border-gray20">
         <h1 className="text-center text-[2rem] font-bold">
           프로젝트<span className="mobile:hidden">를 소개해주세요</span>
@@ -153,7 +150,6 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
                 &#40;선택&#41;
               </span>
             </h2>
-            {/* 중복 처리 필요 */}
             <InputTag
               value={field as string}
               setValue={setter.setfield as (value: string | string[]) => void}

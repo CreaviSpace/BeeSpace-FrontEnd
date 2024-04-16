@@ -4,7 +4,7 @@ import axios from 'axios';
 const useFeedBackGet = (id: number | undefined) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     enabled: !!id,
-    queryKey: [`feedback`],
+    queryKey: [`feedback-${id}`],
     queryFn: async () => {
       if (!id) {
         return null;

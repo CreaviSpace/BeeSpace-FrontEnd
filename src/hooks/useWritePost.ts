@@ -18,8 +18,6 @@ const useWritePost = (
       });
     },
 
-    mutationKey: [`detail`],
-
     onSuccess: () => {
       toast.success('글쓰기 성공');
     },

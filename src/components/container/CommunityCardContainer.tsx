@@ -1,9 +1,25 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import CommunityCard from '@/components/card/CommunityCard';
 import SkeletonCommunityCard from '@/components/skeleton/SkeletonCommunityCard';
 import useCommunity from '@/hooks/useCommunity';
 import { ICommunityType } from '@/types/global';
+
+const GRIDCOLUMNS = {
+  main: 'grid-cols-2 gap-3',
+  default: 'grid-cols-1 max-w-[43.75rem]',
+};
+
+const BORDERSTYLE = {
+  main: 'border',
+  default: 'border-t border-b',
+};
+
+const ORDERBY = [
+  { name: '최신활동순', link: 'LATEST_ACTIVITY' },
+  { name: '추천순', link: 'RECOMMENDED' },
+  { name: '조회수순', link: 'MOST_VIEWED' },
+];
 
 interface ICommunityCardStyleProps {
   category?: string;
@@ -20,6 +36,9 @@ export default function CommunityCardContainer({
   isActive,
   ...restProps
 }: ICommunityCardStyleProps) {
+  const [orderby, setOrderby] = useState('');
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+
   const {
     isLoading,
     isError,
@@ -27,7 +46,12 @@ export default function CommunityCardContainer({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useCommunity(category, size, hashTag);
+  } = useCommunity(category, size, hashTag, orderby);
+
+  const handleOrderButtonClike = (link: string, index: number) => {
+    setOrderby(link);
+    setActiveIndex(index);
+  };
 
   const observer: React.MutableRefObject<IntersectionObserver | null> =
     useRef(null);
@@ -49,20 +73,27 @@ export default function CommunityCardContainer({
     [isFetchingNextPage]
   );
 
-  const gridColumns = {
-    main: 'grid-cols-2 gap-3',
-    default: 'grid-cols-1 max-w-[43.75rem]',
-  };
-
-  const borderStyle = {
-    main: 'border',
-    default: 'border-b',
-  };
-
   return (
     <div
-      className={`grid ${isActive === 'main' ? gridColumns.main : gridColumns.default} w-full mobile:grid-cols-1`}
+      className={`grid ${isActive === 'main' ? GRIDCOLUMNS.main : GRIDCOLUMNS.default} w-full mobile:grid-cols-1`}
       {...restProps}>
+      <ul
+        className={`${isActive === 'main' ? 'hidden' : 'flex gap-3 mt-5 mb-1'}`}>
+        {ORDERBY.map((item, index) => (
+          <li key={index} className="flex items-center justify-between ">
+            {activeIndex === index ? (
+              <span className="mr-1 block w-1 h-1 bg-green-400"></span>
+            ) : (
+              <span className="mr-1 block w-1 h-1"></span>
+            )}
+            <button
+              className="text-bs_14"
+              onClick={() => handleOrderButtonClike(item.link, index)}>
+              {item.name}
+            </button>
+          </li>
+        ))}
+      </ul>
       {isLoading
         ? [1, 2, 3, 4, 5, 6].map((item, index) => (
             <SkeletonCommunityCard key={`${item}-${index}`} />
@@ -73,9 +104,10 @@ export default function CommunityCardContainer({
                 return (
                   <div ref={lastElementRef} key={`${item}-${index}`}>
                     <CommunityCard
-                      className={`mt-2 ${isActive === 'main' ? borderStyle.main : borderStyle.default}`}
+                      className={`mt-2 ${isActive === 'main' ? BORDERSTYLE.main : BORDERSTYLE.default}`}
                       id={item.id}
                       type="community"
+                      title={item.title}
                       contents={item.content}
                       userName={`임시 유저 이름`}
                       date={item.modifiedDate}
@@ -88,9 +120,10 @@ export default function CommunityCardContainer({
                 return (
                   <div key={`${item}-${index}`}>
                     <CommunityCard
-                      className={`mt-2 ${isActive === 'main' ? borderStyle.main : borderStyle.default}`}
+                      className={`mt-2 ${isActive === 'main' ? BORDERSTYLE.main : BORDERSTYLE.default}`}
                       id={item.id}
                       type="community"
+                      title={item.title}
                       contents={item.content}
                       userName={`임시 유저 이름`}
                       date={item.modifiedDate}

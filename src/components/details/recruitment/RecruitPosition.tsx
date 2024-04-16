@@ -20,13 +20,7 @@ export default function RecruitPosition({ positions }: RecruitPosition) {
           {positions?.map((item, index: number) => (
             <div key={`${index}`} className="flex justify-between items-center">
               <div className="flex-1">{parseValue(item.position)}</div>
-              <div className="flex-1">{item.amount}</div>
-              {/* <div className="flex-1">{`${item.now}/${item.amount}`}</div> */}
-              {/* <CustomButton
-                // onClick={() => handleApplicant()}
-                className={`mt-1 w-24 h-8 ${item.now === item.amount ? 'bg-yellow-400 border-transparent' : ''}`}>
-                {item.amount === item.now ? '완료' : '지원하기'}
-              </CustomButton> */}
+              <div className="flex-1">{item.amount}명</div>
             </div>
           ))}
         </li>

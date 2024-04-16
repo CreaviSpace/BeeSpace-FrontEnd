@@ -18,6 +18,12 @@ interface IBannerItem {
   thumbnail?: string;
   category: string;
   bannerContent: string;
+  // techStacks: {
+  //   techStackId: 0;
+  //   techStack: 'string';
+  //   iconUrl: 'string';
+  // }[];
+  iconUrl: 'string';
 }
 
 export default function Banner({ postType }: IBannerProps) {
@@ -56,6 +62,8 @@ export default function Banner({ postType }: IBannerProps) {
                   title={data[data.length - 1].title}
                   content={data[data.length - 1].bannerContent}
                   image={data[data.length - 1].thumbnail}
+                  date={data[data.length - 1].end}
+                  // iconUrl={data[data.length - 1].techStacks[0].iconUrl}
                 />
               </div>
               {data.map((item: IBannerItem, index: number) => (
@@ -68,6 +76,8 @@ export default function Banner({ postType }: IBannerProps) {
                     title={item.title}
                     content={item.bannerContent}
                     image={item.thumbnail}
+                    date={data[data.length - 1].end}
+                    // iconUrl={data[data.length - 1].techStacks[0].iconUrl}
                   />
                 </div>
               ))}
@@ -79,6 +89,8 @@ export default function Banner({ postType }: IBannerProps) {
                   title={data[0].title}
                   content={data[0].content}
                   image={data[0].thumbnail}
+                  date={data[data.length - 1].end}
+                  // iconUrl={data[data.length - 1].techStacks[0].iconUrl}
                 />
               </div>
             </div>

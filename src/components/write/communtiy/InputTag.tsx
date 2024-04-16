@@ -39,33 +39,17 @@ export default function InputTag({
     setInputValue(e.target.value);
   };
 
-  const handleInputKey = (e: { key: string }) => {
-    // 'Enter' 키 입력시
-    if (e.key === 'Enter') {
-      // value 값 배열 생성
-      setDisplayedValues((prevValues) => [...prevValues, inputValue]);
-      // 전역 상태에 저장
-      if (typeof value === 'string') {
-        setValue(inputValue);
-      } else if (typeof value === 'object') {
-        setValue([...displayedValues, inputValue]);
+  const handleInputKey = (e: { key: string; keyCode: number }) => {
+    if (e.key === 'Enter' || e.key === ',' || e.keyCode === 32) {
+      let newValues;
+      if (e.key === ',') {
+        newValues = [...displayedValues, inputValue.replace(/,/g, '')];
+      } else {
+        newValues = [...displayedValues, inputValue];
       }
-      // input 태그 value 삭제
-      setInputValue('');
-    } else if (e.key === ',') {
-      // ',' 입력시 쉼표를 제거하고 value 값 배열 생성
-      setDisplayedValues((prevValues) => [
-        ...prevValues,
-        inputValue.replace(/,/g, ''),
-      ]);
 
-      // 전역 상태에 저장
-      if (typeof value === 'string') {
-        setValue(inputValue.replace(/,/g, ''));
-      } else if (typeof value === 'object') {
-        setValue([...displayedValues, inputValue.replace(/,/g, '')]);
-      }
-      // input 태그 value 삭제
+      setValue(typeof value === 'string' ? inputValue : newValues);
+
       setInputValue('');
     }
   };

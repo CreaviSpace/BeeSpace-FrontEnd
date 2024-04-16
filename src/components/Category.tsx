@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import useLoginModal from '@/store/useLoginModal';
+import { getCookies } from '@/utils/getCookies';
+
 import CustomButton from './button/CustomButton';
 
 interface ICategoryProps {
@@ -17,6 +20,7 @@ export default function Category({
   const router = useRouter();
   const pathname = router.pathname.split('/')[1];
   const { type } = router.query;
+  const { onOpen } = useLoginModal();
 
   const handleCurrentPage = (current: string) => {
     if (type && type === current.split('&')[0]) {
@@ -25,7 +29,12 @@ export default function Category({
   };
 
   const handleGoToWritePage = () => {
-    router.push(`/write/${pathname}`);
+    const cookie = getCookies('MID', true);
+    if (cookie) {
+      router.push(`/write/${pathname}`);
+    } else {
+      onOpen();
+    }
   };
 
   return (

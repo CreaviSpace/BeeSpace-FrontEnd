@@ -7,7 +7,7 @@ interface IUserConnectiontProps {
   className?: string;
 }
 
-export default function UserConnectiont({
+export default function UserConnection({
   value,
   content,
   userName,

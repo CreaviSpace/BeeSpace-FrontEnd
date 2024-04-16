@@ -11,15 +11,24 @@ interface IQuestionsBody {
       choiceItems: string[];
     }[]
   ) => void;
+  init: () => void;
 }
 
 const useQuestionsData = create<IQuestionsBody>((set) => ({
   questions: [
-    { question: '', questionType: '주관식', choiceItems: [''] },
-    { question: '', questionType: '객관식', choiceItems: [''] },
-    { question: '', questionType: '체크박스', choiceItems: [''] },
+    { question: '', questionType: 'SUBJECTIVE', choiceItems: [''] },
+    { question: '', questionType: 'OBJECTIVE', choiceItems: [''] },
+    { question: '', questionType: 'CHECKBOX', choiceItems: [''] },
   ],
   setQuestions: (questions: IQuestionType[]) => set(() => ({ questions })),
+  init: () =>
+    set(() => ({
+      questions: [
+        { question: '', questionType: 'SUBJECTIVE', choiceItems: [''] },
+        { question: '', questionType: 'OBJECTIVE', choiceItems: [''] },
+        { question: '', questionType: 'CHECKBOX', choiceItems: [''] },
+      ],
+    })),
 }));
 
 export default useQuestionsData;

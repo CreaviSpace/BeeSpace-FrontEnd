@@ -18,7 +18,7 @@ export default function QuestionBox({
         const newQuestions = [...questions];
         newQuestions.push({
           question: '',
-          questionType: '객관식',
+          questionType: 'OBJECTIVE',
           choiceItems: [''],
         });
         setQuestions(newQuestions);
@@ -30,7 +30,7 @@ export default function QuestionBox({
         const newQuestions = [...questions];
         newQuestions.push({
           question: '',
-          questionType: '주관식',
+          questionType: 'SUBJECTIVE',
           choiceItems: [''],
         });
         setQuestions(newQuestions);
@@ -42,7 +42,7 @@ export default function QuestionBox({
         const newQuestions = [...questions];
         newQuestions.push({
           question: '',
-          questionType: '체크박스',
+          questionType: 'CHECKBOX',
           choiceItems: [''],
         });
         setQuestions(newQuestions);

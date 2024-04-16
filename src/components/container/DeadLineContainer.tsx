@@ -20,7 +20,7 @@ export default function DeadLineContainer() {
           />
           <h2 className="text-bs_24 font-bold">마감 모집</h2>
         </div>
-        <Link href={`/recruitment?type=all`} className="text-gray20 text-bs_16">
+        <Link href={`/recruitment?type=all`} className="text-gray40 text-bs_16">
           더 보기
         </Link>
       </div>
@@ -28,7 +28,8 @@ export default function DeadLineContainer() {
         <UniversalCard
           key={`Deadline-${item.id}`}
           id={item.id}
-          postType="recruitment"
+          postType={item.postType}
+          type="recruitment"
           title={item.title}
           content={item.content}
           date={item.modifiedDate}

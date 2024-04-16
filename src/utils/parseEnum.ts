@@ -22,7 +22,7 @@ export const parseEnum = (type: string) => {
       return 'DESIGNER';
     case '백엔드':
       return 'BACKEND_DEVELOPER';
-    case '프론트엔드 ':
+    case '프론트엔드':
       return 'FRONTEND_DEVELOPER';
     case '기획': // 기획자
       return 'PLANNER';

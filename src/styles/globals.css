@@ -32,6 +32,12 @@
     scrollbar-width: none;
   }
 
+  /* 검색 input 안보이게 */
+  input[type='search']::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    display: none;
+  }
+
   /* ql editor 초기 값 */
   .ql_editor {
     padding: 5px;
@@ -87,5 +93,40 @@
   }
   .ql_editor li {
     display: list-item;
+  }
+
+  /* 스켈레톤 UI 임시 */
+  @-webkit-keyframes skeleton-gradient {
+    0% {
+      background-color: rgba(165, 165, 165, 0.1);
+    }
+
+    50% {
+      background-color: rgba(165, 165, 165, 0.3);
+    }
+
+    100% {
+      background-color: rgba(165, 165, 165, 0.1);
+    }
+  }
+
+  @keyframes skeleton-gradient {
+    0% {
+      background-color: rgba(165, 165, 165, 0.1);
+    }
+
+    50% {
+      background-color: rgba(165, 165, 165, 0.3);
+    }
+
+    100% {
+      background-color: rgba(165, 165, 165, 0.1);
+    }
+  }
+
+  /*해당되는 컴포넌트에 적용*/
+  .skeleton-list-item {
+    -webkit-animation: skeleton-gradient 1.8s infinite ease-in-out;
+    animation: skeleton-gradient 1.8s infinite ease-in-out;
   }
 }

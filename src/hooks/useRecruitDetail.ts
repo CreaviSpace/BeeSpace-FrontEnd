@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const useRecruitDetail = (id: string | undefined) => {
   const { isLoading, isError, data, isFetching } = useQuery({
+    enabled: !!id,
     queryKey: [`recruit-${id}`],
     queryFn: async () => {
       const respones = await axios.get(`${process.env.BASE_URL}/recruit/${id}`);

@@ -13,7 +13,6 @@ export default function Deadline({ end, setEnd }: IDeadlineProps) {
   const today = new Date();
   const [selected, setSelected] = useState<Date | undefined>(today);
   const [isCalendarToggle, setIsCalendarToggle] = useState(true);
-  today;
 
   const handleCalendarToggle = () => {
     setIsCalendarToggle(!isCalendarToggle);
@@ -32,6 +31,7 @@ export default function Deadline({ end, setEnd }: IDeadlineProps) {
 
   useEffect(() => {
     const formattedDate = moment(end).toDate();
+
     setSelected(formattedDate);
   }, [end]);
 

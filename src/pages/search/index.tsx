@@ -8,9 +8,19 @@ import SkeletonUniversalCard from '@/components/skeleton/SkeletonUniversalCard';
 import useSearch from '@/hooks/useSearch';
 import { IUniversalType } from '@/types/global';
 
-export default function Search() {
-  const PAGE_SIZE = 20;
+const SIDE_CATEGORIES = [
+  { name: '개인 프로젝트', link: 'INDIVIDUAL' },
+  { name: '팀 프로젝트', link: 'TEAM' },
+  { name: '스터디', link: 'STUDY' },
+  { name: '프로젝트 모집', link: 'PROJECT_RECRUIT' },
+  { name: 'Q&A', link: 'QNA' },
+  { name: '고민', link: 'CONCERN' },
+  { name: '수다', link: 'CHAT' },
+];
 
+const PAGE_SIZE = 20;
+
+export default function Search() {
   const router = useRouter();
   const { type, text } = router.query;
 
@@ -46,16 +56,6 @@ export default function Search() {
     },
   ];
 
-  const side = [
-    { name: '개인 프로젝트', link: 'individual' },
-    { name: '팀 프로젝트', link: 'team' },
-    { name: '스터디', link: 'study' },
-    { name: '프로젝트 모집', link: 'project-recruit' },
-    { name: 'Q&A', link: 'qna' },
-    { name: '고민', link: 'concern' },
-    { name: '수다', link: 'chat' },
-  ];
-
   const observer: React.MutableRefObject<IntersectionObserver | null> =
     useRef(null);
 
@@ -87,7 +87,7 @@ export default function Search() {
           <ul
             className="border border-gray10 py-8 pl-5 pr-20 w-fit rounded-bs_10 sticky 
           top-[calc(4.6875rem_+_4rem)]">
-            {side.map((item, index) => (
+            {SIDE_CATEGORIES.map((item, index) => (
               <li key={`${item}-${index}`} className="py-1 text-bs_18">
                 <Link href={`/search?type=${item.link}&text=${searchValue}`}>
                   {item.name}
@@ -112,7 +112,9 @@ export default function Search() {
                         key={`${item}-${index}`}
                         id={item.id}
                         title={item.title}
-                        content={item.bannerContent}
+                        content={
+                          item.bannerContent ? item.bannerContent : item.content
+                        }
                         image={item.thumbnail}
                         postType={item.postType}
                         size="large"

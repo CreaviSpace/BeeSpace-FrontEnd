@@ -5,18 +5,49 @@ import {
   ModalFooter,
   ModalHeader,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+import useReportPost from '@/hooks/report/useReportPost';
 import useReportModal from '@/store/useReportModal';
+import { parseEnum } from '@/utils/parseEnum';
 
 import CustomSelect from '../button/CustomSelect';
 import Modals from './Modals';
 
-export default function ReportModal() {
-  const { isOpen, onOpen, onClose } = useReportModal();
+const OPTIONS = [
+  '스팸',
+  '음란물',
+  '폭력',
+  '혐오발언',
+  '개인정보 유출',
+  '부적절한 콘텐츠',
+];
 
-  const [option] = useState(['욕설', '사기', '신고']);
+export default function ReportModal() {
+  const { isOpen, onClose } = useReportModal();
+  const router = useRouter();
+  const { id } = router.query;
+  const pathname = router.pathname.split('/')[1];
+
   const [select, setSelect] = useState(['신고 유형을 선택해주세요']);
+  const [value, setValue] = useState('');
+
+  const data = {
+    postId: parseInt(id as string),
+    postType: pathname.toUpperCase(),
+    category: parseEnum(select[0]),
+    content: value,
+  };
+
+  const { mutate, isSuccess } = useReportPost(data);
+
+  const { reportTitle } = useReportModal();
+
+  const handleReport = () => {
+    mutate();
+    if (isSuccess) onClose();
+  };
 
   return (
     <Modals isOpen={isOpen} onClose={onClose}>
@@ -25,13 +56,13 @@ export default function ReportModal() {
       <ModalBody>
         <section className="my-5">
           <p className="font-bold mb-2">글 제목</p>
-          <div className="text-bs_18">This is image included post. </div>
+          <div className="text-bs_18">{reportTitle}</div>
         </section>
 
         <section className="my-5">
           <p className="font-bold mb-2">신고 유형</p>
           <CustomSelect
-            option={option}
+            option={OPTIONS}
             select={select}
             setSelect={setSelect as (personnel: (string | number)[]) => void}
             index={0}
@@ -45,6 +76,8 @@ export default function ReportModal() {
             id="value"
             rows={8}
             placeholder="신고 내용을 선택해주세요."
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
             className="w-full border border-gray40 bg-gray10 rounded-bs_5 resize-none p-5"
           />
         </section>
@@ -72,7 +105,7 @@ export default function ReportModal() {
         <Button
           colorScheme="primary"
           color="black"
-          onClick={onClose}
+          onClick={handleReport}
           className="w-full bg-primary text-bs_20 ">
           신고하기
         </Button>
