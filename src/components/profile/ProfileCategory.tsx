@@ -13,7 +13,7 @@ export default function ProfileCategory({
     setSelectedTab(item);
   };
   return (
-    <nav className="sticky top-16 w-full border-y bg-white border-gray30 mt-10 z-[1]">
+    <nav className="sticky top-16 w-full border-y bg-white border-gray30 mt-10 z-[10]">
       <div className=" max-w-4xl m-auto flex justify-between items-center mobile:justify-center">
         <ul className="flex text-center gap-12 min_mobile:gap-3">
           {category.map((item, index) => (

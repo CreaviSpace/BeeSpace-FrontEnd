@@ -25,7 +25,7 @@ export default function SortButton({
 
   return (
     <div
-      className={`${className} flex absolute bg-white px-2 z-10`}
+      className={`${className} flex absolute bg-white px-2 z-[1]`}
       onClick={handleToggle}>
       <div className="text-bs_15 cursor-pointer">
         <div className="flex items-center gap-2 px-2 pb-1">
