@@ -26,6 +26,7 @@ export default function CommunityCard({
   comments,
   className,
 }: CommunityCardProps) {
+  const onlyDate = date?.split('T')[0];
   return (
     <div
       className={`${className} w-full py-5 px-7 rounded-bs_5 bg-white border-gray10`}>
@@ -33,7 +34,7 @@ export default function CommunityCard({
       <div className="pb-2 flex items-center justify-between">
         <UserProfileButton userName={userName} />
         <span className="text-bs_14 text-gray20">
-          <time dateTime={date}>{date}</time>
+          <time dateTime={date}>{onlyDate}</time>
         </span>
       </div>
       <hr className="w-full m-auto" aria-hidden />

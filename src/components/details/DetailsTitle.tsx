@@ -39,6 +39,8 @@ export default function DetailsTitle({
     type.toUpperCase()
   );
 
+  const onlyDate = time?.split('T')[0];
+
   const handleDelete = () => {
     setId(id);
     setPostType(type);
@@ -66,7 +68,7 @@ export default function DetailsTitle({
           </p>
           <span aria-hidden>|</span>
           <p>
-            <time dateTime={time}>{time}</time>
+            <time dateTime={time}>{onlyDate}</time>
           </p>
         </div>
       </div>

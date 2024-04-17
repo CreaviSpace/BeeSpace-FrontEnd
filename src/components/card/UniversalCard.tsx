@@ -32,7 +32,7 @@ export default function UniversalCard({
   hidden = true,
 }: IUniversalCardProps) {
   const boxSize = sizeStyles[size || 'small'];
-
+  const onlyDate = date?.split('T')[0];
   return (
     <div
       className={`${boxSize} ${className} relative m-auto rounded-bs_10 border border-gary10 flex overflow-hidden  tablet:w-[767px] mobile:w-full`}>
@@ -74,7 +74,7 @@ export default function UniversalCard({
           </li>
           {date && (
             <li className="text-bs_16 text-gray20 absolute bottom-6 right-8">
-              <span>{date}</span>
+              <time dateTime={date}>{onlyDate}</time>
             </li>
           )}
         </ul>
