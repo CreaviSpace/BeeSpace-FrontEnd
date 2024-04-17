@@ -28,7 +28,7 @@ export interface IRecruitType {
   category: string;
   title: string;
   content: string;
-  techStack: string;
+  techStacks: { techStackId: number; techStack: string; iconUrl: string }[];
   amount: number;
   now: number;
 }
