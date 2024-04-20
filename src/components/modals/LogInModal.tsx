@@ -4,7 +4,6 @@ import { IoLogoGithub } from '@react-icons/all-files/io/IoLogoGithub';
 import { RiKakaoTalkFill } from '@react-icons/all-files/ri/RiKakaoTalkFill';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 
 import useLoginModal from '@/store/modal/useLoginModal';
 
@@ -47,25 +46,9 @@ const ICONS = [
 
 export default function LogInModal() {
   const { isOpen, onClose } = useLoginModal();
-  const [modalSize, setModalSize] = useState('md');
-
-  useEffect(() => {
-    function handleResize() {
-      if (window.innerWidth < 768) {
-        setModalSize('full');
-      } else {
-        setModalSize('md');
-      }
-    }
-
-    window.addEventListener('resize', handleResize);
-    handleResize();
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
-    <Modals isOpen={isOpen} onClose={onClose} size={modalSize}>
+    <Modals isOpen={isOpen} onClose={onClose}>
       <ModalCloseButton />
       <ModalHeader className="text-center mt-10 mb-2">로그인</ModalHeader>
       <ModalBody>
