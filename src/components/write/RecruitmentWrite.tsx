@@ -78,14 +78,14 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
       setter.setEnd(data.end);
       setter.setPositions(data.positions);
       if (data.techStacks && data.techStacks.length > 0) {
-        const teachStacks: { techStackId: number }[] = [];
+        const teachStacks: { techStack: string }[] = [];
         data.techStacks.map(
           (item: {
             techStackId: number;
             techStack: string;
             iconUrl: string;
           }) => {
-            teachStacks.push({ techStackId: item.techStackId });
+            teachStacks.push({ techStack: item.techStack });
           }
         );
         setter.setTechStacks(teachStacks);
@@ -94,7 +94,7 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
       setter.setCategory('PROJECT_RECRUIT');
       setter.setContactWay('');
       setter.setContact('');
-      setter.setTechStacks([{ techStackId: 0 }]);
+      setter.setTechStacks([{ techStack: '' }]);
       setter.setAmount(0);
       setter.setProceedWay('ONLINE');
       setter.setWorkDay(1);

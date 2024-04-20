@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { IRecruitType } from '@/types/global';
@@ -26,15 +27,17 @@ export default function RecruitmentCard({ item, type }: IRecruitmentCardProps) {
           className="overflow-hidden text-ellipsis break-keep line-clamp-3"
           dangerouslySetInnerHTML={{ __html: item.content }}></p>
         <div className="absolute bottom-5">
-          <ul className="flex gap-4">
+          <div className="flex gap-1">
             {item.techStacks.map((item, index) => (
-              <li
+              <Image
                 key={`${item}-${index}`}
-                className="w-10 h-10 rounded-full border border-gray10 flex justify-center items-center">
-                {item.iconUrl}
-              </li>
+                src={item.iconUrl}
+                alt={item.techStack}
+                width={35}
+                height={35}
+              />
             ))}
-          </ul>
+          </div>
           <div className="mt-4">
             모집인원 ({item.now}/{item.amount})
           </div>
