@@ -2,6 +2,7 @@ import { FaArrowRight } from '@react-icons/all-files/fa/FaArrowRight';
 import Link from 'next/link';
 
 import useAlarm from '@/hooks/alarm/useAlarm';
+import { parseValue } from '@/utils/parseValue';
 
 interface IAlarmType {
   id: number;
@@ -30,10 +31,14 @@ export default function AlarmModal({ isLoading, data }: IAlarmModalProps) {
       </label>
 
       {isLoading && data?.length === 0 ? (
+        <label htmlFor="message" className="text-start">
+          알림이 없습니다.
+        </label>
+      ) : (
         data?.map((item: IAlarmType, index: number) => (
           <div key={index}>
             <label htmlFor="message" className="text-start">
-              {item.alarmType}
+              {item.alarmType}이 {parseValue(item.postType)}에 달렸습니다.
             </label>
             <Link
               href={`/${item.postType}/${item.postId}`}
@@ -43,10 +48,6 @@ export default function AlarmModal({ isLoading, data }: IAlarmModalProps) {
             </Link>
           </div>
         ))
-      ) : (
-        <label htmlFor="message" className="text-start">
-          알림이 없습니다.
-        </label>
       )}
     </li>
   );
