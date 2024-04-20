@@ -27,7 +27,8 @@ export default function Members({ positions }: IMembersProps) {
             {item.members.map((people, index) => (
               <li key={`${people}-${index}`}>
                 <UserProfileButton
-                  userName={'author'}
+                  userName={people.memberNickname}
+                  imageURL={people.memberProfile}
                   className="border border-gray10 px-4 py-3"
                 />
               </li>
