@@ -84,7 +84,7 @@ export interface IProjectBody {
   title: string;
   content: string;
   techStackDtos: {
-    techStackId: number;
+    techStack: string;
   }[];
   field: string;
   linkDtos: {
@@ -132,7 +132,6 @@ export interface ICommentContainerTypes {
 }
 
 export interface ITechStackType {
-  techStackId: number;
   techStack: string;
   techStackIcon: string;
 }
