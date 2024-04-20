@@ -1,11 +1,15 @@
+import { IoCloseOutline } from '@react-icons/all-files/io5/IoCloseOutline';
+import Image from 'next/image';
 import { useRef, useState } from 'react';
 
 import useSkillStackSearch from '@/hooks/useSkillStackSearch';
 import { ITechStackType } from '@/types/global';
 
 interface SkillStackInput {
-  techStackDtos: { techStackId: number }[];
-  setTechStackDtos: (techStackDtos: { techStackId: number }[]) => void;
+  techStackDtos: { techStack: string; iconUrl?: string }[];
+  setTechStackDtos: (
+    techStackDtos: { techStack: string; iconUrl?: string }[]
+  ) => void;
 }
 
 export default function SkillStackInput({
@@ -17,13 +21,17 @@ export default function SkillStackInput({
   const { isLoading, isError, data } = useSkillStackSearch(text);
   const divRef = useRef<HTMLDivElement>(null);
 
-  const handleTechStackDtosPush = (id: number) => {
-    if (techStackDtos.some((item) => item.techStackId === 0)) {
-      setTechStackDtos([{ techStackId: id }]);
-    } else if (!techStackDtos.some((item) => item.techStackId === id)) {
-      setTechStackDtos([{ techStackId: id }, ...techStackDtos]);
+  const handleTechStackDtosPush = (name: string, icon: string) => {
+    if (techStackDtos.some((item) => item.techStack === '')) {
+      setTechStackDtos([{ techStack: name, iconUrl: icon }]);
+    } else if (!techStackDtos.some((item) => item.techStack === name)) {
+      setTechStackDtos([{ techStack: name, iconUrl: icon }, ...techStackDtos]);
     }
     setIsToggle(false);
+  };
+
+  const handleTechStackDtosDelete = (index: number) => {
+    setTechStackDtos(techStackDtos.filter((_, i) => i !== index));
   };
 
   return (
@@ -50,7 +58,7 @@ export default function SkillStackInput({
           : data?.length > 0 &&
             isToggle && (
               <ul className="relative rounded-bs_5 overflow-hidden border border-gray10 bg-white z-[10] mt-3">
-                {data?.map((item: ITechStackType) => {
+                {data?.map((item: ITechStackType, index: number) => {
                   if (
                     item.techStack
                       .toLocaleLowerCase()
@@ -58,10 +66,13 @@ export default function SkillStackInput({
                   ) {
                     return (
                       <li
-                        key={item.techStackId}
+                        key={`${item.techStack}-${index}`}
                         className="w-full h-[3.125rem] max-h-[15.625rem] p-[0.625rem] hover:bg-gray10 flex items-center overflow-y-auto cursor-pointer custom-scrollbar"
                         onClick={() =>
-                          handleTechStackDtosPush(item.techStackId)
+                          handleTechStackDtosPush(
+                            item.techStack,
+                            item.techStackIcon
+                          )
                         }>
                         {item.techStack}
                       </li>
@@ -73,10 +84,19 @@ export default function SkillStackInput({
       </div>
 
       <ul className="flex mt-5 gap-2">
-        {techStackDtos?.map((item) => (
+        {techStackDtos?.map((item, index) => (
           <li
-            key={item.techStackId}
-            className="w-10 h-10 rounded-full border border-gray10"></li>
+            key={`${item.techStack}-${index}`}
+            className={`relative w-10 h-10 rounded-full ${!item.iconUrl && 'border border-gray10'}`}>
+            {item.iconUrl && (
+              <Image src={item.iconUrl} alt="아이콘 이미지" fill />
+            )}
+            <IoCloseOutline
+              size={20}
+              className="absolute -top-2 -right-2 cursor-pointer"
+              onClick={() => handleTechStackDtosDelete(index)}
+            />
+          </li>
         ))}
       </ul>
     </>
