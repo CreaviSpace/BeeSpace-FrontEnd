@@ -4,9 +4,11 @@ import React from 'react';
 import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
 import useLikeView from '@/hooks/useLikeView';
+import useWriteDelete from '@/hooks/useWriteDelete';
 import useReconfirmModal from '@/store/modal/useReconfirmModal';
 import useReportModal from '@/store/modal/useReportModal';
 import useLogin from '@/store/useLogin';
+import { parseValue } from '@/utils/parseValue';
 
 interface IDetailsTitleProps {
   type: string;
@@ -34,7 +36,12 @@ export default function DetailsTitle({
   const { login } = useLogin();
 
   const { onOpen: reportOpen, setReportTitle } = useReportModal();
-  const { onOpen: reconfirmOpen, setPostType, setId } = useReconfirmModal();
+  const {
+    onOpen: reconfirmOpen,
+    setTitle,
+    setHandlerFunction,
+  } = useReconfirmModal();
+  const { mutate } = useWriteDelete(id, type);
 
   const { isLoading, isError, data, isFetching } = useLikeView(
     id,
@@ -44,8 +51,8 @@ export default function DetailsTitle({
   const onlyDate = time?.split('T')[0];
 
   const handleDelete = () => {
-    setId(id);
-    setPostType(type);
+    setTitle(`${parseValue(type.toUpperCase())}을 삭제하시겠습니다.`);
+    setHandlerFunction(() => mutate());
     reconfirmOpen();
   };
 
