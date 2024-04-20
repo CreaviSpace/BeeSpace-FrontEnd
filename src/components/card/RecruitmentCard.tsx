@@ -25,13 +25,19 @@ export default function RecruitmentCard({ item, type }: IRecruitmentCardProps) {
         <p
           className="overflow-hidden text-ellipsis break-keep line-clamp-3"
           dangerouslySetInnerHTML={{ __html: item.content }}></p>
-        <ul className="flex py-6 gap-3">
-          <li className="w-10 h-10 rounded-full border border-gray10 flex justify-center items-center">
-            {item.techStack}
-          </li>
-        </ul>
-        <div className="">
-          모집인원 ({item.now}/{item.amount})
+        <div className="absolute bottom-5">
+          <ul className="flex gap-4">
+            {item.techStacks.map((item, index) => (
+              <li
+                key={`${item}-${index}`}
+                className="w-10 h-10 rounded-full border border-gray10 flex justify-center items-center">
+                {item.iconUrl}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-4">
+            모집인원 ({item.now}/{item.amount})
+          </div>
         </div>
       </Link>
     </div>

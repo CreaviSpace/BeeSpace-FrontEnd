@@ -52,7 +52,7 @@ export default function UniversalCard({
         }
         className="flex w-full">
         {image && (
-          <div className="relative w-[30%] h-full overflow-hidden ">
+          <div className="w-[30%] h-full overflow-hidden ">
             <Image
               src={image}
               alt="이미지"
@@ -61,7 +61,7 @@ export default function UniversalCard({
             />
           </div>
         )}
-        <ul className={`${image ? 'w-[70%] ' : 'w-full'} p-10 relative`}>
+        <ul className={`${image ? 'w-[70%]' : 'w-full'} p-10 relative`}>
           <li className="mb-2">
             <h3 className="text-bs_24 overflow-hidden text-ellipsis whitespace-nowrap">
               {title}

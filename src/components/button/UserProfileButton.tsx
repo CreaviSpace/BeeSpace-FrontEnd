@@ -37,7 +37,7 @@ export default function UserProfileButton({
           />
         )}
       </div>
-      <p className="text-gray40 pl-2">{userName}</p>
+      <p className="text-gray40 pl-2 min_mobile:text-bs_14">{userName}</p>
     </button>
   );
 }
