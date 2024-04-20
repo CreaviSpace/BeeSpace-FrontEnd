@@ -38,7 +38,6 @@ export default function RecruitmentCardContainer({
             fetchNextPage();
           }
         },
-
         { threshold: 0.7 }
       );
       if (node) observer.current.observe(node);
@@ -60,7 +59,7 @@ export default function RecruitmentCardContainer({
                 </div>
               ));
             })}
-        {isFetchingNextPage ? (
+        {main ? null : isFetchingNextPage ? (
           [1, 2, 3, 4, 5, 6].map((item, index) => (
             <SkeletonRecruitmentCard key={`${item}-${index}`} />
           ))
