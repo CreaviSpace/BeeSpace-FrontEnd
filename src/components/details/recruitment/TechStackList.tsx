@@ -1,5 +1,7 @@
+import Image from 'next/image';
+
 interface ITechStacksProps {
-  techStacks: { techStackId: number; techStack: string; iconUrl: string }[];
+  techStacks: { techStack: string; iconUrl: string }[];
 }
 export default function TechStackList({ techStacks }: ITechStacksProps) {
   return (
@@ -7,16 +9,20 @@ export default function TechStackList({ techStacks }: ITechStacksProps) {
       <h2 className="font-bold text-bs_18 mb-4">사용 기술</h2>
       <ul className="flex gap-6 max-w-[12.5rem]">
         {techStacks.map((item, index) => (
-          <li className="flex flex-col" key={`recruitDetail-skill-${index}`}>
-            <div className="border border-gray20 rounded-full  w-fit h-fit">
-              {/* <Image
-                src={item.iconUrl}
-                alt={item.techStack}
-                width={40}
-                height={40}
-              /> */}
+          <li
+            key={`${item.techStack}-${index}`}
+            className="flex flex-col items-center">
+            <div
+              className={`${!item.iconUrl && 'border border-gray10 rounded-full'} w-10 h-10 relative`}>
+              {item.iconUrl && (
+                <Image
+                  key={`recruitDetail-skill-${index}`}
+                  fill
+                  src={item.iconUrl}
+                  alt={item.techStack}
+                />
+              )}
             </div>
-            <div className="border w-10 h-10 border-gray20 rounded-full"></div>
             <span aria-hidden>{item.techStack}</span>
           </li>
         ))}
