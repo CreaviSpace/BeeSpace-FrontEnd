@@ -52,12 +52,12 @@ export default function UniversalCard({
         }
         className="flex w-full">
         {image && (
-          <div className="w-[30%] h-full overflow-hidden ">
+          <div className="w-[30%] h-full overflow-hidden relative">
             <Image
               src={image}
               alt="이미지"
               fill
-              className="object-cover object-left-top "
+              className="object-cover object-left-top"
             />
           </div>
         )}
