@@ -46,12 +46,12 @@ export default function FeedBackList() {
   };
 
   const handleCancel = () => {
-    router.replace(`/project/${id}`);
+    router.back();
   };
 
   return (
     <main className="bg-blue10 py-10 w-full h-full min-h-[calc(100vh-4rem-250px)]">
-      <section className="max-w-[48rem] m-auto relative">
+      <section className="max-w-[48rem] m-auto relative tablet:px-8 mobile:px-6">
         <h1 className="text-3xl font-semibold mb-4">피드백</h1>
         <div className="flex flex-col gap-3">
           {isLoading ? (
@@ -92,20 +92,7 @@ export default function FeedBackList() {
             })
           )}
         </div>
-        <div className="flex justify-between items-center mt-8 gap-2">
-          <CustomButton
-            className="py-2 px-3"
-            color="secondary"
-            onClick={handleQuestionUpdate}>
-            수정
-          </CustomButton>
-          <CustomButton
-            className="py-2 px-3"
-            color="secondary"
-            onClick={() => router.push(`/feedback/analysis/${id}`)}>
-            보기
-          </CustomButton>
-
+        <div className="flex justify-end items-center mt-8 gap-2">
           <div>
             <CustomButton
               className="py-2 px-3 mr-2 bg-white"
