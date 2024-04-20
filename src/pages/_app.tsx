@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
           <Footer />
         </div>
-        <ToastContainer />
+        <ToastContainer position="top-center" />
       </ChakraProvider>
 
       <ReactQueryDevtools />
