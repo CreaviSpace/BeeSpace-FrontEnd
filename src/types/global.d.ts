@@ -71,6 +71,7 @@ export interface IRecruitBody {
   }[];
   techStacks: {
     techStack: string;
+    iconUrl: string;
   }[];
 }
 
@@ -103,6 +104,7 @@ export interface ICommunityBody {
 
 export interface IUniversalType {
   id: number;
+  postId: number;
   title: string;
   bannerContent?: string;
   content: string;

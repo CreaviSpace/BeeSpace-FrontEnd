@@ -11,7 +11,7 @@ interface IRecruitBody {
   title: string;
   content: string;
   positions: { position: string; amount: number; now: number }[];
-  techStacks: { techStack: string }[];
+  techStacks: { techStack: string; iconUrl?: string }[];
   setter: {
     setCategory: (category: string) => void;
     setContactWay: (contactWay: string) => void;
@@ -29,7 +29,9 @@ interface IRecruitBody {
         now: number;
       }[]
     ) => void;
-    setTechStacks: (techStacks: { techStack: string }[]) => void;
+    setTechStacks: (
+      techStacks: { techStack: string; iconUrl?: string }[]
+    ) => void;
   };
 }
 
@@ -44,7 +46,7 @@ const useRecruitData = create<IRecruitBody>((set) => ({
   title: '',
   content: '',
   positions: [],
-  techStacks: [{ techStack: '' }],
+  techStacks: [{ techStack: '', iconUrl: '' }],
   setter: {
     setCategory: (category: string) => set({ category }),
     setAmount: (amount: number) => set({ amount }),
@@ -62,7 +64,7 @@ const useRecruitData = create<IRecruitBody>((set) => ({
         now: number;
       }[]
     ) => set(() => ({ positions: positions })),
-    setTechStacks: (techStacks: { techStack: string }[]) =>
+    setTechStacks: (techStacks: { techStack: string; iconUrl?: string }[]) =>
       set(() => ({ techStacks: techStacks })),
   },
 }));

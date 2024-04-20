@@ -55,7 +55,10 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
     content,
     end,
     positions,
-    techStacks,
+    techStacks: techStacks.map((item) => {
+      const { techStack } = item;
+      return { techStack };
+    }),
   };
 
   const { isLoading, isError, data, isFetching } = useRecruitDetail(id);
