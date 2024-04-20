@@ -11,7 +11,11 @@ interface IBannerProps {
   image?: string;
   skill?: string[];
   date?: string;
-  iconUrl?: string;
+  techStacks: {
+    techStackId: number;
+    techStack: string;
+    iconUrl: string;
+  }[];
 }
 
 export default function BannerItem({
@@ -22,7 +26,7 @@ export default function BannerItem({
   skill,
   date,
   id,
-  iconUrl,
+  techStacks,
 }: IBannerProps) {
   const router = useRouter();
 
@@ -54,10 +58,25 @@ export default function BannerItem({
           <h2 className="text-bs_24 font-bold mb-2 mobile:text-bs_20">
             {title}
           </h2>
-          <p className="text-bs_18 mobile:text-bs_16 line-clamp-3">{content}</p>
+          <p
+            className="text-bs_16 mobile:text-bs_16 line-clamp-3"
+            dangerouslySetInnerHTML={{ __html: content }}></p>
         </div>
         <div className="border-b pt-3 h-0 border-gray30 mobile:hidden"></div>
-        <div className="absolute right-0 bottom-0 mt-5 mobile:bottom-5 mobile:-translate-x-4">
+        {techStacks && (
+          <div className="flex mt-2">
+            {techStacks?.map((item, index) => (
+              <Image
+                key={index}
+                src={item.iconUrl}
+                alt={item.techStack}
+                width={35}
+                height={35}
+              />
+            ))}
+          </div>
+        )}
+        <div className="absolute right-5 bottom-0 mt-5 mobile:bottom-5 mobile:-translate-x-4">
           <CustomButton
             color="secondary"
             className="px-10 py-2 rounded-bs_20"
