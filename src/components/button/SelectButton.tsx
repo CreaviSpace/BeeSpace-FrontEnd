@@ -66,9 +66,7 @@ export default function SelectButton({
       <button
         className="absolute top-0 left-0 px-5 w-full h-[3.125rem] p-[0.625rem] flex justify-between items-center z-[1] cursor-pointer"
         onClick={handleButtonOnClick}
-        onMouseDown={(e) => {
-          e.preventDefault();
-        }}>
+        onMouseDown={(e) => e.preventDefault()}>
         {select[index] === `default` || select[index] === ''
           ? '선택해주세요.'
           : select[index]}
@@ -81,7 +79,8 @@ export default function SelectButton({
         ref={divRef}
         tabIndex={0}
         onFocus={() => setIsToggle(true)}
-        onBlur={() => setIsToggle(false)}>
+        onBlur={() => setIsToggle(false)}
+        onMouseDown={(e) => e.preventDefault()}>
         {isToggle && (
           <ul className="relative max-h-[15.625rem] mt-[3.75rem] rounded-bs_5 overflow-y-scroll border border-gray10  bg-white z-[10] custom-scrollbar">
             {option.map((item) => (

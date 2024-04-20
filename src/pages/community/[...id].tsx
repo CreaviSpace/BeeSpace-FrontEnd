@@ -21,12 +21,12 @@ export default function CommunityDetail() {
   );
 
   return (
-    <main>
+    <main className="max-w-max_w m-auto p-16 relative mb-5 tablet:px-8 mobile:px-6">
       {isLoading ? (
         <SkeletonDetail />
       ) : (
         data?.id && (
-          <section className="max-w-max_w m-auto p-16 relative mb-5">
+          <section>
             <DetailsTitle
               type="community"
               time={data.modifiedDate}

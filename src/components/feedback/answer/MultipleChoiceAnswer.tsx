@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import { IAnswerType, IQuestionAnswerType } from '@/types/global';
 
 import AnswerTitle from '../AnswerTitle';
@@ -15,6 +17,7 @@ export default function MultipleChoiceAnswer({
   setAnswer,
   currentIndex,
 }: ICheckBoxAnswerProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
   const handleChangeCheck = (id: number) => {
     const newAnswer = [...answer];
     newAnswer[currentIndex].selectedItems = [{ id: id }];
@@ -32,6 +35,7 @@ export default function MultipleChoiceAnswer({
         {question.choiceItems?.map((item, index) => (
           <li key={index} className="flex items-center gap-2 h-fit mt-3">
             <input
+              ref={inputRef}
               type="radio"
               id={question.question}
               name={question.question}
@@ -39,7 +43,11 @@ export default function MultipleChoiceAnswer({
               checked={
                 answer[currentIndex]?.selectedItems[0].id === item.id
               }></input>
-            <p className="w-full border-b border-gray20 p-2">{item.item}</p>
+            <p
+              className="w-full border-b border-gray20 p-2 cursor-pointer"
+              onClick={() => handleChangeCheck(item.id)}>
+              {item.item}
+            </p>
           </li>
         ))}
       </ul>

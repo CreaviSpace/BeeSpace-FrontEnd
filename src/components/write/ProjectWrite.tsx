@@ -51,8 +51,11 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
     memberDtos,
     title,
     content,
-    techStackDtos,
-    field,
+    techStackDtos: techStackDtos.map((item) => {
+      const { techStack } = item;
+      return { techStack };
+    }),
+    field: typeof field === 'string' ? field : field[0],
     linkDtos: linkDtos.filter((item) => item.url !== ''),
     thumbnail,
     bannerContent,
@@ -76,21 +79,18 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
       setter.setThumbnail(data.thumbnail);
       setter.setBannerContent(data.bannerContent);
       if (data.techStacks && data.techStacks.length > 0) {
-        const teachStackDtos: { techStackId: number }[] = [];
-        data.techStacks.map(
-          (item: {
-            techStackId: number;
-            techStack: string;
-            iconUrl: string;
-          }) => {
-            teachStackDtos.push({ techStackId: item.techStackId });
-          }
-        );
+        const teachStackDtos: { techStack: string; iconUrl: string }[] = [];
+        data.techStacks.map((item: { techStack: string; iconUrl: string }) => {
+          teachStackDtos.push({
+            techStack: item.techStack,
+            iconUrl: item.iconUrl,
+          });
+        });
         setter.setTechStackDtos(teachStackDtos);
       }
     } else {
       setter.setCategory('INDIVIDUAL');
-      setter.setMemberDtos([{ memberId: 'default', position: 'default' }]);
+      setter.setMemberDtos([{ memberId: '', position: '' }]);
       setter.setTitle('');
       setter.setContent('');
       setter.setTechStackDtos([]);

@@ -9,7 +9,7 @@ interface ITagProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const tagStyle = {
   TEAM: 'bg-primary',
-  INDIVIDUAL: 'bg-secondaKry text-white',
+  INDIVIDUAL: 'bg-secondary text-white',
   hashtag: 'bg-blue10',
   field: 'bg-blue10 px-4 rounded-[.625rem]',
   skill: 'border bg-white border-black rounded-full text-bs_14',
