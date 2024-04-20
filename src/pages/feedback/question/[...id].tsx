@@ -18,7 +18,7 @@ export default function Feedback() {
   const { questions, setQuestions, init } = useQuestionsData();
 
   const { isLoading, isError, data, isFetching } = useFeedBackGet(
-    (update as string) === 't' ? parseInt(id as string) : undefined
+    parseInt(id as string)
   );
 
   const { mutate: feedBackPost } = useFeedBackPost(
@@ -36,15 +36,23 @@ export default function Feedback() {
     if (!isLoading && (update as string) === 't' && data) {
       const newQuestions = [...data];
       newQuestions.map((question, index) => {
-        const choiceItem: string[] = [];
-        question.choiceItems.map((item: { id: number; item: string }) => {
-          choiceItem.push(item.item);
+        const newChoiceItem: string[] = [];
+        question.choiceItems.map((choiceItem: { id: number; item: string }) => {
+          newChoiceItem.push(choiceItem.item);
         });
-        newQuestions[index].choiceItems = choiceItem;
+        newQuestions[index].choiceItems = newChoiceItem;
       });
       setQuestions(newQuestions);
     } else {
       init();
+    }
+  }, [isLoading, id]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (data?.length > 0) {
+        router.replace(`/feedback/question/${id}?update=t`);
+      }
     }
   }, [isLoading]);
 
@@ -73,7 +81,7 @@ export default function Feedback() {
 
   return (
     <main className="bg-blue10 py-10 w-full h-full min-h-[calc(100vh-4rem-250px)]">
-      <section className="max-w-[48rem] m-auto relative">
+      <section className="max-w-[48rem] min-w-min_w m-auto relative tablet:px-8 mobile:px-6">
         <h1 className="text-3xl font-semibold mb-4">피드백</h1>
         <QuestionBox questions={questions} setQuestions={setQuestions} />
         <div className="flex flex-col gap-3">

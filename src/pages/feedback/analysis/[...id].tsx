@@ -31,7 +31,7 @@ export default function Analysis() {
   };
   return (
     <main className="bg-blue10 py-10 w-full h-full min-h-[calc(100vh-4rem-250px)]">
-      <section className="max-w-[48rem] m-auto relative">
+      <section className="max-w-[48rem] m-auto relative tablet:px-8 mobile:px-6">
         <h1 className="text-3xl font-semibold mb-4">피드백</h1>
         <div className="flex flex-col gap-3">
           {isLoading ? (

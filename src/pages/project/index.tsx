@@ -28,7 +28,7 @@ export default function Project() {
         <Banner postType="project" />
       </section>
       <Category category={CATEGORIES} btnValue="프로젝트 올리기" />
-      <section className="flex justify-center pt-14 pb-24">
+      <section className="flex justify-center pt-14 pb-24 tablet:px-8 mobile:px-6">
         <ProjectCardContainer category={type as string} size={PAGE_SIZE} />
       </section>
     </main>
