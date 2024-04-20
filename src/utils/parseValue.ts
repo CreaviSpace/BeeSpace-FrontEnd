@@ -2,6 +2,12 @@ export const parseValue = (type: string) => {
   switch (type) {
     case 'all':
       return '전체';
+    case 'PROJECT':
+      return '프로젝트';
+    case 'RECRUITMENT':
+      return '모집';
+    case 'COMMUNITY':
+      return '커뮤니티';
     // 커뮤니티 게시글:
     case 'QnA':
       return 'QNA';

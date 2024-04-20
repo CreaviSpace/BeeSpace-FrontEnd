@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import useAlarm from '@/hooks/alarm/useAlarm';
-import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
+import useLoginCheck from '@/hooks/login/useLoginCheck';
 import useLoginModal from '@/store/modal/useLoginModal';
 import useSignUpModal from '@/store/modal/useSignUpModal';
 import useLogin from '@/store/useLogin';
@@ -15,7 +15,6 @@ import ProfileModal from './modal/ProfileModal';
 import WriteModal from './modal/WriteModal';
 
 const MID = getCookies('MID', true);
-const ACCESE_TOKEN = getCookies('jwt');
 
 export default function LogInHeader() {
   const [onProfileModal, setOnProfileModal] = useState(false);
@@ -31,7 +30,8 @@ export default function LogInHeader() {
   const { onOpen: openSignUp } = useSignUpModal();
   const { login } = useLogin();
 
-  const { isLoading, data, isError, isFetching } = useMemberProfileGet(MID);
+  const { isLoading, data, isError, isFetching } = useLoginCheck();
+
   const {
     isLoading: alarmIsLoading,
     isError: alarmIsError,
@@ -121,7 +121,7 @@ export default function LogInHeader() {
         tabIndex={0}
         onFocus={() => setOnWritingModal(true)}
         onBlur={() => setOnWritingModal(false)}>
-        {onWritingModal && <WriteModal />}
+        {onWritingModal && <WriteModal setOnWritingModal={setOnWritingModal} />}
       </div>
       <div
         ref={alarmModalRef}

@@ -20,12 +20,13 @@ export default function Login() {
             postCookies({
               jwt: response.data.jwt,
               memberId: btoa(response.data.memberId),
+              old: response.data.oldUser ? 1 : 0,
             });
 
             if (response.data.oldUser) {
               router.back();
             } else {
-              router.replace('/signup');
+              router.replace('/profile/editer');
             }
           }
         } catch (error) {
