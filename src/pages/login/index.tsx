@@ -2,6 +2,8 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
+import { postCookies } from '@/utils/postCookies';
+
 export default function Login() {
   const router = useRouter();
   useEffect(() => {
@@ -15,8 +17,10 @@ export default function Login() {
           );
 
           if (response.data) {
-            document.cookie = `jwt=${response.data.jwt}; max-age=3600;`;
-            document.cookie = `MID=${btoa(response.data.memberId)}; max-age=3600;`;
+            postCookies({
+              jwt: response.data.jwt,
+              memberId: btoa(response.data.memberId),
+            });
 
             if (response.data.oldUser) {
               router.back();
