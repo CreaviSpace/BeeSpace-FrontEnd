@@ -12,7 +12,7 @@ export default function Home() {
     <main className="mx-auto overflow-hidden">
       <Banner postType="project" />
       <div className="h-fit mx-auto py-16">
-        <section className="max-w-max_w h-fit grid grid-cols-2 mx-auto mt-10 tablet:grid-cols-1 mobile:grid-cols-1 tablet:px-8 mobile:px-6">
+        <section className="max-w-max_w h-fit flex gap-x-10 mx-auto mt-10 tablet:flex-col mobile:flex-col tablet:px-8 mobile:px-6">
           <PopularProject postType="project" />
           <DeadLineContainer />
         </section>
