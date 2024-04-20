@@ -17,6 +17,7 @@ interface IDetailsTitleProps {
   className?: string;
   category?: string;
   id: number;
+  imageURL?: string;
 }
 
 export default function DetailsTitle({
@@ -28,6 +29,7 @@ export default function DetailsTitle({
   userName,
   category,
   id,
+  imageURL,
 }: IDetailsTitleProps) {
   const { login } = useLogin();
 
@@ -52,10 +54,12 @@ export default function DetailsTitle({
 
   return (
     <div className="w-full h-fit flex flex-col items-center max-w-max_w m-auto">
-      <Tag name={category} category="field" className={`${className}`} />
+      {category && (
+        <Tag name={category} category="field" className={`${className}`} />
+      )}
       <h1 className="font-bold text-bs_24 mb-3">{title}</h1>
       <div className="max-w-max_w flex items-center justify-between w-full px-4 py-2 gap-2 min_mobile:flex-col min_mobile:items-start">
-        <UserProfileButton userName={userName} />
+        <UserProfileButton userName={userName} imageURL={imageURL} />
         <div className="flex gap-x-3 text-bs_14 text-gray40">
           <p>
             조회수&nbsp;<span>{views}</span>
