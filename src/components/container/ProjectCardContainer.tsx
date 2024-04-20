@@ -53,7 +53,7 @@ export default function ProjectCardContainer({
           : data?.pages.map((pages: IProjectType[]) => {
               return pages?.map((item, index) => (
                 <div key={`projectCard-${index}`}>
-                  <ProjectCard item={item} tagName="팀 프로젝트" />
+                  <ProjectCard item={item} />
                 </div>
               ));
             })}
