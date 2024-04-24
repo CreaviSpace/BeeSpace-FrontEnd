@@ -20,13 +20,13 @@ const ICONS = [
     title: '카카오',
     icon: <RiKakaoTalkFill key="kakao" size={45} />,
     style: 'bg-yellow-300',
-    link: '/',
+    link: 'https://port-0-creavispace-backend-am952nlsse11uk.sel5.cloudtype.app/oauth2/authorization/kakao',
   },
   {
     title: '깃허브',
     icon: <IoLogoGithub key="github" size={45} />,
     style: 'bg-white',
-    link: '/',
+    link: 'https://port-0-creavispace-backend-am952nlsse11uk.sel5.cloudtype.app/oauth2/authorization/github',
   },
   {
     title: '네이버',
