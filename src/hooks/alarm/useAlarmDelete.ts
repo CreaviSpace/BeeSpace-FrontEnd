@@ -1,14 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { toast } from 'react-toastify';
 
 import { getCookies } from '@/utils/getCookies';
 import { postCookies } from '@/utils/postCookies';
-interface IAdminContentsDelete {
-  data: { id: number; category: string };
-}
 
-const useAdminContentsDelete = (data: IAdminContentsDelete) => {
+const useAlarmDelete = () => {
   const token = getCookies('jwt');
   const queryClient = useQueryClient();
 
@@ -18,13 +14,12 @@ const useAdminContentsDelete = (data: IAdminContentsDelete) => {
         return;
       }
 
-      return await axios.post(`${process.env.BASE_URL}/member/expire`, data, {
+      return await axios.delete(`${process.env.BASE_URL}/alarm`, {
         headers: {
-          token,
+          Authorization: token,
         },
       });
     },
-
     onSuccess: (data) => {
       if (data) {
         if (data.status === 202 && !data.data.success) {
@@ -35,12 +30,14 @@ const useAdminContentsDelete = (data: IAdminContentsDelete) => {
         }
       }
 
-      queryClient.invalidateQueries({ queryKey: [`admincontents-${data}`] });
+      queryClient.invalidateQueries({ queryKey: ['alarm'] });
     },
-    onError: () => {
-      toast.error('에러 발생');
+    onError: (error) => {
+      console.error(error);
     },
   });
+
   return { mutate };
 };
-export default useAdminContentsDelete;
+
+export default useAlarmDelete;

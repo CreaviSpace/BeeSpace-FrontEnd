@@ -4,23 +4,20 @@ import axios from 'axios';
 import { getCookies } from '@/utils/getCookies';
 import { postCookies } from '@/utils/postCookies';
 
-const useRecruitDetail = (id: string | undefined) => {
+const useAlarmCount = () => {
+  const token = getCookies('jwt');
+
   const { isLoading, isError, data, isFetching } = useQuery({
-    enabled: !!id,
-    queryKey: [`recruit-${id}`],
+    enabled: !!token,
+    queryKey: [`alarm-counts`],
     queryFn: async () => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/recruit/${id}`,
-        {
-          headers: { Authorization: getCookies('jwt') },
-        }
-      );
+      const response = await axios.get(`${process.env.BASE_URL}/alarm/count`, {
+        headers: { Authorization: token },
+      });
 
       if (response.status === 200 && response.data.success) {
         return response.data.data;
-      }
-
-      if (response.status === 202 && !response.data.success) {
+      } else if (response.status === 202 && !response.data.success) {
         postCookies({
           jwt: response.data.jwt,
           memberId: response.data.memberId,
@@ -34,4 +31,4 @@ const useRecruitDetail = (id: string | undefined) => {
   return { isLoading, isError, data, isFetching };
 };
 
-export default useRecruitDetail;
+export default useAlarmCount;

@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 
 import useLoginModal from '@/store/modal/useLoginModal';
 import { getCookies } from '@/utils/getCookies';
+import { postCookies } from '@/utils/postCookies';
 
 const useLike = (id?: number, postType?: string) => {
   const { onOpen } = useLoginModal();
@@ -19,12 +20,18 @@ const useLike = (id?: number, postType?: string) => {
           headers: { Authorization: getCookies('jwt') },
         }
       );
-      if (response.data.success) {
+
+      if (response.status === 200 && response.data.success) {
         return response.data.data;
+      } else if (response.status === 202 && !response.data.success) {
+        postCookies({
+          jwt: response.data.jwt,
+          memberId: response.data.memberId,
+        });
       }
     },
-    gcTime: 30000, // 5분
-    staleTime: 30000, // 5분
+    gcTime: 30000 * 12,
+    staleTime: 30000 * 12,
   });
 
   const queryClient = useQueryClient();
@@ -32,6 +39,8 @@ const useLike = (id?: number, postType?: string) => {
     mutationFn: async () => {
       if (!token) {
         return onOpen();
+      } else if (!id) {
+        return;
       }
 
       return await axios.post(
@@ -42,8 +51,18 @@ const useLike = (id?: number, postType?: string) => {
         }
       );
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      if (data) {
+        if (data.status === 202 && !data.data.success) {
+          postCookies({
+            jwt: data.data.data.jwt,
+            memberId: data.data.data.memberId,
+          });
+        }
+      }
+
       queryClient.invalidateQueries({ queryKey: [`like-${id}`] });
+      queryClient.invalidateQueries({ queryKey: [`like-view-${id}`] });
     },
     onError: () => {
       toast.error('에러 발생');
