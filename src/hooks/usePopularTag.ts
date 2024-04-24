@@ -12,8 +12,8 @@ export const usePopularTag = () => {
         return response.data.data;
       }
     },
-    staleTime: 30000 * 6,
-    gcTime: 30000 * 6,
+    staleTime: 30000 * 12,
+    gcTime: 30000 * 12,
   });
 
   return { isLoading, data, isError, isFetching };

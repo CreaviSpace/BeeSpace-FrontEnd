@@ -20,12 +20,13 @@ const useProject = (category: string, size: number) => {
       const response = await axios.get(
         `${process.env.BASE_URL}/project?size=${size}&page=${pageParam}${category !== 'all' ? `&category=${category}` : ''}`
       );
+
       if (response.data.success) {
         return response.data.data;
       }
     },
-    staleTime: 30000 * 6, // 30분
-    gcTime: 30000 * 6, // 30분
+    staleTime: 30000 * 12,
+    gcTime: 30000 * 12,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = allPages.length + 1;

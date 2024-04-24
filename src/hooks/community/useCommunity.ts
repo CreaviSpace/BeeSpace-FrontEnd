@@ -16,6 +16,7 @@ const useCommunity = (
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
+    enabled: !!category,
     queryKey: [`community-list-${category}`],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(
@@ -26,8 +27,8 @@ const useCommunity = (
         return response.data.data;
       }
     },
-    staleTime: 30000 * 6, // 30분
-    gcTime: 30000 * 6, // 30분
+    staleTime: 30000 * 12,
+    gcTime: 30000 * 12,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       if (!lastPage) {
