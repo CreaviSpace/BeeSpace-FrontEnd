@@ -99,42 +99,22 @@ export default function CommunityCardContainer({
             <SkeletonCommunityCard key={`${item}-${index}`} />
           ))
         : data?.pages.map((pages: ICommunityType[]) => {
-            return pages?.map((item, index) => {
-              if (pages.length === index + 1) {
-                return (
-                  <div ref={lastElementRef} key={`${item}-${index}`}>
-                    <CommunityCard
-                      className={`mt-2 ${isActive === 'main' ? BORDERSTYLE.main : BORDERSTYLE.default}`}
-                      id={item.id}
-                      type="community"
-                      title={item.title}
-                      contents={item.content}
-                      userName={`임시 유저 이름`}
-                      date={item.modifiedDate}
-                      views={item.viewCount}
-                      comments={0}
-                    />
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={`${item}-${index}`}>
-                    <CommunityCard
-                      className={`mt-2 ${isActive === 'main' ? BORDERSTYLE.main : BORDERSTYLE.default}`}
-                      id={item.id}
-                      type="community"
-                      title={item.title}
-                      contents={item.content}
-                      userName={`임시 유저 이름`}
-                      date={item.modifiedDate}
-                      views={item.viewCount}
-                      comments={0}
-                    />
-                  </div>
-                );
-              }
-            });
+            return pages?.map((item, index) => (
+              <div key={`${item}-${index}`}>
+                <CommunityCard
+                  className={`mt-2 ${isActive === 'main' ? BORDERSTYLE.main : BORDERSTYLE.default}`}
+                  item={item}
+                />
+              </div>
+            ));
           })}
+      {hasNextPage && isActive === 'main' ? null : isFetchingNextPage ? (
+        [1, 2, 3, 4].map((item, index) => (
+          <SkeletonCommunityCard key={`${item}-${index}`} />
+        ))
+      ) : (
+        <div ref={lastElementRef} />
+      )}
     </div>
   );
 }

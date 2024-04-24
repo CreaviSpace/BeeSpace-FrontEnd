@@ -9,11 +9,13 @@ import SkeletonProjectCard from '../skeleton/SkeletonProjectCard';
 interface IProjectCardContainerProps {
   category: string;
   size: number;
+  main?: boolean;
 }
 
 export default function ProjectCardContainer({
   category,
   size = 6,
+  main,
 }: IProjectCardContainerProps) {
   const {
     isLoading,
@@ -58,7 +60,7 @@ export default function ProjectCardContainer({
               ));
             })}
 
-        {isFetchingNextPage && size > 8 ? (
+        {hasNextPage && main ? null : isFetchingNextPage && size > 8 ? (
           [1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => (
             <SkeletonProjectCard key={index} />
           ))
