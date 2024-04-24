@@ -1,12 +1,13 @@
-import { FaArrowRight } from '@react-icons/all-files/fa/FaArrowRight';
+import { IoCloseOutline } from '@react-icons/all-files/io5/IoCloseOutline';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 import useAlarm from '@/hooks/alarm/useAlarm';
-import { parseValue } from '@/utils/parseValue';
+import useAlarmDelete from '@/hooks/alarm/useAlarmDelete';
 
 interface IAlarmType {
   id: number;
-  alarmType: string;
+  alarmMessage: string;
   postType: string;
   postId: number;
   readStatus: string;
@@ -14,11 +15,22 @@ interface IAlarmType {
 
 interface IAlarmModalProps {
   isLoading: boolean;
+  isAlarm: boolean;
   data: IAlarmType[];
 }
 
-export default function AlarmModal({ isLoading, data }: IAlarmModalProps) {
-  const { mutate } = useAlarm();
+export default function AlarmModal({
+  isLoading,
+  isAlarm,
+  data,
+}: IAlarmModalProps) {
+  const { mutate: AlarmRead } = useAlarm();
+  const { mutate: AlarmDelete } = useAlarmDelete();
+
+  useEffect(() => {
+    if (isAlarm) AlarmRead();
+  }, []);
+
   return (
     <li
       className="w-[25rem] h-[25rem] bg-white border rounded-bs_10 shadow-md absolute top-[2.8125rem] right-0 flex flex-col gap-y-3 p-4 text-bs_14 overflow-auto"
@@ -26,9 +38,18 @@ export default function AlarmModal({ isLoading, data }: IAlarmModalProps) {
       onMouseDown={(e) => {
         e.preventDefault();
       }}>
-      <label htmlFor="alarm" className="text-center font-bold text-bs_16">
-        알람
-      </label>
+      <div className="flex w-full">
+        <label htmlFor="alarm" className="mx-auto font-bold text-bs_16">
+          알람
+        </label>
+
+        <button
+          className="flex items-center justify-center text-right h-fit"
+          onClick={() => AlarmDelete()}>
+          알람 지움
+          <IoCloseOutline size={20} />
+        </button>
+      </div>
 
       {isLoading && data?.length === 0 ? (
         <label htmlFor="message" className="text-start">
@@ -37,14 +58,14 @@ export default function AlarmModal({ isLoading, data }: IAlarmModalProps) {
       ) : (
         data?.map((item: IAlarmType, index: number) => (
           <div key={index}>
-            <label htmlFor="message" className="text-start">
-              {item.alarmType}이 {parseValue(item.postType)}에 달렸습니다.
-            </label>
             <Link
               href={`/${item.postType}/${item.postId}`}
-              onClick={() => mutate(item.id)}
-              className="flex items-center gap-1">
-              이동 <FaArrowRight />
+              className={`flex items-center gap-1 ${item.readStatus === 'READ' ? 'text-gray30' : 'text-black'}`}>
+              <label htmlFor="message" className="text-start">
+                {/* {item.alarmType}이 {parseValue(item.postType)}에 달렸습니다. */}
+                {item.alarmMessage}
+              </label>
+              {/* 이동 <FaArrowRight /> */}
             </Link>
           </div>
         ))

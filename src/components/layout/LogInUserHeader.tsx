@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import useAlarm from '@/hooks/alarm/useAlarm';
+import useAlarmCount from '@/hooks/alarm/useAlarmCount';
 import useLoginCheck from '@/hooks/login/useLoginCheck';
 import useLoginModal from '@/store/modal/useLoginModal';
 import useSignUpModal from '@/store/modal/useSignUpModal';
@@ -39,17 +40,42 @@ export default function LogInHeader() {
     isFetching: alarmIsFetching,
   } = useAlarm();
 
+  const {
+    isLoading: alarmCountIsLoading,
+    isError: alarmCountIsError,
+    data: alarmCounts,
+    isFetching: alarmCountIsFetching,
+  } = useAlarmCount();
+
   useEffect(() => {
-    if (!alarmIsLoading && alarmData?.length > 0) {
+    if (!alarmCountIsLoading && alarmCounts > 0) {
       setIsAlarm(true);
     }
-  }, [alarmIsLoading]);
+  }, [alarmCountIsLoading]);
 
   const handleWriteModalOpen = () => {
     writingModalRef.current?.focus();
   };
   const handleAlarmModalOpen = () => {
     alarmModalRef.current?.focus();
+  };
+
+  const handleWriteModalToggle = () => {
+    if (onWritingModal) {
+      writingModalRef.current?.blur();
+    } else {
+      writingModalRef.current?.focus();
+    }
+    setOnWritingModal(!onWritingModal);
+  };
+
+  const handleProfileModalToggle = () => {
+    if (onProfileModal) {
+      profileModalRef.current?.blur();
+    } else {
+      profileModalRef.current?.focus();
+    }
+    setOnProfileModal(!onProfileModal);
   };
 
   if (!login) {
@@ -78,7 +104,8 @@ export default function LogInHeader() {
         <CustomButton
           color="primary"
           className="py-2 px-3"
-          onClick={() => writingModalRef.current?.focus()}>
+          onClick={handleWriteModalToggle}
+          onMouseDown={(e) => e.preventDefault()}>
           글쓰기
         </CustomButton>
       </li>
@@ -88,7 +115,8 @@ export default function LogInHeader() {
         <li
           className="ml-3 cursor-pointer relative min_mobile:ml-0"
           tabIndex={0}
-          onClick={() => profileModalRef.current?.focus()}>
+          onClick={handleProfileModalToggle}
+          onMouseDown={(e) => e.preventDefault()}>
           <Image
             src={data?.profileUrl ? data.profileUrl : '/img/user/default.avif'}
             alt="유저 아이콘"
@@ -131,7 +159,11 @@ export default function LogInHeader() {
           setOnAlarmModal(false);
         }}>
         {onAlarmModal && (
-          <AlarmModal isLoading={alarmIsLoading} data={alarmData} />
+          <AlarmModal
+            isLoading={alarmIsLoading}
+            isAlarm={alarmData}
+            data={alarmData}
+          />
         )}
       </div>
     </ul>
