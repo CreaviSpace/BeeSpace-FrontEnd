@@ -27,15 +27,17 @@ const useAdminContentsDelete = (data: IAdminContentsDelete) => {
 
     onSuccess: (data) => {
       if (data) {
-        if (data.status === 202 && !data.data.success) {
+        if (data.status === 200 && data.data.success) {
+          queryClient.invalidateQueries({
+            queryKey: [`admincontents-${data}`],
+          });
+        } else if (data.status === 202 && !data.data.success) {
           postCookies({
             jwt: data.data.data.jwt,
             memberId: data.data.data.memberId,
           });
         }
       }
-
-      queryClient.invalidateQueries({ queryKey: [`admincontents-${data}`] });
     },
     onError: () => {
       toast.error('에러 발생');

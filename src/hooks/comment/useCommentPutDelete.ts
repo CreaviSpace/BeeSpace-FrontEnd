@@ -57,15 +57,15 @@ const useCommentPutDelete = (
     },
     onSuccess: (data) => {
       if (data) {
-        if (data.status === 202 && !data.data.success) {
+        if (data.status === 200 && data.data.success) {
+          queryClient.invalidateQueries({ queryKey: [`comment-${postid}`] });
+        } else if (data.status === 202 && !data.data.success) {
           postCookies({
             jwt: data.data.data.jwt,
             memberId: data.data.data.memberId,
           });
         }
       }
-
-      queryClient.invalidateQueries({ queryKey: [`comment-${postid}`] });
     },
     onError: (error) => {
       console.error(error);

@@ -29,6 +29,7 @@ const useFeedBackPut = (id: number, data: IQuestionType[]) => {
     onSuccess: (data) => {
       if (data) {
         if (data.status === 200 && data.data.success) {
+          queryClient.invalidateQueries({ queryKey: [`feedback-${id}`] });
           router.replace(`/feedback/analysis/${id}`);
         } else if (data.status === 202 && !data.data.success) {
           postCookies({
@@ -37,10 +38,9 @@ const useFeedBackPut = (id: number, data: IQuestionType[]) => {
           });
         }
       }
-
-      queryClient.invalidateQueries({ queryKey: [`feedback-${id}`] });
     },
-    onError: () => {
+    onError: (error) => {
+      console.error(error);
       toast.error('에러 발생');
     },
   });

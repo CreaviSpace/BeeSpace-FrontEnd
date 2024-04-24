@@ -29,18 +29,19 @@ const useReportPost = (data: IuseReportPostProps) => {
     },
     onSuccess: (data) => {
       if (data) {
-        if (data.status === 202 && !data.data.success) {
+        if (data.status === 200 && data.data.success) {
+          toast.success('신고 성공');
+          onClose();
+        } else if (data.status === 202 && !data.data.success) {
           postCookies({
             jwt: data.data.data.jwt,
             memberId: data.data.data.memberId,
           });
         }
       }
-
-      toast.success('신고 성공');
-      onClose();
     },
-    onError: () => {
+    onError: (error) => {
+      console.error(error);
       toast.error('에러');
     },
   });

@@ -1,12 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
+import useLoginModal from '@/store/modal/useLoginModal';
 import { getCookies } from '@/utils/getCookies';
 import { postCookies } from '@/utils/postCookies';
 
 const useCommentGetPost = (id: number, type: string, content: string) => {
   const token = getCookies('jwt');
   const queryClient = useQueryClient();
+  const { onOpen } = useLoginModal();
 
   const { isLoading, isError, data, isFetching } = useQuery({
     enabled: !!id,
@@ -26,7 +28,9 @@ const useCommentGetPost = (id: number, type: string, content: string) => {
 
   const { mutate } = useMutation({
     mutationFn: async () => {
-      if (!id && !token) {
+      if (!token) {
+        return onOpen();
+      } else if (!id) {
         return;
       }
 
@@ -38,15 +42,15 @@ const useCommentGetPost = (id: number, type: string, content: string) => {
     },
     onSuccess: (data) => {
       if (data) {
-        if (data.status === 202 && !data.data.success) {
+        if (data.status === 200 && data.data.success) {
+          queryClient.invalidateQueries({ queryKey: [`comment-${id}`] });
+        } else if (data.status === 202 && !data.data.success) {
           postCookies({
             jwt: data.data.data.jwt,
             memberId: data.data.data.memberId,
           });
         }
       }
-
-      queryClient.invalidateQueries({ queryKey: [`comment-${id}`] });
     },
     onError: (error) => {
       console.error(error);

@@ -53,18 +53,19 @@ const useLike = (id?: number, postType?: string) => {
     },
     onSuccess: (data) => {
       if (data) {
-        if (data.status === 202 && !data.data.success) {
+        if (data.status === 200 && data.data.success) {
+          queryClient.invalidateQueries({ queryKey: [`like-${id}`] });
+          queryClient.invalidateQueries({ queryKey: [`like-view-${id}`] });
+        } else if (data.status === 202 && !data.data.success) {
           postCookies({
             jwt: data.data.data.jwt,
             memberId: data.data.data.memberId,
           });
         }
       }
-
-      queryClient.invalidateQueries({ queryKey: [`like-${id}`] });
-      queryClient.invalidateQueries({ queryKey: [`like-view-${id}`] });
     },
-    onError: () => {
+    onError: (error) => {
+      console.error(error);
       toast.error('에러 발생');
     },
   });

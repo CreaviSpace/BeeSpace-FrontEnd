@@ -26,6 +26,10 @@ const useWriteDelete = (id: number, postType: string) => {
     onSuccess: (data) => {
       if (data) {
         if (data.status === 200 && data.data.success) {
+          toast.success('글삭제 성공');
+          queryClient.invalidateQueries({
+            queryKey: [`${postType}-${id}`],
+          });
           router.replace(`/${postType.toLowerCase()}/${id}?type=al;l`);
         } else if (data.status === 202 && !data.data.success) {
           postCookies({
@@ -34,12 +38,10 @@ const useWriteDelete = (id: number, postType: string) => {
           });
         }
       }
-
-      queryClient.invalidateQueries({ queryKey: [`${postType}-${id}`] });
-      toast.success('글삭제 성공');
     },
 
-    onError: () => {
+    onError: (error) => {
+      console.error(error);
       toast.error('글삭제 실패');
     },
   });

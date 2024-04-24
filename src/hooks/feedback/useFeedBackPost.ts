@@ -33,6 +33,7 @@ const useFeedBackPost = (
     onSuccess: (data) => {
       if (data) {
         if (data.status === 200 && data.data.success) {
+          queryClient.invalidateQueries({ queryKey: [`feedback-${id}`] });
           if (type === 'question') {
             router.replace(`/feedback/analysis/${id}`);
           } else if (type === 'answer') {
@@ -45,10 +46,9 @@ const useFeedBackPost = (
           });
         }
       }
-
-      queryClient.invalidateQueries({ queryKey: [`feedback-${id}`] });
     },
-    onError: () => {
+    onError: (error) => {
+      console.error(error);
       toast.error('에러 발생');
     },
   });

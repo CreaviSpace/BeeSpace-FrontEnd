@@ -36,6 +36,8 @@ const useWriteUpdate = (
     onSuccess: (data) => {
       if (data) {
         if (data.status === 200 && data.data.success) {
+          queryClient.invalidateQueries({ queryKey: [`${postType}-${id}`] });
+          toast.success('글쓰기 성공');
           router.replace(
             `/${data.data.data.postType.toLowerCase()}/${data.data.data.id}`
           );
@@ -46,11 +48,9 @@ const useWriteUpdate = (
           });
         }
       }
-
-      queryClient.invalidateQueries({ queryKey: [`${postType}-${id}`] });
-      toast.success('글쓰기 성공');
     },
-    onError: () => {
+    onError: (error) => {
+      console.error(error);
       toast.error('글쓰기 실패');
     },
   });

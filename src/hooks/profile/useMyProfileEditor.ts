@@ -33,16 +33,16 @@ const useMyProfileEditor = (content: IMyProfileeditorProps) => {
     },
     onSuccess: (data) => {
       if (data) {
-        if (data.status === 202 && !data.data.success) {
+        if (data.status === 200) {
+          queryClient.invalidateQueries({ queryKey: [`MemberProfile`] });
+          router.replace(`/profile/${MID}`);
+        } else if (data.status === 202 && !data.data.success) {
           postCookies({
             jwt: data.data.data.jwt,
             memberId: data.data.data.memberId,
           });
         }
       }
-
-      queryClient.invalidateQueries({ queryKey: [`MemberProfile`] });
-      router.replace(`/profile/${MID}`);
     },
     onError: (error) => {
       console.error(error);

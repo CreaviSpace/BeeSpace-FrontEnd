@@ -29,7 +29,6 @@ const useLoginCheck = () => {
         });
       } else {
         setLogout();
-        throw new Error(response.data.error);
       }
     },
 
