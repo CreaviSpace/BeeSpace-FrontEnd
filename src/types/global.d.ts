@@ -28,7 +28,7 @@ export interface IRecruitType {
   category: string;
   title: string;
   content: string;
-  techStacks: { techStackId: number; techStack: string; iconUrl: string }[];
+  techStacks: { techStack: string; iconUrl: string }[];
   amount: number;
   now: number;
 }
@@ -36,12 +36,20 @@ export interface ICommunityType {
   id: number;
   postType: string;
   category: string;
-  memberId: number;
+  memberId: string;
+  memberNickName: string;
+  memberProfile: string;
   viewCount: number;
+  createdDate: string;
   modifiedDate: string;
   title: string;
   content: string;
-  hashTags: { hashTagId: number; hashTag: string }[];
+  hashTags: [
+    {
+      hashTagId: number;
+      hashTag: string;
+    },
+  ];
 }
 export interface IDeadLineType {
   id: number;
@@ -50,7 +58,7 @@ export interface IDeadLineType {
   title: string;
   content: string;
   modifiedDate: string;
-  techStacks: { techStackId: number; techStack: string; iconUrl: string }[];
+  techStacks: { techStack: string; iconUrl: string }[];
 }
 
 export interface IRecruitBody {
@@ -71,7 +79,6 @@ export interface IRecruitBody {
   }[];
   techStacks: {
     techStack: string;
-    iconUrl: string;
   }[];
 }
 
@@ -224,4 +231,15 @@ export interface IReportType {
   postId: number;
   content: string;
   status: true;
+}
+
+export interface IMemberProfileType {
+  memberId: number;
+  profileUrl: string;
+  memberNickname: string;
+  idTag: string;
+  memberCareer: 0;
+  memberPosition: string;
+  memberIntroduce: string;
+  memberInterestedStack: string[];
 }
