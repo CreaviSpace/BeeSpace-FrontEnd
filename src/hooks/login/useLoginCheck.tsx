@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 import useLogin from '@/store/useLogin';
 import { getCookies } from '@/utils/getCookies';
@@ -10,7 +11,7 @@ const useLoginCheck = () => {
   const MID = getCookies('MID', true);
   const token = getCookies('jwt');
 
-  const { isLoading, data, isError, isFetching } = useQuery({
+  const { isLoading, data, isError, isFetching, refetch } = useQuery({
     enabled: !!MID && !!token,
     queryKey: [`MemberProfile`],
     queryFn: async () => {
@@ -35,6 +36,17 @@ const useLoginCheck = () => {
     staleTime: 30000 * 12,
     gcTime: 30000 * 12,
   });
+
+  useEffect(() => {
+    const timer = setInterval(
+      () => {
+        refetch();
+      },
+      1000 * 60 * 55
+    );
+
+    return () => clearInterval(timer);
+  }, []);
 
   return { isLoading, data, isError, isFetching };
 };
