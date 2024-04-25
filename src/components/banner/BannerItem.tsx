@@ -31,24 +31,28 @@ export default function BannerItem({
   const router = useRouter();
 
   const handleUrlMove = () => {
-    router.push(`/${postType}/${id}`);
+    const lowerCasePostType = postType.toLowerCase();
+    router.push(
+      `/${lowerCasePostType === 'recruit' ? 'recruitment' : lowerCasePostType}/${id}`
+    );
   };
 
   return (
-    <div className="max-w-max_w h-[21.875rem] bg-blue10 rounded-bs_20 mx-auto p-10 flex tablet:rounded-none mobile:rounded-none min_mobile:aspect-w-16 min_mobile::aspect-h-9">
+    <div className="max-w-max_w h-[21.875rem] bg-blue10 rounded-bs_20 mx-auto p-10 flex tablet:rounded-none mobile:rounded-none min_mobile:aspect-w-16 min_mobile:aspect-h-9">
+      {/* 배너 이미지 */}
       {image && (
         <div className="relative w-[40rem] h-full rounded-bs_20 overflow-hidden min_mobile:blur-sm min_mobile:rounded-none min_mobile:w-full">
           <Image
             src={image}
-            alt="banner image"
+            alt="프로젝트 배너 이미지"
             fill
             sizes="(max-width: 767px) 400px,(max-width: 550px) 300px"
             className="object-cover object-top p-1"
           />
         </div>
       )}
-
-      <div className="relative px-5 pt-8 w-full">
+      {/* 날짜, 글 제목, 글 내용 */}
+      <div className="relative px-10 pt-8 w-full">
         <div>
           {date && (
             <div className="w-fit text-bs_14 bg-blue30 text-white rounded-bs_5 px-2 py-1 mb-3">
@@ -59,10 +63,11 @@ export default function BannerItem({
             {title}
           </h2>
           <p
-            className="text-bs_16 mobile:text-bs_16 line-clamp-3"
+            className="text-bs_16 line-clamp-3"
             dangerouslySetInnerHTML={{ __html: content }}></p>
         </div>
         <div className="border-b pt-3 h-0 border-gray30 mobile:hidden"></div>
+        {/* 기술스택 */}
         {techStacks && (
           <div className="flex mt-2">
             {techStacks?.map((item, index) => (
