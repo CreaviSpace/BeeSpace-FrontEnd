@@ -6,12 +6,16 @@ import { IUniversalType } from '@/types/global';
 import UniversalCard from '../card/UniversalCard';
 import SkeletonUniversalCard from '../skeleton/SkeletonUniversalCard';
 
+const SIZE = 1000;
+const SORT_TYPE = 'ASC';
+const status = true;
+
 export default function ContentManagement() {
   const router = useRouter();
   const { type } = router.query;
 
   const { isLoading, data, isFetchingNextPage, hasNextPage } =
-    useAdminContentGet(type as string);
+    useAdminContentGet(type as string, SIZE, status, SORT_TYPE);
 
   return (
     <section className="w-full p-3">

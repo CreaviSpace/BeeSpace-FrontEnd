@@ -4,7 +4,12 @@ import axios from 'axios';
 import { getCookies } from '@/utils/getCookies';
 import { postCookies } from '@/utils/postCookies';
 
-const useAdminContentGet = (postType: string, size: number = 3) => {
+const useAdminContentGet = (
+  postType: string,
+  size: number = 3,
+  status: boolean,
+  sort_type: string
+) => {
   const token = getCookies('jwt');
 
   const { isLoading, data, isFetchingNextPage, isError, hasNextPage } =
@@ -13,7 +18,7 @@ const useAdminContentGet = (postType: string, size: number = 3) => {
       queryKey: [`admin-content-${postType}`],
       queryFn: async ({ pageParam = 1 }) => {
         const response = await axios.get(
-          `${process.env.BASE_URL}/admin/contents/${postType}?size=${size}&page=${pageParam}`,
+          `${process.env.BASE_URL}/admin/contents/${postType}?size=${size}&page=${pageParam}&status=${status}&sort-type=${sort_type}`,
           { headers: { Authorization: token } }
         );
 
