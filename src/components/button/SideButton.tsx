@@ -1,6 +1,8 @@
 import { FaShareAlt } from '@react-icons/all-files/fa/FaShareAlt';
 import { IoIosArrowDown } from '@react-icons/all-files/io/IoIosArrowDown';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import LikeButton from '@/components/button/LikeButton';
 
@@ -14,9 +16,21 @@ interface ISideButtonProps {
 
 export default function SideButton({ id, type, className }: ISideButtonProps) {
   const [isHidden, setIsHidden] = useState(true);
+  const router = useRouter();
 
   const handleButtonOnClick = () => {
     setIsHidden(!isHidden);
+  };
+
+  const handleCopyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        `https://creavispace.vercel.app/${router.pathname.split('/')[1]}/id`
+      );
+      toast.success('클립보드에 성공했어요', { autoClose: 1000 });
+    } catch (err) {
+      console.error('Failed to copy text to clipboard:', err);
+    }
   };
 
   return (
@@ -50,7 +64,8 @@ export default function SideButton({ id, type, className }: ISideButtonProps) {
           <button
             type="button"
             aria-label="공유 버튼"
-            className={`border rounded-md bg-white p-3 tablet:p-2 mobile:p-2`}>
+            className={`border rounded-md bg-white p-3 tablet:p-2 mobile:p-2`}
+            onClick={handleCopyToClipboard}>
             <FaShareAlt size={25} className="m-auto" />
           </button>
         </div>
