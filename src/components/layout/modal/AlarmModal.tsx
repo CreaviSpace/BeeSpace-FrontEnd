@@ -1,4 +1,3 @@
-import { IoCloseOutline } from '@react-icons/all-files/io5/IoCloseOutline';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
@@ -33,23 +32,18 @@ export default function AlarmModal({
 
   return (
     <li
-      className="w-[25rem] h-[25rem] bg-white border rounded-bs_10 shadow-md absolute top-[2.8125rem] right-0 flex flex-col gap-y-3 p-4 text-bs_14 overflow-auto"
+      className="w-[25rem] h-[25rem] bg-white border rounded-bs_10 shadow-md absolute top-[2.8125rem] right-0 flex flex-col gap-y-3 p-4 text-bs_14 overflow-auto mobile:max-w-[18rem] mobile:max-h-[18rem]"
       tabIndex={0}
       onMouseDown={(e) => {
         e.preventDefault();
       }}>
-      <div className="flex w-full">
-        <label htmlFor="alarm" className="mx-auto font-bold text-bs_16">
-          알람
-        </label>
+      <label htmlFor="alarm" className="mx-auto font-bold text-bs_16">
+        알람
+      </label>
 
-        <button
-          className="flex items-center justify-center text-right h-fit"
-          onClick={() => AlarmDelete()}>
-          알람 지움
-          <IoCloseOutline size={20} />
-        </button>
-      </div>
+      <button className="text-right" onClick={() => AlarmDelete()}>
+        알람 지움
+      </button>
 
       {isLoading && data?.length === 0 ? (
         <label htmlFor="message" className="text-start">
