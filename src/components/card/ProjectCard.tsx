@@ -51,7 +51,7 @@ export default function ProjectCard({ item }: IProjectCardProps) {
           </p>
         </Link>
       </div>
-      <div className="absolute bottom-1 left-0 flex justify-between items-center pl-5 pr-2 w-full h-fit ">
+      <div className="absolute bottom-1 left-0 flex justify-between items-center pl-5 pr-2 w-full h-10">
         <LikeButton
           className="float-start"
           id={item.id}
