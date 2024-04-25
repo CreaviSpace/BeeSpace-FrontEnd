@@ -8,6 +8,7 @@ import useWriteDelete from '@/hooks/useWriteDelete';
 import useReconfirmModal from '@/store/modal/useReconfirmModal';
 import useReportModal from '@/store/modal/useReportModal';
 import useLogin from '@/store/useLogin';
+import { getCookies } from '@/utils/getCookies';
 import { parseValue } from '@/utils/parseValue';
 
 interface IDetailsTitleProps {
@@ -20,6 +21,7 @@ interface IDetailsTitleProps {
   category?: string;
   id: number;
   imageURL?: string;
+  memberId: string;
 }
 
 export default function DetailsTitle({
@@ -32,8 +34,10 @@ export default function DetailsTitle({
   category,
   id,
   imageURL,
+  memberId,
 }: IDetailsTitleProps) {
   const { login } = useLogin();
+  const MID = getCookies('MID', true);
 
   const { onOpen: reportOpen, setReportTitle } = useReportModal();
   const {
@@ -85,7 +89,7 @@ export default function DetailsTitle({
       </div>
       <span className="w-full border border-gray10 block" />
 
-      {login && (
+      {login && MID === memberId && (
         <div className="text-bs_14 flex justify-end w-full px-4 py-2">
           <Link
             href={`/write/${type.toLowerCase() === 'recruit' ? 'recruitment' : type}?id=${id}`}>
