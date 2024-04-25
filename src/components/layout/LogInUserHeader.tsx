@@ -6,7 +6,6 @@ import useAlarm from '@/hooks/alarm/useAlarm';
 import useAlarmCount from '@/hooks/alarm/useAlarmCount';
 import useLoginCheck from '@/hooks/login/useLoginCheck';
 import useLoginModal from '@/store/modal/useLoginModal';
-import useSignUpModal from '@/store/modal/useSignUpModal';
 import useLogin from '@/store/useLogin';
 import { getCookies } from '@/utils/getCookies';
 
@@ -28,7 +27,7 @@ export default function LogInHeader() {
   const alarmModalRef = useRef<HTMLDivElement>(null);
 
   const { onOpen: openLogin } = useLoginModal();
-  const { onOpen: openSignUp } = useSignUpModal();
+  // const { onOpen: openSignUp } = useSignUpModal();
   const { login } = useLogin();
 
   const { isLoading, data, isError, isFetching } = useLoginCheck();
@@ -89,11 +88,11 @@ export default function LogInHeader() {
             로그인
           </CustomButton>
         </li>
-        <li className="ml-5 mobile:hidden">
+        {/* <li className="ml-5 mobile:hidden">
           <CustomButton onClick={openSignUp} className="py-2 px-3">
             회원가입
           </CustomButton>
-        </li>
+        </li> */}
       </ul>
     );
   }
@@ -139,6 +138,7 @@ export default function LogInHeader() {
           <ProfileModal
             handleWriteModalOpen={handleWriteModalOpen}
             handleAlarmModalOpen={handleAlarmModalOpen}
+            setOnProfileModal={setOnProfileModal}
             MID={MID}
             isAlarm={isAlarm}
           />
