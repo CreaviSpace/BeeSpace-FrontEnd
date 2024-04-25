@@ -19,23 +19,13 @@ export default function UserProfileButton({
       <div
         aria-label={`${userName} 프로필 사진`}
         className="bg-white rounded-full">
-        {imageURL ? (
-          <Image
-            src={imageURL}
-            alt={`${userName} 프로필 사진`}
-            width={40}
-            height={40}
-            className="rounded-full"
-          />
-        ) : (
-          <Image
-            src={'/img/user/default.avif'}
-            alt={`${userName} 프로필 사진`}
-            width={40}
-            height={40}
-            className="rounded-full"
-          />
-        )}
+        <Image
+          src={imageURL ? imageURL : '/img/user/default.avif'}
+          alt={`프로필 사진`}
+          width={40}
+          height={40}
+          className="rounded-full"
+        />
       </div>
       <p className="text-gray40 pl-2 min_mobile:text-bs_14">{userName}</p>
     </button>
