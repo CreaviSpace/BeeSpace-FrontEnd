@@ -9,7 +9,7 @@ interface IDistributeLinkProps {
 }
 
 export default function DistributeLink({ links }: IDistributeLinkProps) {
-  const copyToClipboard = async (text: string) => {
+  const handleCopyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
       toast.success('클립보드에 성공했어요', { autoClose: 1000 });
@@ -37,7 +37,7 @@ export default function DistributeLink({ links }: IDistributeLinkProps) {
             </div>
             <span
               className="cursor-pointer"
-              onClick={() => copyToClipboard(item.url)}>
+              onClick={() => handleCopyToClipboard(item.url)}>
               <FaPaperclip size={20} />
             </span>
           </li>
