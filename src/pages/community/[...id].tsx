@@ -36,6 +36,7 @@ export default function CommunityDetail() {
               category={data.category}
               id={data.id}
               imageURL={data.memberProfile}
+              memberId={data.memberId}
             />
             <SideButton id={data.id} type={data.postType} />
             <div
