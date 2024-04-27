@@ -19,13 +19,13 @@ const MENU = [
   {
     bigContent: '대시보드',
     link: 'dashboard',
-    icon: AiOutlineDashboard(),
+    icon: AiOutlineDashboard({}),
     contents: [{ content: '대시보드', link: 'dashboard' }],
   },
   {
     bigContent: '컨텐츠 관리',
     link: 'content',
-    icon: FaList(),
+    icon: FaList({}),
     contents: [
       { content: '프로젝트', link: 'project' },
       { content: '모임', link: 'recruit' },
@@ -35,7 +35,7 @@ const MENU = [
   {
     bigContent: '사용자',
     link: 'user',
-    icon: AiOutlineTeam(),
+    icon: AiOutlineTeam({}),
     contents: [
       { content: '사용자 관리', link: 'manage' },
       // { content: '로그인 이력 관리', link: 'login' },
@@ -44,7 +44,7 @@ const MENU = [
   {
     bigContent: '신고',
     link: 'report',
-    icon: AiFillAlert(),
+    icon: AiFillAlert({}),
     contents: [{ content: '신고', link: 'report' }],
   },
 ];
