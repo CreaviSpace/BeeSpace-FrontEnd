@@ -10,7 +10,7 @@ interface IMyProfileeditorProps {
   introduce: string;
   position: string;
   career: number;
-  interestedStack: string[];
+  interestedStack: { techStack: string }[];
   profileUrl: string;
 }
 

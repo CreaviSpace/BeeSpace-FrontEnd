@@ -4,11 +4,8 @@ import { toast } from 'react-toastify';
 
 import { getCookies } from '@/utils/getCookies';
 import { postCookies } from '@/utils/postCookies';
-interface IAdminContentsDelete {
-  data: { id: number; category: string };
-}
 
-const useAdminContentsDelete = (data: IAdminContentsDelete) => {
+const useAdminContentsDelete = (id: number, category: string) => {
   const token = getCookies('jwt');
   const queryClient = useQueryClient();
 
@@ -17,12 +14,15 @@ const useAdminContentsDelete = (data: IAdminContentsDelete) => {
       if (!token) {
         return;
       }
-
-      return await axios.post(`${process.env.BASE_URL}/member/expire`, data, {
-        headers: {
-          token,
-        },
-      });
+      return await axios.post(
+        `${process.env.BASE_URL}/admin/contents/delete`,
+        { id: id, category: category },
+        {
+          headers: {
+            token,
+          },
+        }
+      );
     },
 
     onSuccess: (data) => {

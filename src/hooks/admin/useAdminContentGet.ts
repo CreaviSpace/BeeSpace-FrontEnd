@@ -7,17 +7,19 @@ import { postCookies } from '@/utils/postCookies';
 const useAdminContentGet = (
   postType: string,
   size: number = 3,
-  status: string = 'all',
-  sortType: string = 'asc'
+  status: boolean,
+  sort_type: string
 ) => {
+  const token = getCookies('jwt');
+
   const { isLoading, data, isFetchingNextPage, isError, hasNextPage } =
     useInfiniteQuery({
       enabled: !!token,
       queryKey: [`admin-content-${postType}`],
       queryFn: async ({ pageParam = 1 }) => {
         const response = await axios.get(
-          `${process.env.BASE_URL}/admin/contents/${postType}?size=${size}&page=${pageParam}&status=${status}&sort-type=${sortType}`,
-          { headers: { Authorization: getCookies('jwt') } }
+          `${process.env.BASE_URL}/admin/contents/${postType}?size=${size}&page=${pageParam}&status=${status}&sort-type=${sort_type}`,
+          { headers: { Authorization: token } }
         );
 
         if (response.status === 200 && response.data.success) {
