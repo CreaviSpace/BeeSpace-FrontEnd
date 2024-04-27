@@ -129,4 +129,13 @@
     -webkit-animation: skeleton-gradient 1.8s infinite ease-in-out;
     animation: skeleton-gradient 1.8s infinite ease-in-out;
   }
+
+  @keyframes loading-image-rotate {
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+  .loading-bee-image {
+    animation: loading-image-rotate 8s linear infinite;
+  }
 }
