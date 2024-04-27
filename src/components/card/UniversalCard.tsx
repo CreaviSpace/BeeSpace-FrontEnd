@@ -48,7 +48,7 @@ export default function UniversalCard({
         href={
           postType.toLowerCase() === 'recruit'
             ? `/recruitment/${id}`
-            : `/${postType}/${id}`
+            : `/${postType.toLowerCase()}/${id}`
         }
         className="flex w-full">
         {image && (
