@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
@@ -14,6 +15,8 @@ import ReconfirmModal from '@/components/modals/ReconfirmModal';
 import ReportModal from '@/components/modals/ReportModal';
 import SearchErrorModal from '@/components/modals/SearchErrorModal';
 import SignUpModal from '@/components/modals/SignUpModal';
+
+import Loading from './loading';
 
 const ToastContainer = dynamic(
   () => import('react-toastify').then((mod) => mod.ToastContainer),
@@ -35,7 +38,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <SignUpModal />
           <ReconfirmModal />
           <SearchErrorModal />
-          <Component {...pageProps} />
+          <Suspense fallback={<Loading />}>
+            <Component {...pageProps} />
+          </Suspense>
           <Footer />
         </div>
         <ToastContainer position="top-center" />
