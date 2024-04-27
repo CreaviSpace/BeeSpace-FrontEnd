@@ -23,7 +23,7 @@ export default function Home() {
               더 보기
             </Link>
           </div>
-          <ProjectCardContainer size={6} category="all" />
+          <ProjectCardContainer size={6} category="all" main />
         </section>
         <section className="w-screen bg-[#F2F2F2] py-10 mt-10 min-w-min_w tablet:px-8 mobile:px-6">
           <div className="max-w-max_w mx-auto">
@@ -35,7 +35,7 @@ export default function Home() {
                 더 보기
               </Link>
             </div>
-            <RecruitmentCardContainer size={6} main="main" />
+            <RecruitmentCardContainer size={6} main />
           </div>
         </section>
         <section className="max-w-max_w mx-auto mt-10 tablet:px-8 mobile:px-6">
