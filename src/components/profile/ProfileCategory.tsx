@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 interface IProfileCategoryProps {
   category: { name: string; type: string }[];
   selectedTab: { type: string; name: string };
@@ -9,19 +11,44 @@ export default function ProfileCategory({
   selectedTab,
   setSelectedTab,
 }: IProfileCategoryProps) {
-  const handleTab = (item: { type: string; name: string }) => {
+  const [isToggle, setIsToggle] = useState(true);
+
+  const [selectMenu, setSelectMenu] = useState('내 게시물');
+
+  const handleSelectTab = (item: { type: string; name: string }) => {
     setSelectedTab(item);
+    setSelectMenu(item.name);
   };
+
+  const handleToggleMemu = () => {
+    setIsToggle(!isToggle);
+  };
+
   return (
     <nav className="sticky top-16 w-full border-y bg-white border-gray30 mt-10 z-[10]">
-      <div className=" max-w-4xl m-auto flex justify-between items-center mobile:justify-center">
-        <ul className="flex text-center gap-12 min_mobile:gap-3">
+      <div className="max-w-4xl m-auto flex justify-between items-center mobile:justify-center">
+        <ul className="w-full flex mobile:flex-col text-center gap-12 mobile:gap-3">
+          <li className="hidden mobile:block">
+            <button
+              className="text-bs_20 w-full py-5 border-b border-gray30"
+              onClick={() => {
+                handleToggleMemu();
+                isToggle && handleSelectTab;
+              }}>
+              {selectMenu}
+            </button>
+          </li>
           {category.map((item, index) => (
             <li
               key={index}
-              onClick={() => handleTab(item)}
-              className="px-2 py-8 text-bs_20 cursor-pointer mobile:mx-5  min_mobile:text-bs_16">
-              <button>{item.name}</button>
+              onClick={() => {
+                handleSelectTab(item);
+                handleToggleMemu();
+              }}
+              className={`${isToggle && 'mobile:hidden'} text-bs_20 cursor-pointer`}>
+              <button className="mobile:w-full mobile:py-5 px-2 py-8 ">
+                {item.name}
+              </button>
             </li>
           ))}
         </ul>
