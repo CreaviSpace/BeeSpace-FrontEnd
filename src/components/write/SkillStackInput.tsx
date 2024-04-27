@@ -10,9 +10,11 @@ interface SkillStackInput {
   setTechStackDtos: (
     techStackDtos: { techStack: string; iconUrl?: string }[]
   ) => void;
+  hidden: boolean;
 }
 
 export default function SkillStackInput({
+  hidden,
   techStackDtos,
   setTechStackDtos,
 }: SkillStackInput) {
@@ -36,7 +38,9 @@ export default function SkillStackInput({
 
   return (
     <>
-      <h2 className="text-bs_20 mb-5 font-bold">기술 스택</h2>
+      <h2 className={`${hidden && 'hidden text-bs_20 mb-5 font-bold'}`}>
+        기술 스택
+      </h2>
       <input
         type="text"
         placeholder={`입력해주세요.`}

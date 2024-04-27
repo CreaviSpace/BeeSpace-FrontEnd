@@ -9,6 +9,8 @@ import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
 import useMyProfileEditor from '@/hooks/profile/useMyProfileEditor';
 import { getCookies } from '@/utils/getCookies';
 
+import SkillStackInput from './../../../components/write/SkillStackInput';
+
 const MID = getCookies('MID', true);
 
 export default function ProfileEdit() {
@@ -19,7 +21,9 @@ export default function ProfileEdit() {
   const [introduce, setintroduce] = useState<string>('');
   const [position, setPosition] = useState<string[]>(['default']);
   const [career, setCareer] = useState<string[]>(['0년']);
-  const [interestedStack, setInterestedStack] = useState<string[]>(['default']);
+  const [interestedStack, setInterestedStack] = useState<
+    { techStack: string; iconUrl?: string }[]
+  >([]);
 
   const [jobOption, setJobOption] = useState([
     '백엔드',
@@ -158,6 +162,11 @@ export default function ProfileEdit() {
             </li>
             <li className="flex flex-col gap-2 mt-8">
               <h2 className="font-bold">관심스택</h2>
+              <SkillStackInput
+                techStackDtos={interestedStack}
+                setTechStackDtos={setInterestedStack}
+                hidden
+              />
             </li>
             <li className="text-right mt-14">
               <CustomButton className="py-2 px-5 mr-3" onClick={closeButton}>
