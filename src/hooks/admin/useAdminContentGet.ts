@@ -3,13 +3,18 @@ import axios from 'axios';
 
 import { getCookies } from '@/utils/getCookies';
 
-const useAdminContentGet = (postType: string, size: number = 3) => {
+const useAdminContentGet = (
+  postType: string,
+  size: number = 3,
+  status: string = 'all',
+  sortType: string = 'asc'
+) => {
   const { isLoading, data, isFetchingNextPage, isError, hasNextPage } =
     useInfiniteQuery({
       queryKey: [`admin-content-${postType}`],
       queryFn: async ({ pageParam = 1 }) => {
         const response = await axios.get(
-          `${process.env.BASE_URL}/admin/contents/${postType}?size=${size}&page=${pageParam}`,
+          `${process.env.BASE_URL}/admin/contents/${postType}?size=${size}&page=${pageParam}&status=${status}&sort-type=${sortType}`,
           { headers: { Authorization: getCookies('jwt') } }
         );
         if (response.data.success) {
