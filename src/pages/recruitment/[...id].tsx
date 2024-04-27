@@ -15,7 +15,6 @@ export default function RecruitmentDetail() {
   const { isLoading, isError, data, isFetching } = useRecruitDetail(
     id as string
   );
-
   return (
     <main className="h-full gap-5 max-w-max_w m-auto py-10 px-16 relative mobile:px-4">
       {isLoading ? (
@@ -25,6 +24,7 @@ export default function RecruitmentDetail() {
           <section className="m-auto max-w-max_w mb-5">
             <DetailsTitle
               id={data.id}
+              memberId={data.memberId}
               type={data.postType}
               time={data.modifiedDate}
               views={data.viewCount}
