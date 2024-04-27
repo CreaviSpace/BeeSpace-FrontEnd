@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { useEffect } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
@@ -13,6 +14,7 @@ import TitleEditor from '@/components/write/TextEditor/TitleEditor';
 import useRecruitDetail from '@/hooks/recruit/useRecruitDetail';
 import useWritePost from '@/hooks/useWritePost';
 import useWriteUpdate from '@/hooks/useWriteUpdate';
+import useLogin from '@/store/useLogin';
 import useRecruitData from '@/store/useRecruitData';
 
 const TextEditor = dynamic(
@@ -26,7 +28,9 @@ const TextEditor = dynamic(
 interface IRecruitmentWriteProps {
   id: string | undefined;
 }
+
 export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
+  const login = useLogin();
   const today = new Date().toString();
   const {
     category,
@@ -161,19 +165,23 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
       </section>
 
       <div className="text-right mt-10">
-        <CustomButton className="py-3 px-10 mr-3">취소</CustomButton>
-        <CustomButton
-          color="secondary"
-          className="py-3 px-10"
-          onClick={() => {
-            if (id && data.id) {
-              recrutiUpdate();
-            } else {
-              recruitPost();
-            }
-          }}>
-          작성
-        </CustomButton>
+        <Link href="/recruitment/">
+          <CustomButton className="py-3 px-10 mr-3">취소</CustomButton>
+        </Link>
+        {login && (
+          <CustomButton
+            color="secondary"
+            className="py-3 px-10"
+            onClick={() => {
+              if (id && data.id) {
+                recrutiUpdate();
+              } else {
+                recruitPost();
+              }
+            }}>
+            작성
+          </CustomButton>
+        )}
       </div>
     </main>
   );
