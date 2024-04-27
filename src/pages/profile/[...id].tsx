@@ -144,7 +144,7 @@ export default function Profile() {
                 item?.map((item: IUniversalType) => (
                   <UniversalCard
                     key={`myContent-list-${item.id}`}
-                    id={item.id}
+                    id={item.postId ? item.postId : item.id}
                     postType={postType.type}
                     title={item.title ? item.title : item.contentsTitle}
                     content={
