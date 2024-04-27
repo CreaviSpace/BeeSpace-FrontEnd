@@ -26,11 +26,11 @@ export default function RecruitmentDetail() {
             <DetailsTitle
               id={data.id}
               type={data.postType}
-              className="hidden"
               time={data.modifiedDate}
               views={data.viewCount}
               title={data.title}
-              userName={`user`}
+              userName={data.memberNickName}
+              className="hidden"
             />
             <SideButton id={data.id} type={data.postType} />
             <RecruitDetails
