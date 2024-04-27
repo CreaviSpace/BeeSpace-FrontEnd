@@ -43,7 +43,7 @@ export default function ContentManagement() {
                 className="mx-auto relative"
                 key={`${item.contentsTitle}-${item.postId}`}>
                 <button
-                  className="absolute z-[1] right-10 top-1"
+                  className="absolute z-[1] right-10 top-1 p-3"
                   onClick={() => handleDeleteContent(item.id, item.postType)}>
                   <IoEllipsisHorizontalSharp size={25} />
                 </button>
