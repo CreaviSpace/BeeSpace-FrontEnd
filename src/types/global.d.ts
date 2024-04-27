@@ -241,5 +241,5 @@ export interface IMemberProfileType {
   memberCareer: 0;
   memberPosition: string;
   memberIntroduce: string;
-  memberInterestedStack: string[];
+  memberInterestedStack: { techStack: string }[];
 }
