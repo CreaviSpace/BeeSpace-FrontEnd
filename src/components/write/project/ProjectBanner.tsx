@@ -60,14 +60,14 @@ export default function ProjectBanner({
           {compressedImage ? (
             <Image
               src={compressedImage}
-              alt="userImage"
+              alt="프로필 사진"
               fill
               className="object-cover object-top rounded-full"
             />
           ) : thumbnail ? (
             <Image
               src={thumbnail}
-              alt="userImage"
+              alt="프로필 사진"
               fill
               className="object-cover object-top rounded-full"
             />
@@ -93,14 +93,14 @@ export default function ProjectBanner({
           {compressedImage ? (
             <Image
               src={compressedImage}
-              alt="bannerImage"
+              alt="프로젝트 배너 이미지"
               fill
               className="object-cover object-top rounded-bs_10"
             />
           ) : thumbnail ? (
             <Image
               src={thumbnail}
-              alt="bannerImage"
+              alt="프로젝트 배너 이미지"
               fill
               className="object-cover object-top rounded-bs_10"
             />
