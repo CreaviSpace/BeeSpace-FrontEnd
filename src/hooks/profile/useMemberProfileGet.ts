@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const useMemberProfileGet = (memberId: string) => {
   const { isLoading, data, isError, isFetching } = useQuery({
+    enabled: !!memberId,
     queryKey: [`MemberProfile-${memberId}`],
     queryFn: async () => {
       const response = await axios.get(
@@ -11,13 +12,11 @@ const useMemberProfileGet = (memberId: string) => {
 
       if (response.status === 200) {
         return response.data;
-      } else {
-        throw new Error(response.data.error);
       }
     },
 
-    staleTime: 30000 * 6,
-    gcTime: 30000 * 6,
+    staleTime: 30000 * 12,
+    gcTime: 30000 * 12,
   });
 
   return { isLoading, data, isError, isFetching };

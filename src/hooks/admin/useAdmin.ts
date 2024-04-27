@@ -2,8 +2,11 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 import { getCookies } from '@/utils/getCookies';
+import { postCookies } from '@/utils/postCookies';
 
 const useAdmin = (size: number, sort: string, type: string) => {
+  const token = getCookies('jwt');
+
   const {
     isLoading,
     isError,
@@ -12,21 +15,28 @@ const useAdmin = (size: number, sort: string, type: string) => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
+    enabled: !!token,
     queryKey: [`admin-member`],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(
         `${process.env.BASE_URL}/admin/${type}?size=${size}&page=${pageParam}&sort-type=${sort}`,
         {
-          headers: { Authorization: getCookies('jwt') },
+          headers: { Authorization: token },
         }
       );
 
-      if (response.data) {
+      if (response.status === 200 && response.data) {
         return response.data;
+      } else if (response.status === 202 && !response.data.success) {
+        postCookies({
+          jwt: response.data.jwt,
+          memberId: response.data.memberId,
+        });
       }
     },
-    staleTime: 30000 * 6, // 30분
-    gcTime: 30000 * 6, // 30분
+    staleTime: 30000 * 12,
+    gcTime: 30000 * 12,
+
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       if (!lastPage) {

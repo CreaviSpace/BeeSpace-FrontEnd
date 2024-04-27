@@ -28,7 +28,10 @@ export default function CommentCard({ item, type, postid }: ICommentCardType) {
   return (
     <div className="py-5 border-b border-gray10">
       <div className="flex justify-between items-center">
-        <UserProfileButton userName="author" />
+        <UserProfileButton
+          userName={item.memberNickName}
+          imageURL={item.memberProfileUrl}
+        />
         <div>
           <button onClick={handlePutComment}>수정</button>&nbsp;&#124;&nbsp;
           <button onClick={() => mutateDelete()}>삭제</button>

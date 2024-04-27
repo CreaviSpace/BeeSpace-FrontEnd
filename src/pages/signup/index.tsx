@@ -3,14 +3,25 @@ import { useState } from 'react';
 import CustomButton from '@/components/button/CustomButton';
 import SelectButton from '@/components/button/SelectButton';
 import ProjectBanner from '@/components/write/project/ProjectBanner';
-
-const JOPOPTION = ['백엔드', '프론트엔드', '디자이너', '기획'];
+import SkillStackInput from '@/components/write/SkillStackInput';
 
 export default function SignUp() {
+  const [jopOptions, setJopOptions] = useState<string[]>([
+    '백엔드',
+    '프론트엔드',
+    '디자이너',
+    '기획',
+  ]);
+
   const [job, setJob] = useState<string[]>(['default']);
   const [stack, setStack] = useState<string[]>(['default', 'default']);
   const [profileUrl, setProfileUrl] = useState<string>('');
-
+  const [interestedStack, setInterestedStack] = useState<
+    {
+      techStack: string;
+      iconUrl?: string;
+    }[]
+  >([]);
   return (
     <main className="py-28">
       <section className="w-[300px] m-auto flex flex-col items-center">
@@ -23,6 +34,7 @@ export default function SignUp() {
               setThumbnail={setProfileUrl}
             />
           </li>
+
           <li className="flex flex-col gap-2">
             <label htmlFor="nickName">닉네임</label>
             <input
@@ -35,21 +47,19 @@ export default function SignUp() {
           <li className="flex flex-col gap-2 mt-8">
             <label htmlFor="job">직무</label>
             <SelectButton
-              option={JOPOPTION}
+              option={jopOptions}
+              setOption={setJopOptions as (option: (string | number)[]) => void}
               select={job}
               setSelect={setJob as (job: (string | number)[]) => void}
-              index={1}
+              index={0}
               className="border-gray30"
             />
           </li>
           <li className="flex flex-col gap-2 mt-8 ">
             <label htmlFor="interestSkill">관심스택</label>
-            <SelectButton
-              option={JOPOPTION}
-              select={stack}
-              setSelect={setStack as (stack: (string | number)[]) => void}
-              index={1}
-              className="border-gray30"
+            <SkillStackInput
+              techStackDtos={interestedStack}
+              setTechStackDtos={setInterestedStack}
             />
           </li>
           <li className="w-full mt-8">

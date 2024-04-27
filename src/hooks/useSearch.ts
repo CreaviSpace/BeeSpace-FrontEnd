@@ -10,6 +10,7 @@ const useSearch = (size: number, text: string, type: string) => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
+    enabled: text.trim() !== '',
     queryKey: [`search-${type}-${text}`],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(
@@ -20,8 +21,8 @@ const useSearch = (size: number, text: string, type: string) => {
         return response.data.data;
       }
     },
-    gcTime: 30000,
-    staleTime: 30000,
+    gcTime: 30000 * 6,
+    staleTime: 30000 * 6,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = allPages.length + 1;

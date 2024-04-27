@@ -11,13 +11,17 @@ import { parseValue } from '@/utils/parseValue';
 import UniversalCard from '../card/UniversalCard';
 import SkeletonUniversalCard from '../skeleton/SkeletonUniversalCard';
 
+const SIZE = 1000;
+const SORT_TYPE = 'ASC';
+const status = true;
+
 export default function ContentManagement() {
   const router = useRouter();
   const { type } = router.query;
   const [select, setSelect] = useState({ id: 0, type: '' });
 
   const { isLoading, data, isFetchingNextPage, hasNextPage } =
-    useAdminContentGet(type as string);
+    useAdminContentGet(type as string, SIZE, status, SORT_TYPE);
 
   const { mutate } = useAdminContentsDelete(select.id, select.type);
   const { onOpen, setHandlerFunction, setTitle } = useReconfirmModal();

@@ -8,6 +8,7 @@ import useWriteDelete from '@/hooks/useWriteDelete';
 import useReconfirmModal from '@/store/modal/useReconfirmModal';
 import useReportModal from '@/store/modal/useReportModal';
 import useLogin from '@/store/useLogin';
+import { getCookies } from '@/utils/getCookies';
 import { parseValue } from '@/utils/parseValue';
 
 interface IDetailsTitleProps {
@@ -20,6 +21,7 @@ interface IDetailsTitleProps {
   category?: string;
   id: number;
   imageURL?: string;
+  memberId: string;
 }
 
 export default function DetailsTitle({
@@ -32,8 +34,10 @@ export default function DetailsTitle({
   category,
   id,
   imageURL,
+  memberId,
 }: IDetailsTitleProps) {
   const { login } = useLogin();
+  const MID = getCookies('MID', true);
 
   const { onOpen: reportOpen, setReportTitle } = useReportModal();
   const {
@@ -69,7 +73,7 @@ export default function DetailsTitle({
       <h1 className="font-bold text-bs_24 mb-3">{title}</h1>
       <div className="max-w-max_w flex items-center justify-between w-full px-4 py-2 gap-2 min_mobile:flex-col min_mobile:items-start">
         <UserProfileButton userName={userName} imageURL={imageURL} />
-        <div className="flex gap-x-3 text-bs_14 text-gray40">
+        <div className="flex flex-wrap items-center gap-x-3 text-bs_14 text-gray40 min_mobile:gap-x-1">
           <p>
             조회수&nbsp;<span>{views}</span>
           </p>
@@ -85,7 +89,7 @@ export default function DetailsTitle({
       </div>
       <span className="w-full border border-gray10 block" />
 
-      {login && (
+      {login && MID === memberId && (
         <div className="text-bs_14 flex justify-end w-full px-4 py-2">
           <Link
             href={`/write/${type.toLowerCase() === 'recruit' ? 'recruitment' : type}?id=${id}`}>

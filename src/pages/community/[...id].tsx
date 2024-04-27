@@ -32,9 +32,11 @@ export default function CommunityDetail() {
               time={data.modifiedDate}
               views={data.viewCount}
               title={data.title}
-              userName="author"
+              userName={data.memberNickName}
               category={data.category}
               id={data.id}
+              imageURL={data.memberProfile}
+              memberId={data.memberId}
             />
             <SideButton id={data.id} type={data.postType} />
             <div

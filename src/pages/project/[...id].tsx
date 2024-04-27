@@ -39,6 +39,7 @@ export default function ProjectDetail() {
               category={data.field}
               id={data.id}
               imageURL={data.memberProfile}
+              memberId={data.memberId}
             />
             <SideButton id={data.id} type={data.postType} />
             <div className="py-8 border-b border-gray10">

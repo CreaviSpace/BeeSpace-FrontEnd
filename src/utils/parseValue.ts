@@ -4,7 +4,7 @@ export const parseValue = (type: string) => {
       return '전체';
     case 'PROJECT':
       return '프로젝트';
-    case 'RECRUITMENT':
+    case 'RECRUIT':
       return '모집';
     case 'COMMUNITY':
       return '커뮤니티';

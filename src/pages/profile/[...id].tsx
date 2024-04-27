@@ -110,7 +110,7 @@ export default function Profile() {
           <Link href={`/profile/editer`} className="flex justify-end mt-10">
             <CustomButton className="px-2 py-1">수정</CustomButton>
           </Link>
-          <ProfileCard items={profile} />
+          {profile && <ProfileCard items={profile} />}
         </section>
       )}
       <ProfileCategory

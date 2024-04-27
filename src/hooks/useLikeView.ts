@@ -9,12 +9,13 @@ const useLikeView = (id?: number, postType?: string) => {
       const response = await axios.get(
         `${process.env.BASE_URL}/like/count?postId=${id}&postType=${postType}`
       );
+
       if (response.data.success) {
         return response.data.data;
       }
     },
-    gcTime: 30000,
-    staleTime: 30000,
+    gcTime: 30000 * 12,
+    staleTime: 30000 * 12,
   });
 
   return { isLoading, isError, data, isFetching };

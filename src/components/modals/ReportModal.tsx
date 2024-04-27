@@ -78,7 +78,7 @@ export default function ReportModal() {
             placeholder="신고 내용을 선택해주세요."
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="w-full border border-gray40 bg-gray10 rounded-bs_5 resize-none p-5"
+            className="w-full border border-gray10 bg-white rounded-bs_5 resize-none p-5"
           />
         </section>
 

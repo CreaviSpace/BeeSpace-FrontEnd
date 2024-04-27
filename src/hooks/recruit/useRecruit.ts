@@ -10,17 +10,19 @@ const useRecruit = (category: string, size: number) => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
+    enabled: !!category,
     queryKey: [`recruit-list-${category}`],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(
         `${process.env.BASE_URL}/recruit?size=${size}&page=${pageParam}${category === 'all' ? '' : `&category=${category}`}`
       );
+
       if (response.data.success) {
         return response.data.data;
       }
     },
-    staleTime: 30000 * 6,
-    gcTime: 30000 * 6,
+    staleTime: 30000 * 12,
+    gcTime: 30000 * 12,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = allPages.length + 1;
