@@ -1,17 +1,7 @@
 import Image from 'next/image';
 
 import Tag from '@/components/Tag';
-
-interface IMemberProfileType {
-  memberId: number;
-  profileUrl: string;
-  memberNickname: string;
-  idTag: string;
-  memberCareer: 0;
-  memberPosition: string;
-  memberIntroduce: string;
-  memberInterestedStack: string[];
-}
+import { IMemberProfileType } from '@/types/global';
 
 interface IProfileCardProps {
   items: IMemberProfileType;
