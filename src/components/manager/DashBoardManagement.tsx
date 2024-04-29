@@ -54,8 +54,10 @@ export default function DashBoardManagement() {
             작성
           </button>
         </div>
-        {localMemo && <span className="block border w-full"></span>}
-        {!isLoading && (
+        {localMemo && localMemo.length > 0 && (
+          <span className="block border w-full"></span>
+        )}
+        {!isLoading && localMemo.length > 0 && (
           <MemoCard content={localMemo} setLocalMemo={setLocalMemo} />
         )}
       </div>
