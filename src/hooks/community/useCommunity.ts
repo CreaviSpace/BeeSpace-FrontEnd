@@ -17,10 +17,10 @@ const useCommunity = (
     isFetchingNextPage,
   } = useInfiniteQuery({
     enabled: !!category,
-    queryKey: [`community-list-${category}`],
-    queryFn: async ({ pageParam = 1 }) => {
+    queryKey: [`community-list-${category}${orderby}`],
+    queryFn: async ({ pageParam = 0 }) => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/community?size=${size}&page=${pageParam}${category !== 'all' ? `&category=${category}` : ''}${hashTag ? `&hashTag=${hashTag}` : ''}${orderby ? `&orderby=${orderby}` : ''}`
+        `${process.env.BASE_URL}/community?size=${size}&page=${pageParam}${category !== 'all' && `&category=${category}`}${hashTag && `&hashTag=${hashTag}`}${orderby && `&sort=${orderby}`}`
       );
 
       if (response.data.success) {
