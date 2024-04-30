@@ -6,6 +6,7 @@ import DetailsTitle from '@/components/details/DetailsTitle';
 import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import Tag from '@/components/Tag';
 import useCommunityDetail from '@/hooks/community/useCommunityDetail';
+import { parseValue } from '@/utils/parseValue';
 
 interface IhashTagsItem {
   hashTagId: number;
@@ -33,7 +34,7 @@ export default function CommunityDetail() {
               views={data.viewCount}
               title={data.title}
               userName={data.memberNickName}
-              category={data.category}
+              category={parseValue(data.category)}
               id={data.id}
               imageURL={data.memberProfile}
               memberId={data.memberId}
