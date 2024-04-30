@@ -31,6 +31,7 @@ export default function CommentCard({ item, type, postid }: ICommentCardType) {
         <UserProfileButton
           userName={item.memberNickName}
           imageURL={item.memberProfileUrl}
+          memberId={item.memberId}
         />
         <div>
           <button onClick={handlePutComment}>수정</button>&nbsp;&#124;&nbsp;

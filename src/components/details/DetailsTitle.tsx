@@ -72,7 +72,11 @@ export default function DetailsTitle({
       )}
       <h1 className="font-bold text-bs_24 mb-3">{title}</h1>
       <div className="max-w-max_w flex items-center justify-between w-full px-4 py-2 gap-2 min_mobile:flex-col min_mobile:items-start">
-        <UserProfileButton userName={userName} imageURL={imageURL} />
+        <UserProfileButton
+          userName={userName}
+          imageURL={imageURL}
+          memberId={memberId}
+        />
         <div className="flex flex-wrap items-center gap-x-3 text-bs_14 text-gray40 min_mobile:gap-x-1">
           <p>
             조회수&nbsp;<span>{views}</span>
