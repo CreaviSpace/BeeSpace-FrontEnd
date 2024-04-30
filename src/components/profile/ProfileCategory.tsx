@@ -1,14 +1,21 @@
 import { useState } from 'react';
 
+import { getCookies } from '@/utils/getCookies';
+
 interface IProfileCategoryProps {
   category: { name: string; type: string }[];
   selectedTab: { type: string; name: string };
   setSelectedTab: (select: { type: string; name: string }) => void;
+  memberID: string;
 }
+
+const MID = getCookies('MID', true);
+
 export default function ProfileCategory({
   category,
   selectedTab,
   setSelectedTab,
+  memberID,
 }: IProfileCategoryProps) {
   const [isToggle, setIsToggle] = useState(true);
   const [selectMenu, setSelectMenu] = useState('내 게시물');
@@ -36,20 +43,39 @@ export default function ProfileCategory({
               {selectMenu}
             </button>
           </li>
-          {category.map((item, index) => (
-            <li
-              key={index}
-              onClick={() => {
-                handleSelectTab(item);
-                handleToggleMemu();
-              }}
-              className={`${isToggle && 'mobile:hidden'} text-bs_20`}>
-              <button
-                className={`w-[8.75rem] h-[4.6875rem] ${selectedTab.type === item.type && 'border-b-[3px] border-primary'} mobile:w-full mobile:py-5`}>
-                {item.name}
-              </button>
-            </li>
-          ))}
+          {category.map((item, index) => {
+            if (MID === memberID) {
+              return (
+                <li
+                  key={index}
+                  className={`${isToggle && 'mobile:hidden'} text-bs_20`}>
+                  <button
+                    className={`w-[8.75rem] h-[4.6875rem] ${selectedTab.type === item.type && 'border-b-[3px] border-primary'} mobile:w-full mobile:py-5`}
+                    onClick={() => {
+                      handleSelectTab(item);
+                      handleToggleMemu();
+                    }}>
+                    {item.name}
+                  </button>
+                </li>
+              );
+            } else if (item.type === 'project') {
+              return (
+                <li
+                  key={index}
+                  className={`${isToggle && 'mobile:hidden'} text-bs_20`}>
+                  <button
+                    className={`w-[8.75rem] h-[4.6875rem] ${selectedTab.type === item.type && 'border-b-[3px] border-primary'} mobile:w-full mobile:py-5`}
+                    onClick={() => {
+                      handleSelectTab(item);
+                      handleToggleMemu();
+                    }}>
+                    {item.name}
+                  </button>
+                </li>
+              );
+            }
+          })}
         </ul>
       </div>
     </nav>

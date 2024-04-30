@@ -10,7 +10,7 @@ const useSearch = (size: number, text: string, type: string) => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    enabled: text.trim() !== '',
+    enabled: text?.trim() !== '',
     queryKey: [`search-${type}-${text}`],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(
