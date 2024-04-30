@@ -5,7 +5,6 @@ interface IProfileCategoryProps {
   selectedTab: { type: string; name: string };
   setSelectedTab: (select: { type: string; name: string }) => void;
 }
-const NAVIGATION = ['내 게시물', '받은 피드백', '내 댓글', '북마크'];
 export default function ProfileCategory({
   category,
   selectedTab,
@@ -45,7 +44,7 @@ export default function ProfileCategory({
                 handleSelectTab(item);
                 handleToggleMemu();
               }}
-              className={`${isToggle && 'mobile:hidden'} text-bs_20 cursor-pointer`}>
+              className={`${isToggle && 'mobile:hidden'} ${selectedTab.type === item.type && 'border-b-[3px] border-primary'} text-bs_20 cursor-pointer`}>
               <button className="mobile:w-full mobile:py-5 px-2 py-8 ">
                 {item.name}
               </button>
