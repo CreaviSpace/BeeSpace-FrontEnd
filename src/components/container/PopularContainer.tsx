@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import useBanner from '@/hooks/useBanner';
 import { IBannerItem } from '@/types/global';
@@ -15,6 +15,7 @@ interface IPopularProjectProps {
 
 export default function PopularProject({ postType }: IPopularProjectProps) {
   const [currentIndex, setCurrentIndex] = useState(1);
+  const [maxConut, setMaxCount] = useState(1);
   const listRef = useRef<HTMLDivElement>(null);
 
   const { isLoading, data, isError, isFetching } = useBanner('project');
@@ -30,8 +31,12 @@ export default function PopularProject({ postType }: IPopularProjectProps) {
     }
   };
 
+  useEffect(() => {
+    setMaxCount(data?.length);
+  });
+
   return (
-    <div className="w-full max-w-[767px] tablet:mx-auto mobile:mx-auto tablet:mb-10 mobile:mb-10 overflow-x-hidden">
+    <div className="w-full max-w-[767px] tablet:mx-auto mobile:mx-auto tablet:mb-10 mobile:mb-10 'w-[300%]' overflow-x-hidden">
       <div className="text-bs_24 flex justify-between items-start w-full">
         <h2 className="text-bs_24 font-bold">인기 프로젝트</h2>
         <Link href={`/project?type=all`} className="text-gray40 text-bs_16">
@@ -43,7 +48,7 @@ export default function PopularProject({ postType }: IPopularProjectProps) {
       ) : data?.length === 0 ? null : (
         <div>
           <div
-            className="relative right-full flex justify-between w-[500%] transition-all"
+            className={`relative right-full flex justify-between transition-all ${maxConut >= 5 ? 'w-[500%]' : maxConut >= 3 ? 'w-[400%]' : 'w-[300%]'}`}
             ref={listRef}
             onTransitionEnd={handleTransitionEnd}>
             <PopularImageCard

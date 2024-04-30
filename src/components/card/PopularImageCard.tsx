@@ -18,22 +18,26 @@ export default function PopularImageCard({
     <div className="w-[767px] mx-auto">
       <Link href={link1}>
         <div className="relative my-5 w-[100%] aspect-w-16 aspect-h-9">
-          <Image
-            src={img1}
-            alt="프로젝트 이미지"
-            fill
-            className="object-cover object-top px-1 rounded-bs_10"
-          />
+          {img1 !== undefined && (
+            <Image
+              src={img1}
+              alt="프로젝트 이미지"
+              fill
+              className="object-cover object-top px-1 rounded-bs_10"
+            />
+          )}
         </div>
       </Link>
       <Link href={link2}>
         <div className="relative my-5 w-[100%] aspect-w-16 aspect-h-9">
-          <Image
-            src={img2}
-            alt="프로젝트 이미지"
-            fill
-            className="object-cover object-top px-1 rounded-bs_10 "
-          />
+          {img2 !== undefined && (
+            <Image
+              src={img2}
+              alt="프로젝트 이미지"
+              fill
+              className="object-cover object-top px-1 rounded-bs_10 "
+            />
+          )}
         </div>
       </Link>
     </div>
