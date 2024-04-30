@@ -12,13 +12,13 @@ const GRIDCOLUMNS = {
 
 const BORDERSTYLE = {
   main: 'border',
-  default: 'border-t border-b',
+  default: 'border-t',
 };
 
 const ORDERBY = [
-  { name: '최신활동순', link: 'LATEST_ACTIVITY' },
-  { name: '추천순', link: 'RECOMMENDED' },
-  { name: '조회수순', link: 'MOST_VIEWED' },
+  { name: '최신활동순', link: 'created_date,asc' },
+  { name: '추천순', link: 'like_count,desc' },
+  { name: '조회수순', link: 'view_count,desc' },
 ];
 
 interface ICommunityCardStyleProps {
@@ -82,7 +82,7 @@ export default function CommunityCardContainer({
         {ORDERBY.map((item, index) => (
           <li key={index} className="flex items-center justify-between ">
             {activeIndex === index ? (
-              <span className="mr-1 block w-1 h-1 bg-green-400"></span>
+              <span className="mr-1 block w-1 h-1 rounded-md bg-green-400"></span>
             ) : (
               <span className="mr-1 block w-1 h-1"></span>
             )}
