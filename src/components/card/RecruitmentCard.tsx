@@ -1,8 +1,9 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { IRecruitType } from '@/types/global';
 
-import Bookmark from '../button/Bookmark';
+import BookmarkButton from '../button/BookmarkButton';
 
 interface IRecruitmentCardProps {
   item: IRecruitType;
@@ -12,7 +13,7 @@ interface IRecruitmentCardProps {
 export default function RecruitmentCard({ item, type }: IRecruitmentCardProps) {
   return (
     <div className="relative w-full h-[17.8125rem] bg-white border border-gray10 rounded-bs_10 py-8 px-5 overflow-hidden">
-      <Bookmark
+      <BookmarkButton
         id={item.id}
         postType={item.postType}
         size={35}
@@ -25,13 +26,21 @@ export default function RecruitmentCard({ item, type }: IRecruitmentCardProps) {
         <p
           className="overflow-hidden text-ellipsis break-keep line-clamp-3"
           dangerouslySetInnerHTML={{ __html: item.content }}></p>
-        <ul className="flex py-6 gap-3">
-          <li className="w-10 h-10 rounded-full border border-gray10 flex justify-center items-center">
-            {item.techStack}
-          </li>
-        </ul>
-        <div className="">
-          모집인원 ({item.now}/{item.amount})
+        <div className="absolute bottom-5">
+          <div className="flex gap-1">
+            {item.techStacks.map((item, index) => (
+              <Image
+                key={`${item}-${index}`}
+                src={item.iconUrl}
+                alt={item.techStack}
+                width={35}
+                height={35}
+              />
+            ))}
+          </div>
+          <div className="mt-4">
+            모집인원 ({item.now}/{item.amount})
+          </div>
         </div>
       </Link>
     </div>

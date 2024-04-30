@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import CustomSelect from '@/components/button/CustomSelect';
+import SelectButton from '@/components/button/SelectButton';
 import { parseEnum } from '@/utils/parseEnum';
 import { parseValue } from '@/utils/parseValue';
 interface ICommunicationProps {
@@ -30,7 +30,7 @@ export default function Communication({
   return (
     <div>
       <h2 className="text-bs_20 my-5">연락 방법</h2>
-      <CustomSelect
+      <SelectButton
         option={option}
         select={communication}
         setSelect={setCommunication as (personnel: (string | number)[]) => void}

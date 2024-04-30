@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { useEffect } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
@@ -7,12 +8,13 @@ import Communication from '@/components/write/recruitment/Communication';
 import Deadline from '@/components/write/recruitment/Deadline';
 import OnOffLine from '@/components/write/recruitment/OnOffLine';
 import Period from '@/components/write/recruitment/Period';
-import Personnal from '@/components/write/recruitment/Personnal';
+import RecruitPersonnel from '@/components/write/recruitment/RecruitPersonnel';
 import SkillStackInput from '@/components/write/SkillStackInput';
 import TitleEditor from '@/components/write/TextEditor/TitleEditor';
-import useRecruitDetail from '@/hooks/useRecruitDetail';
+import useRecruitDetail from '@/hooks/recruit/useRecruitDetail';
 import useWritePost from '@/hooks/useWritePost';
 import useWriteUpdate from '@/hooks/useWriteUpdate';
+import useLogin from '@/store/useLogin';
 import useRecruitData from '@/store/useRecruitData';
 
 const TextEditor = dynamic(
@@ -26,7 +28,9 @@ const TextEditor = dynamic(
 interface IRecruitmentWriteProps {
   id: string | undefined;
 }
+
 export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
+  const login = useLogin();
   const today = new Date().toString();
   const {
     category,
@@ -55,7 +59,10 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
     content,
     end,
     positions,
-    techStacks,
+    techStacks: techStacks.map((item) => {
+      const { techStack } = item;
+      return { techStack };
+    }),
   };
 
   const { isLoading, isError, data, isFetching } = useRecruitDetail(id);
@@ -78,14 +85,14 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
       setter.setEnd(data.end);
       setter.setPositions(data.positions);
       if (data.techStacks && data.techStacks.length > 0) {
-        const teachStacks: { techStackId: number }[] = [];
+        const teachStacks: { techStack: string }[] = [];
         data.techStacks.map(
           (item: {
             techStackId: number;
             techStack: string;
             iconUrl: string;
           }) => {
-            teachStacks.push({ techStackId: item.techStackId });
+            teachStacks.push({ techStack: item.techStack });
           }
         );
         setter.setTechStacks(teachStacks);
@@ -94,7 +101,7 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
       setter.setCategory('PROJECT_RECRUIT');
       setter.setContactWay('');
       setter.setContact('');
-      setter.setTechStacks([{ techStackId: 0 }]);
+      setter.setTechStacks([{ techStack: '' }]);
       setter.setAmount(0);
       setter.setProceedWay('ONLINE');
       setter.setWorkDay(1);
@@ -125,7 +132,7 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
             />
           </li>
           <li className="mt-14">
-            <Personnal
+            <RecruitPersonnel
               amount={amount}
               setAmount={setter.setAmount}
               positions={positions}
@@ -158,19 +165,23 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
       </section>
 
       <div className="text-right mt-10">
-        <CustomButton className="py-3 px-10 mr-3">취소</CustomButton>
-        <CustomButton
-          color="secondary"
-          className="py-3 px-10"
-          onClick={() => {
-            if (id && data.id) {
-              recrutiUpdate();
-            } else {
-              recruitPost();
-            }
-          }}>
-          작성
-        </CustomButton>
+        <Link href="/recruitment/">
+          <CustomButton className="py-3 px-10 mr-3">취소</CustomButton>
+        </Link>
+        {login && (
+          <CustomButton
+            color="secondary"
+            className="py-3 px-10"
+            onClick={() => {
+              if (id && data.id) {
+                recrutiUpdate();
+              } else {
+                recruitPost();
+              }
+            }}>
+            작성
+          </CustomButton>
+        )}
       </div>
     </main>
   );

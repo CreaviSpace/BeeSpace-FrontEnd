@@ -13,19 +13,18 @@ import ReportManagement from '@/components/manager/ReportManagement';
 import SearchBar from '@/components/manager/SearchBar';
 import UserManagement from '@/components/manager/UserManagement';
 import TotalChart from '@/components/TotalChart';
-import UserConnection from '@/components/user/UserConnection';
 
 const MENU = [
   {
     bigContent: '대시보드',
     link: 'dashboard',
-    icon: AiOutlineDashboard(),
+    icon: AiOutlineDashboard({}),
     contents: [{ content: '대시보드', link: 'dashboard' }],
   },
   {
     bigContent: '컨텐츠 관리',
     link: 'content',
-    icon: FaList(),
+    icon: FaList({}),
     contents: [
       { content: '프로젝트', link: 'project' },
       { content: '모임', link: 'recruit' },
@@ -35,7 +34,7 @@ const MENU = [
   {
     bigContent: '사용자',
     link: 'user',
-    icon: AiOutlineTeam(),
+    icon: AiOutlineTeam({}),
     contents: [
       { content: '사용자 관리', link: 'manage' },
       // { content: '로그인 이력 관리', link: 'login' },
@@ -44,19 +43,34 @@ const MENU = [
   {
     bigContent: '신고',
     link: 'report',
-    icon: AiFillAlert(),
+    icon: AiFillAlert({}),
     contents: [{ content: '신고', link: 'report' }],
   },
 ];
 
+const LOCALMEMODATA = 'admin-memo';
+
 export default function Manager() {
   const [isSlide, setIsSlide] = useState(false);
+  const [localMemo, setLocalMemo] = useState<{ id: string; text: string }[]>(
+    []
+  );
+  const [isLoading, setIsLoading] = useState(true);
+
   const router = useRouter();
   const { content, type } = router.query;
 
   useEffect(() => {
     setIsSlide(false);
   }, [content, type]);
+
+  useEffect(() => {
+    const getMemo = localStorage.getItem(LOCALMEMODATA);
+    if (getMemo) {
+      setLocalMemo(JSON.parse(getMemo));
+    }
+    setIsLoading(false);
+  }, []);
 
   const handleNowContentCSS = (url: string) => {
     if (url === type) {
@@ -78,6 +92,7 @@ export default function Manager() {
           }}>
           <FaList size={20} />
         </button>
+
         <aside
           className={`w-60 h-screen border-x border-gray10 bg-blue10 z-10 transition-all mobile:absolute mobile:top-0 ${isSlide ? 'mobile:left-0' : 'mobile:-left-[100%]'}`}>
           <p className="relative w-fill h-fit p-5 text-center flex justify-center items-center border-b border-gary10">
@@ -118,7 +133,7 @@ export default function Manager() {
         </aside>
 
         <div className="w-full h-[calc(100vh)] overflow-auto">
-          <div className="w-full bg-blue10 p-3 text-right">
+          <div className={`w-full bg-blue10 p-3 flex justify-end`}>
             <button
               className="px-3 font-bold transition-all"
               onClick={handleGoHome}>
@@ -133,20 +148,25 @@ export default function Manager() {
             </section>
             <section className="w-2/5 h-96 p-3 mobile:w-full">
               <div className="bg-blue10 w-full h-full p-3">
-                <h3 className="text-bs_20 font-bold mb-2">
-                  사용자 로그인 이력 관리
-                </h3>
+                <h3 className="text-bs_20 font-bold mb-2">메모장</h3>
                 <ul>
-                  <UserConnection
-                    value="nickname 님이 로그아웃 했습니다."
-                    content="2024.01.01"
-                  />
+                  {localMemo.map((item, index) => (
+                    <li className="w-full py-3 overflow-auto" key={index}>
+                      {item.text}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </section>
           </div>
           {content !== 'dashboard' && <SearchBar />}
-          {content === 'dashboard' && <DashBoardManagement />}
+          {content === 'dashboard' && (
+            <DashBoardManagement
+              localMemo={localMemo}
+              setLocalMemo={setLocalMemo}
+              isLoading={isLoading}
+            />
+          )}
           {content === 'content' && <ContentManagement />}
           {content === 'user' && <UserManagement />}
           {content === 'report' && <ReportManagement />}

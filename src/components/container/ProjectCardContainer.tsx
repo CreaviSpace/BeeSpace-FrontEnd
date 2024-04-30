@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react';
 
 import ProjectCard from '@/components/card/ProjectCard';
-import useProject from '@/hooks/useProject';
+import useProject from '@/hooks/project/useProject';
 
 import { IProjectType } from '../../types/global';
 import SkeletonProjectCard from '../skeleton/SkeletonProjectCard';
@@ -9,11 +9,13 @@ import SkeletonProjectCard from '../skeleton/SkeletonProjectCard';
 interface IProjectCardContainerProps {
   category: string;
   size: number;
+  main?: boolean;
 }
 
 export default function ProjectCardContainer({
   category,
   size = 6,
+  main,
 }: IProjectCardContainerProps) {
   const {
     isLoading,
@@ -53,12 +55,12 @@ export default function ProjectCardContainer({
           : data?.pages.map((pages: IProjectType[]) => {
               return pages?.map((item, index) => (
                 <div key={`projectCard-${index}`}>
-                  <ProjectCard item={item} tagName="팀 프로젝트" />
+                  <ProjectCard item={item} />
                 </div>
               ));
             })}
 
-        {isFetchingNextPage && size > 8 ? (
+        {hasNextPage && main ? null : isFetchingNextPage && size > 8 ? (
           [1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => (
             <SkeletonProjectCard key={index} />
           ))

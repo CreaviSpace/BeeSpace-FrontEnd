@@ -28,7 +28,7 @@ export interface IRecruitType {
   category: string;
   title: string;
   content: string;
-  techStack: string;
+  techStacks: { techStack: string; iconUrl: string }[];
   amount: number;
   now: number;
 }
@@ -36,12 +36,20 @@ export interface ICommunityType {
   id: number;
   postType: string;
   category: string;
-  memberId: number;
+  memberId: string;
+  memberNickName: string;
+  memberProfile: string;
   viewCount: number;
+  createdDate: string;
   modifiedDate: string;
   title: string;
   content: string;
-  hashTags: { hashTagId: number; hashTag: string }[];
+  hashTags: [
+    {
+      hashTagId: number;
+      hashTag: string;
+    },
+  ];
 }
 export interface IDeadLineType {
   id: number;
@@ -50,7 +58,7 @@ export interface IDeadLineType {
   title: string;
   content: string;
   modifiedDate: string;
-  techStacks: { techStackId: number; techStack: string; iconUrl: string }[];
+  techStacks: { techStack: string; iconUrl: string }[];
 }
 
 export interface IRecruitBody {
@@ -70,7 +78,7 @@ export interface IRecruitBody {
     now: number;
   }[];
   techStacks: {
-    techStackId: number;
+    techStack: string;
   }[];
 }
 
@@ -83,7 +91,7 @@ export interface IProjectBody {
   title: string;
   content: string;
   techStackDtos: {
-    techStackId: number;
+    techStack: string;
   }[];
   field: string;
   linkDtos: {
@@ -103,6 +111,7 @@ export interface ICommunityBody {
 
 export interface IUniversalType {
   id: number;
+  postId: number;
   title: string;
   bannerContent?: string;
   content: string;
@@ -122,7 +131,7 @@ export interface IQuestionType {
 
 export interface ICommentContainerTypes {
   id: number;
-  memberId: number;
+  memberId: string;
   memberNickName: string;
   memberProfileUrl: string;
   modifiedDate: string;
@@ -130,7 +139,6 @@ export interface ICommentContainerTypes {
 }
 
 export interface ITechStackType {
-  techStackId: number;
   techStack: string;
   techStackIcon: string;
 }
@@ -183,7 +191,7 @@ export interface IQuestionAnswerType {
 }
 
 export interface IAdminMemberType {
-  id: number;
+  id: string;
   loginId: string;
   memberEmail: string;
   memberName: string;
@@ -223,4 +231,15 @@ export interface IReportType {
   postId: number;
   content: string;
   status: true;
+}
+
+export interface IMemberProfileType {
+  memberId: number;
+  profileUrl: string;
+  memberNickname: string;
+  idTag: string;
+  memberCareer: 0;
+  memberPosition: string;
+  memberIntroduce: string;
+  memberInterestedStack: { techStack: string }[];
 }

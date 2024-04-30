@@ -11,7 +11,9 @@ import SkeletonProfile from '@/components/skeleton/SkeletonProfile';
 import SkeletonUniversalCard from '@/components/skeleton/SkeletonUniversalCard';
 import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
 import useMyContent from '@/hooks/profile/useMyContent';
+import useLogin from '@/store/useLogin';
 import { IUniversalType } from '@/types/global';
+import { getCookies } from '@/utils/getCookies';
 
 const POSTTYPEOTIONS = [
   { type: 'project', name: '프로젝트' },
@@ -59,6 +61,8 @@ export default function Profile() {
 
   const router = useRouter();
   const memberId = router.query.id;
+  const login = useLogin();
+  const MID = getCookies('MID', true);
 
   const { isLoading: profileLoading, data: profile } = useMemberProfileGet(
     memberId as string
@@ -107,66 +111,74 @@ export default function Profile() {
       ) : (
         <section className="max-w-screen-md m-auto my-[100px]">
           <h1 className="sr-only">내 프로필</h1>
-          <Link href={`/profile/editer`} className="flex justify-end mt-10">
-            <CustomButton className="px-2 py-1">수정</CustomButton>
-          </Link>
-          <ProfileCard items={profile} />
+          {login && profile?.memberId === MID && (
+            <Link href={`/profile/editer`} className="flex justify-end mt-10">
+              <CustomButton className="px-2 py-1">수정</CustomButton>
+            </Link>
+          )}
+          {profile && <ProfileCard items={profile} />}
         </section>
       )}
-      <ProfileCategory
-        category={CATEGORIES}
-        setSelectedTab={setCategory}
-        selectedTab={category}
-      />
-      <section className="pt-10 pb-24 max-w-4xl m-auto relative">
-        <div>
-          <SortButton
-            select={sortType}
-            setSelect={setSortType}
-            options={SORTTPYEOPTIONS}
-            className="right-[6.25rem]"
-          />
-          <SortButton
-            select={postType}
-            setSelect={setPostType}
-            options={POSTTYPEOTIONS}
-            className="right-0"
-          />
-        </div>
-        <div className="mt-7 flex flex-col justify-center">
-          {contentsLoading ? (
-            [1, 2, 3].map((item, index) => (
-              <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
-            ))
-          ) : (
-            <>
-              {contents?.pages.map((item, index) =>
-                item?.map((item: IUniversalType) => (
-                  <UniversalCard
-                    key={`myContent-list-${item.id}`}
-                    id={item.id}
-                    postType={postType.type}
-                    title={item.title ? item.title : item.contentsTitle}
-                    content={
-                      item.bannerContent ? item.bannerContent : item.content
-                    }
-                    image={item.thumbnail ? item.thumbnail : ''}
-                    size="large"
-                    className="my-2 w-full"
-                  />
-                ))
-              )}
-            </>
-          )}
-          {isFetchingNextPage ? (
-            [1, 2, 3].map((item, index) => (
-              <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
-            ))
-          ) : (
-            <div ref={lastElementRef}></div>
-          )}
-        </div>
-      </section>
+      {login && profile?.memberId === MID && (
+        <ProfileCategory
+          category={CATEGORIES}
+          setSelectedTab={setCategory}
+          selectedTab={category}
+        />
+      )}
+      {login && profile?.memberId === MID && (
+        <section className="pt-10 pb-24 max-w-4xl m-auto relative">
+          <div>
+            <SortButton
+              select={sortType}
+              setSelect={setSortType}
+              options={SORTTPYEOPTIONS}
+              className="right-[6.25rem]"
+            />
+            <SortButton
+              select={postType}
+              setSelect={setPostType}
+              options={POSTTYPEOTIONS}
+              className="right-0"
+            />
+          </div>
+          <div className="mt-7 flex flex-col justify-center">
+            {contentsLoading ? (
+              [1, 2, 3].map((item, index) => (
+                <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
+              ))
+            ) : (
+              <>
+                {contents?.pages.map((item, index) =>
+                  item?.map((item: IUniversalType) => (
+                    <>
+                      <UniversalCard
+                        key={`myContent-list-${item.id}`}
+                        id={item.id}
+                        postType={postType.type}
+                        title={item.title ? item.title : item.contentsTitle}
+                        content={
+                          item.bannerContent ? item.bannerContent : item.content
+                        }
+                        image={item.thumbnail ? item.thumbnail : ''}
+                        size="large"
+                        className="my-2 w-full"
+                      />
+                    </>
+                  ))
+                )}
+              </>
+            )}
+            {isFetchingNextPage ? (
+              [1, 2, 3].map((item, index) => (
+                <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
+              ))
+            ) : (
+              <div ref={lastElementRef}></div>
+            )}
+          </div>
+        </section>
+      )}
     </main>
   );
 }

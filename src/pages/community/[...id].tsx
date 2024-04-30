@@ -5,7 +5,7 @@ import CommentContainer from '@/components/container/CommentContainer';
 import DetailsTitle from '@/components/details/DetailsTitle';
 import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import Tag from '@/components/Tag';
-import useCommunityDetail from '@/hooks/useCommunityDetail';
+import useCommunityDetail from '@/hooks/community/useCommunityDetail';
 
 interface IhashTagsItem {
   hashTagId: number;
@@ -21,20 +21,22 @@ export default function CommunityDetail() {
   );
 
   return (
-    <main>
+    <main className="max-w-max_w m-auto p-16 relative mb-5 tablet:px-8 mobile:px-6">
       {isLoading ? (
         <SkeletonDetail />
       ) : (
         data?.id && (
-          <section className="max-w-max_w m-auto p-16 relative mb-5">
+          <section>
             <DetailsTitle
               type="community"
               time={data.modifiedDate}
               views={data.viewCount}
               title={data.title}
-              userName="author"
+              userName={data.memberNickName}
               category={data.category}
               id={data.id}
+              imageURL={data.memberProfile}
+              memberId={data.memberId}
             />
             <SideButton id={data.id} type={data.postType} />
             <div

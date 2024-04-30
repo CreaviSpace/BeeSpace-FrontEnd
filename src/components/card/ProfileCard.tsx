@@ -1,17 +1,6 @@
 import Image from 'next/image';
 
-import Tag from '@/components/Tag';
-
-interface IMemberProfileType {
-  memberId: number;
-  profileUrl: string;
-  memberNickname: string;
-  idTag: string;
-  memberCareer: 0;
-  memberPosition: string;
-  memberIntroduce: string;
-  memberInterestedStack: string[];
-}
+import { IMemberProfileType } from '@/types/global';
 
 interface IProfileCardProps {
   items: IMemberProfileType;
@@ -19,9 +8,7 @@ interface IProfileCardProps {
 
 export default function ProfileCard({ items }: IProfileCardProps) {
   return (
-    <div
-      className="max-w-[22.4375rem] m-auto flex flex-col items-center gap-y-1"
-      key={items.memberId}>
+    <div className="max-w-[22.4375rem] m-auto flex flex-col items-center gap-y-1">
       {items.profileUrl ? (
         <Image
           src={items.profileUrl}
@@ -50,9 +37,13 @@ export default function ProfileCard({ items }: IProfileCardProps) {
         <p className="font-bold">{items.memberPosition}</p>
       </div>
       <p className="my-3 break-all">{items.memberIntroduce}</p>
-      <div className="mt-2 flex">
+      <div className="mt-2 flex gap-1">
         {items.memberInterestedStack.map((item, index) => (
-          <Tag key={index} name={item} category="skill" />
+          <span
+            key={index}
+            className="border rounded-full border-gray20 px-3 py-1">
+            {item.techStack}
+          </span>
         ))}
       </div>
     </div>

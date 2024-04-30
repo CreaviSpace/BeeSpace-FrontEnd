@@ -7,7 +7,7 @@ import RecruitDetails from '@/components/details/recruitment/RecruitDetails';
 import RecruitPosition from '@/components/details/recruitment/RecruitPosition';
 import TechStackList from '@/components/details/recruitment/TechStackList';
 import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
-import useRecruitDetail from '@/hooks/useRecruitDetail';
+import useRecruitDetail from '@/hooks/recruit/useRecruitDetail';
 
 export default function RecruitmentDetail() {
   const router = useRouter();
@@ -24,14 +24,15 @@ export default function RecruitmentDetail() {
           <section className="m-auto max-w-max_w mb-5">
             <DetailsTitle
               id={data.id}
-              type="recruitment"
-              className="hidden"
+              memberId={data.memberId}
+              type={data.postType}
               time={data.modifiedDate}
               views={data.viewCount}
               title={data.title}
-              userName={`user`}
+              userName={data.memberNickName}
+              className="hidden"
             />
-            <SideButton id={data.id} type={data.postType} />
+            <SideButton id={data.id} type={data.postType} hidden={true} />
             <RecruitDetails
               category={data.category}
               contactWay={data.contactWay}

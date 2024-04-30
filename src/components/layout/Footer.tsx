@@ -4,6 +4,20 @@ import { useRouter } from 'next/router';
 
 import Logo from '@/../public/BS_Logo315x114.png';
 
+const INFO = [
+  { name: 'contect', detail: 'google@gmail.com' },
+  { name: 'copyright', detail: 'BeeSpace. All rights reserved' },
+];
+const MENU = [
+  { name: '프로젝트', link: '/project?type=all' },
+  { name: '모집', link: '/recruitment?type=all' },
+  { name: '커뮤니티', link: '/community?type=all' },
+];
+const SERVICE = [
+  { name: '서비스 소개', link: '/#' },
+  { name: '이용약관', link: '/#' },
+];
+
 export default function Footer() {
   const router = useRouter();
   const pathname = router.pathname.split('/')[1];
@@ -17,20 +31,6 @@ export default function Footer() {
     return null;
   }
 
-  const info = [
-    { name: 'contect', detail: 'google@gmail.com' },
-    { name: 'copyright', detail: 'BeeSpace. All rights reserved' },
-  ];
-  const menu = [
-    { name: '프로젝트', link: '/#' },
-    { name: '모집', link: '/#' },
-    { name: '커뮤니티', link: '/#' },
-  ];
-  const service = [
-    { name: '서비스 소개', link: '/#' },
-    { name: '이용약관', link: '/#' },
-  ];
-
   return (
     <footer className="relative max_w flex justify-center bg-[#EFEFEF] h-[15.625rem] tablet:h-fit mobile:h-fit">
       <div className="w-full max-w-max_w flex">
@@ -40,7 +40,7 @@ export default function Footer() {
             <Image src={Logo} alt="logo" width={186} height={70} />
           </Link>
           <ul className="text-bs_14 mt-5 mobile:mt-0">
-            {info.map((item, index) => (
+            {INFO.map((item, index) => (
               <li
                 key={`info-${index}`}
                 className="flex tablet:flex-col mobile:flex-col">
@@ -56,14 +56,14 @@ export default function Footer() {
         <div className="w-4/6 flex justify-center gap-10 pt-14 text-bs_18 mobile:w-3/6 mobile:gap-2">
           <ul className="text-bs_14">
             <li className="p-2 mobile:p-1">바로가기</li>
-            {menu.map((item, index) => (
+            {MENU.map((item, index) => (
               <li key={`menu-${index}`} className="p-2 mobile:p-1">
                 <Link href={item.link}>{item.name}</Link>
               </li>
             ))}
           </ul>
           <ul className="text-bs_14">
-            {service.map((item, index) => (
+            {SERVICE.map((item, index) => (
               <li key={`service-${index}`} className="p-2 mobile:p-1">
                 <Link href={item.link}>{item.name}</Link>
               </li>

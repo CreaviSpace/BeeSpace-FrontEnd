@@ -3,9 +3,9 @@ import { useRef, useState } from 'react';
 import useBanner from '@/hooks/useBanner';
 import { TransitionEnd } from '@/utils/carousel';
 
-import CarouselList from '../CarouselList';
 import SkeletonBanner from '../skeleton/SkeletonBanner';
 import BannerItem from './BannerItem';
+import CarouselList from './CarouselList';
 
 interface IBannerProps {
   postType: string;
@@ -17,13 +17,14 @@ interface IBannerItem {
   title: string;
   thumbnail?: string;
   category: string;
+  content: string;
   bannerContent: string;
-  // techStacks: {
-  //   techStackId: 0;
-  //   techStack: 'string';
-  //   iconUrl: 'string';
-  // }[];
-  iconUrl: 'string';
+  techStacks: {
+    techStackId: number;
+    techStack: string;
+    iconUrl?: string;
+  }[];
+  iconUrl: string;
 }
 
 export default function Banner({ postType }: IBannerProps) {
@@ -60,10 +61,14 @@ export default function Banner({ postType }: IBannerProps) {
                   postType={data[data.length - 1].postType}
                   id={data[data.length - 1].id}
                   title={data[data.length - 1].title}
-                  content={data[data.length - 1].bannerContent}
+                  content={
+                    data.content
+                      ? data[data.length - 1].content
+                      : data[data.length - 1].bannerContent
+                  }
                   image={data[data.length - 1].thumbnail}
                   date={data[data.length - 1].end}
-                  // iconUrl={data[data.length - 1].techStacks[0].iconUrl}
+                  techStacks={data[data.length - 1].techStacks}
                 />
               </div>
               {data.map((item: IBannerItem, index: number) => (
@@ -74,10 +79,10 @@ export default function Banner({ postType }: IBannerProps) {
                     postType={item.postType}
                     id={item.id}
                     title={item.title}
-                    content={item.bannerContent}
+                    content={item.content ? item.content : item.bannerContent}
                     image={item.thumbnail}
                     date={data[data.length - 1].end}
-                    // iconUrl={data[data.length - 1].techStacks[0].iconUrl}
+                    techStacks={data[data.length - 1].techStacks}
                   />
                 </div>
               ))}
@@ -90,7 +95,7 @@ export default function Banner({ postType }: IBannerProps) {
                   content={data[0].content}
                   image={data[0].thumbnail}
                   date={data[data.length - 1].end}
-                  // iconUrl={data[data.length - 1].techStacks[0].iconUrl}
+                  techStacks={data[data.length - 1].techStacks}
                 />
               </div>
             </div>

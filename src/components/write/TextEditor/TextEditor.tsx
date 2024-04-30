@@ -9,7 +9,7 @@ import fileUpload from '@/utils/fileUpload';
 
 import CustomToolbar from './CustomToolbar';
 
-const formats = [
+const FORMATS = [
   'font',
   'header',
   'bold',
@@ -58,7 +58,7 @@ export default function TextEditor({ values, setValues }: ITextEditor) {
         <ReactQuill
           theme="snow"
           modules={modules}
-          formats={formats}
+          formats={FORMATS}
           value={values}
           onChange={setValues}
           className="h-[34.375rem]"

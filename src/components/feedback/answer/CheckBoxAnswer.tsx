@@ -24,7 +24,7 @@ export default function CheckBoxAnswer({
       newAnswer[currentIndex].selectedItems = selectedItem;
       setAnswer(newAnswer);
     } else {
-      if (newAnswer[currentIndex].selectedItems[0].id === 0) {
+      if (newAnswer[currentIndex].selectedItems[0]?.id === 0) {
         const selectedItem = (newAnswer[currentIndex].selectedItems = [
           { id: id },
         ]);
@@ -38,6 +38,18 @@ export default function CheckBoxAnswer({
       }
       setAnswer(newAnswer);
     }
+  };
+
+  const handleCheck = (index: number) => {
+    let i = -1;
+    answer[currentIndex]?.selectedItems.map((item) => {
+      if (item.id === question.choiceItems[index].id) {
+        i = index;
+        return;
+      }
+    });
+
+    return i;
   };
 
   return (
@@ -54,8 +66,13 @@ export default function CheckBoxAnswer({
               type="checkbox"
               id={question.question}
               name={question.question}
-              onChange={() => handleChangeCheck(item.id)}></input>
-            <p className="w-full border-b border-gray20 p-2">{item.item}</p>
+              onChange={() => handleChangeCheck(item.id)}
+              checked={handleCheck(index) === index}></input>
+            <p
+              className="w-full border-b border-gray20 p-2"
+              onClick={() => handleChangeCheck(item.id)}>
+              {item.item}
+            </p>
           </li>
         ))}
       </ul>

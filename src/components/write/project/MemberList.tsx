@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import CustomSelect from '@/components/button/CustomSelect';
+import SelectButton from '@/components/button/SelectButton';
 import useMemberSearch from '@/hooks/useMemberSearch';
 import { parseEnum } from '@/utils/parseEnum';
 import { parseValue } from '@/utils/parseValue';
-
-const OPTIONS = ['백엔드', '프론트엔드', '디자인', '기획'];
-const OPTIONSNUM = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 interface IMemberListProps {
   positions?: {
@@ -30,8 +27,16 @@ export default function MemberList({
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isToggle, setIsToggle] = useState(false);
 
+  const [options, setOptions] = useState<string[]>([
+    '백엔드',
+    '프론트엔드',
+    '디자인',
+    '기획',
+  ]);
+  const [optionsNum, setOptionsNum] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
   const { isLoading, isError, data, isFetching } = useMemberSearch(
-    memberId[currentIndex]
+    memberId.length > 0 ? memberId[currentIndex] : ''
   );
 
   useEffect(() => {
@@ -67,14 +72,14 @@ export default function MemberList({
   const handleUpdateSeletPuls = (personnel: (string | number)[]) => {
     const newSelectPlus = Array.from(
       { length: personnel[0] as number },
-      () => 'default'
+      () => ''
     );
 
     const newMemberId = Array.from(
       {
         length: personnel[0] as number,
       },
-      () => 'default'
+      () => ''
     );
 
     setSelectNum([newSelectPlus.length]);
@@ -94,8 +99,9 @@ export default function MemberList({
       <label htmlFor="memberNum" className="sr-only">
         멤버 수
       </label>
-      <CustomSelect
-        option={OPTIONSNUM}
+      <SelectButton
+        option={optionsNum}
+        setOption={setOptionsNum as (option: (string | number)[]) => void}
         select={selectNum}
         setSelect={
           handleUpdateSeletPuls as (personnel: (string | number)[]) => void
@@ -106,8 +112,9 @@ export default function MemberList({
 
       {selectPosition.map((_, index) => (
         <div key={index} className="flex gap-2 min_mobile:flex-col">
-          <CustomSelect
-            option={OPTIONS}
+          <SelectButton
+            option={options}
+            setOption={setOptions as (option: (string | number)[]) => void}
             select={selectPosition}
             setSelect={
               setSelectPosition as (personnel: (string | number)[]) => void

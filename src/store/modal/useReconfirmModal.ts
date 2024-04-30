@@ -2,22 +2,22 @@ import { create } from 'zustand';
 
 interface IReconfirmModalProps {
   isOpen: boolean;
-  id: number;
-  postType: string;
+  title: string;
+  setTitle: (title: string) => void;
+  handlerFunction: () => void;
   onOpen: () => void;
   onClose: () => void;
-  setPostType: (postType: string) => void;
-  setId: (id: number) => void;
+  setHandlerFunction: (func: () => void) => void;
 }
 
 const useReconfirmModal = create<IReconfirmModalProps>((set) => ({
   isOpen: false,
-  postType: '',
-  id: 0,
+  title: '',
+  setTitle: (title: string) => set({ title }),
+  handlerFunction: () => {},
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
-  setPostType: (postType: string) => set({ postType }),
-  setId: (id: number) => set({ id }),
+  setHandlerFunction: (func) => set({ handlerFunction: func }),
 }));
 
 export default useReconfirmModal;

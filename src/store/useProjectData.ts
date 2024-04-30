@@ -8,14 +8,16 @@ interface IProjectBody {
   thumbnail: string;
   bannerContent: string;
   memberDtos: { memberId: string; position: string }[];
-  techStackDtos: { techStackId: number }[];
+  techStackDtos: { techStack: string; iconUrl?: string }[];
   linkDtos: { linkType: string; url: string }[];
   setter: {
     setCategory: (category: string) => void;
     setTitle: (title: string) => void;
     setContent: (content: string) => void;
     setfield: (field: string) => void;
-    setTechStackDtos: (techStackDtos: { techStackId: number }[]) => void;
+    setTechStackDtos: (
+      techStackDtos: { techStack: string; iconUrl?: string }[]
+    ) => void;
     setMemberDtos: (
       memberDtos: { memberId: string; position: string }[]
     ) => void;
@@ -46,8 +48,9 @@ const useProjectData = create<IProjectBody>((set) => ({
     setfield: (field: string) => set(() => ({ field: field })),
     setMemberDtos: (memberDtos: { memberId: string; position: string }[]) =>
       set(() => ({ memberDtos: memberDtos })),
-    setTechStackDtos: (techStackDtos: { techStackId: number }[]) =>
-      set(() => ({ techStackDtos: techStackDtos })),
+    setTechStackDtos: (
+      techStackDtos: { techStack: string; iconUrl?: string }[]
+    ) => set(() => ({ techStackDtos: techStackDtos })),
     setLinkDtos: (linkDtos: { linkType: string; url: string }[]) =>
       set(() => ({ linkDtos: linkDtos })),
     setThumbnail: (thumbnail: string) => set(() => ({ thumbnail: thumbnail })),

@@ -9,7 +9,7 @@ export default function DeadLineContainer() {
   const { isLoading, isError, data, isFetching } = useBanner('recruitment');
 
   return (
-    <div className="w-full tablet:w-[767px] mx-auto mb-auto">
+    <div className="w-full tablet:w-[767px] tablet:mx-auto mb-auto">
       <div className="flex justify-between items-start">
         <div className="flex items-center gap-5 text-bs_24">
           <Image
@@ -33,7 +33,7 @@ export default function DeadLineContainer() {
           content={item.content}
           date={item.modifiedDate}
           size="small"
-          className="my-5"
+          className="my-5 bg-white"
         />
       ))}
     </div>

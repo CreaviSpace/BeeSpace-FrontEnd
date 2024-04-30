@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import useAdmin from '@/hooks/useAdmin';
+import useAdmin from '@/hooks/admin/useAdmin';
 import { IAdminMemberType } from '@/types/global';
 
 import UserManagementButton from '../button/UserManagementButton';

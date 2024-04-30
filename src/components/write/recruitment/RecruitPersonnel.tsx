@@ -2,10 +2,13 @@
 import { FaPlusCircle } from '@react-icons/all-files/fa/FaPlusCircle';
 import { useEffect, useState } from 'react';
 
-import CustomSelect from '@/components/button/CustomSelect';
+import SelectButton from '@/components/button/SelectButton';
 import { parseValue } from '@/utils/parseValue';
 
 import { parseEnum } from '../../../utils/parseEnum';
+
+const OPTIONNUM = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 interface IPersonnelProps {
   amount: number;
   setAmount: (amount: number) => void;
@@ -18,7 +21,7 @@ interface IPersonnelProps {
     }[]
   ) => void;
 }
-export default function Personnal({
+export default function RecruitPersonnel({
   amount,
   setAmount,
   positions,
@@ -32,8 +35,6 @@ export default function Personnal({
     '백엔드',
     '기획',
   ]);
-
-  const [optionNum] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
   useEffect(() => {
     const newPersonnel = personnel.map((_, index) => {
@@ -99,7 +100,7 @@ export default function Personnal({
         <div
           className="flex min_mobile:flex-col mobile:mb-4"
           key={`${item}-${index}`}>
-          <CustomSelect
+          <SelectButton
             option={option}
             setOption={setOption as (option: (string | number)[]) => void}
             select={personnel}
@@ -107,8 +108,8 @@ export default function Personnal({
             index={index}
             className="desktop:w-2/3 tablet:w-2/3"
           />
-          <CustomSelect
-            option={optionNum}
+          <SelectButton
+            option={OPTIONNUM}
             select={personnelNum}
             setSelect={
               setPersonnelNum as (personnel: (string | number)[]) => void
