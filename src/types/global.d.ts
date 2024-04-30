@@ -131,7 +131,7 @@ export interface IQuestionType {
 
 export interface ICommentContainerTypes {
   id: number;
-  memberId: number;
+  memberId: string;
   memberNickName: string;
   memberProfileUrl: string;
   modifiedDate: string;
@@ -191,7 +191,7 @@ export interface IQuestionAnswerType {
 }
 
 export interface IAdminMemberType {
-  id: number;
+  id: string;
   loginId: string;
   memberEmail: string;
   memberName: string;
