@@ -127,8 +127,9 @@ export default function Profile() {
         category={CATEGORIES}
         setSelectedTab={setCategory}
         selectedTab={category}
-        memberID={login && profile && profile.memberId}
+        memberID={(!profileLoading && profile && profile.memberId) || ''}
       />
+
       <section className="pt-10 pb-24 max-w-4xl m-auto relative">
         <div>
           <SortButton
