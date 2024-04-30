@@ -2,6 +2,8 @@ import axios from 'axios';
 
 import { getCookies } from '@/utils/getCookies';
 
+import { postCookies } from './postCookies';
+
 const fileUpload = async (
   compressedImage: Blob | undefined,
   setCompressedImage?: (compressedImage: string | null) => void
@@ -26,8 +28,13 @@ const fileUpload = async (
     }
   );
 
-  if (response.data.success) {
+  if (response.status === 200 && response.data.success) {
     return response.data.data.url;
+  } else if (response.status === 202 && !response.data.success) {
+    postCookies({
+      jwt: response.data.jwt,
+      memberId: response.data.memberId,
+    });
   }
 };
 

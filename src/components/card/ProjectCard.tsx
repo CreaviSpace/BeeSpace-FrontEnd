@@ -2,23 +2,23 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Tag from '@/components/Tag';
+import { parseValue } from '@/utils/parseValue';
 
 import { IProjectType } from '../../types/global';
-import Bookmark from '../button/Bookmark';
+import BookmarkButton from '../button/BookmarkButton';
 import LikeButton from '../button/LikeButton';
 import Icons from '../Icons';
 
 interface IProjectCardProps {
   item: IProjectType;
-  tagName: string;
 }
 
-export default function ProjectCard({ item, tagName }: IProjectCardProps) {
+export default function ProjectCard({ item }: IProjectCardProps) {
   return (
     <div className="relative max-w-md w-full m-auto h-[23.75rem] border border-gray10 rounded-b-bs_20">
       <Link href={`project/${item.id}`}>
         <Tag
-          name={tagName}
+          name={`${parseValue(item.category)}프로젝트`}
           category={item.category as 'TEAM' | 'INDIVIDUAL'}
           className="absolute top-3 left-3"
         />
@@ -35,14 +35,14 @@ export default function ProjectCard({ item, tagName }: IProjectCardProps) {
         )}
       </Link>
       <div className="w-full h-fit p-5 rounded-b-bs_20 relative overflow-hidden">
-        <Bookmark
+        <BookmarkButton
           className="absolute -top-[.3125rem] right-[.375rem]"
           size={35}
           id={item.id}
           postType={item.postType}
         />
         <Link href={`project/${item.id}`}>
-          <h3 className="text-bs_18 mt-3 font-bold overflow-hidden text-ellipsis whitespace-nowrap">
+          <h3 className="text-bs_18 mt-7 font-bold overflow-hidden text-ellipsis whitespace-nowrap">
             {item.title}
           </h3>
           <p
@@ -51,7 +51,7 @@ export default function ProjectCard({ item, tagName }: IProjectCardProps) {
           </p>
         </Link>
       </div>
-      <div className="absolute bottom-1 left-0 flex justify-between items-center pl-5 pr-2 w-full h-fit ">
+      <div className="absolute bottom-1 left-0 flex justify-between items-center pl-5 pr-2 w-full h-10">
         <LikeButton
           className="float-start"
           id={item.id}
@@ -60,7 +60,7 @@ export default function ProjectCard({ item, tagName }: IProjectCardProps) {
         <ul className="float-end flex items-center gap-1">
           {item.links?.map((item, index) => (
             <li key={`${item}-${index}`}>
-              <Link href={item.url}>
+              <Link href={`/${item.url}`} target="_blank">
                 <Icons icon={item.linkType} />
               </Link>
             </li>

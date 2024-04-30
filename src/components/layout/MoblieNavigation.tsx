@@ -2,12 +2,12 @@ import Link from 'next/link';
 
 interface IMoblieCategoryProps {
   menu: { name: string; link: string }[];
-  handleMenuToggle: () => void;
+  setIsMCategoryVisible: (toggle: boolean) => void;
 }
 
-export default function MoblieCategory({
+export default function MoblieNavigation({
   menu,
-  handleMenuToggle,
+  setIsMCategoryVisible,
 }: IMoblieCategoryProps) {
   return (
     <ul className="absolute top-[4rem] left-0 w-full h-screen shadow-md hidden mobile:block">
@@ -16,14 +16,14 @@ export default function MoblieCategory({
           <Link
             href={item.link}
             className="p-5 text-center block hover:text-primary"
-            onClick={handleMenuToggle}>
+            onClick={() => setIsMCategoryVisible(false)}>
             {item.name}
           </Link>
         </li>
       ))}
       <div
         className="h-screen bg-black/50 w-full cursor-pointer"
-        onClick={handleMenuToggle}></div>
+        onClick={() => setIsMCategoryVisible(false)}></div>
     </ul>
   );
 }

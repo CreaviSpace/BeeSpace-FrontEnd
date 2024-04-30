@@ -1,26 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { getCookies } from '@/utils/getCookies';
-
 const useMemberProfileGet = (memberId: string) => {
   const { isLoading, data, isError, isFetching } = useQuery({
+    enabled: !!memberId,
     queryKey: [`MemberProfile-${memberId}`],
     queryFn: async () => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/member/read/profile?member-id=${memberId}`,
-        { headers: { Authorization: getCookies('jwt') } }
+        `${process.env.BASE_URL}/member/read/profile?member-id=${memberId}`
       );
 
-      if (response.data) {
+      if (response.status === 200) {
         return response.data;
-      } else {
-        throw new Error(response.data.error);
       }
     },
 
-    staleTime: 30000 * 6,
-    gcTime: 30000 * 6,
+    staleTime: 30000 * 12,
+    gcTime: 30000 * 12,
   });
 
   return { isLoading, data, isError, isFetching };

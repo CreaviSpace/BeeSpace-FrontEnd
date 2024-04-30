@@ -3,7 +3,7 @@ import { IoBookmarkOutline } from '@react-icons/all-files/io5/IoBookmarkOutline'
 
 import useBookMark from '@/hooks/useBookMark';
 
-interface IBookmarkProps {
+interface IBookmarkButtonProps {
   color?: string;
   size?: number;
   className?: string;
@@ -11,13 +11,13 @@ interface IBookmarkProps {
   postType: string;
 }
 
-export default function Bookmark({
+export default function BookmarkButton({
   color = '#0099DB',
   size = 25,
   className,
   id,
   postType,
-}: IBookmarkProps) {
+}: IBookmarkButtonProps) {
   const { isLoading, isError, data, isFetching, mutate } = useBookMark(
     id,
     postType

@@ -5,7 +5,7 @@ interface IMembersProps {
   positions: {
     position: string;
     members: {
-      memberId: number;
+      memberId: string;
       memberProfile: string;
       memberNickname: string;
     }[];
@@ -27,7 +27,9 @@ export default function Members({ positions }: IMembersProps) {
             {item.members.map((people, index) => (
               <li key={`${people}-${index}`}>
                 <UserProfileButton
-                  userName={'author'}
+                  userName={people.memberNickname}
+                  imageURL={people.memberProfile}
+                  memberId={people.memberId}
                   className="border border-gray10 px-4 py-3"
                 />
               </li>

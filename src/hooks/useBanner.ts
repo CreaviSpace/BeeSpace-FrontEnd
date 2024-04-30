@@ -21,8 +21,8 @@ const useBanner = (postType: string) => {
         return response.data.data;
       }
     },
-    gcTime: 30000 * 6, // 30분
-    staleTime: 30000 * 6, // 30분
+    gcTime: 30000 * 12,
+    staleTime: 30000 * 12,
   });
 
   return { isLoading, isError, data, isFetching };

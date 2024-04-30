@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import UserProfileButton from '@/components/button/UserProfileButton';
-import useCommentPutDelete from '@/hooks/useCommentPutDelete';
+import useCommentPutDelete from '@/hooks/comment/useCommentPutDelete';
 import { ICommentContainerTypes } from '@/types/global';
 
 import CustomButton from './../button/CustomButton';
@@ -28,7 +28,11 @@ export default function CommentCard({ item, type, postid }: ICommentCardType) {
   return (
     <div className="py-5 border-b border-gray10">
       <div className="flex justify-between items-center">
-        <UserProfileButton userName="author" />
+        <UserProfileButton
+          userName={item.memberNickName}
+          imageURL={item.memberProfileUrl}
+          memberId={item.memberId}
+        />
         <div>
           <button onClick={handlePutComment}>수정</button>&nbsp;&#124;&nbsp;
           <button onClick={() => mutateDelete()}>삭제</button>

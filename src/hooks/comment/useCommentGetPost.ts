@@ -1,11 +1,17 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { toast } from 'react-toastify';
 
+import useLoginModal from '@/store/modal/useLoginModal';
 import { getCookies } from '@/utils/getCookies';
+import { postCookies } from '@/utils/postCookies';
 
 const useCommentGetPost = (id: number, type: string, content: string) => {
+  const token = getCookies('jwt');
+  const queryClient = useQueryClient();
+  const { onOpen } = useLoginModal();
+
   const { isLoading, isError, data, isFetching } = useQuery({
+    enabled: !!id,
     queryKey: [`comment-${id}`],
     queryFn: async () => {
       const response = await axios.get(
@@ -20,20 +26,34 @@ const useCommentGetPost = (id: number, type: string, content: string) => {
     staleTime: 30000,
   });
 
-  const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: async () => {
+      if (!token) {
+        return onOpen();
+      } else if (!id) {
+        return;
+      }
+
       return await axios.post(
         `${process.env.BASE_URL}/comment?postId=${id}&postType=${type}`,
         { content: content },
-        { headers: { Authorization: getCookies('jwt') } }
+        { headers: { Authorization: token } }
       );
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`comment-${id}`] });
+    onSuccess: (data) => {
+      if (data) {
+        if (data.status === 200 && data.data.success) {
+          queryClient.invalidateQueries({ queryKey: [`comment-${id}`] });
+        } else if (data.status === 202 && !data.data.success) {
+          postCookies({
+            jwt: data.data.data.jwt,
+            memberId: data.data.data.memberId,
+          });
+        }
+      }
     },
-    onError: () => {
-      toast.error('에러 발생');
+    onError: (error) => {
+      console.error(error);
     },
   });
 

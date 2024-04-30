@@ -3,19 +3,20 @@ import { useEffect, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import useAlarm from '@/hooks/alarm/useAlarm';
-import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
+import useAlarmCount from '@/hooks/alarm/useAlarmCount';
+import useLoginCheck from '@/hooks/login/useLoginCheck';
+import useLoginModal from '@/store/modal/useLoginModal';
+import useLogin from '@/store/useLogin';
+import { getCookies } from '@/utils/getCookies';
 
 import SkeletonUserImage from '../skeleton/SkeletonUserImage';
 import AlarmModal from './modal/AlarmModal';
 import ProfileModal from './modal/ProfileModal';
 import WriteModal from './modal/WriteModal';
 
-interface ILogInHeaderProps {
-  MID: string;
-  ACCESE_TOKEN: string;
-}
+const MID = getCookies('MID', true);
 
-export default function LogInHeader({ MID, ACCESE_TOKEN }: ILogInHeaderProps) {
+export default function LogInHeader() {
   const [onProfileModal, setOnProfileModal] = useState(false);
   const [onWritingModal, setOnWritingModal] = useState(false);
   const [onAlarmModal, setOnAlarmModal] = useState(false);
@@ -25,7 +26,12 @@ export default function LogInHeader({ MID, ACCESE_TOKEN }: ILogInHeaderProps) {
   const writingModalRef = useRef<HTMLDivElement>(null);
   const alarmModalRef = useRef<HTMLDivElement>(null);
 
-  const { isLoading, data, isError, isFetching } = useMemberProfileGet(MID);
+  const { onOpen: openLogin } = useLoginModal();
+  // const { onOpen: openSignUp } = useSignUpModal();
+  const { login } = useLogin();
+
+  const { isLoading, data, isError, isFetching } = useLoginCheck();
+
   const {
     isLoading: alarmIsLoading,
     isError: alarmIsError,
@@ -33,11 +39,18 @@ export default function LogInHeader({ MID, ACCESE_TOKEN }: ILogInHeaderProps) {
     isFetching: alarmIsFetching,
   } = useAlarm();
 
+  const {
+    isLoading: alarmCountIsLoading,
+    isError: alarmCountIsError,
+    data: alarmCounts,
+    isFetching: alarmCountIsFetching,
+  } = useAlarmCount();
+
   useEffect(() => {
-    if (alarmIsLoading && alarmData?.length > 0) {
+    if (!alarmCountIsLoading && alarmCounts > 0) {
       setIsAlarm(true);
     }
-  }, [alarmIsLoading]);
+  }, [alarmCountIsLoading]);
 
   const handleWriteModalOpen = () => {
     writingModalRef.current?.focus();
@@ -46,8 +59,42 @@ export default function LogInHeader({ MID, ACCESE_TOKEN }: ILogInHeaderProps) {
     alarmModalRef.current?.focus();
   };
 
-  if (!MID && !ACCESE_TOKEN) {
-    return null;
+  const handleWriteModalToggle = () => {
+    if (onWritingModal) {
+      writingModalRef.current?.blur();
+    } else {
+      writingModalRef.current?.focus();
+    }
+    setOnWritingModal(!onWritingModal);
+  };
+
+  const handleProfileModalToggle = () => {
+    if (onProfileModal) {
+      profileModalRef.current?.blur();
+    } else {
+      profileModalRef.current?.focus();
+    }
+    setOnProfileModal(!onProfileModal);
+  };
+
+  if (!login) {
+    return (
+      <ul className="flex">
+        <li>
+          <CustomButton
+            onClick={openLogin}
+            className="py-2 px-4"
+            color="primary">
+            로그인
+          </CustomButton>
+        </li>
+        {/* <li className="ml-5 mobile:hidden">
+          <CustomButton onClick={openSignUp} className="py-2 px-3">
+            회원가입
+          </CustomButton>
+        </li> */}
+      </ul>
+    );
   }
 
   return (
@@ -55,8 +102,9 @@ export default function LogInHeader({ MID, ACCESE_TOKEN }: ILogInHeaderProps) {
       <li className="min_mobile:hidden">
         <CustomButton
           color="primary"
-          className="py-2 px-3 ml-3"
-          onClick={() => writingModalRef.current?.focus()}>
+          className="py-2 px-3"
+          onClick={handleWriteModalToggle}
+          onMouseDown={(e) => e.preventDefault()}>
           글쓰기
         </CustomButton>
       </li>
@@ -64,9 +112,10 @@ export default function LogInHeader({ MID, ACCESE_TOKEN }: ILogInHeaderProps) {
         <SkeletonUserImage />
       ) : (
         <li
-          className="ml-3 cursor-pointer relative"
+          className="ml-3 cursor-pointer relative min_mobile:ml-0"
           tabIndex={0}
-          onClick={() => profileModalRef.current?.focus()}>
+          onClick={handleProfileModalToggle}
+          onMouseDown={(e) => e.preventDefault()}>
           <Image
             src={data?.profileUrl ? data.profileUrl : '/img/user/default.avif'}
             alt="유저 아이콘"
@@ -89,6 +138,7 @@ export default function LogInHeader({ MID, ACCESE_TOKEN }: ILogInHeaderProps) {
           <ProfileModal
             handleWriteModalOpen={handleWriteModalOpen}
             handleAlarmModalOpen={handleAlarmModalOpen}
+            setOnProfileModal={setOnProfileModal}
             MID={MID}
             isAlarm={isAlarm}
           />
@@ -99,7 +149,7 @@ export default function LogInHeader({ MID, ACCESE_TOKEN }: ILogInHeaderProps) {
         tabIndex={0}
         onFocus={() => setOnWritingModal(true)}
         onBlur={() => setOnWritingModal(false)}>
-        {onWritingModal && <WriteModal />}
+        {onWritingModal && <WriteModal setOnWritingModal={setOnWritingModal} />}
       </div>
       <div
         ref={alarmModalRef}
@@ -109,7 +159,11 @@ export default function LogInHeader({ MID, ACCESE_TOKEN }: ILogInHeaderProps) {
           setOnAlarmModal(false);
         }}>
         {onAlarmModal && (
-          <AlarmModal isLoading={alarmIsLoading} data={alarmData} />
+          <AlarmModal
+            isLoading={alarmIsLoading}
+            isAlarm={alarmData}
+            data={alarmData}
+          />
         )}
       </div>
     </ul>

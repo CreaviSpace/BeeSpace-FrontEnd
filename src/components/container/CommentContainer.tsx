@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import CommentCard from '@/components/card/CommentCard';
-import useCommentGetPost from '@/hooks/useCommentGetPost';
+import useCommentGetPost from '@/hooks/comment/useCommentGetPost';
 
 import SkeletonCommentCard from '../skeleton/SkeletonCommentCard';
 import { ICommentContainerTypes } from './../../types/global.d';
@@ -28,7 +28,7 @@ export default function CommentContainer({ id, type }: ICommentContainerProps) {
       <h3 className="mb-5 text-bs_18">
         댓글 ({!isLoading ? data && data.length : 0})
       </h3>
-      <div className="flex gap-5">
+      <div className="flex gap-5 min_mobile:flex-col">
         <input
           type="text"
           value={value}
@@ -40,7 +40,7 @@ export default function CommentContainer({ id, type }: ICommentContainerProps) {
         />
         <CustomButton
           color="secondary"
-          className="w-[6.25rem]"
+          className="min-w-[6.25rem] max-w-[6.25rem] py-2 mr-auto"
           onClick={() => mutatePost()}>
           등록
         </CustomButton>

@@ -1,33 +1,40 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const useRecruit = (category: string, size: number) => {
+const useCommunity = (
+  category: string,
+  size: number,
+  hashTag: string | undefined,
+  orderby?: string | undefined
+) => {
   const {
     isLoading,
     isError,
+    error,
     data,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: [`recruit-list-${category}`],
-    queryFn: async ({ pageParam = 1 }) => {
+    enabled: !!category,
+    queryKey: [`community-list-${category}${orderby}`],
+    queryFn: async ({ pageParam = 0 }) => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/recruit?size=${size}&page=${pageParam}${category === 'all' ? '' : `&category=${category}`}`
+        `${process.env.BASE_URL}/community?size=${size}&page=${pageParam}${category !== 'all' && `&category=${category}`}${hashTag && `&hashTag=${hashTag}`}${orderby && `&sort=${orderby}`}`
       );
+
       if (response.data.success) {
         return response.data.data;
       }
     },
-    staleTime: 30000 * 6,
-    gcTime: 30000 * 6,
+    staleTime: 30000 * 12,
+    gcTime: 30000 * 12,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      const nextPage = allPages.length + 1;
-
       if (!lastPage) {
         return null;
       }
+      const nextPage = allPages.length + 1;
       return lastPage?.length === 0 || lastPage?.length < size
         ? undefined
         : nextPage;
@@ -43,4 +50,4 @@ const useRecruit = (category: string, size: number) => {
   };
 };
 
-export default useRecruit;
+export default useCommunity;

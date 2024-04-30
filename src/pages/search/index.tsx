@@ -18,7 +18,22 @@ const SIDE_CATEGORIES = [
   { name: '수다', link: 'CHAT' },
 ];
 
-const PAGE_SIZE = 20;
+const CATEGORIES = [
+  {
+    name: '프로젝트',
+    link: `project`,
+  },
+  {
+    name: '모집',
+    link: `recruitment`,
+  },
+  {
+    name: '커뮤니티',
+    link: `community`,
+  },
+];
+
+const PAGE_SIZE = 24;
 
 export default function Search() {
   const router = useRouter();
@@ -40,21 +55,6 @@ export default function Search() {
     hasNextPage,
     isFetchingNextPage,
   } = useSearch(PAGE_SIZE, searchValue as string, searchType as string);
-
-  const categories = [
-    {
-      name: '프로젝트',
-      link: `project&text=${text}`,
-    },
-    {
-      name: '모집',
-      link: `recruitment&text=${text}`,
-    },
-    {
-      name: '커뮤니티',
-      link: `community&text=${text}`,
-    },
-  ];
 
   const observer: React.MutableRefObject<IntersectionObserver | null> =
     useRef(null);
@@ -80,8 +80,8 @@ export default function Search() {
 
   return (
     <main>
-      <Category category={categories} searchValue={searchValue} />
-      <div className="grid grid-cols-5 max-w-max_w m-auto py-10 tablet:grid-cols-4 mobile:grid-cols-4">
+      <Category category={CATEGORIES} searchValue={searchValue} />
+      <div className="grid grid-cols-5 max-w-max_w m-auto py-10 tablet:grid-cols-4 mobile:grid-cols-4 tablet:px-8 mobile:px-6">
         <aside className="col-span-1 tablet:hidden mobile:hidden">
           <div className="h-[2.25rem] my-7"></div>
           <ul
@@ -96,7 +96,7 @@ export default function Search() {
             ))}
           </ul>
         </aside>
-        <section className="col-span-4 mx-auto">
+        <section className="col-span-4 mx-auto w-full">
           {isLoading
             ? [1, 2, 3, 4, 5, 6].map((_, index) => (
                 <SkeletonUniversalCard size="large" key={index} />

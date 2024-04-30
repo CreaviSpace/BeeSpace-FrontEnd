@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 
 import OnoffButton from '@/components/button/OnOffButton';
-import useCommunityDetail from '@/hooks/useCommunityDetail';
+import useCommunityDetail from '@/hooks/community/useCommunityDetail';
 import useWritePost from '@/hooks/useWritePost';
 import useWriteUpdate from '@/hooks/useWriteUpdate';
 import useCommunityData from '@/store/useCommunityData';
@@ -23,13 +23,13 @@ interface ICommunityWriteProps {
   id: string | undefined;
 }
 
-export default function CommunityWrite({ id }: ICommunityWriteProps) {
-  const commnuityList = [
-    { key: 'QNA', name: 'QnA' },
-    { key: 'CHAT', name: '수다' },
-    { key: 'CONCERN', name: '고민' },
-  ];
+const COMMNUITYLIST = [
+  { key: 'QNA', name: 'QnA' },
+  { key: 'CHAT', name: '수다' },
+  { key: 'CONCERN', name: '고민' },
+];
 
+export default function CommunityWrite({ id }: ICommunityWriteProps) {
   const { category, title, content, hashTags, setter } = useCommunityData();
 
   const communityData = {
@@ -67,7 +67,7 @@ export default function CommunityWrite({ id }: ICommunityWriteProps) {
 
   return (
     <main>
-      <section className="max-w-max_w m-auto p-20">
+      <section className="max-w-max_w m-auto p-20 p-20 mobile:p-6">
         <h1 className="text-center text-[2rem] font-bold">
           자유롭게 글을 작성해주세요
         </h1>
@@ -78,7 +78,7 @@ export default function CommunityWrite({ id }: ICommunityWriteProps) {
             <OnoffButton
               value={category}
               setValue={setter.setCategory}
-              list={commnuityList}
+              list={COMMNUITYLIST}
             />
           </li>
           <li className="mt-14">
