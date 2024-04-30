@@ -53,7 +53,7 @@ export default function Category({
   };
 
   return (
-    <nav className="sticky top-16 w-full border-y bg-white border-gray30 mt-10 z-[1] h-[4.6875rem]">
+    <nav className="sticky top-16 w-full border-y bg-white border-gray30 mt-10 z-10 h-[4.6875rem]">
       <div className="max-w-max_w m-auto flex justify-between items-center mobile:justify-center h-full">
         <ul className="flex mobile:flex-col mobile:w-full h-full">
           <li
