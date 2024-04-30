@@ -151,18 +151,20 @@ export default function Profile() {
               <>
                 {contents?.pages.map((item, index) =>
                   item?.map((item: IUniversalType) => (
-                    <UniversalCard
-                      key={`myContent-list-${item.id}`}
-                      id={item.postId ? item.postId : item.id}
-                      postType={postType.type}
-                      title={item.title ? item.title : item.contentsTitle}
-                      content={
-                        item.bannerContent ? item.bannerContent : item.content
-                      }
-                      image={item.thumbnail ? item.thumbnail : ''}
-                      size="large"
-                      className="my-2 w-full"
-                    />
+                    <>
+                      <UniversalCard
+                        key={`myContent-list-${item.id}`}
+                        id={item.id}
+                        postType={postType.type}
+                        title={item.title ? item.title : item.contentsTitle}
+                        content={
+                          item.bannerContent ? item.bannerContent : item.content
+                        }
+                        image={item.thumbnail ? item.thumbnail : ''}
+                        size="large"
+                        className="my-2 w-full"
+                      />
+                    </>
                   ))
                 )}
               </>
