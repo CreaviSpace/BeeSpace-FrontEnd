@@ -10,18 +10,18 @@ interface SkillStackInput {
   setTechStackDtos: (
     techStackDtos: { techStack: string; iconUrl?: string }[]
   ) => void;
-  hidden: boolean;
+  hidden?: boolean;
 }
 
 export default function SkillStackInput({
-  hidden,
+  hidden = false,
   techStackDtos,
   setTechStackDtos,
 }: SkillStackInput) {
   const [text, setText] = useState('');
   const [isToggle, setIsToggle] = useState(false);
   const { isLoading, isError, data } = useSkillStackSearch(text);
-  const divRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleTechStackDtosPush = (name: string, icon: string) => {
     if (techStackDtos.some((item) => item.techStack === '')) {
@@ -30,6 +30,7 @@ export default function SkillStackInput({
       setTechStackDtos([{ techStack: name, iconUrl: icon }, ...techStackDtos]);
     }
     setIsToggle(false);
+    inputRef.current?.blur();
   };
 
   const handleTechStackDtosDelete = (index: number) => {
@@ -38,54 +39,50 @@ export default function SkillStackInput({
 
   return (
     <>
-      <h2 className={`${hidden && 'hidden text-bs_20 mb-5 font-bold'}`}>
-        기술 스택
-      </h2>
+      {!hidden && <h2 className={`text-bs_20 mb-5 font-bold`}>기술 스택</h2>}
+
       <input
+        ref={inputRef}
         type="text"
         placeholder={`입력해주세요.`}
         value={text}
         onChange={(e) => {
           setText(e.target.value);
         }}
-        onFocus={() => divRef.current?.focus()}
+        onFocus={() => setIsToggle(true)}
+        onBlur={() => setIsToggle(false)}
         className="w-full h-[3.125rem] px-5 border border-gary10 rounded-bs_5"
       />
 
-      <div
-        ref={divRef}
-        tabIndex={0}
-        onFocus={() => setIsToggle(true)}
-        onBlur={() => setIsToggle(false)}>
-        {isLoading
-          ? '로딩중'
-          : data?.length > 0 &&
-            isToggle && (
-              <ul className="relative rounded-bs_5 overflow-hidden border border-gray10 bg-white z-[10] mt-3">
-                {data?.map((item: ITechStackType, index: number) => {
-                  if (
-                    item.techStack
-                      .toLocaleLowerCase()
-                      .includes(text.toLocaleLowerCase())
-                  ) {
-                    return (
-                      <li
-                        key={`${item.techStack}-${index}`}
-                        className="w-full h-[3.125rem] max-h-[15.625rem] p-[0.625rem] hover:bg-gray10 flex items-center overflow-y-auto cursor-pointer custom-scrollbar"
-                        onClick={() =>
-                          handleTechStackDtosPush(
-                            item.techStack,
-                            item.techStackIcon
-                          )
-                        }>
-                        {item.techStack}
-                      </li>
-                    );
-                  }
-                })}
-              </ul>
-            )}
-      </div>
+      {isLoading
+        ? '로딩중'
+        : data?.length > 0 &&
+          isToggle && (
+            <ul className="relative rounded-bs_5 overflow-hidden border border-gray10 bg-white z-[10] mt-3">
+              {data?.map((item: ITechStackType, index: number) => {
+                if (
+                  item.techStack
+                    .toLocaleLowerCase()
+                    .includes(text.toLocaleLowerCase())
+                ) {
+                  return (
+                    <li
+                      key={`${item.techStack}-${index}`}
+                      className="w-full h-[3.125rem] max-h-[15.625rem] p-[0.625rem] hover:bg-gray10 flex items-center overflow-y-auto cursor-pointer custom-scrollbar"
+                      onClick={() =>
+                        handleTechStackDtosPush(
+                          item.techStack,
+                          item.techStackIcon
+                        )
+                      }
+                      onMouseDown={(e) => e.preventDefault()}>
+                      {item.techStack}
+                    </li>
+                  );
+                }
+              })}
+            </ul>
+          )}
 
       <ul className="flex mt-5 gap-2">
         {techStackDtos?.map((item, index) => (
