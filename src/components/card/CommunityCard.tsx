@@ -6,29 +6,10 @@ import Tag from '@/components/Tag';
 import { ICommunityType } from '@/types/global';
 
 interface CommunityCardProps {
-  // id: number;
-  // type?: string;
-  // title: string;
-  // userName: string;
-  // date: string;
-  // contents: string;
-  // views: number;
-  // comments: number;
   item: ICommunityType;
   className?: string;
 }
-export default function CommunityCard({
-  // id,
-  // type,
-  // title,
-  // userName,
-  // date,
-  // contents,
-  // views,
-  // comments,
-  item,
-  className,
-}: CommunityCardProps) {
+export default function CommunityCard({ item, className }: CommunityCardProps) {
   const onlyDate = item.modifiedDate?.split('T')[0];
 
   return (
@@ -62,7 +43,6 @@ export default function CommunityCard({
             <p>
               조회수 <span>{item.viewCount}</span>
             </p>
-            <p>{/* 댓글 <span>{`0`}</span> */}</p>
           </div>
         </Link>
         <LikeButton
