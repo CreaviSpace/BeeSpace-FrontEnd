@@ -32,7 +32,7 @@ export default function RecruitmentDetail() {
               userName={data.memberNickName}
               className="hidden"
             />
-            <SideButton id={data.id} type={data.postType} />
+            <SideButton id={data.id} type={data.postType} hidden={true} />
             <RecruitDetails
               category={data.category}
               contactWay={data.contactWay}

@@ -33,8 +33,8 @@ const useLoginCheck = () => {
       }
     },
 
-    staleTime: 30000 * 12,
-    gcTime: 30000 * 12,
+    staleTime: 30000 * 10,
+    gcTime: 30000 * 10,
   });
 
   useEffect(() => {

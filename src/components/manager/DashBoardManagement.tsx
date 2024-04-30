@@ -1,22 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import MemoCard from './MemoCard';
 
-const LOCALMEMODATA = 'admin-memo';
-export default function DashBoardManagement() {
-  const [textareaValue, setTextareaValue] = useState('');
-  const [localMemo, setLocalMemo] = useState<{ id: string; text: string }[]>(
-    []
-  );
-  const [isLoading, setIsLoading] = useState(true);
+interface IDashBoardManagementProps {
+  localMemo: { id: string; text: string }[];
+  setLocalMemo: (memo: { id: string; text: string }[]) => void;
+  isLoading: boolean;
+}
 
-  useEffect(() => {
-    const getMemo = localStorage.getItem(LOCALMEMODATA);
-    if (getMemo) {
-      setLocalMemo(JSON.parse(getMemo));
-    }
-    setIsLoading(false);
-  }, []);
+const LOCALMEMODATA = 'admin-memo';
+export default function DashBoardManagement({
+  localMemo,
+  setLocalMemo,
+  isLoading,
+}: IDashBoardManagementProps) {
+  const [textareaValue, setTextareaValue] = useState('');
 
   const handlePostMemo = () => {
     if (textareaValue.trim() !== '') {
@@ -34,9 +32,9 @@ export default function DashBoardManagement() {
     <section className="w-full p-3">
       <div className="p-3 h-full bg-blue10">
         <div className="flex justify-between items-center mb-3">
-          <h3 className="text-bs_20 font-bold">메모</h3>
+          <h3 className="text-bs_20 font-bold px-4">메모</h3>
         </div>
-        <div className="flow-root px-4 py-6">
+        <div className="flow-root px-4 pb-6">
           <textarea
             name="memo"
             id="memo"
