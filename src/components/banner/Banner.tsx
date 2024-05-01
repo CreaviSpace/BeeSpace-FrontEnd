@@ -22,9 +22,9 @@ interface IBannerItem {
   techStacks: {
     techStackId: number;
     techStack: string;
-    iconUrl?: string;
+    iconUrl: string;
   }[];
-  iconUrl: string;
+  end?: string;
 }
 
 export default function Banner({ postType }: IBannerProps) {
@@ -81,8 +81,8 @@ export default function Banner({ postType }: IBannerProps) {
                     title={item.title}
                     content={item.content ? item.content : item.bannerContent}
                     image={item.thumbnail}
-                    date={data[data.length - 1].end}
-                    techStacks={data[data.length - 1].techStacks}
+                    date={item.end}
+                    techStacks={item.techStacks}
                   />
                 </div>
               ))}
