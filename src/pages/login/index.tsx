@@ -16,11 +16,11 @@ export default function Login() {
             `${process.env.BASE_URL}/login?token=${token}`
           );
 
-          if (response.data) {
+          if (response.data && response.status === 200) {
             postCookies({
               jwt: response.data.jwt,
-              memberId: btoa(response.data.memberId),
-              old: response.data.oldUser ? 1 : 0,
+              MID: btoa(response.data.memberId),
+              OLD: response.data.oldUser ? 1 : 0,
             });
 
             if (response.data.oldUser) {

@@ -26,15 +26,15 @@ const useLoginCheck = () => {
       } else if (response.status === 202 && !response.data.success) {
         postCookies({
           jwt: response.data.jwt,
-          memberId: response.data.memberId,
+          MID: response.data.memberId,
         });
       } else {
         setLogout();
       }
     },
 
-    staleTime: 30000 * 10,
-    gcTime: 30000 * 10,
+    staleTime: 30000 * 12,
+    gcTime: 30000 * 12,
   });
 
   useEffect(() => {
@@ -42,9 +42,8 @@ const useLoginCheck = () => {
       () => {
         refetch();
       },
-      1000 * 60 * 55
+      1000 * 60 * 90
     );
-
     return () => clearInterval(timer);
   }, []);
 

@@ -26,7 +26,7 @@ const useLike = (id?: number, postType?: string) => {
       } else if (response.status === 202 && !response.data.success) {
         postCookies({
           jwt: response.data.jwt,
-          memberId: response.data.memberId,
+          MID: response.data.memberId,
         });
       }
     },
@@ -59,7 +59,7 @@ const useLike = (id?: number, postType?: string) => {
         } else if (data.status === 202 && !data.data.success) {
           postCookies({
             jwt: data.data.data.jwt,
-            memberId: data.data.data.memberId,
+            MID: data.data.data.memberId,
           });
         }
       }

@@ -34,7 +34,7 @@ const useAdminContentsDelete = (id: number, category: string) => {
         } else if (data.status === 202 && !data.data.success) {
           postCookies({
             jwt: data.data.data.jwt,
-            memberId: data.data.data.memberId,
+            MID: data.data.data.memberId,
           });
         }
       }

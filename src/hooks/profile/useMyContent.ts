@@ -38,7 +38,7 @@ const useMyContent = (
       } else if (response.status === 202 && !response.data.success) {
         postCookies({
           jwt: response.data.jwt,
-          memberId: response.data.memberId,
+          MID: response.data.memberId,
         });
       }
     },
