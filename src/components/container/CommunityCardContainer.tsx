@@ -33,7 +33,7 @@ export default function CommunityCardContainer({
   category = 'all',
   size,
   hashTag,
-  isActive,
+  isActive = 'default',
   ...restProps
 }: ICommunityCardStyleProps) {
   const [orderby, setOrderby] = useState('');
@@ -108,7 +108,8 @@ export default function CommunityCardContainer({
               </div>
             ));
           })}
-      {hasNextPage && isActive === 'main' ? null : isFetchingNextPage ? (
+
+      {!hasNextPage || isActive === 'main' ? null : isFetchingNextPage ? (
         [1, 2, 3, 4].map((item, index) => (
           <SkeletonCommunityCard key={`${item}-${index}`} />
         ))
