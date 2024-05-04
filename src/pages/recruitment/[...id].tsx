@@ -15,6 +15,7 @@ export default function RecruitmentDetail() {
   const { isLoading, isError, data, isFetching } = useRecruitDetail(
     id as string
   );
+
   return (
     <main className="h-full gap-5 max-w-max_w m-auto py-10 px-16 relative mobile:px-4">
       {isLoading ? (
@@ -30,6 +31,7 @@ export default function RecruitmentDetail() {
               views={data.viewCount}
               title={data.title}
               userName={data.memberNickName}
+              imageURL={data.memberProfile}
               className="hidden"
             />
             <SideButton id={data.id} type={data.postType} hidden={true} />
