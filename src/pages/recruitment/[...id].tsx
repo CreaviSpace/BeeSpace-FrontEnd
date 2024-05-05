@@ -9,18 +9,12 @@ import TechStackList from '@/components/details/recruitment/TechStackList';
 import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import useRecruitDetail from '@/hooks/recruit/useRecruitDetail';
 
-import Custom404 from '../404';
-
 export default function RecruitmentDetail() {
   const router = useRouter();
   const { id } = router.query;
   const { isLoading, isError, data, isFetching } = useRecruitDetail(
     id as string
   );
-
-  if (isError) {
-    return <Custom404 />;
-  }
 
   return (
     <main className="h-full gap-5 max-w-max_w min-h-min_h m-auto py-10 px-16 relative mobile:px-4">
@@ -37,6 +31,7 @@ export default function RecruitmentDetail() {
               views={data.viewCount}
               title={data.title}
               userName={data.memberNickName}
+              imageURL={data.memberProfile}
               className="hidden"
             />
             <SideButton id={data.id} type={data.postType} hidden={true} />
