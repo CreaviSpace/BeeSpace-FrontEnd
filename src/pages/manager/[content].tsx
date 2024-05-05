@@ -118,7 +118,7 @@ export default function Manager() {
                   if (item2) {
                     return (
                       <li
-                        key={`${item2}-${index}`}
+                        key={`${item2.link}-${index}`}
                         className={`${handleNowContentCSS(item2.link)} px-5 py-3 pl-10`}>
                         <Link href={`${item1.link}/?type=${item2.link}`}>
                           {item2.content}
