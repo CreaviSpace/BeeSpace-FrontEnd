@@ -6,9 +6,9 @@ import useSkillStackSearch from '@/hooks/useSkillStackSearch';
 import { ITechStackType } from '@/types/global';
 
 interface SkillStackInput {
-  techStackDtos: { techStack: string; iconUrl?: string }[];
+  techStackDtos: { techStack: string; iconUrl: string }[];
   setTechStackDtos: (
-    techStackDtos: { techStack: string; iconUrl?: string }[]
+    techStackDtos: { techStack: string; iconUrl: string }[]
   ) => void;
   hidden?: boolean;
 }
