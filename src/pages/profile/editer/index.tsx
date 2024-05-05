@@ -11,9 +11,8 @@ import { getCookies } from '@/utils/getCookies';
 
 import SkillStackInput from './../../../components/write/SkillStackInput';
 
-const MID = getCookies('MID', true);
-
 export default function ProfileEdit() {
+  const [MID, setMid] = useState('');
   const { isLoading, data } = useMemberProfileGet(MID);
 
   const [profileUrl, setProfileUrl] = useState<string>('');
@@ -50,7 +49,7 @@ export default function ProfileEdit() {
   const closeButton = () => router.replace(`/profile/${MID}`);
 
   useEffect(() => {
-    if (isLoading === false) {
+    if (!isLoading && data) {
       setPosition([data.memberPosition]);
       setCareer([`${data.memberCareer}년`]);
       setInterestedStack([...data.memberInterestedStack]);
@@ -58,7 +57,11 @@ export default function ProfileEdit() {
       setintroduce(data.memberIntroduce);
       setProfileUrl(data.profileUrl);
     }
-  }, [isLoading, MID]);
+  }, [isLoading]);
+
+  useEffect(() => {
+    setMid(getCookies('MID', true));
+  }, []);
 
   const handlerExpireMember = async () => {
     return await axios.post(`${process.env.BASE_URL}/member/mypage/edit`, {
@@ -88,10 +91,8 @@ export default function ProfileEdit() {
   const { mutate } = useMyProfileEditor(newContent);
 
   return (
-    <main className="py-28">
-      {isLoading ? (
-        <></>
-      ) : (
+    <main className="py-28  min-h-min_h">
+      {isLoading ? null : (
         <section className="w-[600px] mobile:w-full p-6 m-auto flex flex-col items-center">
           <h1 className="sr-only">프로필 수정</h1>
           <ul className="w-full my-8">
