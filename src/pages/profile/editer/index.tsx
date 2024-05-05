@@ -5,11 +5,10 @@ import { SetStateAction, useEffect, useState } from 'react';
 import CustomButton from '@/components/button/CustomButton';
 import SelectButton from '@/components/button/SelectButton';
 import ProjectBanner from '@/components/write/project/ProjectBanner';
+import SkillStackInput from '@/components/write/SkillStackInput';
 import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
 import useMyProfileEditor from '@/hooks/profile/useMyProfileEditor';
 import { getCookies } from '@/utils/getCookies';
-
-import SkillStackInput from './../../../components/write/SkillStackInput';
 
 export default function ProfileEdit() {
   const [MID, setMid] = useState('');
@@ -21,7 +20,7 @@ export default function ProfileEdit() {
   const [position, setPosition] = useState<string[]>(['default']);
   const [career, setCareer] = useState<string[]>(['0년']);
   const [interestedStack, setInterestedStack] = useState<
-    { techStack: string; iconUrl?: string }[]
+    { techStack: string; iconUrl: string }[]
   >([]);
 
   const [jobOption, setJobOption] = useState([
@@ -52,21 +51,31 @@ export default function ProfileEdit() {
     if (!isLoading && data) {
       setPosition([data.memberPosition]);
       setCareer([`${data.memberCareer}년`]);
-      setInterestedStack([...data.memberInterestedStack]);
+      const processedData = data?.memberInterestedStack.map(
+        (item: { techStack: string; techStackIcon: string }) => ({
+          techStack: item.techStack,
+          iconUrl: item.techStackIcon,
+        })
+      );
+      setInterestedStack(processedData);
       setNameValue(data.memberNickname);
       setintroduce(data.memberIntroduce);
       setProfileUrl(data.profileUrl);
     }
-  }, [isLoading]);
+  }, [isLoading, data]);
 
   useEffect(() => {
     setMid(getCookies('MID', true));
   }, []);
 
-  const handlerExpireMember = async () => {
-    return await axios.post(`${process.env.BASE_URL}/member/mypage/edit`, {
-      headers: { Authorization: getCookies('jwt') },
-    });
+  const handlerExpireMember = async (MID: string) => {
+    return await axios.post(
+      `${process.env.BASE_URL}/member/expire`,
+      // { MID },
+      {
+        headers: { Authorization: getCookies('jwt') },
+      }
+    );
   };
 
   const handleNameValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -185,7 +194,9 @@ export default function ProfileEdit() {
           </ul>
           <span className="w-full h-[1px] bg-gray10"></span>
           <div className="w-full flex justify-between my-10">
-            <CustomButton className="py-1 px-3" onClick={handlerExpireMember}>
+            <CustomButton
+              className="py-1 px-3"
+              onClick={() => handlerExpireMember(MID)}>
               회원탈퇴
             </CustomButton>
           </div>

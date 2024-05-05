@@ -6,9 +6,9 @@ import useSkillStackSearch from '@/hooks/useSkillStackSearch';
 import { ITechStackType } from '@/types/global';
 
 interface SkillStackInput {
-  techStackDtos: { techStack: string; iconUrl?: string }[];
+  techStackDtos: { techStack: string; iconUrl: string }[];
   setTechStackDtos: (
-    techStackDtos: { techStack: string; iconUrl?: string }[]
+    techStackDtos: { techStack: string; iconUrl: string }[]
   ) => void;
   hidden?: boolean;
 }
@@ -51,7 +51,7 @@ export default function SkillStackInput({
         }}
         onFocus={() => setIsToggle(true)}
         onBlur={() => setIsToggle(false)}
-        className="w-full h-[3.125rem] px-5 border border-gary10 rounded-bs_5"
+        className={`w-full h-[3.125rem] px-5 border ${hidden ? 'border-gray30' : 'border-gray10'} border-gray30 rounded-bs_5`}
       />
 
       {isLoading

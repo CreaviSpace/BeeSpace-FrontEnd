@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 import { getCookies } from '@/utils/getCookies';
 import { postCookies } from '@/utils/postCookies';
@@ -35,6 +36,7 @@ const useMyProfileEditor = (content: IMyProfileeditorProps) => {
       if (data) {
         if (data.status === 200) {
           queryClient.invalidateQueries({ queryKey: [`MemberProfile`] });
+          toast.success('프로필 수정 성공');
           router.replace(`/profile/${MID}`);
         } else if (data.status === 202 && !data.data.success) {
           postCookies({
@@ -46,6 +48,7 @@ const useMyProfileEditor = (content: IMyProfileeditorProps) => {
     },
     onError: (error) => {
       console.error(error);
+      toast.error('프로필 수정 실패');
     },
   });
 

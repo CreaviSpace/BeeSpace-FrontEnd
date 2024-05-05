@@ -16,10 +16,10 @@ const useAdminContentsDelete = (id: number, category: string) => {
       }
       return await axios.post(
         `${process.env.BASE_URL}/admin/contents/delete`,
-        { id: id, category: category },
+        { id, category },
         {
           headers: {
-            token,
+            Authorization: token,
           },
         }
       );
