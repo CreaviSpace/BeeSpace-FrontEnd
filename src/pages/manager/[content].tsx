@@ -2,17 +2,34 @@ import { AiFillAlert } from '@react-icons/all-files/ai/AiFillAlert';
 import { AiOutlineDashboard } from '@react-icons/all-files/ai/AiOutlineDashboard';
 import { AiOutlineTeam } from '@react-icons/all-files/ai/AiOutlineTeam';
 import { FaList } from '@react-icons/all-files/fa/FaList';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import ContentManagement from '@/components/manager/ContentManagement';
-import DashBoardManagement from '@/components/manager/DashBoardManagement';
-import ReportManagement from '@/components/manager/ReportManagement';
 import SearchBar from '@/components/manager/SearchBar';
-import UserManagement from '@/components/manager/UserManagement';
 import TotalChart from '@/components/TotalChart';
+
+const DashBoardManagement = dynamic(
+  () => import('@/components/manager/DashBoardManagement'),
+  { ssr: false }
+);
+
+const ContentManagement = dynamic(
+  () => import('@/components/manager/ContentManagement'),
+  { ssr: false }
+);
+
+const ReportManagement = dynamic(
+  () => import('@/components/manager/ReportManagement'),
+  { ssr: false }
+);
+
+const UserManagement = dynamic(
+  () => import('@/components/manager/UserManagement'),
+  { ssr: false }
+);
 
 const MENU = [
   {
@@ -84,7 +101,7 @@ export default function Manager() {
 
   return (
     <main>
-      <div className="max-w-max_w m-auto flex border-r border-gray10 relative">
+      <div className="max-w-max_w min-h-min_h m-auto flex border-r border-gray10 relative">
         <button
           className={`hidden absolute top-10  ${isSlide ? 'left-60' : 'left-0'} p-2 rounded-r-md bg-blue20 z-10 cursor-pointer  transition-all mobile:block`}
           onClick={() => {
