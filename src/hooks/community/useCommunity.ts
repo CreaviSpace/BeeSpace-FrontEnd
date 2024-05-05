@@ -17,10 +17,10 @@ const useCommunity = (
     isFetchingNextPage,
   } = useInfiniteQuery({
     enabled: !!category,
-    queryKey: [`community-list-${category}${orderby}`],
+    queryKey: [`community-list-${category}-${orderby}-${size}`],
     queryFn: async ({ pageParam = 0 }) => {
       const response = await axios.get(
-        `${process.env.BASE_URL}/community?size=${size}&page=${pageParam}${category !== 'all' && `&category=${category}`}${hashTag && `&hashTag=${hashTag}`}${orderby && `&sort=${orderby}`}`
+        `${process.env.BASE_URL}/community?size=${size}&page=${pageParam}${category !== 'all' ? `&category=${category}` : ''}${hashTag ? `&hashTag=${hashTag} ` : ''}${orderby ? `&sort=${orderby}` : ''}`
       );
 
       if (response.data.success) {
@@ -29,15 +29,16 @@ const useCommunity = (
     },
     staleTime: 30000 * 12,
     gcTime: 30000 * 12,
-    initialPageParam: 1,
+    initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
+      const nextPage = allPages.length + 1;
       if (!lastPage) {
         return null;
       }
-      const nextPage = allPages.length + 1;
+
       return lastPage?.length === 0 || lastPage?.length < size
         ? undefined
-        : nextPage;
+        : nextPage - 1;
     },
   });
   return {

@@ -13,10 +13,6 @@ const useProject = (category: string, size: number) => {
     enabled: !!category,
     queryKey: [`project-list-${category}`],
     queryFn: async ({ pageParam = 1 }) => {
-      if (!category) {
-        return;
-      }
-
       const response = await axios.get(
         `${process.env.BASE_URL}/project?size=${size}&page=${pageParam}${category !== 'all' ? `&category=${category}` : ''}`
       );

@@ -43,9 +43,9 @@ export default function PopularProject({ postType }: IPopularProjectProps) {
           더 보기
         </Link>
       </div>
-      {isLoading ? (
+      {isLoading || isError ? (
         <SkeletonPopularCard />
-      ) : data?.length === 0 ? null : (
+      ) : data.length === 0 ? null : (
         <div>
           <div
             className={`relative right-full flex justify-between transition-all ${maxConut >= 5 ? 'w-[500%]' : maxConut >= 3 ? 'w-[400%]' : 'w-[300%]'}`}

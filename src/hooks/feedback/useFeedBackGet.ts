@@ -4,12 +4,12 @@ import axios from 'axios';
 import { getCookies } from '@/utils/getCookies';
 import { postCookies } from '@/utils/postCookies';
 
-const useFeedBackGet = (id: number | undefined) => {
+const useFeedBackGet = (id: number | undefined, type: string) => {
   const token = getCookies('jwt');
 
   const { isLoading, isError, data, isFetching } = useQuery({
     enabled: !!id,
-    queryKey: [`feedback-${id}`],
+    queryKey: [`feedback-${id}-${type}`],
     queryFn: async () => {
       if (!token && !id) {
         return null;
@@ -27,7 +27,7 @@ const useFeedBackGet = (id: number | undefined) => {
       } else if (response.status === 202 && !response.data.success) {
         postCookies({
           jwt: response.data.jwt,
-          memberId: response.data.memberId,
+          MID: response.data.memberId,
         });
       }
     },

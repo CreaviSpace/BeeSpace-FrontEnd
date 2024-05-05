@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
@@ -25,11 +26,10 @@ const TextEditor = dynamic(
   { ssr: false }
 );
 
-interface IRecruitmentWriteProps {
-  id: string | undefined;
-}
+export default function RecruitmentWrite() {
+  const router = useRouter();
+  const { id } = router.query;
 
-export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
   const login = useLogin();
   const today = new Date().toString();
   const {
@@ -65,7 +65,9 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
     }),
   };
 
-  const { isLoading, isError, data, isFetching } = useRecruitDetail(id);
+  const { isLoading, isError, data, isFetching } = useRecruitDetail(
+    id as string
+  );
   const { mutate: recruitPost } = useWritePost('recruit', recruitData);
   const { mutate: recrutiUpdate } = useWriteUpdate(
     parseInt(id as string),
@@ -113,7 +115,7 @@ export default function RecruitmentWrite({ id }: IRecruitmentWriteProps) {
   }, [isFetching, id]);
 
   return (
-    <main className="max-w-max_w m-auto p-20 mobile:p-6">
+    <main className="max-w-max_w min-w-min_w min-h-min_h m-auto p-20 mobile:p-6">
       <section>
         <h1 className="text-center text-[2rem] font-bold">
           모집 정보를 입력해주세요

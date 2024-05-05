@@ -15,6 +15,8 @@ import useLogin from '@/store/useLogin';
 import { IUniversalType } from '@/types/global';
 import { getCookies } from '@/utils/getCookies';
 
+import Custom404 from '../404';
+
 const POSTTYPEOTIONS = [
   { type: 'project', name: '프로젝트' },
   { type: 'recruit', name: '모집' },
@@ -78,7 +80,7 @@ export default function Profile() {
     isFetchingNextPage,
   } = useMyContent(
     memberId as string,
-    3,
+    24,
     postType.type,
     sortType.type,
     category.type
@@ -105,8 +107,12 @@ export default function Profile() {
     [isFetchingNextPage]
   );
 
+  if (isError) {
+    return <Custom404 />;
+  }
+
   return (
-    <main className="relative flow-root">
+    <main className="relative flow-root min-h-min_h">
       {profileLoading ? (
         <SkeletonProfile />
       ) : (
@@ -147,7 +153,7 @@ export default function Profile() {
         </div>
         <div className="mt-7 flex flex-col justify-center">
           {contentsLoading ? (
-            [1, 2, 3].map((item, index) => (
+            [1, 2, 3, 4, 5, 6].map((item, index) => (
               <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
             ))
           ) : (
@@ -173,7 +179,7 @@ export default function Profile() {
             </>
           )}
           {isFetchingNextPage ? (
-            [1, 2, 3].map((item, index) => (
+            [1, 2, 3, 4, 5, 6].map((item, index) => (
               <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
             ))
           ) : (

@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import OnoffButton from '@/components/button/OnOffButton';
@@ -7,9 +8,9 @@ import useWritePost from '@/hooks/useWritePost';
 import useWriteUpdate from '@/hooks/useWriteUpdate';
 import useCommunityData from '@/store/useCommunityData';
 
-import CustomButton from '../button/CustomButton';
-import InputTag from './communtiy/InputTag';
-import TitleEditor from './TextEditor/TitleEditor';
+import CustomButton from '../../../components/button/CustomButton';
+import InputTag from '../../../components/write/communtiy/InputTag';
+import TitleEditor from '../../../components/write/TextEditor/TitleEditor';
 
 const TextEditor = dynamic(
   () =>
@@ -19,18 +20,16 @@ const TextEditor = dynamic(
   { ssr: false }
 );
 
-interface ICommunityWriteProps {
-  id: string | undefined;
-}
-
 const COMMNUITYLIST = [
   { key: 'QNA', name: 'QnA' },
   { key: 'CHAT', name: '수다' },
   { key: 'CONCERN', name: '고민' },
 ];
 
-export default function CommunityWrite({ id }: ICommunityWriteProps) {
+export default function CommunityWrite() {
   const { category, title, content, hashTags, setter } = useCommunityData();
+  const router = useRouter();
+  const { id } = router.query;
 
   const communityData = {
     category,
@@ -39,7 +38,9 @@ export default function CommunityWrite({ id }: ICommunityWriteProps) {
     hashTags,
   };
 
-  const { isLoading, isError, data, isFetching } = useCommunityDetail(id);
+  const { isLoading, isError, data, isFetching } = useCommunityDetail(
+    id as string
+  );
   const { mutate: communityPost } = useWritePost('community', communityData);
   const { mutate: communityUpdate } = useWriteUpdate(
     parseInt(id as string),
@@ -67,7 +68,7 @@ export default function CommunityWrite({ id }: ICommunityWriteProps) {
 
   return (
     <main>
-      <section className="max-w-max_w m-auto p-20 p-20 mobile:p-6">
+      <section className="max-w-max_w min-w-min_w min-h-min_h m-auto p-20 mobile:p-6">
         <h1 className="text-center text-[2rem] font-bold">
           자유롭게 글을 작성해주세요
         </h1>

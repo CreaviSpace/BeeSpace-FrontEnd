@@ -79,7 +79,7 @@ export default function Search() {
   );
 
   return (
-    <main>
+    <main className="min-h-min_h">
       <Category category={CATEGORIES} searchValue={searchValue} />
       <div className="grid grid-cols-5 max-w-max_w m-auto py-10 tablet:grid-cols-4 mobile:grid-cols-4 tablet:px-8 mobile:px-6">
         <aside className="col-span-1 tablet:hidden mobile:hidden">

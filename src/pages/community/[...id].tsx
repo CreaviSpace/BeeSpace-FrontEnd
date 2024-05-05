@@ -8,6 +8,8 @@ import Tag from '@/components/Tag';
 import useCommunityDetail from '@/hooks/community/useCommunityDetail';
 import { parseValue } from '@/utils/parseValue';
 
+import Custom404 from '../404';
+
 interface IhashTagsItem {
   hashTagId: number;
   hashTag: string;
@@ -21,8 +23,12 @@ export default function CommunityDetail() {
     id as string
   );
 
+  if (isError) {
+    return <Custom404 />;
+  }
+
   return (
-    <main className="max-w-max_w m-auto p-16 relative mb-5 tablet:px-8 mobile:px-6">
+    <main className="max-w-max_w min-h-min_h m-auto p-16 relative mb-5 tablet:px-8 mobile:px-6">
       {isLoading ? (
         <SkeletonDetail />
       ) : (

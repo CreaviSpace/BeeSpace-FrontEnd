@@ -46,7 +46,7 @@ export default function Banner({ postType }: IBannerProps) {
 
   return (
     <div className="overflow-hidden">
-      {isLoading ? (
+      {isLoading || isError ? (
         <SkeletonBanner />
       ) : (
         data?.length > 0 && (

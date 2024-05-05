@@ -17,7 +17,7 @@ export default function RecruitmentDetail() {
   );
 
   return (
-    <main className="h-full gap-5 max-w-max_w m-auto py-10 px-16 relative mobile:px-4">
+    <main className="h-full gap-5 max-w-max_w min-h-min_h m-auto py-10 px-16 relative mobile:px-4">
       {isLoading ? (
         <SkeletonDetail />
       ) : (

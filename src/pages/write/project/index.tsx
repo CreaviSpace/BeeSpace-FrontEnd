@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
@@ -8,12 +9,12 @@ import useWritePost from '@/hooks/useWritePost';
 import useWriteUpdate from '@/hooks/useWriteUpdate';
 import useProjectData from '@/store/useProjectData';
 
-import InputTag from './communtiy/InputTag';
-import DistributionLink from './project/DistributionLink';
-import MemberList from './project/MemberList';
-import ProjectBanner from './project/ProjectBanner';
-import SkillStackInput from './SkillStackInput';
-import TitleEditor from './TextEditor/TitleEditor';
+import InputTag from '../../../components/write/communtiy/InputTag';
+import DistributionLink from '../../../components/write/project/DistributionLink';
+import MemberList from '../../../components/write/project/MemberList';
+import ProjectBanner from '../../../components/write/project/ProjectBanner';
+import SkillStackInput from '../../../components/write/SkillStackInput';
+import TitleEditor from '../../../components/write/TextEditor/TitleEditor';
 
 const TextEditor = dynamic(
   () =>
@@ -23,16 +24,15 @@ const TextEditor = dynamic(
   { ssr: false }
 );
 
-interface IProjectWriteProps {
-  id: string | undefined;
-}
-
 const COMMNUITYLIST = [
   { key: 'INDIVIDUAL', name: '개인 프로젝트' },
   { key: 'TEAM', name: '팀 프로젝트' },
 ];
 
-export default function ProjectWrite({ id }: IProjectWriteProps) {
+export default function ProjectWrite() {
+  const router = useRouter();
+  const { id } = router.query;
+
   const {
     category,
     title,
@@ -61,7 +61,9 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
     bannerContent,
   };
 
-  const { isLoading, isError, data, isFetching } = useProjectDetail(id);
+  const { isLoading, isError, data, isFetching } = useProjectDetail(
+    id as string
+  );
   const { mutate: projectPost } = useWritePost('project', projectData);
   const { mutate: projectUpdate } = useWriteUpdate(
     parseInt(id as string),
@@ -112,7 +114,7 @@ export default function ProjectWrite({ id }: IProjectWriteProps) {
   };
 
   return (
-    <main className="max-w-max_w min-w-min_w m-auto p-20 mobile:p-6">
+    <main className="max-w-max_w min-w-min_w min-h-min_h m-auto p-20 mobile:p-6">
       <section className="border-b border-gray20">
         <h1 className="text-center text-[2rem] font-bold">
           프로젝트<span className="mobile:hidden">를 소개해주세요</span>
