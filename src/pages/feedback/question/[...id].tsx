@@ -9,16 +9,21 @@ import QuestionBox from '@/components/feedback/QuestionBox';
 import useFeedBackGet from '@/hooks/feedback/useFeedBackGet';
 import useFeedBackPost from '@/hooks/feedback/useFeedBackPost';
 import useFeedBackPut from '@/hooks/feedback/useFeedBackPut';
+import useProjectDetail from '@/hooks/project/useProjectDetail';
+import Custom404 from '@/pages/404';
 import useQuestionsData from '@/store/feedback/useQuestionsData';
 
 export default function Feedback() {
   const router = useRouter();
-  const { id, update } = router.query;
+  const { id } = router.query;
 
   const { questions, setQuestions, init } = useQuestionsData();
 
+  const { isError: isErrorProject } = useProjectDetail(id as string);
+
   const { isLoading, isError, data, isFetching } = useFeedBackGet(
-    parseInt(id as string)
+    parseInt(id as string),
+    'question'
   );
 
   const { mutate: feedBackPost } = useFeedBackPost(
@@ -33,26 +38,26 @@ export default function Feedback() {
   );
 
   useEffect(() => {
-    if (!isLoading && (update as string) === 't' && data) {
+    if (!isLoading && data && data.length > 0) {
       const newQuestions = [...data];
       newQuestions.map((question, index) => {
         const newChoiceItem: string[] = [];
-        question.choiceItems.map((choiceItem: { id: number; item: string }) => {
-          newChoiceItem.push(choiceItem.item);
-        });
-        newQuestions[index].choiceItems = newChoiceItem;
+        if (question.choiceItems.length > 0) {
+          question.choiceItems.map(
+            (choiceItem: { id: number; item: string } | string) => {
+              if (typeof choiceItem === 'object' && choiceItem.item) {
+                newChoiceItem.push(choiceItem.item);
+              } else if (typeof choiceItem === 'string') {
+                newChoiceItem.push(choiceItem);
+              }
+            }
+          );
+          newQuestions[index].choiceItems = newChoiceItem;
+        }
       });
       setQuestions(newQuestions);
     } else {
       init();
-    }
-  }, [isLoading, id]);
-
-  useEffect(() => {
-    if (!isLoading) {
-      if (data?.length > 0) {
-        router.replace(`/feedback/question/${id}?update=t`);
-      }
     }
   }, [isLoading]);
 
@@ -68,16 +73,20 @@ export default function Feedback() {
   };
 
   const handleQuestionSave = () => {
-    if (update && update[0] !== 't') {
-      feedBackPost();
-    } else {
+    if (data) {
       feedBackPut();
+    } else {
+      feedBackPost();
     }
   };
 
   const handleCancel = () => {
     router.back();
   };
+
+  if (isError || isErrorProject) {
+    return <Custom404 />;
+  }
 
   return (
     <main className="bg-blue10 py-10 w-full h-full min-h-[calc(100vh-4rem-250px)]">

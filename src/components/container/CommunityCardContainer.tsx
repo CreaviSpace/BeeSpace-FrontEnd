@@ -94,8 +94,8 @@ export default function CommunityCardContainer({
           </li>
         ))}
       </ul>
-      {isLoading
-        ? [1, 2, 3, 4, 5, 6].map((item, index) => (
+      {isLoading || isError
+        ? [1, 2, 3, 4].map((item, index) => (
             <SkeletonCommunityCard key={`${item}-${index}`} />
           ))
         : data?.pages.map((pages: ICommunityType[]) => {

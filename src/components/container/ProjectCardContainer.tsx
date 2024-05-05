@@ -48,7 +48,7 @@ export default function ProjectCardContainer({
   return (
     <div className="max-w-max_w w-full">
       <div className="grid grid-cols-4 gap-y-6 gap-x-3 tablet:grid-cols-2 mobile:grid-cols-1">
-        {isLoading
+        {isLoading || isError
           ? [1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => (
               <SkeletonProjectCard key={index} />
             ))
