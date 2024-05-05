@@ -51,7 +51,7 @@ export default function SkillStackInput({
         }}
         onFocus={() => setIsToggle(true)}
         onBlur={() => setIsToggle(false)}
-        className="w-full h-[3.125rem] px-5 border border-gary10 rounded-bs_5"
+        className={`w-full h-[3.125rem] px-5 border ${hidden ? 'border-gray30' : 'border-gray10'} border-gray30 rounded-bs_5`}
       />
 
       {isLoading
