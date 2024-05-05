@@ -114,7 +114,7 @@ export default function ProjectWrite() {
   };
 
   return (
-    <main className="max-w-max_w min-w-min_w m-auto p-20 mobile:p-6">
+    <main className="max-w-max_w min-w-min_w min-h-min_h m-auto p-20 mobile:p-6">
       <section className="border-b border-gray20">
         <h1 className="text-center text-[2rem] font-bold">
           프로젝트<span className="mobile:hidden">를 소개해주세요</span>

@@ -16,7 +16,7 @@ export default function Recruitment() {
   const { type } = router.query;
 
   return (
-    <main>
+    <main className="min-h-min_h">
       <section>
         <Banner postType="recruitment" />
       </section>

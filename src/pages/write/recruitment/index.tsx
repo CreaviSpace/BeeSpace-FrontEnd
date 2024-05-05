@@ -115,7 +115,7 @@ export default function RecruitmentWrite() {
   }, [isFetching, id]);
 
   return (
-    <main className="max-w-max_w m-auto p-20 mobile:p-6">
+    <main className="max-w-max_w min-w-min_w min-h-min_h m-auto p-20 mobile:p-6">
       <section>
         <h1 className="text-center text-[2rem] font-bold">
           모집 정보를 입력해주세요

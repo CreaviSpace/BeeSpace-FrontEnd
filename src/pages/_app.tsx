@@ -61,7 +61,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ChakraProvider>
-        <div className="relative h-full min-w-min_w">
+        <div className="relative min-h-min_h min-w-min_w">
           <Header />
           <ReportModal />
           <LogInModal />

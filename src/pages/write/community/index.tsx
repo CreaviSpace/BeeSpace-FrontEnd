@@ -68,7 +68,7 @@ export default function CommunityWrite() {
 
   return (
     <main>
-      <section className="max-w-max_w m-auto p-20 p-20 mobile:p-6">
+      <section className="max-w-max_w min-w-min_w min-h-min_h m-auto p-20 mobile:p-6">
         <h1 className="text-center text-[2rem] font-bold">
           자유롭게 글을 작성해주세요
         </h1>

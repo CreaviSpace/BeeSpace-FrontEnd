@@ -22,7 +22,7 @@ export default function Project() {
   const { type } = router.query;
 
   return (
-    <main>
+    <main className="min-h-min_h">
       <h1 className="sr-only">프로젝트 페이지</h1>
       <section>
         <Banner postType="project" />
