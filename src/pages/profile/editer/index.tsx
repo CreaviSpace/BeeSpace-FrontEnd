@@ -62,7 +62,7 @@ export default function ProfileEdit() {
       setintroduce(data.memberIntroduce);
       setProfileUrl(data.profileUrl);
     }
-  }, [isLoading]);
+  }, [isLoading, data]);
 
   useEffect(() => {
     setMid(getCookies('MID', true));
