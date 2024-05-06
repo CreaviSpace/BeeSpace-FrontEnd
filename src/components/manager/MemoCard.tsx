@@ -62,7 +62,7 @@ export default function MemoCard({ content, setLocalMemo }: IMemoCardProps) {
               <IoCloseOutline
                 size={25}
                 onClick={() => handleDeleteMemo(index)}
-                className="float-right"
+                className="float-right cursor-pointer"
               />
               <p className="mt-6 w-full border-gray30 p-3">{item.text}</p>
               <button
