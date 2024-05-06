@@ -20,7 +20,7 @@ export default function ProfileEdit() {
   const [position, setPosition] = useState<string[]>(['default']);
   const [career, setCareer] = useState<string[]>(['0년']);
   const [interestedStack, setInterestedStack] = useState<
-    { techStack: string; iconUrl: string }[]
+    { techStack: string; iconUrl?: string }[]
   >([]);
 
   const [jobOption, setJobOption] = useState([
