@@ -35,7 +35,7 @@ const useMyProfileEditor = (content: IMyProfileeditorProps) => {
     onSuccess: (data) => {
       if (data) {
         if (data.status === 200) {
-          queryClient.invalidateQueries({ queryKey: [`MemberProfile`] });
+          queryClient.invalidateQueries({ queryKey: [`MemberProfile-${MID}`] });
           toast.success('프로필 수정 성공');
           router.replace(`/profile/${MID}`);
         } else if (data.status === 202 && !data.data.success) {
