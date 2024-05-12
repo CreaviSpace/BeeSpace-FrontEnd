@@ -53,7 +53,7 @@ const MENU = [
     link: 'user',
     icon: AiOutlineTeam({}),
     contents: [
-      { content: '사용자 관리', link: 'manage' },
+      { content: '사용자 관리', link: 'member' },
       // { content: '로그인 이력 관리', link: 'login' },
     ],
   },
@@ -96,7 +96,7 @@ export default function Manager() {
   };
 
   const handleGoHome = () => {
-    router.push('/');
+    router.replace('/');
   };
 
   return (
@@ -158,12 +158,12 @@ export default function Manager() {
             </button>
           </div>
           <div className="flex mobile:flex-col">
-            <section className="w-3/5 h-96 p-3 mobile:w-full ">
+            <section className="w-3/5 h-[30rem] p-3 mobile:w-full ">
               <div className="bg-blue10 w-full h-full p-3">
-                <TotalChart />
+                <TotalChart category={type as string} />
               </div>
             </section>
-            <section className="w-2/5 h-96 p-3 mobile:w-full">
+            <section className="w-2/5 h-[30rem] p-3 mobile:w-full">
               <div className="bg-blue10 w-full h-full p-3">
                 <h3 className="text-bs_20 font-bold mb-2">메모장</h3>
                 <ul>

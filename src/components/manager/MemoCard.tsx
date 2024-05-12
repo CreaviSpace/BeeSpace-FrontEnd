@@ -36,7 +36,7 @@ export default function MemoCard({ content, setLocalMemo }: IMemoCardProps) {
   return (
     <div>
       {content.map((item, index) => (
-        <>
+        <div key={index}>
           {item.id === click ? (
             <div className="flow-root mt-4 p-4">
               <textarea
@@ -74,7 +74,7 @@ export default function MemoCard({ content, setLocalMemo }: IMemoCardProps) {
               </button>
             </div>
           )}
-        </>
+        </div>
       ))}
     </div>
   );
