@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 import SelectButton from '@/components/button/SelectButton';
 import useMemberSearch from '@/hooks/useMemberSearch';
-import debounce from '@/utils/debounce';
 import { parseEnum } from '@/utils/parseEnum';
 import { parseValue } from '@/utils/parseValue';
 
@@ -133,14 +132,14 @@ export default function MemberList({
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 const newMemberId = memberId;
                 memberId[index] = e.target.value;
-                // setMemberId([...newMemberId]);
-                debounce(() => setMemberId([...newMemberId]), 1000);
+                setMemberId([...newMemberId]);
+                // debounce(() => setMemberId([...newMemberId]), 1000);
               }}
               maxLength={8}
               onFocus={() => {
                 setCurrentIndex(index);
-                // setIsToggle(true);
-                debounce(() => setIsToggle(true), 1000);
+                setIsToggle(true);
+                // debounce(() => setIsToggle(true), 1000);
               }}
               onBlur={() => {
                 setIsToggle(false);
