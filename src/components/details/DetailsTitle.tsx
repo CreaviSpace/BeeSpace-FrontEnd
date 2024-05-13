@@ -45,7 +45,7 @@ export default function DetailsTitle({
     setTitle,
     setHandlerFunction,
   } = useReconfirmModal();
-  const { mutate } = useWriteDelete(id, type);
+  const { mutate: writeDeleteMutate } = useWriteDelete(id, type);
 
   const { isLoading, isError, data, isFetching } = useLikeView(
     id,
@@ -56,7 +56,7 @@ export default function DetailsTitle({
 
   const handleDelete = () => {
     setTitle(`${parseValue(type.toUpperCase())}을 삭제하시겠습니다.`);
-    setHandlerFunction(() => mutate());
+    setHandlerFunction(() => writeDeleteMutate());
     reconfirmOpen();
   };
 
@@ -93,22 +93,25 @@ export default function DetailsTitle({
       </div>
       <span className="w-full border border-gray10 block" />
 
-      {login && MID === memberId && (
-        <div className="text-bs_14 flex justify-end w-full px-4 py-2">
-          <Link
-            href={`/write/${type.toLowerCase() === 'recruit' ? 'recruitment' : type}?id=${id}`}>
-            <button>수정</button>
-          </Link>
-          <span className="mx-2" aria-hidden>
-            &#124;
-          </span>
-          <button onClick={handleDelete}>삭제</button>
-          <span className="mx-2" aria-hidden>
-            &#124;
-          </span>
-          <button onClick={handleReport}>신고</button>
-        </div>
-      )}
+      <div className="text-bs_14 flex justify-end w-full px-4 py-2">
+        {login && MID === memberId && (
+          <>
+            <Link
+              href={`/write/${type.toLowerCase() === 'recruit' ? 'recruitment' : type}?id=${id}`}>
+              <button>수정</button>
+            </Link>
+
+            <span className="mx-2" aria-hidden>
+              &#124;
+            </span>
+            <button onClick={handleDelete}>삭제</button>
+            <span className="mx-2" aria-hidden>
+              &#124;
+            </span>
+          </>
+        )}
+        <button onClick={handleReport}>신고</button>
+      </div>
     </div>
   );
 }
