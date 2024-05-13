@@ -52,9 +52,9 @@ export default function ProfileEdit() {
       setPosition([data.memberPosition]);
       setCareer([`${data.memberCareer}년`]);
       const processedData = data?.memberInterestedStack.map(
-        (item: { techStack: string; techStackIcon: string }) => ({
+        (item: { techStack: string; iconUrl: string }) => ({
           techStack: item.techStack,
-          iconUrl: item.techStackIcon,
+          iconUrl: item.iconUrl,
         })
       );
       setInterestedStack(processedData);
@@ -68,14 +68,17 @@ export default function ProfileEdit() {
     setMid(getCookies('MID', true));
   }, []);
 
-  const handlerExpireMember = async (MID: string) => {
-    return await axios.post(
-      `${process.env.BASE_URL}/member/expire`,
-      // { MID },
-      {
-        headers: { Authorization: getCookies('jwt') },
-      }
-    );
+  const handlerExpireMember = async () => {
+    try {
+      await axios.post(
+        `${process.env.BASE_URL}/member/expire?jwt=${getCookies('jwt')}`,
+        {
+          headers: { Authorization: getCookies('jwt') },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleNameValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -194,9 +197,7 @@ export default function ProfileEdit() {
           </ul>
           <span className="w-full h-[1px] bg-gray10"></span>
           <div className="w-full flex justify-between my-10">
-            <CustomButton
-              className="py-1 px-3"
-              onClick={() => handlerExpireMember(MID)}>
+            <CustomButton className="py-1 px-3" onClick={handlerExpireMember}>
               회원탈퇴
             </CustomButton>
           </div>

@@ -140,7 +140,7 @@ export interface ICommentContainerTypes {
 
 export interface ITechStackType {
   techStack: string;
-  techStackIcon: string;
+  iconUrl: string;
 }
 
 export interface IPositionsType {

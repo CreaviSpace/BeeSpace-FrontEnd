@@ -87,14 +87,17 @@ export default function RecruitmentWrite() {
       setter.setEnd(data.end);
       setter.setPositions(data.positions);
       if (data.techStacks && data.techStacks.length > 0) {
-        const teachStacks: { techStack: string }[] = [];
+        const teachStacks: { techStack: string; iconUrl: string }[] = [];
         data.techStacks.map(
           (item: {
             techStackId: number;
             techStack: string;
             iconUrl: string;
           }) => {
-            teachStacks.push({ techStack: item.techStack });
+            teachStacks.push({
+              techStack: item.techStack,
+              iconUrl: item.iconUrl,
+            });
           }
         );
         setter.setTechStacks(teachStacks);
