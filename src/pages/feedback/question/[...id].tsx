@@ -34,7 +34,8 @@ export default function Feedback() {
 
   const { mutate: feedBackPut } = useFeedBackPut(
     parseInt(id as string),
-    questions
+    questions,
+    'question'
   );
 
   useEffect(() => {
