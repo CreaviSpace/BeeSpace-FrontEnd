@@ -46,8 +46,8 @@ const useCommentGetPost = (id: number, type: string, content: string) => {
           queryClient.invalidateQueries({ queryKey: [`comment-${id}`] });
         } else if (data.status === 202 && !data.data.success) {
           postCookies({
-            jwt: data.data.data.jwt,
-            MID: data.data.data.memberId,
+            jwt: data.data.jwt,
+            MID: data.data.memberId,
           });
         }
       }

@@ -58,8 +58,8 @@ const useLike = (id?: number, postType?: string) => {
           queryClient.invalidateQueries({ queryKey: [`like-view-${id}`] });
         } else if (data.status === 202 && !data.data.success) {
           postCookies({
-            jwt: data.data.data.jwt,
-            MID: data.data.data.memberId,
+            jwt: data.data.jwt,
+            MID: data.data.memberId,
           });
         }
       }

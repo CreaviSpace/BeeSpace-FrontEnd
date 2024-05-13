@@ -30,8 +30,8 @@ const useCommentPutDelete = (
       if (data) {
         if (data.status === 202 && !data.data.success) {
           postCookies({
-            jwt: data.data.data.jwt,
-            MID: data.data.data.memberId,
+            jwt: data.data.jwt,
+            MID: data.data.memberId,
           });
         }
       }
@@ -61,8 +61,8 @@ const useCommentPutDelete = (
           queryClient.invalidateQueries({ queryKey: [`comment-${postid}`] });
         } else if (data.status === 202 && !data.data.success) {
           postCookies({
-            jwt: data.data.data.jwt,
-            MID: data.data.data.memberId,
+            jwt: data.data.jwt,
+            MID: data.data.memberId,
           });
         }
       }
