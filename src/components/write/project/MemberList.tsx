@@ -105,6 +105,7 @@ export default function MemberList({
         }
         index={0}
         className="px-4 py-2 bg-primary rounded-bs_5 font-bold appearance-none max-w-24"
+        hidden={false}
       />
 
       {selectPosition.map((_, index) => (
@@ -117,6 +118,7 @@ export default function MemberList({
               setSelectPosition as (personnel: (string | number)[]) => void
             }
             index={index}
+            hidden={false}
           />
           <div className="h-[3.125rem] w-1/2 min_mobile:w-full">
             <label htmlFor="memberId" className="sr-only">
