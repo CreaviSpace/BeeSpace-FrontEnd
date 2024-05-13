@@ -72,27 +72,27 @@ export default function CommunityCardContainer({
     },
     [isFetchingNextPage]
   );
-
   return (
     <div
       className={`grid ${isActive === 'main' ? GRIDCOLUMNS.main : GRIDCOLUMNS.default} w-full mobile:grid-cols-1`}
       {...restProps}>
       <ul
         className={`${isActive === 'main' ? 'hidden' : 'flex gap-3 mt-5 mb-1'}`}>
-        {ORDERBY.map((item, index) => (
-          <li key={index} className="flex items-center justify-between ">
-            {activeIndex === index ? (
-              <span className="mr-1 block w-1 h-1 rounded-md bg-green-400"></span>
-            ) : (
-              <span className="mr-1 block w-1 h-1"></span>
-            )}
-            <button
-              className="text-bs_14"
-              onClick={() => handleOrderButtonClike(item.link, index)}>
-              {item.name}
-            </button>
-          </li>
-        ))}
+        {data?.pages[0] !== undefined &&
+          ORDERBY.map((item, index) => (
+            <li key={index} className="flex items-center justify-between ">
+              {activeIndex === index ? (
+                <span className="mr-1 block w-1 h-1 rounded-md bg-green-400"></span>
+              ) : (
+                <span className="mr-1 block w-1 h-1"></span>
+              )}
+              <button
+                className="text-bs_14"
+                onClick={() => handleOrderButtonClike(item.link, index)}>
+                {item.name}
+              </button>
+            </li>
+          ))}
       </ul>
       {isLoading || isError
         ? [1, 2, 3, 4].map((item, index) => (
