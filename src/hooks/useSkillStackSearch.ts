@@ -2,8 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import { ITechStackType } from '@/types/global';
-import { getCookies } from '@/utils/getCookies';
-import { postCookies } from '@/utils/postCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
+import { postCookies } from '@/utils/cookie/postCookies';
 
 const useSkillStackSearch = (text: string) => {
   const [isLoading, setIsLoading] = useState(true);

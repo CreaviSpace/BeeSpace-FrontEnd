@@ -8,7 +8,7 @@ import ProjectBanner from '@/components/write/project/ProjectBanner';
 import SkillStackInput from '@/components/write/SkillStackInput';
 import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
 import useMyProfileEditor from '@/hooks/profile/useMyProfileEditor';
-import { getCookies } from '@/utils/getCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
 
 export default function ProfileEdit() {
   const [MID, setMid] = useState('');

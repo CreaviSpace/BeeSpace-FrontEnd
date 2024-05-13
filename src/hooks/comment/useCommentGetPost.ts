@@ -2,8 +2,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
 import useLoginModal from '@/store/modal/useLoginModal';
-import { getCookies } from '@/utils/getCookies';
-import { postCookies } from '@/utils/postCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
+import { postCookies } from '@/utils/cookie/postCookies';
 
 const useCommentGetPost = (id: number, type: string, content: string) => {
   const token = getCookies('jwt');

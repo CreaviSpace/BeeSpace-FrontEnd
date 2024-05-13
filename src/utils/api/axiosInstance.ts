@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getCookies } from '../getCookies';
+import { getCookies } from '../cookie/getCookies';
 
 export const axiosInstance = axios.create({
   baseURL: process.env.BASE_URL,

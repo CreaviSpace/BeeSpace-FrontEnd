@@ -8,7 +8,7 @@ import useWriteDelete from '@/hooks/useWriteDelete';
 import useReconfirmModal from '@/store/modal/useReconfirmModal';
 import useReportModal from '@/store/modal/useReportModal';
 import useLogin from '@/store/useLogin';
-import { getCookies } from '@/utils/getCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
 import { parseValue } from '@/utils/parseValue';
 
 interface IDetailsTitleProps {

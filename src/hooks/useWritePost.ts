@@ -5,8 +5,8 @@ import { toast } from 'react-toastify';
 
 import useLoginModal from '@/store/modal/useLoginModal';
 import { ICommunityBody, IProjectBody, IRecruitBody } from '@/types/global';
-import { getCookies } from '@/utils/getCookies';
-import { postCookies } from '@/utils/postCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
+import { postCookies } from '@/utils/cookie/postCookies';
 import queryClient from '@/utils/queryClien';
 
 const useWritePost = (

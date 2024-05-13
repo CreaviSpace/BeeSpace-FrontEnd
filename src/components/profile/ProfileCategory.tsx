@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { getCookies } from '@/utils/getCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
 
 interface IProfileCategoryProps {
   category: { name: string; type: string }[];

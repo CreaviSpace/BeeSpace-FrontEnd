@@ -13,7 +13,7 @@ import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
 import useMyContent from '@/hooks/profile/useMyContent';
 import useLogin from '@/store/useLogin';
 import { IUniversalType } from '@/types/global';
-import { getCookies } from '@/utils/getCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
 
 import Custom404 from '../404';
 

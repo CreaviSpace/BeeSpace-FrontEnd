@@ -3,8 +3,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 import useLoginModal from '@/store/modal/useLoginModal';
-import { getCookies } from '@/utils/getCookies';
-import { postCookies } from '@/utils/postCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
+import { postCookies } from '@/utils/cookie/postCookies';
 
 const useLike = (id?: number, postType?: string) => {
   const { onOpen } = useLoginModal();

@@ -10,7 +10,7 @@ import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import Tag from '@/components/Tag';
 import useProjectDetail from '@/hooks/project/useProjectDetail';
 import useLogin from '@/store/useLogin';
-import { getCookies } from '@/utils/getCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
 import { parseValue } from '@/utils/parseValue';
 
 import Custom404 from '../404';

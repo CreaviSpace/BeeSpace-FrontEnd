@@ -3,8 +3,8 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
-import { getCookies } from '@/utils/getCookies';
-import { postCookies } from '@/utils/postCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
+import { postCookies } from '@/utils/cookie/postCookies';
 
 interface IMyProfileeditorProps {
   nickName: string;

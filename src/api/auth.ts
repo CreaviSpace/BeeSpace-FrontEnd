@@ -1,5 +1,5 @@
 import { axiosInstance } from '@/utils/api/axiosInstance';
-import { postCookies } from '@/utils/postCookies';
+import { postCookies } from '@/utils/cookie/postCookies';
 
 const getLogin = async (token: string | null) => {
   const response = await axiosInstance.get(`/login?token=${token}`);

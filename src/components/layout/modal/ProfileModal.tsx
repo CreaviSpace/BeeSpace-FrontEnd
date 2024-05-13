@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 
 import useLogin from '@/store/useLogin';
-import { deleteCookie } from '@/utils/deleteCookie';
+import { deleteCookie } from '@/utils/cookie/deleteCookie';
 
 interface IProfileModalProps {
   handleWriteModalOpen: () => void;

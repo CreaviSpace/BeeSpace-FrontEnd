@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
 import { IAnswerType, IQuestionType } from '@/types/global';
-import { getCookies } from '@/utils/getCookies';
-import { postCookies } from '@/utils/postCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
+import { postCookies } from '@/utils/cookie/postCookies';
 
 const useFeedBackPost = (
   id: number,

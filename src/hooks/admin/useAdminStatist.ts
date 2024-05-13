@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { getCookies } from '@/utils/getCookies';
-import { postCookies } from '@/utils/postCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
+import { postCookies } from '@/utils/cookie/postCookies';
 
 const useAdminStatist = (date: string, category: string) => {
   const token = getCookies('jwt');

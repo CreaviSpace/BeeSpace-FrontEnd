@@ -7,7 +7,7 @@ import useAlarmCount from '@/hooks/alarm/useAlarmCount';
 import useLoginCheck from '@/hooks/login/useLoginCheck';
 import useLoginModal from '@/store/modal/useLoginModal';
 import useLogin from '@/store/useLogin';
-import { getCookies } from '@/utils/getCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
 
 import SkeletonUserImage from '../skeleton/SkeletonUserImage';
 import AlarmModal from './modal/AlarmModal';

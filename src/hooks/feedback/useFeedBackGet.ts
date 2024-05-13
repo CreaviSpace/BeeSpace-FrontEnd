@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { getCookies } from '@/utils/getCookies';
-import { postCookies } from '@/utils/postCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
+import { postCookies } from '@/utils/cookie/postCookies';
 
 const useFeedBackGet = (id: number | undefined, type: string) => {
   const token = getCookies('jwt');
