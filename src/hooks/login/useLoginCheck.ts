@@ -1,10 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { useEffect } from 'react';
 
 import useLogin from '@/store/useLogin';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 import { getCookies } from '@/utils/getCookies';
-import { postCookies } from '@/utils/postCookies';
 
 const useLoginCheck = () => {
   const { setLogin, setLogout } = useLogin();
@@ -15,37 +13,21 @@ const useLoginCheck = () => {
     enabled: !!MID && !!token,
     queryKey: [`MemberProfile`],
     queryFn: async () => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/member/read/profile?member-id=${MID}`,
-        { headers: { Authorization: token } }
+      const response = await axiosInstance.get(
+        `/member/read/profile?member-id=${MID}`
       );
 
       if (response.status === 200) {
         setLogin();
         return response.data;
-      } else if (response.status === 202 && !response.data.success) {
-        postCookies({
-          jwt: response.data.jwt,
-          MID: response.data.memberId,
-        });
-      } else {
-        setLogout();
       }
     },
 
-    staleTime: 30000 * 12,
-    gcTime: 30000 * 12,
+    // staleTime: 30000 * 12,
+    // gcTime: 30000 * 12,
+    staleTime: 1000 * 55,
+    gcTime: 1000 * 55,
   });
-
-  useEffect(() => {
-    const timer = setInterval(
-      () => {
-        refetch();
-      },
-      1000 * 60 * 90
-    );
-    return () => clearInterval(timer);
-  }, []);
 
   return { isLoading, data, isError, isFetching };
 };
