@@ -5,8 +5,8 @@ import CheckBoxAnalysis from '@/components/feedback/analysis/CheckBoxAnalysis';
 import MultipleChoiceAnalysis from '@/components/feedback/analysis/MultipleChoiceAnalysis';
 import ShortAnaysis from '@/components/feedback/analysis/ShortAnaysis';
 import SkeletonFeedBack from '@/components/skeleton/SkeletonFeedBack';
-import useFeedBackAnalysis from '@/hooks/feedback/useFeedBackAnalysis';
-import useProjectDetail from '@/hooks/project/useProjectDetail';
+import useFeedBackAnalysis from '@/hooks/queries/feedback/useFeedBackAnalysis';
+import useProjectDetail from '@/hooks/queries/project/useProjectDetail';
 import Custom404 from '@/pages/404';
 
 interface IAnalysisType {

@@ -2,7 +2,7 @@ import { IoCloseOutline } from '@react-icons/all-files/io5/IoCloseOutline';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
-import useSkillStackSearch from '@/hooks/useSkillStackSearch';
+import useSkillStackSearch from '@/hooks/queries/useSkillStackSearch';
 import { ITechStackType } from '@/types/global';
 
 interface SkillStackInput {

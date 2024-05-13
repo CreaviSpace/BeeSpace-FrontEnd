@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Category from '@/components/Category';
 import CommunityCardContainer from '@/components/container/CommunityCardContainer';
 import PopularTag from '@/components/PopularHashTag';
-import { usePopularTag } from '@/hooks/usePopularTag';
+import { usePopularTag } from '@/hooks/queries/usePopularTag';
 const CATEGORIES = [
   {
     name: 'QnA',

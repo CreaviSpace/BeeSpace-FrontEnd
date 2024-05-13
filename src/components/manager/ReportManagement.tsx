@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import useAdmin from '@/hooks/admin/useAdmin';
+import useAdmin from '@/hooks/queries/admin/useAdmin';
 import { IReportType } from '@/types/global';
 
 import ReportContent from './ReportContent';

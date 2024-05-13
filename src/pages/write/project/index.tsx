@@ -4,9 +4,9 @@ import React, { useEffect } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import OnoffButton from '@/components/button/OnOffButton';
-import useProjectDetail from '@/hooks/project/useProjectDetail';
-import useWritePost from '@/hooks/useWritePost';
-import useWriteUpdate from '@/hooks/useWriteUpdate';
+import useProjectDetail from '@/hooks/queries/project/useProjectDetail';
+import useWritePost from '@/hooks/queries/useWritePost';
+import useWriteUpdate from '@/hooks/queries/useWriteUpdate';
 import useProjectData from '@/store/useProjectData';
 
 import InputTag from '../../../components/write/communtiy/InputTag';

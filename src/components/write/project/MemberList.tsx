@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import SelectButton from '@/components/button/SelectButton';
-import useMemberSearch from '@/hooks/useMemberSearch';
+import useMemberSearch from '@/hooks/queries/useMemberSearch';
 import { parseEnum } from '@/utils/parseEnum';
 import { parseValue } from '@/utils/parseValue';
 

@@ -2,9 +2,9 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
-import useAlarm from '@/hooks/alarm/useAlarm';
-import useAlarmCount from '@/hooks/alarm/useAlarmCount';
-import useLoginCheck from '@/hooks/login/useLoginCheck';
+import useAlarm from '@/hooks/queries/alarm/useAlarm';
+import useAlarmCount from '@/hooks/queries/alarm/useAlarmCount';
+import useLoginCheck from '@/hooks/queries/login/useLoginCheck';
 import useLoginModal from '@/store/modal/useLoginModal';
 import useLogin from '@/store/useLogin';
 import { getCookies } from '@/utils/cookie/getCookies';

@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import UniversalCard from '@/components/card/UniversalCard';
 import Category from '@/components/Category';
 import SkeletonUniversalCard from '@/components/skeleton/SkeletonUniversalCard';
-import useSearch from '@/hooks/useSearch';
+import useSearch from '@/hooks/queries/useSearch';
 import { IUniversalType } from '@/types/global';
 
 const SIDE_CATEGORIES = [

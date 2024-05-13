@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
-import useBanner from '@/hooks/useBanner';
+import useBanner from '@/hooks/queries/useBanner';
 import { IBannerItem } from '@/types/global';
 import { TransitionEnd } from '@/utils/carousel';
 

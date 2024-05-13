@@ -6,9 +6,9 @@ import CheckBoxAnswer from '@/components/feedback/answer/CheckBoxAnswer';
 import MultipleChoiceAnswer from '@/components/feedback/answer/MultipleChoiceAnswer';
 import ShortAnswerAnswer from '@/components/feedback/answer/ShortAnswerAnswer';
 import SkeletonFeedBack from '@/components/skeleton/SkeletonFeedBack';
-import useFeedBackGet from '@/hooks/feedback/useFeedBackGet';
-import useFeedBackPost from '@/hooks/feedback/useFeedBackPost';
-import useProjectDetail from '@/hooks/project/useProjectDetail';
+import useFeedBackGet from '@/hooks/queries/feedback/useFeedBackGet';
+import useFeedBackPost from '@/hooks/queries/feedback/useFeedBackPost';
+import useProjectDetail from '@/hooks/queries/project/useProjectDetail';
 import useAnswerData from '@/store/feedback/useAnswerData';
 import {
   IAnswerType,

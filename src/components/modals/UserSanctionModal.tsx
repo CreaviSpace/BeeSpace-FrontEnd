@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import useAdminSanction from '@/hooks/admin/useAdminSanction';
+import useAdminSanction from '@/hooks/queries/admin/useAdminSanction';
 import useUserStanctionModal from '@/store/modal/useUserStanctionModal';
 
 import Modals from './Modals';

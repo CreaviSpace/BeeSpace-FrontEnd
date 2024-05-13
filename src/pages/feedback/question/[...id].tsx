@@ -6,10 +6,10 @@ import CheckBoxQuestion from '@/components/feedback/question/CheckBoxQuestion';
 import MultipleChoiceQuestion from '@/components/feedback/question/MultipleChoiceQuestion';
 import ShortAnswerQuestion from '@/components/feedback/question/ShortAnswerQuestion';
 import QuestionBox from '@/components/feedback/QuestionBox';
-import useFeedBackGet from '@/hooks/feedback/useFeedBackGet';
-import useFeedBackPost from '@/hooks/feedback/useFeedBackPost';
-import useFeedBackPut from '@/hooks/feedback/useFeedBackPut';
-import useProjectDetail from '@/hooks/project/useProjectDetail';
+import useFeedBackGet from '@/hooks/queries/feedback/useFeedBackGet';
+import useFeedBackPost from '@/hooks/queries/feedback/useFeedBackPost';
+import useFeedBackPut from '@/hooks/queries/feedback/useFeedBackPut';
+import useProjectDetail from '@/hooks/queries/project/useProjectDetail';
 import Custom404 from '@/pages/404';
 import useQuestionsData from '@/store/feedback/useQuestionsData';
 

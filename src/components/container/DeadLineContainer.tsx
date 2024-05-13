@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import UniversalCard from '@/components/card/UniversalCard';
-import useBanner from '@/hooks/useBanner';
+import useBanner from '@/hooks/queries/useBanner';
 import { IDeadLineType } from '@/types/global';
 
 import SkeletonUniversalCard from '../skeleton/SkeletonUniversalCard';

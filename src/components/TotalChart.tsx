@@ -2,7 +2,7 @@ import { ApexOptions } from 'apexcharts';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
-import useAdminStatist from '@/hooks/admin/useAdminStatist';
+import useAdminStatist from '@/hooks/queries/admin/useAdminStatist';
 
 import Deadline from './write/recruitment/Deadline';
 

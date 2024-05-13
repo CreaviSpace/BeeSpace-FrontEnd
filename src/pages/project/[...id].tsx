@@ -8,7 +8,7 @@ import Members from '@/components/details/project/Members';
 import SkillStack from '@/components/details/project/SkillStack';
 import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import Tag from '@/components/Tag';
-import useProjectDetail from '@/hooks/project/useProjectDetail';
+import useProjectDetail from '@/hooks/queries/project/useProjectDetail';
 import useLogin from '@/store/useLogin';
 import { getCookies } from '@/utils/cookie/getCookies';
 import { parseValue } from '@/utils/parseValue';

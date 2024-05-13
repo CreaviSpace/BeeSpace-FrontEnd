@@ -2,7 +2,7 @@ import moment from 'moment';
 import { useState } from 'react';
 
 import UserProfileButton from '@/components/button/UserProfileButton';
-import useCommentPutDelete from '@/hooks/comment/useCommentPutDelete';
+import useCommentPutDelete from '@/hooks/queries/comment/useCommentPutDelete';
 import { ICommentContainerTypes } from '@/types/global';
 
 import CustomButton from './../button/CustomButton';

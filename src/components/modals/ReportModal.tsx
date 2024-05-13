@@ -8,7 +8,7 @@ import {
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import useReportPost from '@/hooks/report/useReportPost';
+import useReportPost from '@/hooks/queries/report/useReportPost';
 import useReportModal from '@/store/modal/useReportModal';
 import { parseEnum } from '@/utils/parseEnum';
 

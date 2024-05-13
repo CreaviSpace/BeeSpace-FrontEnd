@@ -7,7 +7,7 @@ import RecruitDetails from '@/components/details/recruitment/RecruitDetails';
 import RecruitPosition from '@/components/details/recruitment/RecruitPosition';
 import TechStackList from '@/components/details/recruitment/TechStackList';
 import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
-import useRecruitDetail from '@/hooks/recruit/useRecruitDetail';
+import useRecruitDetail from '@/hooks/queries/recruit/useRecruitDetail';
 
 export default function RecruitmentDetail() {
   const router = useRouter();

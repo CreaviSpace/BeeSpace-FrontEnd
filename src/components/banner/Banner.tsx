@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-import useBanner from '@/hooks/useBanner';
+import useBanner from '@/hooks/queries/useBanner';
 import { TransitionEnd } from '@/utils/carousel';
 
 import SkeletonBanner from '../skeleton/SkeletonBanner';

@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import OnoffButton from '@/components/button/OnOffButton';
-import useCommunityDetail from '@/hooks/community/useCommunityDetail';
-import useWritePost from '@/hooks/useWritePost';
-import useWriteUpdate from '@/hooks/useWriteUpdate';
+import useCommunityDetail from '@/hooks/queries/community/useCommunityDetail';
+import useWritePost from '@/hooks/queries/useWritePost';
+import useWriteUpdate from '@/hooks/queries/useWriteUpdate';
 import useCommunityData from '@/store/useCommunityData';
 
 import CustomButton from '../../../components/button/CustomButton';

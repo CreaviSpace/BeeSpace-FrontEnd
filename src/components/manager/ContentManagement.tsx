@@ -2,8 +2,8 @@ import { IoEllipsisHorizontalSharp } from '@react-icons/all-files/io5/IoEllipsis
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import useAdminContentGet from '@/hooks/admin/useAdminContentGet';
-import useAdminContentsDelete from '@/hooks/admin/useAdminContentsDelete';
+import useAdminContentGet from '@/hooks/queries/admin/useAdminContentGet';
+import useAdminContentsDelete from '@/hooks/queries/admin/useAdminContentsDelete';
 import useReconfirmModal from '@/store/modal/useReconfirmModal';
 import { IUniversalType } from '@/types/global';
 import { parseValue } from '@/utils/parseValue';

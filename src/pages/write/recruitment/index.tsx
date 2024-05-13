@@ -12,9 +12,9 @@ import Period from '@/components/write/recruitment/Period';
 import RecruitPersonnel from '@/components/write/recruitment/RecruitPersonnel';
 import SkillStackInput from '@/components/write/SkillStackInput';
 import TitleEditor from '@/components/write/TextEditor/TitleEditor';
-import useRecruitDetail from '@/hooks/recruit/useRecruitDetail';
-import useWritePost from '@/hooks/useWritePost';
-import useWriteUpdate from '@/hooks/useWriteUpdate';
+import useRecruitDetail from '@/hooks/queries/recruit/useRecruitDetail';
+import useWritePost from '@/hooks/queries/useWritePost';
+import useWriteUpdate from '@/hooks/queries/useWriteUpdate';
 import useLogin from '@/store/useLogin';
 import useRecruitData from '@/store/useRecruitData';
 

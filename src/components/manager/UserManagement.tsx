@@ -1,7 +1,7 @@
 import { IoEllipsisHorizontalSharp } from '@react-icons/all-files/io5/IoEllipsisHorizontalSharp';
 import { useState } from 'react';
 
-import useAdmin from '@/hooks/admin/useAdmin';
+import useAdmin from '@/hooks/queries/admin/useAdmin';
 import useUserStanctionModal from '@/store/modal/useUserStanctionModal';
 import { IAdminMemberType } from '@/types/global';
 

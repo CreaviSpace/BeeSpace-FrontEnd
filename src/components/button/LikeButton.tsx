@@ -1,7 +1,7 @@
 import { FaHeart } from '@react-icons/all-files/fa/FaHeart';
 import { FaRegHeart } from '@react-icons/all-files/fa/FaRegHeart';
 
-import useLike from '@/hooks/useLike';
+import useLike from '@/hooks/queries/useLike';
 
 interface ILikeButtonProps {
   color?: string;

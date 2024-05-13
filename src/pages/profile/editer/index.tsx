@@ -6,8 +6,8 @@ import CustomButton from '@/components/button/CustomButton';
 import SelectButton from '@/components/button/SelectButton';
 import ProjectBanner from '@/components/write/project/ProjectBanner';
 import SkillStackInput from '@/components/write/SkillStackInput';
-import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
-import useMyProfileEditor from '@/hooks/profile/useMyProfileEditor';
+import useMemberProfileGet from '@/hooks/queries/profile/useMemberProfileGet';
+import useMyProfileEditor from '@/hooks/queries/profile/useMyProfileEditor';
 import { getCookies } from '@/utils/cookie/getCookies';
 
 export default function ProfileEdit() {

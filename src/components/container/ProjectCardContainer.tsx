@@ -1,5 +1,5 @@
 import ProjectCard from '@/components/card/ProjectCard';
-import useProject from '@/hooks/project/useProject';
+import useProject from '@/hooks/queries/project/useProject';
 import useObserver from '@/hooks/useObserver';
 
 import { IProjectType } from '../../types/global';

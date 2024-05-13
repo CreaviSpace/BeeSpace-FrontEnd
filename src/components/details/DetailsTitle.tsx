@@ -3,8 +3,8 @@ import React from 'react';
 
 import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
-import useLikeView from '@/hooks/useLikeView';
-import useWriteDelete from '@/hooks/useWriteDelete';
+import useLikeView from '@/hooks/queries/useLikeView';
+import useWriteDelete from '@/hooks/queries/useWriteDelete';
 import useReconfirmModal from '@/store/modal/useReconfirmModal';
 import useReportModal from '@/store/modal/useReportModal';
 import useLogin from '@/store/useLogin';
