@@ -15,12 +15,14 @@ interface IProjectBanner {
   hidden?: boolean;
   thumbnail: string;
   setThumbnail: (thumbnail: string) => void;
+  aspect?: number;
 }
 
 export default function ProjectBanner({
   hidden,
   thumbnail,
   setThumbnail,
+  aspect,
 }: IProjectBanner) {
   const [uploadImage, setUploadImage] = useState<string | null>(null); // 업로드 된 이미지
   const [imageName, setImageName] = useState<string>(''); // 이미지 이름
@@ -113,7 +115,7 @@ export default function ProjectBanner({
       )}
 
       <ImageCropper
-        aspectRatio={16 / 10}
+        aspectRatio={aspect ? aspect : 16 / 10}
         onCrop={setUploadImage}
         image={image}
         setImage={setImage}

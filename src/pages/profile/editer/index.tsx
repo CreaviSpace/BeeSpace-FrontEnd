@@ -113,6 +113,7 @@ export default function ProfileEdit() {
                 hidden
                 thumbnail={profileUrl}
                 setThumbnail={setProfileUrl}
+                aspect={1 / 1}
               />
             </li>
             <li className="flex flex-col gap-2 mt-10">
