@@ -26,7 +26,6 @@ export default function Header() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const router = useRouter();
-  const pathname = router.pathname;
 
   const { onOpen: openSearchError } = useSearchErrorModal();
 
@@ -55,6 +54,7 @@ export default function Header() {
   const handleSearch = () => {
     if (value.trim().length >= 1) {
       router.push(`/search?type=all&text=${value}`);
+      setIsSearchVisible(false);
     } else {
       openSearchError();
     }
