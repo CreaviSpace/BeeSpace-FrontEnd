@@ -40,8 +40,8 @@ const useMyProfileEditor = (content: IMyProfileeditorProps) => {
           router.replace(`/profile/${MID}`);
         } else if (data.status === 202 && !data.data.success) {
           postCookies({
-            jwt: data.data.data.jwt,
-            MID: data.data.data.memberId,
+            jwt: data.data.jwt,
+            MID: data.data.memberId,
           });
         }
       }

@@ -30,11 +30,11 @@ const useWriteDelete = (id: number, postType: string) => {
           queryClient.invalidateQueries({
             queryKey: [`${postType}-${id}`],
           });
-          router.replace(`/${postType.toLowerCase()}/${id}?type=al;l`);
+          router.replace(`/${postType.toLowerCase()}/${id}?type=all`);
         } else if (data.status === 202 && !data.data.success) {
           postCookies({
-            jwt: data.data.data.jwt,
-            MID: data.data.data.memberId,
+            jwt: data.data.jwt,
+            MID: data.data.memberId,
           });
         }
       }

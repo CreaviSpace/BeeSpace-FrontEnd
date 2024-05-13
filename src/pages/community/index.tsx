@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import Category from '@/components/Category';
 import CommunityCardContainer from '@/components/container/CommunityCardContainer';
 import PopularTag from '@/components/PopularHashTag';
@@ -21,6 +23,8 @@ const PAGE_SIZE = 24;
 
 export default function Community() {
   const { data, isLoading } = usePopularTag();
+  const router = useRouter();
+  const { type } = router.query;
 
   return (
     <main className="min-w-min_w">
@@ -34,7 +38,7 @@ export default function Community() {
         ) : (
           <PopularTag tags={data} />
         )}
-        <CommunityCardContainer size={PAGE_SIZE} />
+        <CommunityCardContainer size={PAGE_SIZE} category={type as string} />
       </section>
     </main>
   );

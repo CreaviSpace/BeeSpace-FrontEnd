@@ -39,12 +39,12 @@ const useWriteUpdate = (
           queryClient.invalidateQueries({ queryKey: [`${postType}-${id}`] });
           toast.success('글쓰기 성공');
           router.replace(
-            `/${data.data.data.postType.toLowerCase()}/${data.data.data.id}`
+            `/${data.data.data.postType.toLowerCase() === 'recruit' ? 'recruitment' : data.data.data.postType.toLowerCase()}/${data.data.data.id}`
           );
         } else if (data.status === 202 && !data.data.success) {
           postCookies({
-            jwt: data.data.data.jwt,
-            MID: data.data.data.memberId,
+            jwt: data.data.jwt,
+            MID: data.data.memberId,
           });
         }
       }

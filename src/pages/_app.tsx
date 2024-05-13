@@ -16,6 +16,7 @@ import ReconfirmModal from '@/components/modals/ReconfirmModal';
 import ReportModal from '@/components/modals/ReportModal';
 import SearchErrorModal from '@/components/modals/SearchErrorModal';
 import SignUpModal from '@/components/modals/SignUpModal';
+import UserStamctionModal from '@/components/modals/UserSanctionModal';
 import queryClient from '@/utils/queryClien';
 
 import Loading from './loading';
@@ -68,6 +69,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <SignUpModal />
           <ReconfirmModal />
           <SearchErrorModal />
+          <UserStamctionModal />
           {loading ? (
             <Loading />
           ) : (

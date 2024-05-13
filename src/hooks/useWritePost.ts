@@ -7,6 +7,7 @@ import useLoginModal from '@/store/modal/useLoginModal';
 import { ICommunityBody, IProjectBody, IRecruitBody } from '@/types/global';
 import { getCookies } from '@/utils/getCookies';
 import { postCookies } from '@/utils/postCookies';
+import queryClient from '@/utils/queryClien';
 
 const useWritePost = (
   postType: string,
@@ -31,15 +32,19 @@ const useWritePost = (
     onSuccess: (data) => {
       if (data) {
         if (data.status === 200 && data.data.success) {
+          queryClient.invalidateQueries({
+            queryKey: [`${postType}-${data.data.data.id}`],
+          });
           toast.success('글쓰기 성공');
           router.replace(
-            `/${data.data.data.postType.toLowerCase()}/${data.data.data.id}`
+            `/${data.data.data.postType.toLowerCase() === 'recruit' ? 'recruitment' : data.data.data.postType.toLowerCase()}/${data.data.data.id}`
           );
         } else if (data.status === 202 && !data.data.success) {
           postCookies({
-            jwt: data.data.data.jwt,
-            MID: data.data.data.memberId,
+            jwt: data.data.jwt,
+            MID: data.data.memberId,
           });
+          mutate();
         }
       }
     },

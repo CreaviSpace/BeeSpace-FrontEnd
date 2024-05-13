@@ -18,7 +18,7 @@ const useCommunity = (
   } = useInfiniteQuery({
     enabled: !!category,
     queryKey: [`community-list-${category}-${orderby}-${size}`],
-    queryFn: async ({ pageParam = 0 }) => {
+    queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(
         `${process.env.BASE_URL}/community?size=${size}&page=${pageParam}${category !== 'all' ? `&category=${category}` : ''}${hashTag ? `&hashTag=${hashTag} ` : ''}${orderby ? `&sort=${orderby}` : ''}`
       );
@@ -29,7 +29,7 @@ const useCommunity = (
     },
     staleTime: 30000 * 12,
     gcTime: 30000 * 12,
-    initialPageParam: 0,
+    initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = allPages.length + 1;
       if (!lastPage) {

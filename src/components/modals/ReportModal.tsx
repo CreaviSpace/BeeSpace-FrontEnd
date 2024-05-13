@@ -35,7 +35,10 @@ export default function ReportModal() {
 
   const data = {
     postId: parseInt(id as string),
-    postType: pathname.toUpperCase(),
+    postType:
+      pathname.toUpperCase() === 'RECRUITMENT'
+        ? 'RECRUIT'
+        : pathname.toUpperCase(),
     category: parseEnum(select[0]),
     content: value,
   };

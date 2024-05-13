@@ -55,14 +55,16 @@ export default function ReportContent({ item }: IReportContentProps) {
         </li>
         <li className="p-4">
           <span className="font-bold">신고한 계정 : </span>
-          {item.member.memberName}
+          {item.member.memberNickname} #{item.member.id}
         </li>
         <li className="p-4">
           <span className="font-bold">신고받은 게시글 : </span>
           {item.postId}
         </li>
         <li className="p-4">
-          <Link href={`/${item.postType}/${item.postId}`} className="font-bold">
+          <Link
+            href={`/${item.postType.toLowerCase() === 'recruit' ? 'recruitment' : item.postType.toLowerCase()}/${item.postId}`}
+            className="font-bold">
             게시글 이동
           </Link>
         </li>

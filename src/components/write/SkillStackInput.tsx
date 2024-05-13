@@ -70,10 +70,7 @@ export default function SkillStackInput({
                       key={`${item.techStack}-${index}`}
                       className="w-full h-[3.125rem] max-h-[15.625rem] p-[0.625rem] hover:bg-gray10 flex items-center overflow-y-auto cursor-pointer custom-scrollbar"
                       onClick={() =>
-                        handleTechStackDtosPush(
-                          item.techStack,
-                          item.techStackIcon
-                        )
+                        handleTechStackDtosPush(item.techStack, item.iconUrl)
                       }
                       onMouseDown={(e) => e.preventDefault()}>
                       {item.techStack}

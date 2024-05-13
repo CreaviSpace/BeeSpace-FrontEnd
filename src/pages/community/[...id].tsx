@@ -51,12 +51,8 @@ export default function CommunityDetail() {
               dangerouslySetInnerHTML={{ __html: data.content }}
             />
             <div className="mb-4">
-              {data.hashTags?.map((item: IhashTagsItem) => (
-                <Tag
-                  key={item.hashTagId}
-                  category="hashtag"
-                  name={item.hashTag}
-                />
+              {data.hashTags?.map((item: IhashTagsItem, index: number) => (
+                <Tag key={index} category="hashtag" name={item.hashTag} />
               ))}
             </div>
             <span className="w-full border block border-gray10" />

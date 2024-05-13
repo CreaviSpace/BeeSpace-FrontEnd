@@ -9,7 +9,7 @@ export const parseValue = (type: string) => {
     case 'COMMUNITY':
       return '커뮤니티';
     // 커뮤니티 게시글:
-    case 'QnA':
+    case 'QNA':
       return 'QNA';
     case 'CHAT':
       return '수다';
