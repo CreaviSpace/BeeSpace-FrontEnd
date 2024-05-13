@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { useState } from 'react';
 
 import UserProfileButton from '@/components/button/UserProfileButton';
@@ -24,6 +25,13 @@ export default function CommentCard({ item, type, postid }: ICommentCardType) {
   const handlePutComment = () => {
     setClick(!click);
   };
+  const time = item.modifiedDate;
+  const receivedDate = moment(time);
+  const today = moment();
+  const isToday = receivedDate.isSame(today, 'day');
+  const formattedDate = isToday
+    ? receivedDate.format('HH:mm:ss')
+    : receivedDate.format('YYYY-MM-DD');
 
   return (
     <div className="py-5 border-b border-gray10">
@@ -57,7 +65,10 @@ export default function CommentCard({ item, type, postid }: ICommentCardType) {
           </CustomButton>
         </div>
       ) : (
-        <div className="mt-3 text-bs_18">{item.content}</div>
+        <div className="mt-2">
+          <span className="text-bs_14 text-gray30">{formattedDate}</span>
+          <div className="mt-1 text-bs_18">{item.content}</div>
+        </div>
       )}
     </div>
   );

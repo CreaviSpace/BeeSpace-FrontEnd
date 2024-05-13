@@ -32,7 +32,7 @@ export default function RecruitmentDetail() {
               title={data.title}
               userName={data.memberNickName}
               imageURL={data.memberProfile}
-              className="hidden"
+              hidden="sr-only"
             />
             <SideButton id={data.id} type={data.postType} hidden={true} />
             <RecruitDetails

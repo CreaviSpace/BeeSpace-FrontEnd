@@ -17,7 +17,7 @@ interface IDetailsTitleProps {
   views: number;
   title: string;
   userName: string;
-  className?: string;
+  hidden?: string;
   category?: string;
   id: number;
   imageURL?: string;
@@ -29,7 +29,7 @@ export default function DetailsTitle({
   time,
   title,
   views,
-  className,
+  hidden,
   userName,
   category,
   id,
@@ -68,7 +68,7 @@ export default function DetailsTitle({
   return (
     <div className="w-full h-fit flex flex-col items-center max-w-max_w m-auto">
       {category && (
-        <Tag name={category} category="field" className={`${className}`} />
+        <Tag name={category} category="field" className={`${hidden}`} />
       )}
       <h1 className="font-bold text-bs_24 mb-3">{title}</h1>
       <div className="max-w-max_w flex items-center justify-between w-full px-4 py-2 gap-2 min_mobile:flex-col min_mobile:items-start">
@@ -82,10 +82,12 @@ export default function DetailsTitle({
             조회수&nbsp;<span>{views}</span>
           </p>
           <span aria-hidden>|</span>
-          <p>
+          <p className={`${hidden}`}>
             좋아요&nbsp;<span>{isLoading ? 0 : data?.likeCount}</span>
           </p>
-          <span aria-hidden>|</span>
+          <span aria-hidden className={`${hidden}`}>
+            |
+          </span>
           <p>
             <time dateTime={time}>{onlyDate}</time>
           </p>
