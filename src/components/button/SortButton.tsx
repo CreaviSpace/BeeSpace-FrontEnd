@@ -1,5 +1,5 @@
 import { IoIosArrowDown } from '@react-icons/all-files/io/IoIosArrowDown';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 interface ISortButtonProps {
   options: { type: string; name: string }[];
   select: { type: string; name: string };
@@ -14,7 +14,14 @@ export default function SortButton({
 }: ISortButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const divRef = useRef<HTMLDivElement>(null);
+
   const handleToggle = () => {
+    if (isOpen) {
+      divRef.current?.blur();
+    } else {
+      divRef.current?.focus();
+    }
     setIsOpen(!isOpen);
   };
 
@@ -25,7 +32,7 @@ export default function SortButton({
 
   return (
     <div
-      className={`${className} flex absolute bg-white px-2 z-[1]`}
+      className={`${className} flex absolute bg-white px-2 z-[11]`}
       onClick={handleToggle}>
       <div className="text-bs_15 cursor-pointer">
         <div className="flex items-center gap-2 px-2 pb-1">
@@ -34,19 +41,26 @@ export default function SortButton({
             <IoIosArrowDown size={20} />
           </span>
         </div>
-        {isOpen && (
-          <ul className="shadow-md rounded-md">
-            {options.map((item, index) => (
-              <li key={index} className="flex flex-col p-1">
-                <button
-                  className="text-start"
-                  onClick={() => handleSelect(item)}>
-                  {item.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+        <div
+          ref={divRef}
+          onFocus={() => setIsOpen(true)}
+          onBlur={() => setIsOpen(false)}
+          tabIndex={0}
+          onMouseDown={(e) => e.preventDefault()}>
+          {isOpen && (
+            <ul className="shadow-md rounded-md">
+              {options.map((item, index) => (
+                <li key={index} className="flex flex-col p-1">
+                  <button
+                    className="text-start"
+                    onClick={() => handleSelect(item)}>
+                    {item.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </div>
   );

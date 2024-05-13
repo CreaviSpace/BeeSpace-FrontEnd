@@ -68,14 +68,10 @@ export default function ProfileEdit() {
     setMid(getCookies('MID', true));
   }, []);
 
-  const handlerExpireMember = async (MID: string) => {
-    return await axios.post(
-      `${process.env.BASE_URL}/member/expire`,
-      // { MID },
-      {
-        headers: { Authorization: getCookies('jwt') },
-      }
-    );
+  const handlerExpireMember = async () => {
+    return await axios.post(`${process.env.BASE_URL}/member/expire`, {
+      headers: { Authorization: getCookies('jwt') },
+    });
   };
 
   const handleNameValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -197,7 +193,7 @@ export default function ProfileEdit() {
           <div className="w-full flex justify-between my-10">
             <CustomButton
               className="py-1 px-3"
-              onClick={() => handlerExpireMember(MID)}>
+              onClick={() => handlerExpireMember()}>
               회원탈퇴
             </CustomButton>
           </div>
