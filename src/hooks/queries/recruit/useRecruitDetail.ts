@@ -1,20 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { getCookies } from '@/utils/cookie/getCookies';
+import { queryKeys } from '@/constants/keys';
 import { postCookies } from '@/utils/cookie/postCookies';
 
 const useRecruitDetail = (id: string | undefined) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     enabled: !!id,
-    queryKey: [`recruit-${id}`],
+    queryKey: [queryKeys.RECRUIT_DETAIL, String(id)],
     queryFn: async () => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/recruit/${id}`,
-        {
-          headers: { Authorization: getCookies('jwt') },
-        }
-      );
+      const response = await axios.get(`${process.env.BASE_URL}/recruit/${id}`);
 
       if (response.status === 200 && response.data.success) {
         return response.data.data;
@@ -27,8 +22,6 @@ const useRecruitDetail = (id: string | undefined) => {
         });
       }
     },
-    staleTime: 30000 * 12,
-    gcTime: 30000 * 12,
   });
 
   return { isLoading, isError, data, isFetching };

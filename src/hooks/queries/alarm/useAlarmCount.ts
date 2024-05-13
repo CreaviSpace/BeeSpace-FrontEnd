@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
+import { queryKeys } from '@/constants/keys';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 import { getCookies } from '@/utils/cookie/getCookies';
 import { postCookies } from '@/utils/cookie/postCookies';
 
@@ -9,11 +10,9 @@ const useAlarmCount = () => {
 
   const { isLoading, isError, data, isFetching } = useQuery({
     enabled: !!token,
-    queryKey: [`alarm-counts`],
+    queryKey: [queryKeys.ALARM_COUNT],
     queryFn: async () => {
-      const response = await axios.get(`${process.env.BASE_URL}/alarm/count`, {
-        headers: { Authorization: token },
-      });
+      const response = await axiosInstance.get(`/alarm/count`);
 
       if (response.status === 200 && response.data.success) {
         return response.data.data;
@@ -24,8 +23,6 @@ const useAlarmCount = () => {
         });
       }
     },
-    staleTime: 30000 * 12,
-    gcTime: 30000 * 12,
   });
 
   return { isLoading, isError, data, isFetching };

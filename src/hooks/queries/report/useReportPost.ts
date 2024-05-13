@@ -1,10 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 
+import { queryKeys } from '@/constants/keys';
 import useReportModal from '@/store/modal/useReportModal';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 import { getCookies } from '@/utils/cookie/getCookies';
 import { postCookies } from '@/utils/cookie/postCookies';
+import queryClient from '@/utils/queryClien';
 
 interface IuseReportPostProps {
   postId: number;
@@ -23,14 +25,15 @@ const useReportPost = (data: IuseReportPostProps) => {
         return;
       }
 
-      return await axios.post(`${process.env.BASE_URL}/report`, data, {
-        headers: { Authorization: token },
-      });
+      return await axiosInstance.post(`/report`, data);
     },
     onSuccess: (data) => {
       if (data) {
         if (data.status === 200 && data.data.success) {
           toast.success('신고 성공');
+          queryClient.invalidateQueries({
+            queryKey: [[queryKeys.ADMIN, queryKeys.ADMIN_CONTENT, 'report']],
+          });
           onClose();
         } else if (data.status === 202 && !data.data.success) {
           postCookies({

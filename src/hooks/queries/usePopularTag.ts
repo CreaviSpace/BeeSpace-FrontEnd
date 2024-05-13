@@ -1,19 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+
+import { queryKeys } from '@/constants/keys';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 
 export const usePopularTag = () => {
   const { isLoading, data, isError, isFetching } = useQuery({
-    queryKey: [`hashtag-list`],
+    queryKey: [queryKeys.HASH_TAG],
     queryFn: async () => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/hashtag/popular`
-      );
+      const response = await axiosInstance.get(`/hashtag/popular`);
       if (response.data.success) {
         return response.data.data;
       }
     },
-    staleTime: 30000 * 12,
-    gcTime: 30000 * 12,
   });
 
   return { isLoading, data, isError, isFetching };

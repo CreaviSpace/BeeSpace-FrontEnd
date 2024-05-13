@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
+import { queryKeys } from '@/constants/keys';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 import { getCookies } from '@/utils/cookie/getCookies';
 import { postCookies } from '@/utils/cookie/postCookies';
 
@@ -16,13 +17,10 @@ const useAdmin = (size: number, sort: string, type: string) => {
     isFetchingNextPage,
   } = useInfiniteQuery({
     enabled: !!token,
-    queryKey: [`admin-member`],
+    queryKey: [queryKeys.ADMIN, queryKeys.ADMIN_MEMBER],
     queryFn: async ({ pageParam = 1 }) => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/admin/${type}?size=${size}&page=${pageParam}&sort-type=${sort}`,
-        {
-          headers: { Authorization: token },
-        }
+      const response = await axiosInstance.get(
+        `/admin/${type}?size=${size}&page=${pageParam}&sort-type=${sort}`
       );
 
       if (response.status === 200 && response.data) {
@@ -34,8 +32,6 @@ const useAdmin = (size: number, sort: string, type: string) => {
         });
       }
     },
-    staleTime: 30000 * 12,
-    gcTime: 30000 * 12,
 
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {

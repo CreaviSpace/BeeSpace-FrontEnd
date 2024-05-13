@@ -1,11 +1,13 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
+import { queryKeys } from '@/constants/keys';
 import { IAnswerType, IQuestionType } from '@/types/global';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 import { getCookies } from '@/utils/cookie/getCookies';
 import { postCookies } from '@/utils/cookie/postCookies';
+import queryClient from '@/utils/queryClien';
 
 const useFeedBackPost = (
   id: number,
@@ -14,7 +16,6 @@ const useFeedBackPost = (
 ) => {
   const token = getCookies('jwt');
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationFn: async () => {
@@ -22,18 +23,17 @@ const useFeedBackPost = (
         return;
       }
 
-      return await axios.post(
-        `${process.env.BASE_URL}/feedback/${type}?projectId=${id}`,
-        data,
-        {
-          headers: { Authorization: token },
-        }
+      return await axiosInstance.post(
+        `/feedback/${type}?projectId=${id}`,
+        data
       );
     },
     onSuccess: (data) => {
       if (data) {
         if (data.status === 200 && data.data.success) {
-          queryClient.invalidateQueries({ queryKey: [`feedback-${id}`] });
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.FEEDBACK, id, type],
+          });
           if (type === 'question') {
             router.replace(`/feedback/analysis/${id}`);
           } else if (type === 'answer') {

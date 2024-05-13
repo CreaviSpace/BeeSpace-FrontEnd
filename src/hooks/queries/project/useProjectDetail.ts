@@ -1,18 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
-import { getCookies } from '@/utils/cookie/getCookies';
+import { queryKeys } from '@/constants/keys';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 import { postCookies } from '@/utils/cookie/postCookies';
 
 const useProjectDetail = (id: string | undefined) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     enabled: !!id,
-    queryKey: [`project-${id}`],
+    queryKey: [queryKeys.PROJECT_DETAIL, String(id)],
     queryFn: async () => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/project/${id}`,
-        { headers: { Authorization: getCookies('jwt') } }
-      );
+      const response = await axiosInstance.get(`/project/${id}`);
 
       if (response.status === 200 && response.data.success) {
         return response.data.data;
@@ -25,8 +22,6 @@ const useProjectDetail = (id: string | undefined) => {
         });
       }
     },
-    gcTime: 30000 * 12,
-    staleTime: 30000 * 12,
   });
 
   return { isLoading, isError, data, isFetching };

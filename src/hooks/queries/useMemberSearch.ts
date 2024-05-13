@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
+import { queryKeys } from '@/constants/keys';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 import { getCookies } from '@/utils/cookie/getCookies';
 import { postCookies } from '@/utils/cookie/postCookies';
 
@@ -8,11 +9,10 @@ const useMemberSearch = (value: string) => {
   const token = getCookies('jwt');
   const { isLoading, isError, data, isFetching } = useQuery({
     enabled: value.trim() !== '' && !!token,
-    queryKey: [`member-${value}`],
+    queryKey: [queryKeys.MEMBER_SEARCH, value],
     queryFn: async () => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/member/search?search=${value}`,
-        { headers: { Authorization: token } }
+      const response = await axiosInstance.get(
+        `/member/search?search=${value}`
       );
 
       if (response.status === 200 && response.data) {
@@ -24,8 +24,6 @@ const useMemberSearch = (value: string) => {
         });
       }
     },
-    gcTime: 30000 * 6,
-    staleTime: 30000 * 6,
   });
 
   return { isLoading, isError, data, isFetching };

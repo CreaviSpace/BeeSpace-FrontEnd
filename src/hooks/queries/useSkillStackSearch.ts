@@ -1,42 +1,29 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
-import { ITechStackType } from '@/types/global';
+import { queryKeys } from '@/constants/keys';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 import { getCookies } from '@/utils/cookie/getCookies';
 import { postCookies } from '@/utils/cookie/postCookies';
 
 const useSkillStackSearch = (text: string) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<ITechStackType[]>([]);
-  const [isError, setIsError] = useState(false);
   const token = getCookies('jwt');
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (!token) {
-          return;
-        }
 
-        const response = await axios.get(`${process.env.BASE_URL}/techStack`, {
-          headers: { Authorization: token },
+  const { isLoading, isError, data } = useQuery({
+    enabled: !!token,
+    queryKey: [queryKeys.TEACH_STACK],
+    queryFn: async () => {
+      const response = await axiosInstance.get(`/techStack`);
+
+      if (response.status === 200 && response.data.success) {
+        return response.data.data;
+      } else if (response.status === 202 && !response.data.success) {
+        postCookies({
+          jwt: response.data.jwt,
+          MID: response.data.memberId,
         });
-
-        if (response.status === 200 && response.data.success) {
-          setData(response.data.data);
-        } else if (response.status === 202 && !response.data.success) {
-          postCookies({
-            jwt: response.data.jwt,
-            MID: response.data.memberId,
-          });
-        }
-
-        setIsLoading(false);
-      } catch (e) {
-        setIsError(true);
       }
-    };
-    fetchData();
-  }, []);
+    },
+  });
 
   return { isLoading, isError, data };
 };

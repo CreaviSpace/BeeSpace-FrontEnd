@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
+import { queryKeys } from '@/constants/keys';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 import { getCookies } from '@/utils/cookie/getCookies';
 import { postCookies } from '@/utils/cookie/postCookies';
 
@@ -26,11 +27,10 @@ const useMyContent = (
     isFetchingNextPage,
   } = useInfiniteQuery({
     enabled: !!memberId && !!token,
-    queryKey: [`MyContent-${postType}-${category}-${memberId}`],
+    queryKey: [queryKeys.PROFILE_CONTENT, postType, category, String(memberId)],
     queryFn: async ({ pageParam = 1 }) => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/member/read/${apiEndpoints}&page=${pageParam}`,
-        { headers: { Authorization: token } }
+      const response = await axiosInstance.get(
+        `/member/read/${apiEndpoints}&page=${pageParam}`
       );
 
       if (response.status === 200 && response.data.success) {
@@ -42,8 +42,6 @@ const useMyContent = (
         });
       }
     },
-    staleTime: 30000 * 12,
-    gcTime: 30000 * 12,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = allPages.length + 1;
