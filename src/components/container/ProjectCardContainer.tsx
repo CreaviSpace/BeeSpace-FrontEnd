@@ -1,7 +1,6 @@
-import { useCallback, useRef } from 'react';
-
 import ProjectCard from '@/components/card/ProjectCard';
 import useProject from '@/hooks/project/useProject';
+import useObserver from '@/hooks/useObserver';
 
 import { IProjectType } from '../../types/global';
 import SkeletonProjectCard from '../skeleton/SkeletonProjectCard';
@@ -26,24 +25,7 @@ export default function ProjectCardContainer({
     isFetchingNextPage,
   } = useProject(category, size);
 
-  const observer: React.MutableRefObject<IntersectionObserver | null> =
-    useRef(null);
-  const lastElementRef = useCallback(
-    (node: HTMLElement | null) => {
-      if (isFetchingNextPage) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && !isError) {
-            fetchNextPage();
-          }
-        },
-        { threshold: 0.7 }
-      );
-      if (node) observer.current.observe(node);
-    },
-    [isFetchingNextPage]
-  );
+  const observerRef = useObserver(isFetchingNextPage, isError, fetchNextPage);
 
   return (
     <div className="max-w-max_w w-full">
@@ -65,7 +47,7 @@ export default function ProjectCardContainer({
             <SkeletonProjectCard key={index} />
           ))
         ) : (
-          <div ref={lastElementRef}></div>
+          <div ref={observerRef}></div>
         )}
       </div>
     </div>
