@@ -28,7 +28,7 @@ export default function RecruitmentCard({ item, type }: IRecruitmentCardProps) {
           dangerouslySetInnerHTML={{ __html: item.content }}></p>
         <div className="absolute bottom-5">
           <div className="flex gap-1">
-            {item.techStacks.map((item, index) => (
+            {item.techStacks?.map((item, index) => (
               <Image
                 key={`${item}-${index}`}
                 src={item.iconUrl}
