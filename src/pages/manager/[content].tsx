@@ -100,7 +100,7 @@ export default function Manager() {
   };
 
   return (
-    <main>
+    <main className="h-[calc(100vh_-_4rem)] overflow-hidden">
       <div className="max-w-max_w min-h-min_h m-auto flex border-r border-gray10 relative">
         <button
           className={`hidden absolute top-10  ${isSlide ? 'left-60' : 'left-0'} p-2 rounded-r-md bg-blue20 z-10 cursor-pointer  transition-all mobile:block`}
@@ -149,7 +149,7 @@ export default function Manager() {
           </ul>
         </aside>
 
-        <div className="w-full h-[calc(100vh)] overflow-auto">
+        <div className="w-full h-[calc(100vh_-_4rem)] overflow-auto">
           <div className={`w-full bg-blue10 p-3 flex justify-end`}>
             <button
               className="px-3 font-bold transition-all"
