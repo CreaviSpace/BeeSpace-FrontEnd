@@ -52,10 +52,10 @@ export default function PopularProject({ postType }: IPopularProjectProps) {
             ref={listRef}
             onTransitionEnd={handleTransitionEnd}>
             <PopularImageCard
-              img1={data[data?.length - 2].thumbnail}
-              img2={data[data?.length - 1].thumbnail}
-              link1={`/project/${data[data?.length - 2].id}`}
-              link2={`/project/${data[data?.length - 1].id}`}
+              img1={data[data?.length - 2]?.thumbnail}
+              img2={data[data?.length - 1]?.thumbnail}
+              link1={`/project/${data[data?.length - 2]?.id}`}
+              link2={`/project/${data[data?.length - 1]?.id}`}
             />
             {data.map((item: IBannerItem, index: number) => {
               if (index % 2 == 0) {
