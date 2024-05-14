@@ -24,11 +24,6 @@ export default function Loading() {
               className="rotate-180"
             />
           </div>
-          {/* <div className="absolute bottom-0 text-bs_24 font-Roboto font-light">
-            <p aria-hidden className="relative">
-              Loading...
-            </p>
-          </div> */}
         </div>
       </section>
     </main>
