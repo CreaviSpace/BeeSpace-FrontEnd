@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from 'react';
 
 import CommunityCard from '@/components/card/CommunityCard';
 import SkeletonCommunityCard from '@/components/skeleton/SkeletonCommunityCard';
-import useCommunity from '@/hooks/community/useCommunity';
+import useCommunity from '@/hooks/queries/community/useCommunity';
 import { ICommunityType } from '@/types/global';
 
 const GRIDCOLUMNS = {
@@ -33,7 +33,7 @@ export default function CommunityCardContainer({
   category = 'all',
   size,
   hashTag,
-  isActive,
+  isActive = 'default',
   ...restProps
 }: ICommunityCardStyleProps) {
   const [orderby, setOrderby] = useState('');
@@ -94,8 +94,8 @@ export default function CommunityCardContainer({
           </li>
         ))}
       </ul>
-      {isLoading
-        ? [1, 2, 3, 4, 5, 6].map((item, index) => (
+      {isLoading || isError
+        ? [1, 2, 3, 4].map((item, index) => (
             <SkeletonCommunityCard key={`${item}-${index}`} />
           ))
         : data?.pages.map((pages: ICommunityType[]) => {
@@ -108,7 +108,8 @@ export default function CommunityCardContainer({
               </div>
             ));
           })}
-      {hasNextPage && isActive === 'main' ? null : isFetchingNextPage ? (
+
+      {!hasNextPage || isActive === 'main' ? null : isFetchingNextPage ? (
         [1, 2, 3, 4].map((item, index) => (
           <SkeletonCommunityCard key={`${item}-${index}`} />
         ))

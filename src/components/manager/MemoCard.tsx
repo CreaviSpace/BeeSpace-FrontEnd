@@ -36,7 +36,7 @@ export default function MemoCard({ content, setLocalMemo }: IMemoCardProps) {
   return (
     <div>
       {content.map((item, index) => (
-        <>
+        <div key={index}>
           {item.id === click ? (
             <div className="flow-root mt-4 p-4">
               <textarea
@@ -62,7 +62,7 @@ export default function MemoCard({ content, setLocalMemo }: IMemoCardProps) {
               <IoCloseOutline
                 size={25}
                 onClick={() => handleDeleteMemo(index)}
-                className="float-right"
+                className="float-right cursor-pointer"
               />
               <p className="mt-6 w-full border-gray30 p-3">{item.text}</p>
               <button
@@ -74,7 +74,7 @@ export default function MemoCard({ content, setLocalMemo }: IMemoCardProps) {
               </button>
             </div>
           )}
-        </>
+        </div>
       ))}
     </div>
   );

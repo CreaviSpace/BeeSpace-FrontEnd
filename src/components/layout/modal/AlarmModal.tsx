@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 
-import useAlarm from '@/hooks/alarm/useAlarm';
-import useAlarmDelete from '@/hooks/alarm/useAlarmDelete';
+import useAlarm from '@/hooks/queries/alarm/useAlarm';
+import useAlarmDelete from '@/hooks/queries/alarm/useAlarmDelete';
 
 interface IAlarmType {
   id: number;

@@ -7,7 +7,7 @@ import RecruitDetails from '@/components/details/recruitment/RecruitDetails';
 import RecruitPosition from '@/components/details/recruitment/RecruitPosition';
 import TechStackList from '@/components/details/recruitment/TechStackList';
 import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
-import useRecruitDetail from '@/hooks/recruit/useRecruitDetail';
+import useRecruitDetail from '@/hooks/queries/recruit/useRecruitDetail';
 
 export default function RecruitmentDetail() {
   const router = useRouter();
@@ -15,8 +15,9 @@ export default function RecruitmentDetail() {
   const { isLoading, isError, data, isFetching } = useRecruitDetail(
     id as string
   );
+
   return (
-    <main className="h-full gap-5 max-w-max_w m-auto py-10 px-16 relative mobile:px-4">
+    <main className="h-full gap-5 max-w-max_w min-h-min_h m-auto py-10 px-16 relative mobile:px-4">
       {isLoading ? (
         <SkeletonDetail />
       ) : (
@@ -25,12 +26,13 @@ export default function RecruitmentDetail() {
             <DetailsTitle
               id={data.id}
               memberId={data.memberId}
-              type={data.postType}
+              type="recruit"
               time={data.modifiedDate}
               views={data.viewCount}
               title={data.title}
               userName={data.memberNickName}
-              className="hidden"
+              imageURL={data.memberProfile}
+              hidden="sr-only"
             />
             <SideButton id={data.id} type={data.postType} hidden={true} />
             <RecruitDetails

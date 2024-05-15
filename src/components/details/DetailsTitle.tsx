@@ -3,12 +3,12 @@ import React from 'react';
 
 import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
-import useLikeView from '@/hooks/useLikeView';
-import useWriteDelete from '@/hooks/useWriteDelete';
+import useLikeView from '@/hooks/queries/useLikeView';
+import useWriteDelete from '@/hooks/queries/useWriteDelete';
 import useReconfirmModal from '@/store/modal/useReconfirmModal';
 import useReportModal from '@/store/modal/useReportModal';
 import useLogin from '@/store/useLogin';
-import { getCookies } from '@/utils/getCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
 import { parseValue } from '@/utils/parseValue';
 
 interface IDetailsTitleProps {
@@ -17,7 +17,7 @@ interface IDetailsTitleProps {
   views: number;
   title: string;
   userName: string;
-  className?: string;
+  hidden?: string;
   category?: string;
   id: number;
   imageURL?: string;
@@ -29,7 +29,7 @@ export default function DetailsTitle({
   time,
   title,
   views,
-  className,
+  hidden,
   userName,
   category,
   id,
@@ -45,7 +45,7 @@ export default function DetailsTitle({
     setTitle,
     setHandlerFunction,
   } = useReconfirmModal();
-  const { mutate } = useWriteDelete(id, type);
+  const { mutate: writeDeleteMutate } = useWriteDelete(id, type);
 
   const { isLoading, isError, data, isFetching } = useLikeView(
     id,
@@ -56,7 +56,7 @@ export default function DetailsTitle({
 
   const handleDelete = () => {
     setTitle(`${parseValue(type.toUpperCase())}을 삭제하시겠습니다.`);
-    setHandlerFunction(() => mutate());
+    setHandlerFunction(() => writeDeleteMutate());
     reconfirmOpen();
   };
 
@@ -68,7 +68,7 @@ export default function DetailsTitle({
   return (
     <div className="w-full h-fit flex flex-col items-center max-w-max_w m-auto">
       {category && (
-        <Tag name={category} category="field" className={`${className}`} />
+        <Tag name={category} category="field" className={`${hidden}`} />
       )}
       <h1 className="font-bold text-bs_24 mb-3">{title}</h1>
       <div className="max-w-max_w flex items-center justify-between w-full px-4 py-2 gap-2 min_mobile:flex-col min_mobile:items-start">
@@ -82,10 +82,12 @@ export default function DetailsTitle({
             조회수&nbsp;<span>{views}</span>
           </p>
           <span aria-hidden>|</span>
-          <p>
+          <p className={`${hidden}`}>
             좋아요&nbsp;<span>{isLoading ? 0 : data?.likeCount}</span>
           </p>
-          <span aria-hidden>|</span>
+          <span aria-hidden className={`${hidden}`}>
+            |
+          </span>
           <p>
             <time dateTime={time}>{onlyDate}</time>
           </p>
@@ -93,22 +95,25 @@ export default function DetailsTitle({
       </div>
       <span className="w-full border border-gray10 block" />
 
-      {login && MID === memberId && (
-        <div className="text-bs_14 flex justify-end w-full px-4 py-2">
-          <Link
-            href={`/write/${type.toLowerCase() === 'recruit' ? 'recruitment' : type}?id=${id}`}>
-            <button>수정</button>
-          </Link>
-          <span className="mx-2" aria-hidden>
-            &#124;
-          </span>
-          <button onClick={handleDelete}>삭제</button>
-          <span className="mx-2" aria-hidden>
-            &#124;
-          </span>
-          <button onClick={handleReport}>신고</button>
-        </div>
-      )}
+      <div className="text-bs_14 flex justify-end w-full px-4 py-2">
+        {login && MID === memberId && (
+          <>
+            <Link
+              href={`/write/${type.toLowerCase() === 'recruit' ? 'recruitment' : type}?id=${id}`}>
+              <button>수정</button>
+            </Link>
+
+            <span className="mx-2" aria-hidden>
+              &#124;
+            </span>
+            <button onClick={handleDelete}>삭제</button>
+            <span className="mx-2" aria-hidden>
+              &#124;
+            </span>
+          </>
+        )}
+        <button onClick={handleReport}>신고</button>
+      </div>
     </div>
   );
 }

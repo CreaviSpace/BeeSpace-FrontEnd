@@ -5,15 +5,13 @@ import { SetStateAction, useEffect, useState } from 'react';
 import CustomButton from '@/components/button/CustomButton';
 import SelectButton from '@/components/button/SelectButton';
 import ProjectBanner from '@/components/write/project/ProjectBanner';
-import useMemberProfileGet from '@/hooks/profile/useMemberProfileGet';
-import useMyProfileEditor from '@/hooks/profile/useMyProfileEditor';
-import { getCookies } from '@/utils/getCookies';
-
-import SkillStackInput from './../../../components/write/SkillStackInput';
-
-const MID = getCookies('MID', true);
+import SkillStackInput from '@/components/write/SkillStackInput';
+import useMemberProfileGet from '@/hooks/queries/profile/useMemberProfileGet';
+import useMyProfileEditor from '@/hooks/queries/profile/useMyProfileEditor';
+import { getCookies } from '@/utils/cookie/getCookies';
 
 export default function ProfileEdit() {
+  const [MID, setMid] = useState('');
   const { isLoading, data } = useMemberProfileGet(MID);
 
   const [profileUrl, setProfileUrl] = useState<string>('');
@@ -50,20 +48,37 @@ export default function ProfileEdit() {
   const closeButton = () => router.replace(`/profile/${MID}`);
 
   useEffect(() => {
-    if (isLoading === false) {
+    if (!isLoading && data) {
       setPosition([data.memberPosition]);
       setCareer([`${data.memberCareer}년`]);
-      setInterestedStack([...data.memberInterestedStack]);
+      const processedData = data?.memberInterestedStack.map(
+        (item: { techStack: string; iconUrl: string }) => ({
+          techStack: item.techStack,
+          iconUrl: item.iconUrl,
+        })
+      );
+      setInterestedStack(processedData);
       setNameValue(data.memberNickname);
       setintroduce(data.memberIntroduce);
       setProfileUrl(data.profileUrl);
     }
-  }, [isLoading, MID]);
+  }, [isLoading, data]);
+
+  useEffect(() => {
+    setMid(getCookies('MID', true));
+  }, []);
 
   const handlerExpireMember = async () => {
-    return await axios.post(`${process.env.BASE_URL}/member/mypage/edit`, {
-      headers: { Authorization: getCookies('jwt') },
-    });
+    try {
+      await axios.post(
+        `${process.env.BASE_URL}/member/expire?jwt=${getCookies('jwt')}`,
+        {
+          headers: { Authorization: getCookies('jwt') },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleNameValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,10 +103,8 @@ export default function ProfileEdit() {
   const { mutate } = useMyProfileEditor(newContent);
 
   return (
-    <main className="py-28">
-      {isLoading ? (
-        <></>
-      ) : (
+    <main className="py-28  min-h-min_h">
+      {isLoading ? null : (
         <section className="w-[600px] mobile:w-full p-6 m-auto flex flex-col items-center">
           <h1 className="sr-only">프로필 수정</h1>
           <ul className="w-full my-8">
@@ -100,6 +113,7 @@ export default function ProfileEdit() {
                 hidden
                 thumbnail={profileUrl}
                 setThumbnail={setProfileUrl}
+                aspect={1 / 1}
               />
             </li>
             <li className="flex flex-col gap-2 mt-10">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import SelectButton from '@/components/button/SelectButton';
-import useMemberSearch from '@/hooks/useMemberSearch';
+import useMemberSearch from '@/hooks/queries/useMemberSearch';
 import { parseEnum } from '@/utils/parseEnum';
 import { parseValue } from '@/utils/parseValue';
 
@@ -96,9 +96,6 @@ export default function MemberList({
 
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor="memberNum" className="sr-only">
-        멤버 수
-      </label>
       <SelectButton
         option={optionsNum}
         setOption={setOptionsNum as (option: (string | number)[]) => void}
@@ -108,6 +105,7 @@ export default function MemberList({
         }
         index={0}
         className="px-4 py-2 bg-primary rounded-bs_5 font-bold appearance-none max-w-24"
+        hidden={false}
       />
 
       {selectPosition.map((_, index) => (
@@ -120,9 +118,15 @@ export default function MemberList({
               setSelectPosition as (personnel: (string | number)[]) => void
             }
             index={index}
+            hidden={false}
           />
           <div className="h-[3.125rem] w-1/2 min_mobile:w-full">
+            <label htmlFor="memberId" className="sr-only">
+              멤버 닉네임 및 고유 아이디 입력창
+            </label>
             <input
+              id="memberId"
+              name="memberId"
               type="text"
               placeholder="닉네임을 입력해주세요."
               className="border border-gray30 rounded-bs_5 text-bs_14 pl-3 h-full w-full"
@@ -131,11 +135,13 @@ export default function MemberList({
                 const newMemberId = memberId;
                 memberId[index] = e.target.value;
                 setMemberId([...newMemberId]);
+                // debounce(() => setMemberId([...newMemberId]), 1000);
               }}
               maxLength={8}
               onFocus={() => {
                 setCurrentIndex(index);
                 setIsToggle(true);
+                // debounce(() => setIsToggle(true), 1000);
               }}
               onBlur={() => {
                 setIsToggle(false);

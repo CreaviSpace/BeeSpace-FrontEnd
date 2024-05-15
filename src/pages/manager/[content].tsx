@@ -2,17 +2,34 @@ import { AiFillAlert } from '@react-icons/all-files/ai/AiFillAlert';
 import { AiOutlineDashboard } from '@react-icons/all-files/ai/AiOutlineDashboard';
 import { AiOutlineTeam } from '@react-icons/all-files/ai/AiOutlineTeam';
 import { FaList } from '@react-icons/all-files/fa/FaList';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import ContentManagement from '@/components/manager/ContentManagement';
-import DashBoardManagement from '@/components/manager/DashBoardManagement';
-import ReportManagement from '@/components/manager/ReportManagement';
 import SearchBar from '@/components/manager/SearchBar';
-import UserManagement from '@/components/manager/UserManagement';
 import TotalChart from '@/components/TotalChart';
+
+const DashBoardManagement = dynamic(
+  () => import('@/components/manager/DashBoardManagement'),
+  { ssr: false }
+);
+
+const ContentManagement = dynamic(
+  () => import('@/components/manager/ContentManagement'),
+  { ssr: false }
+);
+
+const ReportManagement = dynamic(
+  () => import('@/components/manager/ReportManagement'),
+  { ssr: false }
+);
+
+const UserManagement = dynamic(
+  () => import('@/components/manager/UserManagement'),
+  { ssr: false }
+);
 
 const MENU = [
   {
@@ -36,7 +53,7 @@ const MENU = [
     link: 'user',
     icon: AiOutlineTeam({}),
     contents: [
-      { content: '사용자 관리', link: 'manage' },
+      { content: '사용자 관리', link: 'member' },
       // { content: '로그인 이력 관리', link: 'login' },
     ],
   },
@@ -79,12 +96,12 @@ export default function Manager() {
   };
 
   const handleGoHome = () => {
-    router.push('/');
+    router.replace('/');
   };
 
   return (
-    <main>
-      <div className="max-w-max_w m-auto flex border-r border-gray10 relative">
+    <main className="h-[calc(100vh_-_4rem)] overflow-hidden">
+      <div className="max-w-max_w min-h-min_h m-auto flex border-r border-gray10 relative">
         <button
           className={`hidden absolute top-10  ${isSlide ? 'left-60' : 'left-0'} p-2 rounded-r-md bg-blue20 z-10 cursor-pointer  transition-all mobile:block`}
           onClick={() => {
@@ -118,7 +135,7 @@ export default function Manager() {
                   if (item2) {
                     return (
                       <li
-                        key={`${item2}-${index}`}
+                        key={`${item2.link}-${index}`}
                         className={`${handleNowContentCSS(item2.link)} px-5 py-3 pl-10`}>
                         <Link href={`${item1.link}/?type=${item2.link}`}>
                           {item2.content}
@@ -132,7 +149,7 @@ export default function Manager() {
           </ul>
         </aside>
 
-        <div className="w-full h-[calc(100vh)] overflow-auto">
+        <div className="w-full h-[calc(100vh_-_4rem)] overflow-auto">
           <div className={`w-full bg-blue10 p-3 flex justify-end`}>
             <button
               className="px-3 font-bold transition-all"
@@ -141,12 +158,12 @@ export default function Manager() {
             </button>
           </div>
           <div className="flex mobile:flex-col">
-            <section className="w-3/5 h-96 p-3 mobile:w-full ">
+            <section className="w-3/5 h-[30rem] p-3 mobile:w-full ">
               <div className="bg-blue10 w-full h-full p-3">
-                <TotalChart />
+                <TotalChart category={type as string} />
               </div>
             </section>
-            <section className="w-2/5 h-96 p-3 mobile:w-full">
+            <section className="w-2/5 h-[30rem] p-3 mobile:w-full">
               <div className="bg-blue10 w-full h-full p-3">
                 <h3 className="text-bs_20 font-bold mb-2">메모장</h3>
                 <ul>

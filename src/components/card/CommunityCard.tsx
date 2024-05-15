@@ -36,7 +36,15 @@ export default function CommunityCard({ item, className }: CommunityCardProps) {
               className="overflow-hidden text-ellipsis break-keep line-clamp-2 mb-3"
               dangerouslySetInnerHTML={{ __html: item.content }}></p>
           </Link>
-          <Tag name="example" category="hashtag" />
+          <div className="flex gap-2">
+            {item.hashTags.map((hashTag, index) => (
+              <Tag
+                key={`${hashTag}-${index}`}
+                name={hashTag.hashTag}
+                category="hashtag"
+              />
+            ))}
+          </div>
         </div>
         <Link href={`${item.postType.toLowerCase()}/${item.id}`}>
           <div className="pt-4 float-start flex gap-x-3 text-bs_14">

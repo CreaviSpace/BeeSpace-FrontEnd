@@ -9,7 +9,7 @@ interface ISelectButtonProps {
   index: number;
   className?: string;
   handler?: (num: number) => void;
-  htmlFor?: string;
+  hidden?: boolean;
 }
 
 export default function SelectButton({
@@ -20,7 +20,7 @@ export default function SelectButton({
   index,
   className,
   handler,
-  htmlFor,
+  hidden = true,
 }: ISelectButtonProps) {
   const [isToggle, setIsToggle] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);
@@ -34,7 +34,7 @@ export default function SelectButton({
       handler(index);
     }
 
-    if (setOption) {
+    if (hidden && setOption) {
       if (copyPersonnel.some((prev) => prev === copyPersonnel[index])) {
         const copyOption = option.filter((prev) => prev !== item);
         setOption(copyOption);

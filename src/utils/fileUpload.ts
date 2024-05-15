@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import { getCookies } from '@/utils/getCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
 
-import { postCookies } from './postCookies';
+import { postCookies } from './cookie/postCookies';
 
 const fileUpload = async (
   compressedImage: Blob | undefined,

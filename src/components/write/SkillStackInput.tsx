@@ -2,7 +2,7 @@ import { IoCloseOutline } from '@react-icons/all-files/io5/IoCloseOutline';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
-import useSkillStackSearch from '@/hooks/useSkillStackSearch';
+import useSkillStackSearch from '@/hooks/queries/useSkillStackSearch';
 import { ITechStackType } from '@/types/global';
 
 interface SkillStackInput {
@@ -51,11 +51,11 @@ export default function SkillStackInput({
         }}
         onFocus={() => setIsToggle(true)}
         onBlur={() => setIsToggle(false)}
-        className="w-full h-[3.125rem] px-5 border border-gary10 rounded-bs_5"
+        className={`w-full h-[3.125rem] px-5 border ${hidden ? 'border-gray30' : 'border-gray10'} border-gray30 rounded-bs_5`}
       />
 
       {isLoading
-        ? '로딩중'
+        ? null
         : data?.length > 0 &&
           isToggle && (
             <ul className="relative rounded-bs_5 overflow-hidden border border-gray10 bg-white z-[10] mt-3">
@@ -70,10 +70,7 @@ export default function SkillStackInput({
                       key={`${item.techStack}-${index}`}
                       className="w-full h-[3.125rem] max-h-[15.625rem] p-[0.625rem] hover:bg-gray10 flex items-center overflow-y-auto cursor-pointer custom-scrollbar"
                       onClick={() =>
-                        handleTechStackDtosPush(
-                          item.techStack,
-                          item.techStackIcon
-                        )
+                        handleTechStackDtosPush(item.techStack, item.iconUrl)
                       }
                       onMouseDown={(e) => e.preventDefault()}>
                       {item.techStack}

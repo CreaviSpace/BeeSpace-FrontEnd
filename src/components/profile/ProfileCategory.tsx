@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { getCookies } from '@/utils/getCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
 
 interface IProfileCategoryProps {
   category: { name: string; type: string }[];
@@ -30,7 +30,7 @@ export default function ProfileCategory({
   };
 
   return (
-    <nav className="sticky top-16 w-full border-y bg-white border-gray30 mt-10 z-[10]">
+    <nav className="sticky top-16 w-full border-y bg-white border-gray30 mt-10 z-10">
       <div className="max-w-4xl m-auto flex justify-between items-center mobile:justify-center">
         <ul className="w-full flex mobile:flex-col text-center  mobile:gap-3">
           <li className="hidden mobile:block">

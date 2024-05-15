@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import CommentCard from '@/components/card/CommentCard';
-import useCommentGetPost from '@/hooks/comment/useCommentGetPost';
+import useCommentGetPost from '@/hooks/queries/comment/useCommentGetPost';
 
 import SkeletonCommentCard from '../skeleton/SkeletonCommentCard';
 import { ICommentContainerTypes } from './../../types/global.d';

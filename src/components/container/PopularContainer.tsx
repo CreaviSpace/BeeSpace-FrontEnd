@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
-import useBanner from '@/hooks/useBanner';
+import useBanner from '@/hooks/queries/useBanner';
 import { IBannerItem } from '@/types/global';
 import { TransitionEnd } from '@/utils/carousel';
 
@@ -43,19 +43,19 @@ export default function PopularProject({ postType }: IPopularProjectProps) {
           더 보기
         </Link>
       </div>
-      {isLoading ? (
+      {isLoading || isError ? (
         <SkeletonPopularCard />
-      ) : data?.length === 0 ? null : (
+      ) : data.length === 0 ? null : (
         <div>
           <div
             className={`relative right-full flex justify-between transition-all ${maxConut >= 5 ? 'w-[500%]' : maxConut >= 3 ? 'w-[400%]' : 'w-[300%]'}`}
             ref={listRef}
             onTransitionEnd={handleTransitionEnd}>
             <PopularImageCard
-              img1={data[data?.length - 2].thumbnail}
-              img2={data[data?.length - 1].thumbnail}
-              link1={`/project/${data[data?.length - 2].id}`}
-              link2={`/project/${data[data?.length - 1].id}`}
+              img1={data[data?.length - 2]?.thumbnail}
+              img2={data[data?.length - 1]?.thumbnail}
+              link1={`/project/${data[data?.length - 2]?.id}`}
+              link2={`/project/${data[data?.length - 1]?.id}`}
             />
             {data.map((item: IBannerItem, index: number) => {
               if (index % 2 == 0) {

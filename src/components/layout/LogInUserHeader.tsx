@@ -2,12 +2,12 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
-import useAlarm from '@/hooks/alarm/useAlarm';
-import useAlarmCount from '@/hooks/alarm/useAlarmCount';
-import useLoginCheck from '@/hooks/login/useLoginCheck';
+import useAlarm from '@/hooks/queries/alarm/useAlarm';
+import useAlarmCount from '@/hooks/queries/alarm/useAlarmCount';
+import useLoginCheck from '@/hooks/queries/login/useLoginCheck';
 import useLoginModal from '@/store/modal/useLoginModal';
 import useLogin from '@/store/useLogin';
-import { getCookies } from '@/utils/getCookies';
+import { getCookies } from '@/utils/cookie/getCookies';
 
 import SkeletonUserImage from '../skeleton/SkeletonUserImage';
 import AlarmModal from './modal/AlarmModal';
@@ -27,7 +27,6 @@ export default function LogInHeader() {
   const alarmModalRef = useRef<HTMLDivElement>(null);
 
   const { onOpen: openLogin } = useLoginModal();
-  // const { onOpen: openSignUp } = useSignUpModal();
   const { login } = useLogin();
 
   const { isLoading, data, isError, isFetching } = useLoginCheck();
@@ -77,95 +76,94 @@ export default function LogInHeader() {
     setOnProfileModal(!onProfileModal);
   };
 
-  if (!login) {
-    return (
-      <ul className="flex">
-        <li>
-          <CustomButton
-            onClick={openLogin}
-            className="py-2 px-4"
-            color="primary">
-            로그인
-          </CustomButton>
-        </li>
-        {/* <li className="ml-5 mobile:hidden">
-          <CustomButton onClick={openSignUp} className="py-2 px-3">
-            회원가입
-          </CustomButton>
-        </li> */}
-      </ul>
-    );
-  }
-
   return (
-    <ul className="flex items-center relative">
-      <li className="min_mobile:hidden">
-        <CustomButton
-          color="primary"
-          className="py-2 px-3"
-          onClick={handleWriteModalToggle}
-          onMouseDown={(e) => e.preventDefault()}>
-          글쓰기
-        </CustomButton>
-      </li>
-      {isLoading ? (
-        <SkeletonUserImage />
-      ) : (
-        <li
-          className="ml-3 cursor-pointer relative min_mobile:ml-0"
-          tabIndex={0}
-          onClick={handleProfileModalToggle}
-          onMouseDown={(e) => e.preventDefault()}>
-          <Image
-            src={data?.profileUrl ? data.profileUrl : '/img/user/default.avif'}
-            alt="유저 아이콘"
-            width={40}
-            height={40}
-            className="rounded-full"
-          />
-          {isAlarm && (
-            <div className="absolute top-[0.125rem] right-[0.125rem] w-2 h-2 rounded-full bg-green-400"></div>
+    <>
+      {login ? (
+        <ul className="flex items-center relative">
+          <li className="min_mobile:hidden">
+            <CustomButton
+              color="primary"
+              className="py-2 px-3"
+              onClick={handleWriteModalToggle}
+              onMouseDown={(e) => e.preventDefault()}>
+              글쓰기
+            </CustomButton>
+          </li>
+          {isLoading ? (
+            <SkeletonUserImage />
+          ) : (
+            <li
+              className="ml-3 cursor-pointer relative min_mobile:ml-0"
+              tabIndex={0}
+              onClick={handleProfileModalToggle}
+              onMouseDown={(e) => e.preventDefault()}>
+              <Image
+                src={
+                  data?.profileUrl ? data.profileUrl : '/img/user/default.avif'
+                }
+                alt="유저 아이콘"
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
+              {isAlarm && (
+                <div className="absolute top-[0.125rem] right-[0.125rem] w-2 h-2 rounded-full bg-green-400"></div>
+              )}
+            </li>
           )}
-        </li>
-      )}
 
-      <div
-        ref={profileModalRef}
-        tabIndex={0}
-        onFocus={() => setOnProfileModal(true)}
-        onBlur={() => setOnProfileModal(false)}>
-        {onProfileModal && (
-          <ProfileModal
-            handleWriteModalOpen={handleWriteModalOpen}
-            handleAlarmModalOpen={handleAlarmModalOpen}
-            setOnProfileModal={setOnProfileModal}
-            MID={MID}
-            isAlarm={isAlarm}
-          />
-        )}
-      </div>
-      <div
-        ref={writingModalRef}
-        tabIndex={0}
-        onFocus={() => setOnWritingModal(true)}
-        onBlur={() => setOnWritingModal(false)}>
-        {onWritingModal && <WriteModal setOnWritingModal={setOnWritingModal} />}
-      </div>
-      <div
-        ref={alarmModalRef}
-        tabIndex={0}
-        onFocus={() => setOnAlarmModal(true)}
-        onBlur={() => {
-          setOnAlarmModal(false);
-        }}>
-        {onAlarmModal && (
-          <AlarmModal
-            isLoading={alarmIsLoading}
-            isAlarm={alarmData}
-            data={alarmData}
-          />
-        )}
-      </div>
-    </ul>
+          <div
+            ref={profileModalRef}
+            tabIndex={0}
+            onFocus={() => setOnProfileModal(true)}
+            onBlur={() => setOnProfileModal(false)}>
+            {onProfileModal && (
+              <ProfileModal
+                handleWriteModalOpen={handleWriteModalOpen}
+                handleAlarmModalOpen={handleAlarmModalOpen}
+                setOnProfileModal={setOnProfileModal}
+                MID={MID}
+                isAlarm={isAlarm}
+              />
+            )}
+          </div>
+          <div
+            ref={writingModalRef}
+            tabIndex={0}
+            onFocus={() => setOnWritingModal(true)}
+            onBlur={() => setOnWritingModal(false)}>
+            {onWritingModal && (
+              <WriteModal setOnWritingModal={setOnWritingModal} />
+            )}
+          </div>
+          <div
+            ref={alarmModalRef}
+            tabIndex={0}
+            onFocus={() => setOnAlarmModal(true)}
+            onBlur={() => {
+              setOnAlarmModal(false);
+            }}>
+            {onAlarmModal && (
+              <AlarmModal
+                isLoading={alarmIsLoading}
+                isAlarm={alarmData}
+                data={alarmData}
+              />
+            )}
+          </div>
+        </ul>
+      ) : (
+        <ul className="flex">
+          <li>
+            <CustomButton
+              onClick={openLogin}
+              className="py-2 px-4"
+              color="primary">
+              로그인
+            </CustomButton>
+          </li>
+        </ul>
+      )}
+    </>
   );
 }

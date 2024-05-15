@@ -16,6 +16,7 @@ interface IBannerProps {
     techStack: string;
     iconUrl: string;
   }[];
+  end?: string;
 }
 
 export default function BannerItem({
