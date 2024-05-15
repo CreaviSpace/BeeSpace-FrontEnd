@@ -106,7 +106,7 @@ export default function RecruitmentWrite() {
       setter.setCategory('PROJECT_RECRUIT');
       setter.setContactWay('');
       setter.setContact('');
-      setter.setTechStacks([{ techStack: '' }]);
+      setter.setTechStacks([]);
       setter.setAmount(0);
       setter.setProceedWay('ONLINE');
       setter.setWorkDay(1);
