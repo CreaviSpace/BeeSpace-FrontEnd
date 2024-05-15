@@ -2,8 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import UniversalCard from '@/components/card/UniversalCard';
-import useBanner from '@/hooks/useBanner';
+import useBanner from '@/hooks/queries/useBanner';
 import { IDeadLineType } from '@/types/global';
+
+import SkeletonUniversalCard from '../skeleton/SkeletonUniversalCard';
 
 export default function DeadLineContainer() {
   const { isLoading, isError, data, isFetching } = useBanner('recruitment');
@@ -24,18 +26,22 @@ export default function DeadLineContainer() {
           더 보기
         </Link>
       </div>
-      {data?.map((item: IDeadLineType) => (
-        <UniversalCard
-          key={`Deadline-${item.id}`}
-          id={item.id}
-          postType={item.postType}
-          title={item.title}
-          content={item.content}
-          date={item.modifiedDate}
-          size="small"
-          className="my-5 bg-white"
-        />
-      ))}
+      {isLoading || isError
+        ? [1, 2, 3].map((_, index) => (
+            <SkeletonUniversalCard size="small" key={index} />
+          ))
+        : data?.map((item: IDeadLineType) => (
+            <UniversalCard
+              key={`Deadline-${item.id}`}
+              id={item.id}
+              postType={item.postType}
+              title={item.title}
+              content={item.content}
+              date={item.modifiedDate}
+              size="small"
+              className="my-5 bg-white"
+            />
+          ))}
     </div>
   );
 }

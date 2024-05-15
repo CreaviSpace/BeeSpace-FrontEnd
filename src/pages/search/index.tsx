@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import UniversalCard from '@/components/card/UniversalCard';
 import Category from '@/components/Category';
 import SkeletonUniversalCard from '@/components/skeleton/SkeletonUniversalCard';
-import useSearch from '@/hooks/useSearch';
+import useSearch from '@/hooks/queries/useSearch';
 import { IUniversalType } from '@/types/global';
 
 const SIDE_CATEGORIES = [
@@ -79,7 +79,7 @@ export default function Search() {
   );
 
   return (
-    <main>
+    <main className="min-h-min_h">
       <Category category={CATEGORIES} searchValue={searchValue} />
       <div className="grid grid-cols-5 max-w-max_w m-auto py-10 tablet:grid-cols-4 mobile:grid-cols-4 tablet:px-8 mobile:px-6">
         <aside className="col-span-1 tablet:hidden mobile:hidden">

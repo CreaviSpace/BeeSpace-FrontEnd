@@ -46,6 +46,9 @@ const config: Config = {
       minWidth: {
         min_w: '320px',
       },
+      minHeight: {
+        min_h: 'calc(100vh - 15.625rem - 4rem)',
+      },
       fontSize: {
         bs_13: '0.8125rem',
         bs_14: '0.875rem',

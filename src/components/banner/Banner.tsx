@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-import useBanner from '@/hooks/useBanner';
+import useBanner from '@/hooks/queries/useBanner';
 import { TransitionEnd } from '@/utils/carousel';
 
 import SkeletonBanner from '../skeleton/SkeletonBanner';
@@ -22,9 +22,9 @@ interface IBannerItem {
   techStacks: {
     techStackId: number;
     techStack: string;
-    iconUrl?: string;
+    iconUrl: string;
   }[];
-  iconUrl: string;
+  end?: string;
 }
 
 export default function Banner({ postType }: IBannerProps) {
@@ -46,7 +46,7 @@ export default function Banner({ postType }: IBannerProps) {
 
   return (
     <div className="overflow-hidden">
-      {isLoading ? (
+      {isLoading || isError ? (
         <SkeletonBanner />
       ) : (
         data?.length > 0 && (
@@ -81,8 +81,8 @@ export default function Banner({ postType }: IBannerProps) {
                     title={item.title}
                     content={item.content ? item.content : item.bannerContent}
                     image={item.thumbnail}
-                    date={data[data.length - 1].end}
-                    techStacks={data[data.length - 1].techStacks}
+                    date={item.end}
+                    techStacks={item.techStacks}
                   />
                 </div>
               ))}

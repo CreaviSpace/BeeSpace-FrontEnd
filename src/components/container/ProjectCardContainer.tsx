@@ -1,19 +1,18 @@
-import { useCallback, useRef } from 'react';
-
 import ProjectCard from '@/components/card/ProjectCard';
-import useProject from '@/hooks/project/useProject';
+import useProject from '@/hooks/queries/project/useProject';
+import useObserver from '@/hooks/useObserver';
 
 import { IProjectType } from '../../types/global';
 import SkeletonProjectCard from '../skeleton/SkeletonProjectCard';
 
 interface IProjectCardContainerProps {
-  category: string;
+  category?: string;
   size: number;
   main?: boolean;
 }
 
 export default function ProjectCardContainer({
-  category,
+  category = 'all',
   size = 6,
   main,
 }: IProjectCardContainerProps) {
@@ -26,29 +25,12 @@ export default function ProjectCardContainer({
     isFetchingNextPage,
   } = useProject(category, size);
 
-  const observer: React.MutableRefObject<IntersectionObserver | null> =
-    useRef(null);
-  const lastElementRef = useCallback(
-    (node: HTMLElement | null) => {
-      if (isFetchingNextPage) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && !isError) {
-            fetchNextPage();
-          }
-        },
-        { threshold: 0.7 }
-      );
-      if (node) observer.current.observe(node);
-    },
-    [isFetchingNextPage]
-  );
+  const observerRef = useObserver(isFetchingNextPage, isError, fetchNextPage);
 
   return (
     <div className="max-w-max_w w-full">
       <div className="grid grid-cols-4 gap-y-6 gap-x-3 tablet:grid-cols-2 mobile:grid-cols-1">
-        {isLoading
+        {isLoading || isError
           ? [1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => (
               <SkeletonProjectCard key={index} />
             ))
@@ -60,12 +42,12 @@ export default function ProjectCardContainer({
               ));
             })}
 
-        {hasNextPage && main ? null : isFetchingNextPage && size > 8 ? (
+        {!hasNextPage || main ? null : isFetchingNextPage ? (
           [1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => (
             <SkeletonProjectCard key={index} />
           ))
         ) : (
-          <div ref={lastElementRef}></div>
+          <div ref={observerRef}></div>
         )}
       </div>
     </div>

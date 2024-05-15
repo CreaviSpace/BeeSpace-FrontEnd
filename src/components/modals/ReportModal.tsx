@@ -8,7 +8,7 @@ import {
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import useReportPost from '@/hooks/report/useReportPost';
+import useReportPost from '@/hooks/queries/report/useReportPost';
 import useReportModal from '@/store/modal/useReportModal';
 import { parseEnum } from '@/utils/parseEnum';
 
@@ -35,7 +35,10 @@ export default function ReportModal() {
 
   const data = {
     postId: parseInt(id as string),
-    postType: pathname.toUpperCase(),
+    postType:
+      pathname.toUpperCase() === 'RECRUITMENT'
+        ? 'RECRUIT'
+        : pathname.toUpperCase(),
     category: parseEnum(select[0]),
     content: value,
   };

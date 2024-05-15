@@ -3,11 +3,11 @@ import React from 'react';
 
 export default function Loading() {
   return (
-    <main className="w-screen h-[calc(100vh-15.625rem-4rem)] flex items-center bg-white">
-      <section className="w-full">
+    <main className="w-screen h-[calc(100vh-15.625rem-4rem)] flex justify-center items-center bg-white">
+      <section className="w-full h-screen absolute top-0 left-0 flex justify-center items-center z-50 bg-inherit">
         <h1 className="sr-only">페이지 로딩중...</h1>
         <div className="relative flex justify-center h-[330px]">
-          <div className="absolute top-0 w-fit">
+          <div className="top-0 w-fit">
             <Image
               src="/BS_Loading_honeycomb1.png"
               alt=""
@@ -23,11 +23,6 @@ export default function Loading() {
               height={35}
               className="rotate-180"
             />
-          </div>
-          <div className="absolute bottom-0 text-bs_24 font-Roboto font-light">
-            <p aria-hidden className="relative">
-              Loading...
-            </p>
           </div>
         </div>
       </section>
