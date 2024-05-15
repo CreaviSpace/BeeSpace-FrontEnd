@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
+import { queryKeys } from '@/constants/keys';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 import { getCookies } from '@/utils/cookie/getCookies';
 import { postCookies } from '@/utils/cookie/postCookies';
 
@@ -9,13 +10,10 @@ const useFeedBackAnalysis = (id: number) => {
 
   const { isLoading, isError, data, isFetching } = useQuery({
     enabled: !!token && !!id,
-    queryKey: [`analysis-${id}`],
+    queryKey: [queryKeys.FEEDBACK_ANALYSIS, id],
     queryFn: async () => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/feedback/analysis?projectId=${id}`,
-        {
-          headers: { Authorization: token },
-        }
+      const response = await axiosInstance.get(
+        `/feedback/analysis?projectId=${id}`
       );
 
       if (response.status === 200 && response.data.success) {
@@ -27,8 +25,6 @@ const useFeedBackAnalysis = (id: number) => {
         });
       }
     },
-    gcTime: 30000 * 12,
-    staleTime: 30000 * 12,
   });
 
   return { isLoading, isError, data, isFetching };

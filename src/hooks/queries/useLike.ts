@@ -1,10 +1,12 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
+import { queryKeys } from '@/constants/keys';
 import useLoginModal from '@/store/modal/useLoginModal';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 import { getCookies } from '@/utils/cookie/getCookies';
 import { postCookies } from '@/utils/cookie/postCookies';
+import queryClient from '@/utils/queryClien';
 
 const useLike = (id?: number, postType?: string) => {
   const { onOpen } = useLoginModal();
@@ -12,13 +14,10 @@ const useLike = (id?: number, postType?: string) => {
 
   const { isLoading, isError, data, isFetching } = useQuery({
     enabled: !!token,
-    queryKey: [`like-${id}`],
+    queryKey: [queryKeys.LIKE, id],
     queryFn: async () => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/like?postId=${id}&postType=${postType}`,
-        {
-          headers: { Authorization: getCookies('jwt') },
-        }
+      const response = await axiosInstance.get(
+        `/like?postId=${id}&postType=${postType}`
       );
 
       if (response.status === 200 && response.data.success) {
@@ -30,11 +29,8 @@ const useLike = (id?: number, postType?: string) => {
         });
       }
     },
-    gcTime: 30000 * 12,
-    staleTime: 30000 * 12,
   });
 
-  const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: async () => {
       if (!token) {
@@ -43,19 +39,17 @@ const useLike = (id?: number, postType?: string) => {
         return;
       }
 
-      return await axios.post(
-        `${process.env.BASE_URL}/like?postId=${id}&postType=${postType}`,
-        {},
-        {
-          headers: { Authorization: getCookies('jwt') },
-        }
+      return await axiosInstance.post(
+        `/like?postId=${id}&postType=${postType}`
       );
     },
     onSuccess: (data) => {
       if (data) {
         if (data.status === 200 && data.data.success) {
-          queryClient.invalidateQueries({ queryKey: [`like-${id}`] });
-          queryClient.invalidateQueries({ queryKey: [`like-view-${id}`] });
+          queryClient.invalidateQueries({ queryKey: [queryKeys.LIKE, id] });
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.LIKE_VIEW, id],
+          });
         } else if (data.status === 202 && !data.data.success) {
           postCookies({
             jwt: data.data.jwt,

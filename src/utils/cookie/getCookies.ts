@@ -6,10 +6,6 @@ export const getCookies = (cookieValue: string, decoding?: boolean) => {
 
     const cookie = cookies.get(cookieValue);
 
-    if (decoding && cookie) {
-      return atob(cookie);
-    }
-
     return cookie;
   } catch (error) {
     console.error(error);

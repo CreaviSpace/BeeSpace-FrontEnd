@@ -1,10 +1,12 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
+import { queryKeys } from '@/constants/keys';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 import { getCookies } from '@/utils/cookie/getCookies';
 import { postCookies } from '@/utils/cookie/postCookies';
+import queryClient from '@/utils/queryClien';
 
 interface IMyProfileeditorProps {
   nickName: string;
@@ -19,23 +21,23 @@ const useMyProfileEditor = (content: IMyProfileeditorProps) => {
   const router = useRouter();
   const tokent = getCookies('jwt');
   const MID = getCookies('MID', true);
-  const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: async () => {
       if (!tokent) {
         return;
       }
 
-      return await axios.post(
-        `${process.env.BASE_URL}/member/mypage/edit`,
-        content,
-        { headers: { Authorization: tokent } }
-      );
+      return await axiosInstance.post(`/member/mypage/edit`, content);
     },
     onSuccess: (data) => {
       if (data) {
         if (data.status === 200) {
-          queryClient.invalidateQueries({ queryKey: [`MemberProfile-${MID}`] });
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.PROFILE_MY],
+          });
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.PROFILE_MEMBER, MID],
+          });
           toast.success('프로필 수정 성공');
           router.replace(`/profile/${MID}`);
         } else if (data.status === 202 && !data.data.success) {

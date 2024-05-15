@@ -1,5 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import axios from 'axios';
+
+import { queryKeys } from '@/constants/keys';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 
 const useSearch = (size: number, text: string, type: string) => {
   const {
@@ -11,18 +13,16 @@ const useSearch = (size: number, text: string, type: string) => {
     isFetchingNextPage,
   } = useInfiniteQuery({
     enabled: text?.trim() !== '',
-    queryKey: [`search-${type}-${text}`],
+    queryKey: [queryKeys.SEARCH, type, text],
     queryFn: async ({ pageParam = 1 }) => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/search?size=${size}&page=${pageParam}&text=${text}${type !== 'all' ? `&postType=${type.toUpperCase()}` : ''}`
+      const response = await axiosInstance.get(
+        `/search?size=${size}&page=${pageParam}&text=${text}${type !== 'all' ? `&postType=${type.toUpperCase()}` : ''}`
       );
 
       if (response.data.success) {
         return response.data.data;
       }
     },
-    gcTime: 30000 * 6,
-    staleTime: 30000 * 6,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = allPages.length + 1;

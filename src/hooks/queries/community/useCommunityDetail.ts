@@ -1,21 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+
+import { queryKeys } from '@/constants/keys';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 
 const useCommunityDetail = (id: string | undefined) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     enabled: !!id,
-    queryKey: [`community-${id}`],
+    queryKey: [queryKeys.COMMUNITY_DETAIL, String(id)],
     queryFn: async () => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/community/${id}`
-      );
+      const response = await axiosInstance.get(`/community/${id}`);
 
       if (response.data.success) {
         return response.data.data;
       }
     },
-    gcTime: 30000 * 12,
-    staleTime: 30000 * 12,
   });
   return { isLoading, isError, data, isFetching };
 };

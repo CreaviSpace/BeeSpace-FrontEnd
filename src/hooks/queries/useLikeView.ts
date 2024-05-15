@@ -1,21 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+
+import { queryKeys } from '@/constants/keys';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 
 const useLikeView = (id?: number, postType?: string) => {
   const { isLoading, isError, data, isFetching } = useQuery({
     enabled: !!id,
-    queryKey: [`like-view-${id}`],
+    queryKey: [queryKeys.LIKE_VIEW, id],
     queryFn: async () => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/like/count?postId=${id}&postType=${postType}`
+      const response = await axiosInstance.get(
+        `/like/count?postId=${id}&postType=${postType}`
       );
 
       if (response.data.success) {
         return response.data.data;
       }
     },
-    gcTime: 30000 * 12,
-    staleTime: 30000 * 12,
   });
 
   return { isLoading, isError, data, isFetching };

@@ -55,7 +55,7 @@ export default function SkillStackInput({
       />
 
       {isLoading
-        ? '로딩중'
+        ? null
         : data?.length > 0 &&
           isToggle && (
             <ul className="relative rounded-bs_5 overflow-hidden border border-gray10 bg-white z-[10] mt-3">

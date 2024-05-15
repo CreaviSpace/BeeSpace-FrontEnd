@@ -3,10 +3,11 @@ import { AiOutlineUnorderedList } from '@react-icons/all-files/ai/AiOutlineUnord
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import LogInUserHeader from '@/components/layout/LogInUserHeader';
 import useSearchErrorModal from '@/store/modal/useSearchErrorModal';
+import useLogin from '@/store/useLogin';
 
 import MoblieNavigation from './MoblieNavigation';
 
@@ -27,6 +28,7 @@ export default function Header() {
 
   const router = useRouter();
 
+  const { setLogin } = useLogin();
   const { onOpen: openSearchError } = useSearchErrorModal();
 
   const handleSearchToggle = () => {
@@ -60,9 +62,9 @@ export default function Header() {
     }
   };
 
-  // if (pathname.split('/')[1] === 'manager') {
-  //   return null;
-  // }
+  useEffect(() => {
+    setLogin();
+  }, []);
 
   return (
     <header className="sticky top-0 w-full h-16 z-20 bg-white">

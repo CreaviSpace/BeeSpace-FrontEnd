@@ -1,20 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
-import { getCookies } from '@/utils/cookie/getCookies';
+import { queryKeys } from '@/constants/keys';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 import { postCookies } from '@/utils/cookie/postCookies';
 
 const useAdminStatist = (date: string, category: string) => {
-  const token = getCookies('jwt');
-
   const { isLoading, isError, data, isFetching } = useQuery({
-    queryKey: [`statistics-${category}-${date}`],
+    queryKey: [queryKeys.ADMIN, queryKeys.ADMIN_STATISTICS, date, category],
     queryFn: async () => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/admin/statistics/${date}?category=${category}`,
-        {
-          headers: { Authorization: token },
-        }
+      const response = await axiosInstance.get(
+        `/admin/statistics/${date}?category=${category}`
       );
 
       if (response.data.success && response.status === 200) {
@@ -26,8 +21,6 @@ const useAdminStatist = (date: string, category: string) => {
         });
       }
     },
-    gcTime: 30000 * 12,
-    staleTime: 30000 * 12,
   });
 
   return { isLoading, isError, data, isFetching };

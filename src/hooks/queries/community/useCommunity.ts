@@ -1,5 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import axios from 'axios';
+
+import { queryKeys } from '@/constants/keys';
+import { axiosInstance } from '@/utils/api/axiosInstance';
 
 const useCommunity = (
   category: string,
@@ -17,18 +19,17 @@ const useCommunity = (
     isFetchingNextPage,
   } = useInfiniteQuery({
     enabled: !!category,
-    queryKey: [`community-list-${category}-${orderby}-${size}`],
+    queryKey: [queryKeys.COMMUNITY, category, orderby, size],
     queryFn: async ({ pageParam = 1 }) => {
-      const response = await axios.get(
-        `${process.env.BASE_URL}/community?size=${size}&page=${pageParam}${category !== 'all' ? `&category=${category}` : ''}${hashTag ? `&hashTag=${hashTag} ` : ''}${orderby ? `&sort=${orderby}` : ''}`
+      const response = await axiosInstance.get(
+        `/community?size=${size}&page=${pageParam}${category !== 'all' ? `&category=${category}` : ''}${hashTag ? `&hashTag=${hashTag} ` : ''}${orderby ? `&sort=${orderby}` : ''}`
       );
 
       if (response.data.success) {
         return response.data.data;
       }
     },
-    staleTime: 30000 * 12,
-    gcTime: 30000 * 12,
+
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = allPages.length + 1;

@@ -26,7 +26,7 @@ export default function RecruitmentDetail() {
             <DetailsTitle
               id={data.id}
               memberId={data.memberId}
-              type={data.postType}
+              type="recruit"
               time={data.modifiedDate}
               views={data.viewCount}
               title={data.title}
