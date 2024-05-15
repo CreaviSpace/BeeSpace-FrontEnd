@@ -147,7 +147,6 @@ export default function ProfileEdit() {
                 직무
               </label>
               <SelectButton
-                htmlFor="job"
                 option={jobOption}
                 setOption={
                   setJobOption as (option: (string | number)[]) => void
@@ -163,7 +162,6 @@ export default function ProfileEdit() {
             <li className="flex flex-col gap-2 mt-8">
               <h2 className="font-bold">경력</h2>
               <SelectButton
-                htmlFor="career"
                 option={careerOption}
                 setOption={
                   setCareerOption as (option: (string | number)[]) => void
