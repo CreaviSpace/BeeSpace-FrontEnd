@@ -46,6 +46,11 @@ export default function ProjectBanner({
     setThumbnail('');
   };
 
+  const handleImageDrag = (image: string, imageName: string) => {
+    setImage(image);
+    setImageName(imageName);
+  };
+
   useEffect(() => {
     if (uploadImage) {
       handleCompressImage();
@@ -90,7 +95,7 @@ export default function ProjectBanner({
         </ImageDrag>
       ) : (
         <ImageDrag
-          handleImageDrag={setImage}
+          handleImageDrag={handleImageDrag}
           className="relative aspect-w-16 aspect-h-10">
           {compressedImage ? (
             <Image
