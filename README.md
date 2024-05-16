@@ -85,7 +85,23 @@ $ pnpm dev
 
 ## 화면 (이미지 클릭시 이동)
 
-홈, 프로젝트, 모집, 커뮤니티, 각 디테일들, 각 글쓰기, 피드백, 검색, 프로필, 프로필 수정, 관리자
+|<a href="">홈</a>|<a href="">프로젝트</a>|
+|:---:|:---:|
+|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/be365f66-e448-4667-ab4c-a57b249d0e51" /></a>|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/e269a331-556c-4659-9900-fbade65def88" /></a>|
+|<a href="">프로젝트 디테일</a>|<a href="">프로젝트 글쓰기</a>|
+|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/215368eb-18ee-487f-bffb-5d3906b984bd" /></a>|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/7d62e683-077a-4e1e-be50-6b27d5583417" /></a>|
+|<a href="">모집</a>|<a href="">모집 디테일</a>|
+|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/4e03efef-47ed-465f-82dd-17c9fddd2593" /></a>|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/0e9b7d11-0e4a-4c55-8912-a2a1de58a6fc" /></a>|
+|<a href="">모집 글쓰기</a>|<a href="">커뮤니티</a>|
+|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/869d01c8-7df1-49e5-9f09-15e1931b73b1" /></a>|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/80dcf774-507c-45d3-9fee-69e4c1721fe5" /></a>|
+|<a href="">커뮤니티 디테일</a>|<a href="">커뮤니티 글쓰기</a>|
+|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/33b30081-c542-43b7-811a-00b4aaf6325b" /></a>|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/faf692c9-a5a0-41c5-9fad-b761b2a54061" /></a>|
+|<a href="">프로젝트 피드백</a>|<a href="">검색</a>|
+|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/f95ec2c3-9fed-491a-a44b-dac31e15d536" /></a>|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/99f689e1-29ce-4960-9d20-6d527fe3e076" /></a>|
+|<a href="">프로필</a>|<a href="">프로필 수정</a>|
+|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/a5e0a5ed-84b5-4f43-bddb-1ed2408f2361" /></a>|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/5280cb92-4620-443c-aa5a-23fe94f75707" /></a>|
+|<a href="">프로필</a>|<a href=""></a>|
+|<a href=""><img src="https://github.com/springhana/beespace/assets/97121074/aa7376a6-09db-4bab-ab0d-7e74f48a5991" /></a>|<a href=""></a>|
 
 ## 주요 기능
 
