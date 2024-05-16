@@ -7,7 +7,7 @@ const getLogin = async (token: string | null) => {
   if (response.data && response.status === 200) {
     postCookies({
       jwt: response.data.jwt,
-      MID: btoa(response.data.memberId),
+      MID: response.data.memberId,
       OLD: response.data.oldUser ? 1 : 0,
     });
 
