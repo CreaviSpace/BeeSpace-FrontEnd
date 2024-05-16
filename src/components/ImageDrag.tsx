@@ -4,7 +4,7 @@ import { FileDrop } from 'react-file-drop';
 interface IImageDropProps {
   children: ReactNode;
   handleImageUpload?: (imageFile: File) => void;
-  handleImageDrag?: (image: string) => void;
+  handleImageDrag?: (image: string, imageName: string) => void;
   className?: string;
 }
 
@@ -15,9 +15,8 @@ export default function ImageDrag({
   className,
 }: IImageDropProps) {
   const handleDragandDrop = (files: FileList | null) => {
-    if (!files) {
-      return;
-    }
+    if (!files || files.length === 0) return;
+
     const filename = encodeURIComponent(files[0].name);
     if (files[0].size >= 5000000) {
       alert('5MB 이상 파일은 업로드가 불가능합니다.');
@@ -33,7 +32,7 @@ export default function ImageDrag({
       } else if (handleImageDrag) {
         const reader = new FileReader();
         reader.onload = () => {
-          handleImageDrag(reader.result as string);
+          handleImageDrag(reader.result as string, filename);
         };
         reader.readAsDataURL(files[0]);
       }
