@@ -1,6 +1,6 @@
 import 'react-quill/dist/quill.snow.css';
 
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import ReactQuill from 'react-quill';
 
 import ImageDrag from '@/components/ImageDrag';
@@ -33,15 +33,8 @@ interface ITextEditor {
 }
 
 export default function TextEditor({ values, setValues }: ITextEditor) {
-  const modules = useMemo(() => {
-    return {
-      toolbar: {
-        container: '#toolbar',
-      },
-    };
-  }, []);
-
   const { isLoading: isCompressLoading, compressImage } = useImageCompression();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleImageUpload = async (imageFile: File) => {
     const compressedImage = await compressImage(imageFile);
@@ -49,6 +42,34 @@ export default function TextEditor({ values, setValues }: ITextEditor) {
     const value = values + `<img src="${imageURL}" />`;
     setValues(value);
   };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const files = e.target.files;
+
+    if (!files || files.length === 0) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      handleImageUpload(files[0]);
+    };
+    reader.readAsDataURL(files[0]);
+  };
+
+  const handleImageClick = () => {
+    if (inputRef.current) inputRef.current.click();
+  };
+
+  const modules = useMemo(() => {
+    return {
+      toolbar: {
+        container: '#toolbar',
+        handlers: {
+          image: () => handleImageClick(),
+        },
+      },
+    };
+  }, []);
 
   return (
     <div>
@@ -64,6 +85,13 @@ export default function TextEditor({ values, setValues }: ITextEditor) {
           className="h-[34.375rem]"
         />
       </ImageDrag>
+      <input
+        type="file"
+        id="Imagefile"
+        ref={inputRef}
+        onChange={handleFileChange}
+        className="sr-only"
+      />
     </div>
   );
 }
