@@ -31,7 +31,9 @@ export default function CommunityCard({ item, className }: CommunityCardProps) {
       <div className="flow-root pt-4">
         <div>
           <Link href={`${item.postType.toLowerCase()}/${item.id}`}>
-            <h2 className="font-bold text-bs_20 mb-2">{item.title}</h2>
+            <h2 className="font-bold text-bs_20 text-ellipsis break-keep line-clamp-1 mb-2">
+              {item.title}
+            </h2>
             <p
               className="overflow-hidden text-ellipsis break-keep line-clamp-2 mb-3"
               dangerouslySetInnerHTML={{ __html: item.content }}></p>

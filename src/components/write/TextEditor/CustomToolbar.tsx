@@ -9,7 +9,6 @@ export default function CustomToolbar() {
       <button className="ql-list" value="bullet"></button>
       <select className="ql-color"></select>
       <select className="ql-background"></select>
-      <button className="ql-link"></button>
       <button className="ql-image"></button>
     </div>
   );
