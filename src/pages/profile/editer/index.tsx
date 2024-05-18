@@ -8,21 +8,11 @@ import ProjectBanner from '@/components/write/project/ProjectBanner';
 import SkillStackInput from '@/components/write/SkillStackInput';
 import useMemberProfileGet from '@/hooks/queries/profile/useMemberProfileGet';
 import useMyProfileEditor from '@/hooks/queries/profile/useMyProfileEditor';
+import useProfileData from '@/store/useProfile';
 import { getCookies } from '@/utils/cookie/getCookies';
 
 export default function ProfileEdit() {
   const [MID, setMid] = useState('');
-  const { isLoading, data } = useMemberProfileGet(MID);
-
-  const [profileUrl, setProfileUrl] = useState<string>('');
-  const [nickName, setNameValue] = useState<string>('');
-  const [introduce, setintroduce] = useState<string>('');
-  const [position, setPosition] = useState<string[]>(['default']);
-  const [career, setCareer] = useState<string[]>(['0년']);
-  const [interestedStack, setInterestedStack] = useState<
-    { techStack: string; iconUrl?: string }[]
-  >([]);
-
   const [jobOption, setJobOption] = useState([
     '백엔드',
     '프론트엔드',
@@ -44,29 +34,58 @@ export default function ProfileEdit() {
     '10년 이상',
   ]);
 
+  const {
+    nickName,
+    introduce,
+    position,
+    career,
+    interestedStack,
+    profileUrl,
+    setter,
+  } = useProfileData();
+
+  const profileData = {
+    nickName,
+    introduce,
+    position: position[0],
+    career: parseInt(career[0].split('년')[0]),
+    interestedStack: interestedStack,
+    profileUrl,
+  };
+
+  const { isLoading, data } = useMemberProfileGet(MID);
+  const { mutate } = useMyProfileEditor(profileData);
+
   const router = useRouter();
   const closeButton = () => router.replace(`/profile/${MID}`);
 
   useEffect(() => {
-    if (!isLoading && data) {
-      setPosition([data.memberPosition]);
-      setCareer([`${data.memberCareer}년`]);
+    setMid(getCookies('MID', true));
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading && MID) {
+      setter.setNickName(data.memberNickname);
+      setter.setIntroduce(data.memberIntroduce);
+      setter.setPosition([data.memberPosition]);
+      setter.setCareer([`${data.memberCareer}년`]);
       const processedData = data?.memberInterestedStack.map(
         (item: { techStack: string; iconUrl: string }) => ({
           techStack: item.techStack,
           iconUrl: item.iconUrl,
         })
       );
-      setInterestedStack(processedData);
-      setNameValue(data.memberNickname);
-      setintroduce(data.memberIntroduce);
-      setProfileUrl(data.profileUrl);
+      setter.setInterestedStack(processedData);
+      setter.setProfileUrl(data.profileUrl);
+    } else {
+      setter.setNickName('');
+      setter.setIntroduce('');
+      setter.setPosition(['default']);
+      setter.setCareer(['0년']);
+      setter.setInterestedStack([]);
+      setter.setProfileUrl('');
     }
   }, [isLoading, data]);
-
-  useEffect(() => {
-    setMid(getCookies('MID', true));
-  }, []);
 
   const handlerExpireMember = async () => {
     try {
@@ -82,25 +101,14 @@ export default function ProfileEdit() {
   };
 
   const handleNameValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNameValue(e.target.value);
+    setter.setNickName(e.target.value);
   };
 
   const handleIntroduceValueChange = (e: {
     target: { value: SetStateAction<string> };
   }) => {
-    setintroduce(e.target.value);
+    setter.setIntroduce(e.target.value as string);
   };
-
-  const newContent = {
-    nickName,
-    introduce,
-    position: position[0],
-    career: parseInt(career[0].split('년')[0]),
-    interestedStack: interestedStack,
-    profileUrl,
-  };
-
-  const { mutate } = useMyProfileEditor(newContent);
 
   return (
     <main className="py-28  min-h-min_h">
@@ -112,7 +120,7 @@ export default function ProfileEdit() {
               <ProjectBanner
                 hidden
                 thumbnail={profileUrl}
-                setThumbnail={setProfileUrl}
+                setThumbnail={setter.setProfileUrl}
                 aspect={1 / 1}
               />
             </li>
@@ -153,7 +161,7 @@ export default function ProfileEdit() {
                 }
                 select={position}
                 setSelect={
-                  setPosition as (position: (string | number)[]) => void
+                  setter.setPosition as (position: (string | number)[]) => void
                 }
                 index={0}
                 className="border-gray30"
@@ -167,7 +175,9 @@ export default function ProfileEdit() {
                   setCareerOption as (option: (string | number)[]) => void
                 }
                 select={career}
-                setSelect={setCareer as (career: (string | number)[]) => void}
+                setSelect={
+                  setter.setCareer as (career: (string | number)[]) => void
+                }
                 index={0}
                 className="border-gray30"
               />
@@ -176,7 +186,7 @@ export default function ProfileEdit() {
               <h2 className="font-bold">관심스택</h2>
               <SkillStackInput
                 techStackDtos={interestedStack}
-                setTechStackDtos={setInterestedStack}
+                setTechStackDtos={setter.setInterestedStack}
                 hidden
               />
             </li>
