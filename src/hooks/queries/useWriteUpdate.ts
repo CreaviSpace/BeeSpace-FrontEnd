@@ -32,10 +32,10 @@ const useWriteUpdate = (
       if (data) {
         if (data.status === 200 && data.data.success) {
           queryClient.invalidateQueries({
-            queryKey: [postType.toLowerCase(), id],
+            queryKey: [postType.toLowerCase(), String(id)],
           });
           queryClient.invalidateQueries({
-            queryKey: [postType.toLowerCase() + '_detail', id],
+            queryKey: [postType.toLowerCase() + '_detail', String(id)],
           });
           toast.success('글쓰기 성공');
           router.replace(

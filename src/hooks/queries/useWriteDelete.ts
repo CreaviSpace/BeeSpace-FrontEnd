@@ -27,7 +27,7 @@ const useWriteDelete = (id: number, postType: string) => {
             queryKey: [postType.toLowerCase()],
           });
           queryClient.invalidateQueries({
-            queryKey: [postType.toLowerCase() + '_detail', id],
+            queryKey: [postType.toLowerCase() + '_detail', String(id)],
           });
           router.replace(
             `/${data.data.data.postType.toLowerCase() === 'recruit' ? 'recruitment' : data.data.data.postType.toLowerCase()}?type=all`
