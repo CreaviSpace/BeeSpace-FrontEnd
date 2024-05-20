@@ -44,6 +44,7 @@ export default function RecruitmentWrite() {
     content,
     end,
     positions,
+    images,
     setter,
   } = useRecruitData();
 
@@ -63,6 +64,7 @@ export default function RecruitmentWrite() {
       const { techStack } = item;
       return { techStack };
     }),
+    images,
   };
 
   const { isLoading, isError, data, isFetching } = useRecruitDetail(
@@ -101,6 +103,11 @@ export default function RecruitmentWrite() {
           }
         );
         setter.setTechStacks(teachStacks);
+        if (data.images && data.images.length > 0) {
+          data.images.map((item: string) => {
+            setter.setImages(item);
+          });
+        }
       }
     } else {
       setter.setCategory('PROJECT_RECRUIT');
@@ -114,6 +121,7 @@ export default function RecruitmentWrite() {
       setter.setContent('');
       setter.setEnd(today);
       setter.setPositions([]);
+      // setter.setImages('');
     }
   }, [isFetching, id]);
 
@@ -166,7 +174,11 @@ export default function RecruitmentWrite() {
       </section>
       <section>
         <TitleEditor title={title} setTitle={setter.setTitle} />
-        <TextEditor values={content} setValues={setter.setContent} />
+        <TextEditor
+          values={content}
+          setValues={setter.setContent}
+          setImages={setter.setImages}
+        />
       </section>
 
       <div className="text-right mt-10">

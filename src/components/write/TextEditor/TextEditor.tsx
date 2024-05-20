@@ -30,9 +30,14 @@ const FORMATS = [
 interface ITextEditor {
   values: string;
   setValues: (values: string) => void;
+  setImages: (image: string) => void;
 }
 
-export default function TextEditor({ values, setValues }: ITextEditor) {
+export default function TextEditor({
+  values,
+  setValues,
+  setImages,
+}: ITextEditor) {
   const { isLoading: isCompressLoading, compressImage } = useImageCompression();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -41,6 +46,7 @@ export default function TextEditor({ values, setValues }: ITextEditor) {
     const imageURL = await fileUpload(compressedImage);
     const value = values + `<img src="${imageURL}" />`;
     setValues(value);
+    setImages(imageURL);
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
