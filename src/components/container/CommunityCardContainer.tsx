@@ -36,7 +36,7 @@ export default function CommunityCardContainer({
   isActive = 'default',
   ...restProps
 }: ICommunityCardStyleProps) {
-  const [orderby, setOrderby] = useState('');
+  const [orderby, setOrderby] = useState('created_date,desc');
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const {
