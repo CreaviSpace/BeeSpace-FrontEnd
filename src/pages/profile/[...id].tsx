@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCallback, useRef, useState } from 'react';
+import { useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import SortButton from '@/components/button/SortButton';
@@ -11,6 +11,7 @@ import SkeletonProfile from '@/components/skeleton/SkeletonProfile';
 import SkeletonUniversalCard from '@/components/skeleton/SkeletonUniversalCard';
 import useMemberProfileGet from '@/hooks/queries/profile/useMemberProfileGet';
 import useMyContent from '@/hooks/queries/profile/useMyContent';
+import useObserver from '@/hooks/useObserver';
 import useLogin from '@/store/useLogin';
 import { IUniversalType } from '@/types/global';
 import { getCookies } from '@/utils/cookie/getCookies';
@@ -86,26 +87,7 @@ export default function Profile() {
     category.type
   );
 
-  const observer: React.MutableRefObject<IntersectionObserver | null> =
-    useRef(null);
-
-  const lastElementRef = useCallback(
-    (node: HTMLElement | null) => {
-      if (isFetchingNextPage) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && !isError) {
-            fetchNextPage();
-          }
-        },
-
-        { threshold: 0.7 }
-      );
-      if (node) observer.current.observe(node);
-    },
-    [isFetchingNextPage]
-  );
+  const observerRef = useObserver(isFetchingNextPage, isError, fetchNextPage);
 
   if (isError) {
     return <Custom404 />;
@@ -183,7 +165,7 @@ export default function Profile() {
               <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
             ))
           ) : (
-            <div ref={lastElementRef}></div>
+            <div ref={observerRef}></div>
           )}
         </div>
       </section>
