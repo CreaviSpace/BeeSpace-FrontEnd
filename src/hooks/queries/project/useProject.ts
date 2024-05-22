@@ -13,7 +13,7 @@ const useProject = (category: string, size: number) => {
     isFetchingNextPage,
   } = useInfiniteQuery({
     enabled: !!category,
-    queryKey: [queryKeys.PROJECT, category],
+    queryKey: [queryKeys.PROJECT, category, size],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axiosInstance.get(
         `/project?size=${size}&page=${pageParam}${category !== 'all' ? `&category=${category}` : ''}`

@@ -13,7 +13,7 @@ const useRecruit = (category: string, size: number) => {
     isFetchingNextPage,
   } = useInfiniteQuery({
     enabled: !!category,
-    queryKey: [queryKeys.RECRUIT, category],
+    queryKey: [queryKeys.RECRUIT, category, size],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axiosInstance.get(
         `/recruit?size=${size}&page=${pageParam}${category === 'all' ? '' : `&category=${category}`}`
