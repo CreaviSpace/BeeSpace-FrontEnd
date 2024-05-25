@@ -47,7 +47,7 @@ export default function ProfileCategory({
             if (MID === memberID) {
               return (
                 <li
-                  key={index}
+                  key={`${item.type}-${index}`}
                   className={`${isToggle && 'mobile:hidden'} text-bs_20`}>
                   <button
                     className={`w-[8.75rem] h-[4.6875rem] ${selectedTab.type === item.type && 'border-b-[3px] border-primary'} mobile:w-full mobile:py-5`}

@@ -50,7 +50,7 @@ export default function SortButton({
           {isOpen && (
             <ul className="shadow-md rounded-md">
               {options.map((item, index) => (
-                <li key={index} className="flex flex-col p-1">
+                <li key={`${item.type}-${index}`} className="flex flex-col p-1">
                   <button
                     className="text-start"
                     onClick={() => handleSelect(item)}>
