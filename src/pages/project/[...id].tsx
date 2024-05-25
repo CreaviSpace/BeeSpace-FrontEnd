@@ -38,7 +38,7 @@ export default function ProjectDetail() {
           <section>
             <DetailsTitle
               type="project"
-              time={data.modifiedDate}
+              time={data.createdDate}
               views={data.viewCount}
               title={data.title}
               userName={data.memberNickName}

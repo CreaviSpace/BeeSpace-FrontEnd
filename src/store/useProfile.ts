@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 interface IProfileBody {
+  enabled: boolean | null;
   nickName: string;
   introduce: string;
   position: string[];
@@ -8,9 +9,9 @@ interface IProfileBody {
   interestedStack: {
     techStack: string;
   }[];
-
   profileUrl: string;
   setter: {
+    setEnabled: (enabled: boolean | null) => void;
     setNickName: (nickName: string) => void;
     setIntroduce: (introduce: string) => void;
     setPosition: (position: string[]) => void;
@@ -21,6 +22,7 @@ interface IProfileBody {
 }
 
 const useProfileData = create<IProfileBody>((set) => ({
+  enabled: null,
   nickName: '',
   introduce: '',
   position: [''],
@@ -32,6 +34,7 @@ const useProfileData = create<IProfileBody>((set) => ({
   ],
   profileUrl: '',
   setter: {
+    setEnabled: (enabled: boolean | null) => set(() => ({ enabled })),
     setNickName: (nickName: string) => set(() => ({ nickName: nickName })),
     setIntroduce: (introduce: string) => set(() => ({ introduce: introduce })),
     setPosition: (position: string[]) => set(() => ({ position: position })),
