@@ -10,6 +10,7 @@ interface IProjectBody {
   memberDtos: { memberId: string; position: string }[];
   techStackDtos: { techStack: string; iconUrl?: string }[];
   linkDtos: { linkType: string; url: string }[];
+  images: string[];
   setter: {
     setCategory: (category: string) => void;
     setTitle: (title: string) => void;
@@ -24,6 +25,7 @@ interface IProjectBody {
     setLinkDtos: (linkDtos: { linkType: string; url: string }[]) => void;
     setThumbnail: (thumbnail: string) => void;
     setBannerContent: (bannerContent: string) => void;
+    setImages: (image: string) => void;
   };
 }
 
@@ -41,6 +43,7 @@ const useProjectData = create<IProjectBody>((set) => ({
     { linkType: 'android', url: '' },
     { linkType: 'ios', url: '' },
   ],
+  images: [],
   setter: {
     setCategory: (category: string) => set(() => ({ category: category })),
     setTitle: (title: string) => set(() => ({ title: title })),
@@ -56,6 +59,14 @@ const useProjectData = create<IProjectBody>((set) => ({
     setThumbnail: (thumbnail: string) => set(() => ({ thumbnail: thumbnail })),
     setBannerContent: (bannerContent: string) =>
       set(() => ({ bannerContent: bannerContent })),
+    setImages: (image: string) => {
+      set((state) => {
+        const imagesSet = new Set(state.images);
+        imagesSet.add(image);
+
+        return { images: Array.from(imagesSet) };
+      });
+    },
   },
 }));
 

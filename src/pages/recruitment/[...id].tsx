@@ -27,7 +27,7 @@ export default function RecruitmentDetail() {
               id={data.id}
               memberId={data.memberId}
               type="recruit"
-              time={data.modifiedDate}
+              time={data.createdDate}
               views={data.viewCount}
               title={data.title}
               userName={data.memberNickName}

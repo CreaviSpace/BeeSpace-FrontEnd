@@ -36,7 +36,7 @@ export default function CommunityDetail() {
           <section>
             <DetailsTitle
               type="community"
-              time={data.modifiedDate}
+              time={data.createdDate}
               views={data.viewCount}
               title={data.title}
               userName={data.memberNickName}

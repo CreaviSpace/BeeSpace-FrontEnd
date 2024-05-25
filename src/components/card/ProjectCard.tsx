@@ -59,8 +59,8 @@ export default function ProjectCard({ item }: IProjectCardProps) {
         />
         <ul className="float-end flex items-center gap-1">
           {item.links?.map((item, index) => (
-            <li key={`${item}-${index}`}>
-              <Link href={`/${item.url}`} target="_blank">
+            <li key={item.url}>
+              <Link href={`${item.url}`} target="_blank">
                 <Icons icon={item.linkType} />
               </Link>
             </li>

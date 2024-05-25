@@ -80,6 +80,7 @@ export interface IRecruitBody {
   techStacks: {
     techStack: string;
   }[];
+  images: string[];
 }
 
 export interface IProjectBody {
@@ -100,6 +101,7 @@ export interface IProjectBody {
   }[];
   thumbnail: string;
   bannerContent: string;
+  images: string[];
 }
 
 export interface ICommunityBody {
@@ -107,6 +109,7 @@ export interface ICommunityBody {
   title: string;
   content: string;
   hashTags: string[];
+  images: string[];
 }
 
 export interface IUniversalType {

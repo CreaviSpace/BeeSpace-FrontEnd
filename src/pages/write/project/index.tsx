@@ -43,6 +43,7 @@ export default function ProjectWrite() {
     linkDtos,
     thumbnail,
     bannerContent,
+    images,
     setter,
   } = useProjectData();
 
@@ -59,6 +60,7 @@ export default function ProjectWrite() {
     linkDtos: linkDtos.filter((item) => item.url !== ''),
     thumbnail,
     bannerContent,
+    images,
   };
 
   const { isLoading, isError, data, isFetching } = useProjectDetail(
@@ -90,6 +92,11 @@ export default function ProjectWrite() {
         });
         setter.setTechStackDtos(teachStackDtos);
       }
+      if (data.images && data.images.length > 0) {
+        data.images.map((item: string) => {
+          setter.setImages(item);
+        });
+      }
     } else {
       setter.setCategory('INDIVIDUAL');
       setter.setMemberDtos([{ memberId: '', position: '' }]);
@@ -104,6 +111,7 @@ export default function ProjectWrite() {
       ]);
       setter.setThumbnail('');
       setter.setBannerContent('');
+      // setter.setImages('');
     }
   }, [isFetching, id]);
 
@@ -137,7 +145,11 @@ export default function ProjectWrite() {
           </li>
           <li className="mt-14">
             <TitleEditor title={title} setTitle={setter.setTitle} />
-            <TextEditor values={content} setValues={setter.setContent} />
+            <TextEditor
+              values={content}
+              setValues={setter.setContent}
+              setImages={setter.setImages}
+            />
           </li>
           <li className="mt-14">
             <SkillStackInput
