@@ -21,6 +21,7 @@ export default function Header() {
   const [value, setValue] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isMCategoryVisible, setIsMCategoryVisible] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState('프로젝트');
 
   const divRef_search = useRef<HTMLDivElement>(null);
   const divRef_menu = useRef<HTMLDivElement>(null);
@@ -62,6 +63,10 @@ export default function Header() {
     }
   };
 
+  const handleSelectedMenu = (menuName: string) => {
+    setSelectedMenu(menuName);
+  };
+
   useEffect(() => {
     setLogin();
   }, []);
@@ -91,10 +96,10 @@ export default function Header() {
             </button>
             <ul className="flex mobile:hidden">
               {MENU.map((item, index) => (
-                <li key={index}>
+                <li key={index} onClick={() => handleSelectedMenu(item.name)}>
                   <Link
                     href={item.link}
-                    className="pl-5 py-5 text-center block hover:text-primary">
+                    className={`pl-5 py-5 text-center block ${selectedMenu === item.name && 'text-primary'}`}>
                     {item.name}
                   </Link>
                 </li>
