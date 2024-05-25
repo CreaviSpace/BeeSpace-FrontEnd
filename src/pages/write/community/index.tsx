@@ -27,7 +27,8 @@ const COMMNUITYLIST = [
 ];
 
 export default function CommunityWrite() {
-  const { category, title, content, hashTags, setter } = useCommunityData();
+  const { category, title, content, hashTags, images, setter } =
+    useCommunityData();
   const router = useRouter();
   const { id } = router.query;
 
@@ -36,6 +37,7 @@ export default function CommunityWrite() {
     title,
     content,
     hashTags,
+    images,
   };
 
   const { isLoading, isError, data, isFetching } = useCommunityDetail(
@@ -58,11 +60,17 @@ export default function CommunityWrite() {
         hashTags.push(item.hashTag);
       });
       setter.setHashTags(hashTags);
+      if (data.images && data.images.length > 0) {
+        data.images.map((item: string) => {
+          setter.setImages(item);
+        });
+      }
     } else {
       setter.setCategory('QNA');
       setter.setTitle('');
       setter.setContent('');
       setter.setHashTags([]);
+      // setter.setImages('');
     }
   }, [isFetching, id]);
 
@@ -93,7 +101,11 @@ export default function CommunityWrite() {
           </li>
           <li className="mt-14">
             <TitleEditor title={title} setTitle={setter.setTitle} />
-            <TextEditor values={content} setValues={setter.setContent} />
+            <TextEditor
+              values={content}
+              setValues={setter.setContent}
+              setImages={setter.setImages}
+            />
           </li>
           <li className="text-right mt-10">
             <CustomButton className="py-3 px-10 mr-3">취소</CustomButton>

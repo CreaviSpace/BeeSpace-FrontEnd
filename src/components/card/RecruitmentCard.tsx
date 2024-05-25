@@ -24,7 +24,7 @@ export default function RecruitmentCard({ item, type }: IRecruitmentCardProps) {
           {item.title}
         </h3>
         <p
-          className="overflow-hidden text-ellipsis break-keep line-clamp-3"
+          className="overflow-hidden text-ellipsis break-keep line-clamp-3 h-[72px]"
           dangerouslySetInnerHTML={{ __html: item.content }}></p>
         <div className="absolute bottom-5">
           <div className="flex gap-1">

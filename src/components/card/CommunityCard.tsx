@@ -10,7 +10,7 @@ interface CommunityCardProps {
   className?: string;
 }
 export default function CommunityCard({ item, className }: CommunityCardProps) {
-  const onlyDate = item.modifiedDate?.split('T')[0];
+  const onlyDate = item.createdDate?.split('T')[0];
 
   return (
     <div
@@ -23,7 +23,7 @@ export default function CommunityCard({ item, className }: CommunityCardProps) {
           memberId={item.memberId}
         />
         <span className="text-bs_14 text-gray20">
-          <time dateTime={item.modifiedDate}>{onlyDate}</time>
+          <time dateTime={item.createdDate}>{onlyDate}</time>
         </span>
       </div>
       <hr className="w-full m-auto" aria-hidden />
@@ -35,7 +35,7 @@ export default function CommunityCard({ item, className }: CommunityCardProps) {
               {item.title}
             </h2>
             <p
-              className="overflow-hidden text-ellipsis break-keep line-clamp-2 mb-3"
+              className="overflow-hidden text-ellipsis break-keep line-clamp-2 mb-3 h-[50px]"
               dangerouslySetInnerHTML={{ __html: item.content }}></p>
           </Link>
           <div className="flex gap-2">

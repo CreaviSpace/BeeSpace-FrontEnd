@@ -1,8 +1,9 @@
-import { useCallback, useRef, useState } from 'react';
+import { useState } from 'react';
 
 import CommunityCard from '@/components/card/CommunityCard';
 import SkeletonCommunityCard from '@/components/skeleton/SkeletonCommunityCard';
 import useCommunity from '@/hooks/queries/community/useCommunity';
+import useObserver from '@/hooks/useObserver';
 import { ICommunityType } from '@/types/global';
 
 const GRIDCOLUMNS = {
@@ -36,7 +37,7 @@ export default function CommunityCardContainer({
   isActive = 'default',
   ...restProps
 }: ICommunityCardStyleProps) {
-  const [orderby, setOrderby] = useState('');
+  const [orderby, setOrderby] = useState('created_date,desc');
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const {
@@ -53,25 +54,8 @@ export default function CommunityCardContainer({
     setActiveIndex(index);
   };
 
-  const observer: React.MutableRefObject<IntersectionObserver | null> =
-    useRef(null);
+  const observerRef = useObserver(isFetchingNextPage, isError, fetchNextPage);
 
-  const lastElementRef = useCallback(
-    (node: HTMLElement | null) => {
-      if (isFetchingNextPage) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && !isError) {
-            fetchNextPage();
-          }
-        },
-        { threshold: 0.7 }
-      );
-      if (node) observer.current.observe(node);
-    },
-    [isFetchingNextPage]
-  );
   return (
     <div
       className={`grid ${isActive === 'main' ? GRIDCOLUMNS.main : GRIDCOLUMNS.default} w-full mobile:grid-cols-1`}
@@ -80,7 +64,7 @@ export default function CommunityCardContainer({
         className={`${isActive === 'main' ? 'hidden' : 'flex gap-3 mt-5 mb-1'}`}>
         {data?.pages[0] !== undefined &&
           ORDERBY.map((item, index) => (
-            <li key={index} className="flex items-center justify-between ">
+            <li key={item.link} className="flex items-center justify-between ">
               {activeIndex === index ? (
                 <span className="mr-1 block w-1 h-1 rounded-md bg-green-400"></span>
               ) : (
@@ -114,7 +98,7 @@ export default function CommunityCardContainer({
           <SkeletonCommunityCard key={`${item}-${index}`} />
         ))
       ) : (
-        <div ref={lastElementRef} />
+        <div ref={observerRef} />
       )}
     </div>
   );

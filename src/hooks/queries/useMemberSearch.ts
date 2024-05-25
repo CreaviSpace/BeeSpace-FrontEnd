@@ -5,14 +5,18 @@ import { axiosInstance } from '@/utils/api/axiosInstance';
 import { getCookies } from '@/utils/cookie/getCookies';
 import { postCookies } from '@/utils/cookie/postCookies';
 
+import useDebounce from '../useDebounce';
+
 const useMemberSearch = (value: string) => {
+  const debouncedValue = useDebounce(value, 300);
+
   const token = getCookies('jwt');
   const { isLoading, isError, data, isFetching } = useQuery({
-    enabled: value.trim() !== '' && !!token,
-    queryKey: [queryKeys.MEMBER_SEARCH, value],
+    enabled: debouncedValue.trim() !== '' && !!token,
+    queryKey: [queryKeys.MEMBER_SEARCH, debouncedValue],
     queryFn: async () => {
       const response = await axiosInstance.get(
-        `/member/search?search=${value}`
+        `/member/search?search=${debouncedValue}`
       );
 
       if (response.status === 200 && response.data) {

@@ -30,7 +30,7 @@ export default function ProfileCategory({
   };
 
   return (
-    <nav className="sticky top-16 w-full border-y bg-white border-gray30 mt-10 z-10">
+    <nav className="sticky top-16 w-full border-y bg-white border-gray30 mt-10 z-[12]">
       <div className="max-w-4xl m-auto flex justify-between items-center mobile:justify-center">
         <ul className="w-full flex mobile:flex-col text-center  mobile:gap-3">
           <li className="hidden mobile:block">
@@ -47,7 +47,7 @@ export default function ProfileCategory({
             if (MID === memberID) {
               return (
                 <li
-                  key={index}
+                  key={`${item.type}-${index}`}
                   className={`${isToggle && 'mobile:hidden'} text-bs_20`}>
                   <button
                     className={`w-[8.75rem] h-[4.6875rem] ${selectedTab.type === item.type && 'border-b-[3px] border-primary'} mobile:w-full mobile:py-5`}
@@ -62,7 +62,7 @@ export default function ProfileCategory({
             } else if (item.type === 'project') {
               return (
                 <li
-                  key={index}
+                  key={`${item.type}-${index}`}
                   className={`${isToggle && 'mobile:hidden'} text-bs_20`}>
                   <button
                     className={`w-[8.75rem] h-[4.6875rem] ${selectedTab.type === item.type && 'border-b-[3px] border-primary'} mobile:w-full mobile:py-5`}
