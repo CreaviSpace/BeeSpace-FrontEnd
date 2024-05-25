@@ -10,7 +10,7 @@ interface CommunityCardProps {
   className?: string;
 }
 export default function CommunityCard({ item, className }: CommunityCardProps) {
-  const onlyDate = item.modifiedDate?.split('T')[0];
+  const onlyDate = item.createdDate?.split('T')[0];
 
   return (
     <div
@@ -23,7 +23,7 @@ export default function CommunityCard({ item, className }: CommunityCardProps) {
           memberId={item.memberId}
         />
         <span className="text-bs_14 text-gray20">
-          <time dateTime={item.modifiedDate}>{onlyDate}</time>
+          <time dateTime={item.createdDate}>{onlyDate}</time>
         </span>
       </div>
       <hr className="w-full m-auto" aria-hidden />
