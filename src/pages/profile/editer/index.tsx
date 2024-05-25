@@ -35,6 +35,7 @@ export default function ProfileEdit() {
   ]);
 
   const {
+    enabled,
     nickName,
     introduce,
     position,
@@ -65,6 +66,7 @@ export default function ProfileEdit() {
 
   useEffect(() => {
     if (!isLoading && MID) {
+      setter.setEnabled(data.enabled);
       setter.setNickName(data.memberNickname);
       setter.setIntroduce(data.memberIntroduce);
       setter.setPosition([data.memberPosition]);
@@ -78,6 +80,7 @@ export default function ProfileEdit() {
       setter.setInterestedStack(processedData);
       setter.setProfileUrl(data.profileUrl);
     } else {
+      setter.setEnabled(null);
       setter.setNickName('');
       setter.setIntroduce('');
       setter.setPosition(['default']);
@@ -90,7 +93,8 @@ export default function ProfileEdit() {
   const handlerExpireMember = async () => {
     try {
       await axios.post(
-        `${process.env.BASE_URL}/member/expire?jwt=${getCookies('jwt')}`,
+        `${process.env.BASE_URL}/member/expire`,
+        {},
         {
           headers: { Authorization: getCookies('jwt') },
         }
@@ -205,9 +209,10 @@ export default function ProfileEdit() {
             </li>
           </ul>
           <span className="w-full h-[1px] bg-gray10"></span>
+
           <div className="w-full flex justify-between my-10">
             <CustomButton className="py-1 px-3" onClick={handlerExpireMember}>
-              회원탈퇴
+              {enabled ? '회원탈퇴' : '회원탈퇴 취소'}
             </CustomButton>
           </div>
         </section>
