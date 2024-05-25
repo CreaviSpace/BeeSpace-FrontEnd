@@ -64,7 +64,7 @@ export default function CommunityCardContainer({
         className={`${isActive === 'main' ? 'hidden' : 'flex gap-3 mt-5 mb-1'}`}>
         {data?.pages[0] !== undefined &&
           ORDERBY.map((item, index) => (
-            <li key={index} className="flex items-center justify-between ">
+            <li key={item.link} className="flex items-center justify-between ">
               {activeIndex === index ? (
                 <span className="mr-1 block w-1 h-1 rounded-md bg-green-400"></span>
               ) : (
