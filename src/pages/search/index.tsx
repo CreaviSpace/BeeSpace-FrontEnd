@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import UniversalCard from '@/components/card/UniversalCard';
 import Category from '@/components/Category';
 import SkeletonUniversalCard from '@/components/skeleton/SkeletonUniversalCard';
 import useSearch from '@/hooks/queries/useSearch';
+import useObserver from '@/hooks/useObserver';
 import { IUniversalType } from '@/types/global';
 
 const SIDE_CATEGORIES = [
@@ -56,27 +57,7 @@ export default function Search() {
     isFetchingNextPage,
   } = useSearch(PAGE_SIZE, searchValue as string, searchType as string);
 
-  const observer: React.MutableRefObject<IntersectionObserver | null> =
-    useRef(null);
-
-  const lastElementRef = useCallback(
-    (node: HTMLElement | null) => {
-      if (isFetchingNextPage) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && !isError) {
-            fetchNextPage();
-          }
-        },
-        {
-          threshold: 0.7,
-        }
-      );
-      if (node) observer.current.observe(node);
-    },
-    [isFetchingNextPage]
-  );
+  const observerRef = useObserver(isFetchingNextPage, isError, fetchNextPage);
 
   return (
     <main className="min-h-min_h">
@@ -130,7 +111,7 @@ export default function Search() {
               <SkeletonUniversalCard size="large" key={index} />
             ))
           ) : (
-            <div ref={lastElementRef}></div>
+            <div ref={observerRef}></div>
           )}
         </section>
       </div>

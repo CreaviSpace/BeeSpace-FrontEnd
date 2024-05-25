@@ -135,13 +135,11 @@ export default function MemberList({
                 const newMemberId = memberId;
                 memberId[index] = e.target.value;
                 setMemberId([...newMemberId]);
-                // debounce(() => setMemberId([...newMemberId]), 1000);
               }}
               maxLength={8}
               onFocus={() => {
                 setCurrentIndex(index);
                 setIsToggle(true);
-                // debounce(() => setIsToggle(true), 1000);
               }}
               onBlur={() => {
                 setIsToggle(false);

@@ -1,8 +1,9 @@
-import { useCallback, useRef, useState } from 'react';
+import { useState } from 'react';
 
 import CommunityCard from '@/components/card/CommunityCard';
 import SkeletonCommunityCard from '@/components/skeleton/SkeletonCommunityCard';
 import useCommunity from '@/hooks/queries/community/useCommunity';
+import useObserver from '@/hooks/useObserver';
 import { ICommunityType } from '@/types/global';
 
 const GRIDCOLUMNS = {
@@ -53,25 +54,8 @@ export default function CommunityCardContainer({
     setActiveIndex(index);
   };
 
-  const observer: React.MutableRefObject<IntersectionObserver | null> =
-    useRef(null);
+  const observerRef = useObserver(isFetchingNextPage, isError, fetchNextPage);
 
-  const lastElementRef = useCallback(
-    (node: HTMLElement | null) => {
-      if (isFetchingNextPage) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && !isError) {
-            fetchNextPage();
-          }
-        },
-        { threshold: 0.7 }
-      );
-      if (node) observer.current.observe(node);
-    },
-    [isFetchingNextPage]
-  );
   return (
     <div
       className={`grid ${isActive === 'main' ? GRIDCOLUMNS.main : GRIDCOLUMNS.default} w-full mobile:grid-cols-1`}
@@ -114,7 +98,7 @@ export default function CommunityCardContainer({
           <SkeletonCommunityCard key={`${item}-${index}`} />
         ))
       ) : (
-        <div ref={lastElementRef} />
+        <div ref={observerRef} />
       )}
     </div>
   );

@@ -1,8 +1,7 @@
-import { useCallback, useRef } from 'react';
-
 import RecruitmentCard from '@/components/card/RecruitmentCard';
 import SkeletonRecruitmentCard from '@/components/skeleton/SkeletonRecruitmentCard';
 import useRecruit from '@/hooks/queries/recruit/useRecruit';
+import useObserver from '@/hooks/useObserver';
 import { IRecruitType } from '@/types/global';
 
 interface IRecruitmentCardContainerProps {
@@ -25,25 +24,7 @@ export default function RecruitmentCardContainer({
     isFetchingNextPage,
   } = useRecruit(category, size);
 
-  const observer: React.MutableRefObject<IntersectionObserver | null> =
-    useRef(null);
-
-  const lastElementRef = useCallback(
-    (node: HTMLElement | null) => {
-      if (isFetchingNextPage) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && !isError) {
-            fetchNextPage();
-          }
-        },
-        { threshold: 0.7 }
-      );
-      if (node) observer.current.observe(node);
-    },
-    [isFetchingNextPage]
-  );
+  const observerRef = useObserver(isFetchingNextPage, isError, fetchNextPage);
 
   return (
     <div className="max-w-max_w w-full my-10">
@@ -65,7 +46,7 @@ export default function RecruitmentCardContainer({
             <SkeletonRecruitmentCard key={`${item}-${index}`} />
           ))
         ) : (
-          <div ref={lastElementRef} />
+          <div ref={observerRef} />
         )}
       </div>
     </div>
