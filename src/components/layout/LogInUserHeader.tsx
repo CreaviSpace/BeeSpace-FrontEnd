@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import CustomButton from '@/components/button/CustomButton';
 import useAlarm from '@/hooks/queries/alarm/useAlarm';
 import useAlarmCount from '@/hooks/queries/alarm/useAlarmCount';
-import useLoginCheck from '@/hooks/queries/login/useLoginCheck';
+import useAuth from '@/hooks/queries/useAuth';
 import useLoginModal from '@/store/modal/useLoginModal';
 import useLogin from '@/store/useLogin';
 import { getCookies } from '@/utils/cookie/getCookies';
@@ -29,7 +29,8 @@ export default function LogInHeader() {
   const { onOpen: openLogin } = useLoginModal();
   const { login } = useLogin();
 
-  const { isLoading, data, isError, isFetching } = useLoginCheck();
+  const { getMyProfile } = useAuth();
+  const { isLoading, data } = getMyProfile;
 
   const {
     isLoading: alarmIsLoading,

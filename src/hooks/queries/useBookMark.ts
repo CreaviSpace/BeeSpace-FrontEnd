@@ -47,7 +47,11 @@ const useBookMark = (id?: number, postType?: string) => {
     onSuccess: (data) => {
       if (data) {
         if (data.status === 200 && data.data.success) {
-          queryClient.invalidateQueries({ queryKey: [queryKeys.BOOKMARK, id] });
+          queryClient.setQueryData([queryKeys.BOOKMARK, id], data.data.data);
+
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.PROFILE_CONTENT, postType?.toLowerCase()],
+          });
         } else if (data.status === 202 && !data.data.success) {
           postCookies({
             jwt: data.data.jwt,

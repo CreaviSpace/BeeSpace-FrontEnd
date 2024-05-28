@@ -16,8 +16,19 @@ const getLogin = async (token: string | null) => {
     alert(response.data.message);
     alert(response.data.reason);
     alert(response.data.deadLine.split('T')[0]);
+
     return true;
   }
 };
 
-export { getLogin };
+const getMyProfile = async (MID: string) => {
+  const response = await axiosInstance.get(
+    `/member/read/profile?member-id=${MID}`
+  );
+
+  if (response.status === 200) {
+    return response.data;
+  }
+};
+
+export { getLogin, getMyProfile };

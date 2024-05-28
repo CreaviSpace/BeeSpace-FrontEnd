@@ -20,7 +20,7 @@ export default function CommunityDetail() {
   const { id } = router.query;
 
   const { isLoading, isError, data, isFetching } = useCommunityDetail(
-    id as string
+    String(id)
   );
 
   if (isError) {
