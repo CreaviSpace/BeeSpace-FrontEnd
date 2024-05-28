@@ -27,7 +27,7 @@ const useMyContent = (
     isFetchingNextPage,
   } = useInfiniteQuery({
     enabled: !!memberId && !!token,
-    queryKey: [queryKeys.PROFILE_CONTENT, postType, category, String(memberId)],
+    queryKey: [queryKeys.PROFILE_CONTENT, postType, String(memberId), category],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axiosInstance.get(
         `/member/read/${apiEndpoints}&page=${pageParam}`
