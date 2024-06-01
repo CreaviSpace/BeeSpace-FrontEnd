@@ -1,7 +1,11 @@
+import { Cookies } from 'react-cookie';
+
 export const postCookies = ({ ...cookies }) => {
+  const cookie = new Cookies();
+
   try {
     Object.entries(cookies).forEach(([key, value]) => {
-      document.cookie = `${key}=${value}; max-age=7200; path=/;`; // 7200
+      cookie.set(key, value, { path: '/', maxAge: 7200 });
     });
   } catch (error) {
     console.error(error);
