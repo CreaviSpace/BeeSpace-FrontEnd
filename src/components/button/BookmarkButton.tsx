@@ -4,7 +4,7 @@ import { IoBookmarkOutline } from '@react-icons/all-files/io5/IoBookmarkOutline'
 import {
   useGetBookmarkPost,
   useMutateBookmarkPost,
-} from '@/hooks/queries/useBookmark';
+} from '../../hooks/queries/useBookmark';
 
 interface IBookmarkButtonProps {
   color?: string;
