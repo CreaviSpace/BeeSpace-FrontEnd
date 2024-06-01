@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 
-import useAlarm from '@/hooks/queries/alarm/useAlarm';
-import useAlarmDelete from '@/hooks/queries/alarm/useAlarmDelete';
+import useMutateDeleteAlarm from '@/hooks/queries/alarm/useMutateDeleteAlarm';
+import useMutateUpdateAlarm from '@/hooks/queries/alarm/useMutateUpdateAlarm';
 
 interface IAlarmType {
   id: number;
@@ -23,8 +23,8 @@ export default function AlarmModal({
   isAlarm,
   data,
 }: IAlarmModalProps) {
-  const { mutate: AlarmRead } = useAlarm();
-  const { mutate: AlarmDelete } = useAlarmDelete();
+  const { mutate: AlarmRead } = useMutateUpdateAlarm();
+  const { mutate: AlarmDelete } = useMutateDeleteAlarm();
 
   useEffect(() => {
     if (isAlarm) AlarmRead();

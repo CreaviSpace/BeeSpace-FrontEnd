@@ -1,7 +1,7 @@
 import { FaHeart } from '@react-icons/all-files/fa/FaHeart';
 import { FaRegHeart } from '@react-icons/all-files/fa/FaRegHeart';
 
-import useLike from '@/hooks/queries/useLike';
+import { useGetLikePost, useMutateLikePost } from '@/hooks/queries/useLike';
 
 interface ILikeButtonProps {
   color?: string;
@@ -18,10 +18,8 @@ export default function LikeButton({
   id,
   postType,
 }: ILikeButtonProps) {
-  const { isLoading, isError, data, isFetching, mutate } = useLike(
-    id,
-    postType
-  );
+  const { data, isLoading } = useGetLikePost(id, postType);
+  const { mutate } = useMutateLikePost(id, postType);
 
   const handleToggleLike = () => {
     mutate();

@@ -3,8 +3,8 @@ import React from 'react';
 
 import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
-import useLikeView from '@/hooks/queries/useLikeView';
-import useWriteDelete from '@/hooks/queries/useWriteDelete';
+import useMutateDeletePost from '@/hooks/queries/post/useMutateDeletePost';
+import { useGetLikeViewPost } from '@/hooks/queries/useLike';
 import useReconfirmModal from '@/store/modal/useReconfirmModal';
 import useReportModal from '@/store/modal/useReportModal';
 import useLogin from '@/store/useLogin';
@@ -45,18 +45,15 @@ export default function DetailsTitle({
     setTitle,
     setHandlerFunction,
   } = useReconfirmModal();
-  const { mutate: writeDeleteMutate } = useWriteDelete(id, type);
+  const { mutate } = useMutateDeletePost(id, type);
 
-  const { isLoading, isError, data, isFetching } = useLikeView(
-    id,
-    type.toUpperCase()
-  );
+  const { isLoading, data } = useGetLikeViewPost(id, type.toUpperCase());
 
   const onlyDate = time?.split('T')[0];
 
   const handleDelete = () => {
     setTitle(`${parseValue(type.toUpperCase())}을 삭제하시겠습니다.`);
-    setHandlerFunction(() => writeDeleteMutate());
+    setHandlerFunction(() => mutate());
     reconfirmOpen();
   };
 

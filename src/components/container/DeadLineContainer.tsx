@@ -8,7 +8,7 @@ import { IDeadLineType } from '@/types/global';
 import SkeletonUniversalCard from '../skeleton/SkeletonUniversalCard';
 
 export default function DeadLineContainer() {
-  const { isLoading, isError, data, isFetching } = useBanner('recruitment');
+  const { isLoading, isError, data } = useBanner('recruitment');
 
   return (
     <div className="w-full tablet:w-[767px] tablet:mx-auto mb-auto">

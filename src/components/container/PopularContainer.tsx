@@ -18,7 +18,7 @@ export default function PopularProject({ postType }: IPopularProjectProps) {
   const [maxConut, setMaxCount] = useState(1);
   const listRef = useRef<HTMLDivElement>(null);
 
-  const { isLoading, data, isError, isFetching } = useBanner('project');
+  const { isLoading, data, isError } = useBanner('project');
 
   const handleTransitionEnd = () => {
     if (listRef.current) {

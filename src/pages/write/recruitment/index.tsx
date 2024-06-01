@@ -12,9 +12,9 @@ import Period from '@/components/write/recruitment/Period';
 import RecruitPersonnel from '@/components/write/recruitment/RecruitPersonnel';
 import SkillStackInput from '@/components/write/SkillStackInput';
 import TitleEditor from '@/components/write/TextEditor/TitleEditor';
-import useRecruitDetail from '@/hooks/queries/recruit/useRecruitDetail';
-import useWritePost from '@/hooks/queries/useWritePost';
-import useWriteUpdate from '@/hooks/queries/useWriteUpdate';
+import { useGetRecruitPost } from '@/hooks/queries/post/useGetPost';
+import useMutateCreatePost from '@/hooks/queries/post/useMutateCreatePost';
+import useMutateUpdatePost from '@/hooks/queries/post/useMutateUpdatePost';
 import useLogin from '@/store/useLogin';
 import useRecruitData from '@/store/useRecruitData';
 
@@ -67,11 +67,12 @@ export default function RecruitmentWrite() {
     images,
   };
 
-  const { isLoading, isError, data, isFetching } = useRecruitDetail(
+  const { isLoading, isError, data, isFetching } = useGetRecruitPost(
+    'recruit',
     id as string
   );
-  const { mutate: recruitPost } = useWritePost('recruit', recruitData);
-  const { mutate: recrutiUpdate } = useWriteUpdate(
+  const { mutate: recruitPost } = useMutateCreatePost('recruit', recruitData);
+  const { mutate: recrutiUpdate } = useMutateUpdatePost(
     parseInt(id as string),
     'recruit',
     recruitData

@@ -4,9 +4,9 @@ import React, { useEffect } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import OnoffButton from '@/components/button/OnOffButton';
-import useProjectDetail from '@/hooks/queries/project/useProjectDetail';
-import useWritePost from '@/hooks/queries/useWritePost';
-import useWriteUpdate from '@/hooks/queries/useWriteUpdate';
+import { useGetProjectPost } from '@/hooks/queries/post/useGetPost';
+import useMutateCreatePost from '@/hooks/queries/post/useMutateCreatePost';
+import useMutateUpdatePost from '@/hooks/queries/post/useMutateUpdatePost';
 import useProjectData from '@/store/useProjectData';
 
 import InputTag from '../../../components/write/communtiy/InputTag';
@@ -63,11 +63,12 @@ export default function ProjectWrite() {
     images,
   };
 
-  const { isLoading, isError, data, isFetching } = useProjectDetail(
+  const { isLoading, isError, data, isFetching } = useGetProjectPost(
+    'project',
     id as string
   );
-  const { mutate: projectPost } = useWritePost('project', projectData);
-  const { mutate: projectUpdate } = useWriteUpdate(
+  const { mutate: projectPost } = useMutateCreatePost('project', projectData);
+  const { mutate: projectUpdate } = useMutateUpdatePost(
     parseInt(id as string),
     'project',
     projectData

@@ -12,9 +12,9 @@ import useLogin from '@/store/useLogin';
 import MoblieNavigation from './MoblieNavigation';
 
 const MENU = [
-  { name: '프로젝트', link: '/project?type=all' },
-  { name: '모집', link: '/recruitment?type=all' },
-  { name: '커뮤니티', link: '/community?type=all' },
+  { name: '프로젝트', title: 'project', link: '/project?type=all' },
+  { name: '모집', title: 'recruitment', link: '/recruitment?type=all' },
+  { name: '커뮤니티', title: 'community', link: '/community?type=all' },
 ];
 
 export default function Header() {
@@ -28,6 +28,7 @@ export default function Header() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const router = useRouter();
+  const pathname = router.pathname.split('/')[1];
 
   const { setLogin } = useLogin();
   const { onOpen: openSearchError } = useSearchErrorModal();
@@ -63,10 +64,6 @@ export default function Header() {
     }
   };
 
-  const handleSelectedMenu = (menuName: string) => {
-    setSelectedMenu(menuName);
-  };
-
   useEffect(() => {
     setLogin();
   }, []);
@@ -96,10 +93,10 @@ export default function Header() {
             </button>
             <ul className="flex mobile:hidden">
               {MENU.map((item, index) => (
-                <li key={index} onClick={() => handleSelectedMenu(item.name)}>
+                <li key={index}>
                   <Link
                     href={item.link}
-                    className={`pl-5 py-5 text-center block ${selectedMenu === item.name && 'text-primary'}`}>
+                    className={`pl-5 py-5 text-center block ${pathname === item.title && 'text-primary'}`}>
                     {item.name}
                   </Link>
                 </li>

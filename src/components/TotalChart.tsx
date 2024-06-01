@@ -2,7 +2,7 @@ import { ApexOptions } from 'apexcharts';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
-import useAdminStatist from '@/hooks/queries/admin/useAdminStatist';
+import useGetAdminStatist from '@/hooks/queries/admin/useGetAdminStatist';
 
 import Deadline from './write/recruitment/Deadline';
 
@@ -39,7 +39,7 @@ export default function TotalChart({ category }: ITotalChartProps) {
     }
   };
 
-  const { isLoading, isError, data, isFetching } = useAdminStatist(
+  const { isLoading, data, isFetching } = useGetAdminStatist(
     date,
     handleDate(date)
   );

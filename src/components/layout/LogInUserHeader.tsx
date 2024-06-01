@@ -2,8 +2,8 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
-import useAlarm from '@/hooks/queries/alarm/useAlarm';
-import useAlarmCount from '@/hooks/queries/alarm/useAlarmCount';
+import useGetAlarm from '@/hooks/queries/alarm/useGetAlarm';
+import useGetAlarmCount from '@/hooks/queries/alarm/useGetAlarmCount';
 import useAuth from '@/hooks/queries/useAuth';
 import useLoginModal from '@/store/modal/useLoginModal';
 import useLogin from '@/store/useLogin';
@@ -32,19 +32,10 @@ export default function LogInHeader() {
   const { getMyProfile } = useAuth();
   const { isLoading, data } = getMyProfile;
 
-  const {
-    isLoading: alarmIsLoading,
-    isError: alarmIsError,
-    data: alarmData,
-    isFetching: alarmIsFetching,
-  } = useAlarm();
+  const { isLoading: alarmIsLoading, data: alarmData } = useGetAlarm();
 
-  const {
-    isLoading: alarmCountIsLoading,
-    isError: alarmCountIsError,
-    data: alarmCounts,
-    isFetching: alarmCountIsFetching,
-  } = useAlarmCount();
+  const { isLoading: alarmCountIsLoading, data: alarmCounts } =
+    useGetAlarmCount();
 
   useEffect(() => {
     if (!alarmCountIsLoading && alarmCounts > 0) {

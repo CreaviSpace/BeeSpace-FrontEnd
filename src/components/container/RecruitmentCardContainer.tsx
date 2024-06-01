@@ -1,6 +1,9 @@
 import RecruitmentCard from '@/components/card/RecruitmentCard';
 import SkeletonRecruitmentCard from '@/components/skeleton/SkeletonRecruitmentCard';
-import useRecruit from '@/hooks/queries/recruit/useRecruit';
+import {
+  TPostsType,
+  useGetInfiniteRecruitPosts,
+} from '@/hooks/queries/post/useGetInfinitePosts';
 import useObserver from '@/hooks/useObserver';
 import { IRecruitType } from '@/types/global';
 
@@ -22,7 +25,7 @@ export default function RecruitmentCardContainer({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useRecruit(category, size);
+  } = useGetInfiniteRecruitPosts(category, size);
 
   const observerRef = useObserver(isFetchingNextPage, isError, fetchNextPage);
 
@@ -33,10 +36,13 @@ export default function RecruitmentCardContainer({
           ? [1, 2, 3, 4, 5, 6].map((item, index) => (
               <SkeletonRecruitmentCard key={`${item}-${index}`} />
             ))
-          : data?.pages.map((pages: IRecruitType[]) => {
+          : data?.pages.map((pages: TPostsType) => {
               return pages?.map((item, index) => (
                 <div key={`${item}-${index}`}>
-                  <RecruitmentCard item={item} type="recruitment" />
+                  <RecruitmentCard
+                    item={item as IRecruitType}
+                    type="recruitment"
+                  />
                 </div>
               ));
             })}

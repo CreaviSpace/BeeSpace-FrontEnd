@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Category from '@/components/Category';
 import CommunityCardContainer from '@/components/container/CommunityCardContainer';
 import PopularTag from '@/components/PopularHashTag';
-import { usePopularTag } from '@/hooks/queries/usePopularTag';
+import useGetPopularTag from '@/hooks/queries/usePopularTag';
 const CATEGORIES = [
   {
     name: 'QnA',
@@ -22,7 +22,7 @@ const CATEGORIES = [
 const PAGE_SIZE = 24;
 
 export default function Community() {
-  const { data, isLoading } = usePopularTag();
+  const { data, isLoading } = useGetPopularTag();
   const router = useRouter();
   const { type } = router.query;
 

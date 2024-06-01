@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import useAdminSanction from '@/hooks/queries/admin/useAdminSanction';
+import useMutateDeleteAdminSanction from '@/hooks/queries/admin/useMutateDeleteAdminSanction';
 import useUserStanctionModal from '@/store/modal/useUserStanctionModal';
 
 import Modals from './Modals';
@@ -21,7 +21,7 @@ export default function UserSanctionModal() {
     reason: reasonValue,
   };
 
-  const { mutate } = useAdminSanction(data);
+  const { mutate } = useMutateDeleteAdminSanction(data);
 
   const handleSanction = () => {
     mutate();

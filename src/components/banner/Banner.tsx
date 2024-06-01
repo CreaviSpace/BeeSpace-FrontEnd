@@ -31,7 +31,7 @@ export default function Banner({ postType }: IBannerProps) {
   const [currentIndex, setCurrentIndex] = useState(1);
   const bannerAllRef = useRef<HTMLDivElement>(null);
 
-  const { isLoading, isError, data, isFetching } = useBanner(postType);
+  const { isLoading, isError, data } = useBanner(postType);
 
   const handleTransitionEnd = () => {
     if (bannerAllRef.current) {
