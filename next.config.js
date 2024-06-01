@@ -10,6 +10,10 @@ const nextConfig = {
   env: {
     BASE_URL: process.env.BASE_URL,
   },
+  webpack: (config) => {
+    config.resolve.alias['@'] = path.join(__dirname, 'src');
+    return config;
+  },
 };
 
 module.exports = nextConfig;
