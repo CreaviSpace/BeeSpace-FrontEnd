@@ -8,7 +8,7 @@ import Members from '@/components/details/project/Members';
 import SkillStack from '@/components/details/project/SkillStack';
 import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import Tag from '@/components/Tag';
-import useProjectDetail from '@/hooks/queries/project/useProjectDetail';
+import { useGetProjectPost } from '@/hooks/queries/post/useGetPost';
 import useLogin from '@/store/useLogin';
 import { getCookies } from '@/utils/cookie/getCookies';
 import { parseValue } from '@/utils/parseValue';
@@ -21,7 +21,8 @@ export default function ProjectDetail() {
   const router = useRouter();
   const { id } = router.query;
   const { login } = useLogin();
-  const { isLoading, isError, data, isFetching } = useProjectDetail(
+  const { isLoading, isError, data } = useGetProjectPost(
+    'project',
     id as string
   );
 
@@ -69,8 +70,10 @@ export default function ProjectDetail() {
                 <>
                   <button
                     className="my-5"
-                    onClick={() => router.push(`/feedback/${data.id}`)}>
-                    <Tag name={'설문조사 참여'} category={'INDIVIDUAL'} />
+                    onClick={() =>
+                      router.push(`/feedback/question/${data.id}`)
+                    }>
+                    <Tag name={'설문조사 작성'} category={'TEAM'} />
                   </button>
                   <button
                     className="my-5"
@@ -84,8 +87,8 @@ export default function ProjectDetail() {
 
               <button
                 className="my-5"
-                onClick={() => router.push(`/feedback/question/${data.id}`)}>
-                <Tag name={'설문조사 작성'} category={'TEAM'} />
+                onClick={() => router.push(`/feedback/${data.id}`)}>
+                <Tag name={'설문조사 참여'} category={'INDIVIDUAL'} />
               </button>
             </div>
             <CommentContainer id={data.id} type={data.postType} />

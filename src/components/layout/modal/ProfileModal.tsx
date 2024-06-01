@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 
+import useAuth from '@/hooks/queries/useAuth';
 import useLogin from '@/store/useLogin';
-import { deleteCookie } from '@/utils/cookie/deleteCookie';
 
 interface IProfileModalProps {
   handleWriteModalOpen: () => void;
@@ -19,6 +19,7 @@ export default function ProfileModal({
   isAlarm,
 }: IProfileModalProps) {
   const router = useRouter();
+  const { logout } = useAuth();
   const { setLogout } = useLogin();
   const handleOnClicks = (url?: string, handle?: () => void) => {
     if (handle) {
@@ -33,7 +34,7 @@ export default function ProfileModal({
   };
 
   const handleLogout = () => {
-    deleteCookie(['jwt', 'MID', 'OLD']);
+    logout.mutate();
     setLogout();
   };
 

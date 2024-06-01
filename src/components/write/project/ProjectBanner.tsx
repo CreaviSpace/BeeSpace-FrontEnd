@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import ImageDrag from '@/components/ImageDrag';
+import { useMutateCreateImage } from '@/hooks/queries/useImage';
 import useImageCompress from '@/hooks/useImageCompression';
 import { dataURItoFile } from '@/utils/dataURItoFile';
 import fileUpload from '@/utils/fileUpload';
@@ -31,14 +32,23 @@ export default function ProjectBanner({
 
   const { isLoading: isCompressLoading, compressImage } = useImageCompress();
 
+  const { mutate, data, isSuccess } = useMutateCreateImage();
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      setThumbnail(data?.data.data.url);
+    }
+  }, [isSuccess, data]);
+
   const handleCompressImage = async () => {
     if (!uploadImage) return;
 
     const imageFile = dataURItoFile(uploadImage, imageName);
     const compressedImage = await compressImage(imageFile);
 
-    const imageURL = await fileUpload(compressedImage, setCompressedImage);
-    setThumbnail(imageURL);
+    const formData = await fileUpload(compressedImage, setCompressedImage);
+
+    mutate(formData);
   };
 
   const handleDeleteImage = () => {

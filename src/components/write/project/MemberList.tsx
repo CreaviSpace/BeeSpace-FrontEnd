@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import SelectButton from '@/components/button/SelectButton';
-import useMemberSearch from '@/hooks/queries/useMemberSearch';
+import { useGetSearchMember } from '@/hooks/queries/useSearch';
 import { parseEnum } from '@/utils/parseEnum';
 import { parseValue } from '@/utils/parseValue';
 
@@ -35,7 +35,7 @@ export default function MemberList({
   ]);
   const [optionsNum, setOptionsNum] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-  const { isLoading, isError, data, isFetching } = useMemberSearch(
+  const { isLoading, data } = useGetSearchMember(
     memberId.length > 0 ? memberId[currentIndex] : ''
   );
 

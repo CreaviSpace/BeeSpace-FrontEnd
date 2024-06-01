@@ -1,7 +1,7 @@
 import { IoEllipsisHorizontalSharp } from '@react-icons/all-files/io5/IoEllipsisHorizontalSharp';
 import { useState } from 'react';
 
-import useAdmin from '@/hooks/queries/admin/useAdmin';
+import useGetInfiniteAdminMembers from '@/hooks/queries/admin/useGetInfiniteAdminMembers';
 import useUserStanctionModal from '@/store/modal/useUserStanctionModal';
 import { IAdminMemberType } from '@/types/global';
 
@@ -14,14 +14,7 @@ const TYPE = 'member';
 export default function UserManagement() {
   const [sorting, setSorting] = useState('DESC');
 
-  const {
-    isLoading,
-    isError,
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useAdmin(SIZE, sorting, TYPE);
+  const { isLoading, data } = useGetInfiniteAdminMembers(SIZE, sorting, TYPE);
 
   const { onOpen, setId } = useUserStanctionModal();
 

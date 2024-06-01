@@ -2,7 +2,10 @@ import { useState } from 'react';
 
 import CommunityCard from '@/components/card/CommunityCard';
 import SkeletonCommunityCard from '@/components/skeleton/SkeletonCommunityCard';
-import useCommunity from '@/hooks/queries/community/useCommunity';
+import {
+  TPostsType,
+  useGetInfiniteCommunityPosts,
+} from '@/hooks/queries/post/useGetInfinitePosts';
 import useObserver from '@/hooks/useObserver';
 import { ICommunityType } from '@/types/global';
 
@@ -47,7 +50,7 @@ export default function CommunityCardContainer({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useCommunity(category, size, hashTag, orderby);
+  } = useGetInfiniteCommunityPosts(category, size, hashTag, orderby);
 
   const handleOrderButtonClike = (link: string, index: number) => {
     setOrderby(link);
@@ -82,16 +85,16 @@ export default function CommunityCardContainer({
         ? [1, 2, 3, 4].map((item, index) => (
             <SkeletonCommunityCard key={`${item}-${index}`} />
           ))
-        : data?.pages.map((pages: ICommunityType[]) => {
-            return pages?.map((item, index) => (
+        : data?.pages.map((pages: TPostsType) =>
+            pages?.map((item, index) => (
               <div key={`${item}-${index}`}>
                 <CommunityCard
                   className={`mt-2 ${isActive === 'main' ? BORDERSTYLE.main : BORDERSTYLE.default}`}
-                  item={item}
+                  item={item as ICommunityType}
                 />
               </div>
-            ));
-          })}
+            ))
+          )}
 
       {!hasNextPage || isActive === 'main' ? null : isFetchingNextPage ? (
         [1, 2, 3, 4].map((item, index) => (

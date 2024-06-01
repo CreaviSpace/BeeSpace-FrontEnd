@@ -1,5 +1,8 @@
 import ProjectCard from '@/components/card/ProjectCard';
-import useProject from '@/hooks/queries/project/useProject';
+import {
+  TPostsType,
+  useGetInfiniteProjectPosts,
+} from '@/hooks/queries/post/useGetInfinitePosts';
 import useObserver from '@/hooks/useObserver';
 
 import { IProjectType } from '../../types/global';
@@ -23,7 +26,7 @@ export default function ProjectCardContainer({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useProject(category, size);
+  } = useGetInfiniteProjectPosts(category, size);
 
   const observerRef = useObserver(isFetchingNextPage, isError, fetchNextPage);
 
@@ -34,13 +37,13 @@ export default function ProjectCardContainer({
           ? [1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => (
               <SkeletonProjectCard key={index} />
             ))
-          : data?.pages.map((pages: IProjectType[]) => {
-              return pages?.map((item, index) => (
+          : data?.pages.map((pages: TPostsType) =>
+              pages?.map((item, index) => (
                 <div key={`projectCard-${index}`}>
-                  <ProjectCard item={item} />
+                  <ProjectCard item={item as IProjectType} />
                 </div>
-              ));
-            })}
+              ))
+            )}
 
         {!hasNextPage || main ? null : isFetchingNextPage ? (
           [1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => (

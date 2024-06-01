@@ -9,8 +9,8 @@ import UniversalCard from '@/components/card/UniversalCard';
 import ProfileCategory from '@/components/profile/ProfileCategory';
 import SkeletonProfile from '@/components/skeleton/SkeletonProfile';
 import SkeletonUniversalCard from '@/components/skeleton/SkeletonUniversalCard';
-import useMemberProfileGet from '@/hooks/queries/profile/useMemberProfileGet';
-import useMyContent from '@/hooks/queries/profile/useMyContent';
+import useGetInfiniteProfilePosts from '@/hooks/queries/profile/useGetInfiniteProfilePosts';
+import useGetProfileMember from '@/hooks/queries/profile/useGetProfileMember';
 import useObserver from '@/hooks/useObserver';
 import useLogin from '@/store/useLogin';
 import { IUniversalType } from '@/types/global';
@@ -68,7 +68,7 @@ export default function Profile() {
   const memberId = router.query.id;
   const login = useLogin();
 
-  const { isLoading: profileLoading, data: profile } = useMemberProfileGet(
+  const { isLoading: profileLoading, data: profile } = useGetProfileMember(
     memberId as string
   );
 
@@ -79,7 +79,7 @@ export default function Profile() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useMyContent(
+  } = useGetInfiniteProfilePosts(
     memberId as string,
     24,
     postType.type,
@@ -160,7 +160,7 @@ export default function Profile() {
               )}
             </>
           )}
-          {isFetchingNextPage ? (
+          {!hasNextPage ? null : isFetchingNextPage ? (
             [1, 2, 3, 4, 5, 6].map((item, index) => (
               <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
             ))

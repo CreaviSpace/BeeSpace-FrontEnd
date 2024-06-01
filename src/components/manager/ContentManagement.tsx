@@ -2,8 +2,8 @@ import { IoEllipsisHorizontalSharp } from '@react-icons/all-files/io5/IoEllipsis
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import useAdminContentGet from '@/hooks/queries/admin/useAdminContentGet';
-import useAdminContentsDelete from '@/hooks/queries/admin/useAdminContentsDelete';
+import useGetInfiniteAdminPosts from '@/hooks/queries/admin/useGetInfiniteAdminPosts';
+import useMutateDeleteAdminPost from '@/hooks/queries/admin/useMutateDeleteAdminPost';
 import useReconfirmModal from '@/store/modal/useReconfirmModal';
 import { IUniversalType } from '@/types/global';
 import { parseValue } from '@/utils/parseValue';
@@ -20,10 +20,14 @@ export default function ContentManagement() {
   const { type } = router.query;
   const [select, setSelect] = useState({ id: 0, type: '' });
 
-  const { isLoading, data, isFetchingNextPage, hasNextPage } =
-    useAdminContentGet(type as string, SIZE, status, SORT_TYPE);
+  const { isLoading, data } = useGetInfiniteAdminPosts(
+    type as string,
+    SIZE,
+    status,
+    SORT_TYPE
+  );
 
-  const { mutate } = useAdminContentsDelete(select.id, select.type);
+  const { mutate } = useMutateDeleteAdminPost(select.id, select.type);
   const { onOpen, setHandlerFunction, setTitle } = useReconfirmModal();
   const handleDeleteContent = (id: number, type: string) => {
     setSelect({ id, type });

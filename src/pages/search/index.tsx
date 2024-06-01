@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import UniversalCard from '@/components/card/UniversalCard';
 import Category from '@/components/Category';
 import SkeletonUniversalCard from '@/components/skeleton/SkeletonUniversalCard';
-import useSearch from '@/hooks/queries/useSearch';
+import { useGetInfiniteSearchPosts } from '@/hooks/queries/useSearch';
 import useObserver from '@/hooks/useObserver';
 import { IUniversalType } from '@/types/global';
 
@@ -55,7 +55,11 @@ export default function Search() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useSearch(PAGE_SIZE, searchValue as string, searchType as string);
+  } = useGetInfiniteSearchPosts(
+    PAGE_SIZE,
+    searchValue as string,
+    searchType as string
+  );
 
   const observerRef = useObserver(isFetchingNextPage, isError, fetchNextPage);
 
@@ -106,7 +110,7 @@ export default function Search() {
                 </>
               )}
 
-          {isFetchingNextPage ? (
+          {!hasNextPage ? null : isFetchingNextPage ? (
             [1, 2, 3, 4, 5, 6].map((_, index) => (
               <SkeletonUniversalCard size="large" key={index} />
             ))

@@ -5,7 +5,7 @@ import CommentContainer from '@/components/container/CommentContainer';
 import DetailsTitle from '@/components/details/DetailsTitle';
 import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import Tag from '@/components/Tag';
-import useCommunityDetail from '@/hooks/queries/community/useCommunityDetail';
+import { useGetCommunityPost } from '@/hooks/queries/post/useGetPost';
 import { parseValue } from '@/utils/parseValue';
 
 import Custom404 from '../404';
@@ -19,7 +19,8 @@ export default function CommunityDetail() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { isLoading, isError, data, isFetching } = useCommunityDetail(
+  const { isLoading, isError, data } = useGetCommunityPost(
+    'community',
     String(id)
   );
 

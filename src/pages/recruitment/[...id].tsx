@@ -7,14 +7,12 @@ import RecruitDetails from '@/components/details/recruitment/RecruitDetails';
 import RecruitPosition from '@/components/details/recruitment/RecruitPosition';
 import TechStackList from '@/components/details/recruitment/TechStackList';
 import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
-import useRecruitDetail from '@/hooks/queries/recruit/useRecruitDetail';
+import { useGetRecruitPost } from '@/hooks/queries/post/useGetPost';
 
 export default function RecruitmentDetail() {
   const router = useRouter();
   const { id } = router.query;
-  const { isLoading, isError, data, isFetching } = useRecruitDetail(
-    id as string
-  );
+  const { isLoading, data } = useGetRecruitPost('recruit', id as string);
 
   return (
     <main className="h-full gap-5 max-w-max_w min-h-min_h m-auto py-10 px-16 relative mobile:px-4">

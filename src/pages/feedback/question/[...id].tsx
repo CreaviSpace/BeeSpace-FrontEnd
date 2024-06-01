@@ -6,10 +6,10 @@ import CheckBoxQuestion from '@/components/feedback/question/CheckBoxQuestion';
 import MultipleChoiceQuestion from '@/components/feedback/question/MultipleChoiceQuestion';
 import ShortAnswerQuestion from '@/components/feedback/question/ShortAnswerQuestion';
 import QuestionBox from '@/components/feedback/QuestionBox';
-import useFeedBackGet from '@/hooks/queries/feedback/useFeedBackGet';
-import useFeedBackPost from '@/hooks/queries/feedback/useFeedBackPost';
-import useFeedBackPut from '@/hooks/queries/feedback/useFeedBackPut';
-import useProjectDetail from '@/hooks/queries/project/useProjectDetail';
+import useGetFeedBack from '@/hooks/queries/feedback/useGetFeedBack';
+import useMutateCreateFeedBack from '@/hooks/queries/feedback/useMutateCreateFeedBack';
+import useMutateUpdateFeedBack from '@/hooks/queries/feedback/useMutateUpdateFeedBack';
+import { useGetProjectPost } from '@/hooks/queries/post/useGetPost';
 import Custom404 from '@/pages/404';
 import useQuestionsData from '@/store/feedback/useQuestionsData';
 
@@ -19,20 +19,23 @@ export default function Feedback() {
 
   const { questions, setQuestions, init } = useQuestionsData();
 
-  const { isError: isErrorProject } = useProjectDetail(id as string);
+  const { isError: isErrorProject } = useGetProjectPost(
+    'project',
+    id as string
+  );
 
-  const { isLoading, isError, data, isFetching } = useFeedBackGet(
+  const { isLoading, isError, data } = useGetFeedBack(
     parseInt(id as string),
     'question'
   );
 
-  const { mutate: feedBackPost } = useFeedBackPost(
+  const { mutate: feedBackPost } = useMutateCreateFeedBack(
     parseInt(id as string),
     questions,
     'question'
   );
 
-  const { mutate: feedBackPut } = useFeedBackPut(
+  const { mutate: feedBackPut } = useMutateUpdateFeedBack(
     parseInt(id as string),
     questions,
     'question'
