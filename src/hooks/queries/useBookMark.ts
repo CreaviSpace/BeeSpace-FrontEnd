@@ -12,7 +12,7 @@ import { queryOnError } from '@/utils/queryOnError';
 import useAxiosInstance from '../useAxiosInstance';
 import useCookie from '../useCookie';
 
-const useGetBookmarkPost = (id: number, postType: string) => {
+export const useGetBookmarkPost = (id: number, postType: string) => {
   const axiosInstance = useAxiosInstance();
   const { getCookies, setCookies } = useCookie(['jwt', 'MID']);
 
@@ -44,7 +44,7 @@ const useGetBookmarkPost = (id: number, postType: string) => {
   });
 };
 
-const useMutateBookmarkPost = (id: number, postType: string) => {
+export const useMutateBookmarkPost = (id: number, postType: string) => {
   const axiosInstance = useAxiosInstance();
   const { getCookies, setCookies } = useCookie(['jwt', 'MID']);
   const { onOpen } = useLoginModal();
@@ -82,5 +82,3 @@ const useMutateBookmarkPost = (id: number, postType: string) => {
     },
   });
 };
-
-export { useGetBookmarkPost, useMutateBookmarkPost };
