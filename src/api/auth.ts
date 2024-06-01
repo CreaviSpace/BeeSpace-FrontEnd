@@ -1,3 +1,7 @@
+// 인증 관련, 로그인, 내 프로필 등
+
+import { toast } from 'react-toastify';
+
 import { axiosInstance } from '@/utils/api/axiosInstance';
 import { postCookies } from '@/utils/cookie/postCookies';
 
@@ -13,22 +17,16 @@ const getLogin = async (token: string | null) => {
 
     return response.data.oldUser;
   } else if (response.status === 202) {
-    alert(response.data.message);
-    alert(response.data.reason);
-    alert(response.data.deadLine.split('T')[0]);
+    toast.warning(
+      response.data.message +
+        '\n' +
+        response.data.reason +
+        '\n' +
+        response.data.deadLine.split('T')[0]
+    );
 
     return true;
   }
 };
 
-const getMyProfile = async (MID: string) => {
-  const response = await axiosInstance.get(
-    `/member/read/profile?member-id=${MID}`
-  );
-
-  if (response.status === 200) {
-    return response.data;
-  }
-};
-
-export { getLogin, getMyProfile };
+export { getLogin };
