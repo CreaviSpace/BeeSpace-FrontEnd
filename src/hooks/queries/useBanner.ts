@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { queryKeys } from '@/constants/keys';
-import { axiosInstance } from '@/utils/api/axiosInstance';
+
+import useAxiosInstance from '../useAxiosInstance';
 
 const useBanner = (postType: string) => {
-  const { isLoading, isError, data, isFetching } = useQuery({
-    queryKey: [queryKeys.BANNER, postType],
+  const axiosInstance = useAxiosInstance();
+  return useQuery({
     queryFn: async () => {
-      let url;
+      let url = '';
 
       if (postType === 'project') {
         url = `project/popular`;
@@ -15,15 +16,17 @@ const useBanner = (postType: string) => {
         url = `recruit/deadline`;
       }
 
-      const response = await axiosInstance.get(`/${url}`);
+      const { data } = await axiosInstance.get(`/${url}`);
 
-      if (response.data.success) {
-        return response.data.data;
-      }
+      return data;
+    },
+    queryKey: [queryKeys.BANNER, postType],
+    select: (response) => {
+      if (!response) return;
+
+      return response.data;
     },
   });
-
-  return { isLoading, isError, data, isFetching };
 };
 
 export default useBanner;
