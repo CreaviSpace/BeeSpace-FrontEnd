@@ -6,6 +6,7 @@ const queryKeys = {
   ADMIN_MEMBER: 'admin-member',
   ADMIN_CONTENT: 'admin-content',
   ADMIN_STATISTICS: 'admin-statistics',
+  ADMIN_REPORT: 'admin_report',
   // 알람
   ALARM: 'alarm',
   ALARM_COUNT: 'alarm-counts',
