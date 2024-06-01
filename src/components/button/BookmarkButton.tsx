@@ -1,7 +1,10 @@
 import { IoBookmark } from '@react-icons/all-files/io5/IoBookmark';
 import { IoBookmarkOutline } from '@react-icons/all-files/io5/IoBookmarkOutline';
 
-import useBookmark from '@/hooks/queries/useBookmark';
+import {
+  useGetBookmarkPost,
+  useMutateBookmarkPost,
+} from '@/hooks/queries/useBookmark';
 
 interface IBookmarkButtonProps {
   color?: string;
@@ -18,7 +21,6 @@ export default function BookmarkButton({
   id,
   postType,
 }: IBookmarkButtonProps) {
-  const { useGetBookmarkPost, useMutateBookmarkPost } = useBookmark();
   const { data, isLoading } = useGetBookmarkPost(id, postType);
   const { mutate } = useMutateBookmarkPost(id, postType);
 
