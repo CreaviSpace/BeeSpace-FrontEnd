@@ -8,6 +8,7 @@ import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Router from 'next/router';
 import { Suspense, useEffect, useState } from 'react';
+import { CookiesProvider } from 'react-cookie';
 
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
@@ -61,28 +62,35 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider>
-        <div className="relative min-h-min_h min-w-min_w">
-          <Header />
-          <ReportModal />
-          <LogInModal />
-          <SignUpModal />
-          <ReconfirmModal />
-          <SearchErrorModal />
-          <UserStamctionModal />
-          {loading ? (
-            <Loading />
-          ) : (
-            <Suspense fallback={<Loading />}>
-              <Component {...pageProps} />
-            </Suspense>
-          )}
-          <Footer />
-        </div>
-        <ToastContainer position="top-center" />
-      </ChakraProvider>
+      <CookiesProvider defaultSetOptions={{ path: '/', maxAge: 7200 }}>
+        <ChakraProvider>
+          <div className="relative min-h-min_h min-w-min_w">
+            <Header />
+            <ReportModal />
+            <LogInModal />
+            <SignUpModal />
+            <ReconfirmModal />
+            <SearchErrorModal />
+            <UserStamctionModal />
+            {loading ? (
+              <Loading />
+            ) : (
+              <Suspense fallback={<Loading />}>
+                <Component {...pageProps} />
+              </Suspense>
+            )}
+            <Footer />
+          </div>
+          <ToastContainer
+            style={{ whiteSpace: 'pre-line' }}
+            position="top-right"
+            autoClose={1000}
+            limit={1}
+          />
+        </ChakraProvider>
 
-      <ReactQueryDevtools />
+        <ReactQueryDevtools />
+      </CookiesProvider>
     </QueryClientProvider>
   );
 }
