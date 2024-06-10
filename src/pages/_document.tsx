@@ -6,6 +6,10 @@ export default function Document() {
       <Head />
       <title>BeeSpace</title>
       <meta charSet="utf-8" />
+      <meta
+        httpEquiv="Content-Security-Policy"
+        content="upgrade-insecure-requests"
+      />
       <meta name="description" content="개발자 포트폴리오 공유 사이트" />
       <body>
         <Main />
