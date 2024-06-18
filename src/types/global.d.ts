@@ -124,6 +124,7 @@ export interface IUniversalType {
   postType: string;
   links: { type: string; url: string }[];
   createdDate: string;
+  modifiedDate: string;
 }
 
 export interface IQuestionType {
