@@ -32,7 +32,7 @@ const useMutateUpdateProfile = (content: IMyProfileeditorProps) => {
     onSuccess: (response) => {
       if (!response) return;
 
-      if (response.status === 200 && response.data.success) {
+      if (response.status === 200) {
         queryClient.invalidateQueries({
           queryKey: [queryKeys.PROFILE_MY],
         });
