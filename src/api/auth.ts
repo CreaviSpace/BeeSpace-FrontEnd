@@ -3,13 +3,15 @@
 import { toast } from 'react-toastify';
 
 import { axiosInstance } from '@/utils/api/axiosInstance';
-import { postCookies } from '@/utils/cookie/postCookies';
 
-const getLogin = async (token: string | null) => {
+const getLogin = async (
+  token: string | null,
+  setCookies: ({ ...cookies }: { [x: string]: string | number }) => void
+) => {
   const response = await axiosInstance.get(`/login?token=${token}`);
 
   if (response.data && response.status === 200) {
-    postCookies({
+    setCookies({
       jwt: response.data.jwt,
       MID: response.data.memberId,
       OLD: response.data.oldUser ? 1 : 0,

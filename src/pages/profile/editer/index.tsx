@@ -8,8 +8,8 @@ import SkillStackInput from '@/components/write/SkillStackInput';
 import useGetProfileMember from '@/hooks/queries/profile/useGetProfileMember';
 import useMutateUpdateProfile from '@/hooks/queries/profile/useMutateUpdateProfile';
 import useAuth from '@/hooks/queries/useAuth';
+import useCookie from '@/hooks/useCookie';
 import useProfileData from '@/store/useProfile';
-import { getCookies } from '@/utils/cookie/getCookies';
 
 export default function ProfileEdit() {
   const [MID, setMid] = useState('');
@@ -33,6 +33,8 @@ export default function ProfileEdit() {
     '9년',
     '10년 이상',
   ]);
+
+  const { getCookies } = useCookie(['MID']);
 
   const {
     enabled,
@@ -63,7 +65,7 @@ export default function ProfileEdit() {
   const closeButton = () => router.replace(`/profile/${MID}`);
 
   useEffect(() => {
-    setMid(getCookies('MID', true));
+    setMid(getCookies('MID'));
   }, []);
 
   useEffect(() => {
