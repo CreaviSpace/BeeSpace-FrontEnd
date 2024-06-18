@@ -41,7 +41,7 @@ export default function UniversalCard({
           id={id}
           postType={postType.toUpperCase()}
           size={35}
-          className="absolute -top-[0.375rem] right-5 z-10"
+          className="absolute -top-[0.375rem] right-5 z-[9]"
         />
       )}
       <Link
