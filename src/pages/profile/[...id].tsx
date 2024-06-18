@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import SortButton from '@/components/button/SortButton';
@@ -143,9 +143,8 @@ export default function Profile() {
             <>
               {contents?.pages.map((item, index) =>
                 item?.map((item: IUniversalType) => (
-                  <>
+                  <Fragment key={`myContent-list-${item.id}-${index}`}>
                     <UniversalCard
-                      key={`myContent-list-${item.id}`}
                       id={item.id}
                       postType={postType.type}
                       title={item.title ? item.title : item.contentsTitle}
@@ -157,7 +156,7 @@ export default function Profile() {
                       size="large"
                       className="my-2 w-full"
                     />
-                  </>
+                  </Fragment>
                 ))
               )}
             </>
