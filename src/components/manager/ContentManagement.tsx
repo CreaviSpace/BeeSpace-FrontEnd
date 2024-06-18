@@ -60,7 +60,7 @@ export default function ContentManagement() {
                     item.bannerContent ? item.bannerContent : item.content
                   }
                   hidden={false}
-                  date={item.modifiedDate}
+                  date={item.createdDate ? item.createdDate : item.modifiedDate}
                   size="large"
                   className="border-2 border-gray20 mb-2 tablet:w-full bg-white"
                 />

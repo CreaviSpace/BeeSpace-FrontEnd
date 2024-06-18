@@ -152,7 +152,9 @@ export default function Profile() {
                         item.bannerContent ? item.bannerContent : item.content
                       }
                       image={item.thumbnail ? item.thumbnail : ''}
-                      date={item.modifiedDate}
+                      date={
+                        item.createdDate ? item.createdDate : item.modifiedDate
+                      }
                       size="large"
                       className="my-2 w-full"
                     />
