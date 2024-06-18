@@ -32,19 +32,15 @@ const useMutateCreatePost = (
           queryKey: [postType.toLowerCase()],
         });
 
-        toast.success(successMessages.POST_CREATE, {
-          onClose: () =>
-            router.replace(
-              `/${response.data.data.postType.toLowerCase() === 'recruit' ? 'recruitment' : response.data.data.postType.toLowerCase()}/${response.data.data.id}`
-            ),
-        });
+        toast.success(successMessages.POST_CREATE);
+        router.replace(
+          `/${response.data.data.postType.toLowerCase() === 'recruit' ? 'recruitment' : response.data.data.postType.toLowerCase()}/${response.data.data.id}`
+        );
       } else if (response.status === 202 && !response.data.success) {
-        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
-          onClose: () =>
-            setCookies({
-              jwt: response.data.jwt,
-              MID: response.data.memberId,
-            }),
+        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED);
+        setCookies({
+          jwt: response.data.jwt,
+          MID: response.data.memberId,
         });
       }
     },

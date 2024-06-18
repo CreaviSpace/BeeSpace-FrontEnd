@@ -24,15 +24,12 @@ const useGetInfiniteAdminPosts = (
       );
 
       if (status === 202 && !data.success) {
-        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
-          onClose: () => {
-            setCookies({
-              jwt: data.jwt,
-              MID: data.memberId,
-            });
-            router.back();
-          },
+        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED);
+        setCookies({
+          jwt: data.jwt,
+          MID: data.memberId,
         });
+        router.back();
       }
 
       return data.data;

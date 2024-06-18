@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { getCookies } from '@/utils/cookie/getCookies';
+import useCookie from '@/hooks/useCookie';
 
 interface IProfileCategoryProps {
   category: { name: string; type: string }[];
@@ -8,8 +8,6 @@ interface IProfileCategoryProps {
   setSelectedTab: (select: { type: string; name: string }) => void;
   memberID: string;
 }
-
-const MID = getCookies('MID', true);
 
 export default function ProfileCategory({
   category,
@@ -19,6 +17,9 @@ export default function ProfileCategory({
 }: IProfileCategoryProps) {
   const [isToggle, setIsToggle] = useState(true);
   const [selectMenu, setSelectMenu] = useState('내 게시물');
+
+  const { getCookies } = useCookie(['MID']);
+  const MID = getCookies('MID');
 
   const handleSelectTab = (item: { type: string; name: string }) => {
     setSelectedTab(item);

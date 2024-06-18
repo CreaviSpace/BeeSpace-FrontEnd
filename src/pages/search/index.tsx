@@ -102,6 +102,7 @@ export default function Search() {
                         }
                         image={item.thumbnail}
                         postType={item.postType}
+                        date={item.modifiedDate}
                         size="large"
                         className="my-5"
                       />

@@ -6,7 +6,6 @@ import { getLogin } from '@/api/auth';
 import { queryKeys } from '@/constants/keys';
 import { errorMessages } from '@/constants/messages';
 import useLoginModal from '@/store/modal/useLoginModal';
-import { getCookies } from '@/utils/cookie/getCookies';
 import queryClient from '@/utils/queryClien';
 import { queryOnError } from '@/utils/queryOnError';
 
@@ -16,9 +15,10 @@ import useCookie from '../useCookie';
 const useLogin = () => {
   const router = useRouter();
   const { token } = router.query;
+  const { setCookies } = useCookie(['jwt', 'MID', 'OLD']);
 
   return useQuery({
-    queryFn: () => getLogin(String(token)),
+    queryFn: () => getLogin(String(token), setCookies),
     queryKey: [queryKeys.AUTH],
     enabled: Boolean(token),
   });
@@ -26,7 +26,7 @@ const useLogin = () => {
 
 const useLogOut = () => {
   const axiosInstance = useAxiosInstance();
-  const { removeCookies } = useCookie(['jwt', 'MID', 'OLD']);
+  const { getCookies, removeCookies } = useCookie(['jwt', 'MID', 'OLD']);
 
   return useMutation({
     mutationFn: async () => {
@@ -75,12 +75,10 @@ const useMutateExpire = () => {
       if (response.status === 200) {
         queryClient.invalidateQueries({});
       } else if (response.status === 202 && !response.data.success) {
-        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
-          onClose: () =>
-            setCookies({
-              jwt: response.data.jwt,
-              MID: response.data.memberId,
-            }),
+        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED);
+        setCookies({
+          jwt: response.data.jwt,
+          MID: response.data.memberId,
         });
       }
     },

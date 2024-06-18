@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
 import { queryKeys } from '@/constants/keys';
@@ -14,7 +13,6 @@ const useMutateDeleteAdminPost = (id: number, category: string) => {
   const axiosInstance = useAxiosInstance();
   const { getCookies, setCookies } = useCookie(['jwt', 'MID']);
   const { onOpen } = useLoginModal();
-  const router = useRouter();
 
   return useMutation({
     mutationFn: async () => {
@@ -31,12 +29,10 @@ const useMutateDeleteAdminPost = (id: number, category: string) => {
           queryKey: [queryKeys.ADMIN, queryKeys.ADMIN_CONTENT, id],
         });
       } else if (response.status === 202 && !response.data.success) {
-        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
-          onClose: async () =>
-            setCookies({
-              jwt: response.data.jwt,
-              MID: response.data.memberId,
-            }),
+        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED);
+        setCookies({
+          jwt: response.data.jwt,
+          MID: response.data.memberId,
         });
       }
     },

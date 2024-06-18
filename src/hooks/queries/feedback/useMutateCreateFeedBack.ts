@@ -36,25 +36,19 @@ const useMutateCreateFeedBack = (
           queryKey: [queryKeys.FEEDBACK, id, type],
         });
 
-        toast.success(successMessages.FEEDBACK_UPDATE, {
-          onClose: () => {
-            if (type === 'question') {
-              router.replace(`/feedback/analysis/${id}`);
-            } else if (type === 'answer') {
-              router.replace(`/project/${id}`);
-            }
-          },
-        });
+        toast.success(successMessages.FEEDBACK_UPDATE);
+        if (type === 'question') {
+          router.replace(`/feedback/analysis/${id}`);
+        } else if (type === 'answer') {
+          router.replace(`/project/${id}`);
+        }
       } else if (response.status === 202 && !response.data.success) {
-        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
-          onClose: async () => {
-            setCookies({
-              jwt: response.data.jwt,
-              MID: response.data.memberId,
-            });
-            router.back();
-          },
+        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED);
+        setCookies({
+          jwt: response.data.jwt,
+          MID: response.data.memberId,
         });
+        router.back();
       }
     },
     onError: (error) => {

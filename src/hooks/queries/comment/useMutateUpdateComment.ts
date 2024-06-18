@@ -33,12 +33,10 @@ const useMutateUpdateComment = (
           queryKey: [queryKeys.COMMENT, postid],
         });
       } else if (response.status === 202 && !response.data.success) {
-        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
-          onClose: () =>
-            setCookies({
-              jwt: response.data.jwt,
-              MID: response.data.memberId,
-            }),
+        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED);
+        setCookies({
+          jwt: response.data.jwt,
+          MID: response.data.memberId,
         });
       }
     },

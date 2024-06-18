@@ -37,7 +37,9 @@ export default function Header() {
     if (isSearchVisible) {
       divRef_search.current?.blur();
     } else {
-      divRef_search.current?.focus();
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 0);
     }
     setIsSearchVisible(!isSearchVisible);
   };
@@ -62,6 +64,7 @@ export default function Header() {
     } else {
       openSearchError();
     }
+    setValue('');
   };
 
   useEffect(() => {
@@ -96,7 +99,7 @@ export default function Header() {
                 <li key={index}>
                   <Link
                     href={item.link}
-                    className={`pl-5 py-5 text-center block ${pathname === item.title && 'text-primary'}`}>
+                    className={`px-5 py-5 text-center block ${pathname === item.title && 'text-primary'}`}>
                     {item.name}
                   </Link>
                 </li>
@@ -130,16 +133,16 @@ export default function Header() {
       <div
         ref={divRef_search}
         tabIndex={0}
-        onFocus={() => {
-          setIsSearchVisible(true);
-        }}
         onBlur={() => {
           // 비동기적으로 상태변경으로 순서에 맞게 동작
           setTimeout(() => {
-            if (inputRef.current !== document.activeElement) {
+            if (
+              inputRef.current !== document.activeElement &&
+              isSearchVisible
+            ) {
               setIsSearchVisible(false);
             }
-          }, 0);
+          }, 100);
         }}>
         {isSearchVisible && (
           <div className="h-screen fixed w-full z-10">
@@ -162,6 +165,7 @@ export default function Header() {
                   placeholder="검색어를 입력하세요"
                   className="w-full h-full bg-[#F5F5F5] rounded-bs_5 absolute p-5"
                   tabIndex={0}
+                  onFocus={() => setIsSearchVisible(true)}
                   onChange={handleValueChange}
                 />
                 <button
@@ -173,7 +177,7 @@ export default function Header() {
               </form>
             </div>
             <div
-              className=" h-full bg-black/50 w-full cursor-pointer"
+              className="h-full bg-black/50 w-full cursor-pointer"
               onClick={handleSearchToggle}></div>
           </div>
         )}
