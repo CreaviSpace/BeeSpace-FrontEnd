@@ -2,7 +2,9 @@
 
 import { toast } from 'react-toastify';
 
+import { queryKeys } from '@/constants/keys';
 import { axiosInstance } from '@/utils/api/axiosInstance';
+import queryClient from '@/utils/queryClien';
 
 const getLogin = async (
   token: string | null,
@@ -15,6 +17,10 @@ const getLogin = async (
       jwt: response.data.jwt,
       MID: response.data.memberId,
       OLD: response.data.oldUser ? 1 : 0,
+    });
+
+    queryClient.invalidateQueries({
+      queryKey: [queryKeys.AUTH, queryKeys.PROFILE_MY],
     });
 
     return response.data.oldUser;
