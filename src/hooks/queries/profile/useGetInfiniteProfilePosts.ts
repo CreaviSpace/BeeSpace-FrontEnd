@@ -55,7 +55,7 @@ const useGetInfiniteProfilePosts = (
       return data.data;
     },
     queryKey: [queryKeys.PROFILE_CONTENT, postType, String(memberId), category],
-    enabled: Boolean(getCookies('jwt')) && Boolean(memberId),
+    enabled: Boolean(memberId),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = allPages.length + 1;
