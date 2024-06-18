@@ -9,13 +9,13 @@ import useLoginModal from '@/store/modal/useLoginModal';
 import queryClient from '@/utils/queryClien';
 import { queryOnError } from '@/utils/queryOnError';
 
-const useMutateCreateComment = (id: number, type: string, content: string) => {
+const useMutateCreateComment = (id: number, type: string) => {
   const axiosInstance = useAxiosInstance();
   const { getCookies, setCookies } = useCookie(['jwt', 'MID']);
   const { onOpen } = useLoginModal();
 
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (content: string) => {
       return await axiosInstance.post(
         `/comment?postId=${id}&postType=${type}`,
         { content: content }
