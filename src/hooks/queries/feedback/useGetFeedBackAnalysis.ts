@@ -26,15 +26,12 @@ const useGetFeedBackAnalysis = (id: number) => {
       if (!response) return;
 
       if (response.status === 202 && !response.data.success) {
-        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
-          onClose: async () => {
-            setCookies({
-              jwt: response.data.jwt,
-              MID: response.data.memberId,
-            });
-            router.back();
-          },
+        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED);
+        setCookies({
+          jwt: response.data.jwt,
+          MID: response.data.memberId,
         });
+        router.back();
       }
 
       return response.data.data;

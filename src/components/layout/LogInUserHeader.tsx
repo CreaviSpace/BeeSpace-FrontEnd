@@ -5,16 +5,14 @@ import CustomButton from '@/components/button/CustomButton';
 import useGetAlarm from '@/hooks/queries/alarm/useGetAlarm';
 import useGetAlarmCount from '@/hooks/queries/alarm/useGetAlarmCount';
 import useAuth from '@/hooks/queries/useAuth';
+import useCookie from '@/hooks/useCookie';
 import useLoginModal from '@/store/modal/useLoginModal';
 import useLogin from '@/store/useLogin';
-import { getCookies } from '@/utils/cookie/getCookies';
 
 import SkeletonUserImage from '../skeleton/SkeletonUserImage';
 import AlarmModal from './modal/AlarmModal';
 import ProfileModal from './modal/ProfileModal';
 import WriteModal from './modal/WriteModal';
-
-const MID = getCookies('MID', true);
 
 export default function LogInHeader() {
   const [onProfileModal, setOnProfileModal] = useState(false);
@@ -25,6 +23,9 @@ export default function LogInHeader() {
   const profileModalRef = useRef<HTMLDivElement>(null);
   const writingModalRef = useRef<HTMLDivElement>(null);
   const alarmModalRef = useRef<HTMLDivElement>(null);
+
+  const { getCookies } = useCookie(['MID']);
+  const MID = getCookies('MID');
 
   const { onOpen: openLogin } = useLoginModal();
   const { login } = useLogin();
