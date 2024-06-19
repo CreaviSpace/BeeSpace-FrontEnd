@@ -50,7 +50,7 @@ export default function RecruitPersonnel({
   useEffect(() => {
     const totalAmount = personnelNum.reduce((a, b) => a + b);
     setAmount(totalAmount);
-  }, [personnelNum]);
+  }, [personnelNum, personnel]);
 
   useEffect(() => {
     if (positions.length !== 0) {
