@@ -8,7 +8,7 @@ import {
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import useReportPost from '@/hooks/queries/report/useReportPost';
+import useMutateReportPost from '@/hooks/queries/useReportPost';
 import useReportModal from '@/store/modal/useReportModal';
 import { parseEnum } from '@/utils/parseEnum';
 
@@ -43,7 +43,7 @@ export default function ReportModal() {
     content: value,
   };
 
-  const { mutate, isSuccess } = useReportPost(data);
+  const { mutate, isSuccess } = useMutateReportPost(data);
 
   const { reportTitle } = useReportModal();
 

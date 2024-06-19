@@ -2,7 +2,7 @@ import { IoCloseOutline } from '@react-icons/all-files/io5/IoCloseOutline';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
-import useSkillStackSearch from '@/hooks/queries/useSkillStackSearch';
+import { useGetSearchSkillStack } from '@/hooks/queries/useSearch';
 import { ITechStackType } from '@/types/global';
 
 interface SkillStackInput {
@@ -20,7 +20,7 @@ export default function SkillStackInput({
 }: SkillStackInput) {
   const [text, setText] = useState('');
   const [isToggle, setIsToggle] = useState(false);
-  const { isLoading, isError, data } = useSkillStackSearch(text);
+  const { isLoading, data } = useGetSearchSkillStack(text);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleTechStackDtosPush = (name: string, icon: string) => {

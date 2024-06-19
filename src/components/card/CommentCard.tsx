@@ -2,7 +2,8 @@ import moment from 'moment';
 import { useState } from 'react';
 
 import UserProfileButton from '@/components/button/UserProfileButton';
-import useCommentPutDelete from '@/hooks/queries/comment/useCommentPutDelete';
+import useMutateDeleteComment from '@/hooks/queries/comment/useMutateDeleteComment';
+import useMutateUpdateComment from '@/hooks/queries/comment/useMutateUpdateComment';
 import useReconfirmModal from '@/store/modal/useReconfirmModal';
 import { ICommentContainerTypes } from '@/types/global';
 
@@ -21,11 +22,17 @@ export default function CommentCard({ item, type, postid }: ICommentCardType) {
     type: '',
     postid: 0,
   });
-  const { mutateDelete, mutatePut, isSuccess } = useCommentPutDelete(
+  const { mutate: mutatePut, isSuccess } = useMutateUpdateComment(
     selectedComment.id,
     selectedComment.type,
     selectedComment.postid,
     value
+  );
+
+  const { mutate: mutateDelete } = useMutateDeleteComment(
+    selectedComment.id,
+    selectedComment.type,
+    selectedComment.postid
   );
 
   const handlePutComment = () => {

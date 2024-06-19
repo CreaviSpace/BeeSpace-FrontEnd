@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { SetStateAction, useEffect, useState } from 'react';
 
@@ -6,8 +5,9 @@ import CustomButton from '@/components/button/CustomButton';
 import SelectButton from '@/components/button/SelectButton';
 import ProjectBanner from '@/components/write/project/ProjectBanner';
 import SkillStackInput from '@/components/write/SkillStackInput';
-import useMemberProfileGet from '@/hooks/queries/profile/useMemberProfileGet';
-import useMyProfileEditor from '@/hooks/queries/profile/useMyProfileEditor';
+import useGetProfileMember from '@/hooks/queries/profile/useGetProfileMember';
+import useMutateUpdateProfile from '@/hooks/queries/profile/useMutateUpdateProfile';
+import useAuth from '@/hooks/queries/useAuth';
 import useProfileData from '@/store/useProfile';
 import { getCookies } from '@/utils/cookie/getCookies';
 
@@ -54,10 +54,12 @@ export default function ProfileEdit() {
     profileUrl,
   };
 
-  const { isLoading, data } = useMemberProfileGet(MID);
-  const { mutate } = useMyProfileEditor(profileData);
+  const { isLoading, data } = useGetProfileMember(MID);
+  const { mutate } = useMutateUpdateProfile(profileData);
+  const { expire } = useAuth();
 
   const router = useRouter();
+
   const closeButton = () => router.replace(`/profile/${MID}`);
 
   useEffect(() => {
@@ -91,17 +93,7 @@ export default function ProfileEdit() {
   }, [isLoading, data]);
 
   const handlerExpireMember = async () => {
-    try {
-      await axios.post(
-        `${process.env.BASE_URL}/member/expire`,
-        {},
-        {
-          headers: { Authorization: getCookies('jwt') },
-        }
-      );
-    } catch (error) {
-      console.error(error);
-    }
+    expire.mutate();
   };
 
   const handleNameValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {

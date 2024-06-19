@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import OnoffButton from '@/components/button/OnOffButton';
-import useCommunityDetail from '@/hooks/queries/community/useCommunityDetail';
-import useWritePost from '@/hooks/queries/useWritePost';
-import useWriteUpdate from '@/hooks/queries/useWriteUpdate';
+import { useGetCommunityPost } from '@/hooks/queries/post/useGetPost';
+import useMutateCreatePost from '@/hooks/queries/post/useMutateCreatePost';
+import useMutateUpdatePost from '@/hooks/queries/post/useMutateUpdatePost';
 import useCommunityData from '@/store/useCommunityData';
 
 import CustomButton from '../../../components/button/CustomButton';
@@ -40,11 +40,15 @@ export default function CommunityWrite() {
     images,
   };
 
-  const { isLoading, isError, data, isFetching } = useCommunityDetail(
+  const { isLoading, data, isFetching } = useGetCommunityPost(
+    'community',
     id as string
   );
-  const { mutate: communityPost } = useWritePost('community', communityData);
-  const { mutate: communityUpdate } = useWriteUpdate(
+  const { mutate: communityPost } = useMutateCreatePost(
+    'community',
+    communityData
+  );
+  const { mutate: communityUpdate } = useMutateUpdatePost(
     parseInt(id as string),
     'community',
     communityData

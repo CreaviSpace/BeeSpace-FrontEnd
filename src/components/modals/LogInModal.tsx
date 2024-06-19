@@ -14,19 +14,19 @@ const ICONS = [
     title: '구글',
     icon: <FcGoogle key="google" size={45} />,
     style: 'bg-white',
-    link: 'https://port-0-creavispace-backend-am952nlsse11uk.sel5.cloudtype.app/oauth2/authorization/google',
+    link: `${process.env.BASE_URL}/oauth2/authorization/google`,
   },
   {
     title: '카카오',
     icon: <RiKakaoTalkFill key="kakao" size={45} />,
     style: 'bg-yellow-300',
-    link: 'https://port-0-creavispace-backend-am952nlsse11uk.sel5.cloudtype.app/oauth2/authorization/kakao',
+    link: `${process.env.BASE_URL}/oauth2/authorization/kakao`,
   },
   {
     title: '깃허브',
     icon: <IoLogoGithub key="github" size={45} />,
     style: 'bg-white',
-    link: 'https://port-0-creavispace-backend-am952nlsse11uk.sel5.cloudtype.app/oauth2/authorization/github',
+    link: `${process.env.BASE_URL}/oauth2/authorization/github`,
   },
   {
     title: '네이버',
@@ -40,7 +40,7 @@ const ICONS = [
       />
     ),
     style: 'bg-green-500 p-3 flex',
-    link: 'https://port-0-creavispace-backend-am952nlsse11uk.sel5.cloudtype.app/oauth2/authorization/naver',
+    link: `${process.env.BASE_URL}/oauth2/authorization/naver`,
   },
 ];
 

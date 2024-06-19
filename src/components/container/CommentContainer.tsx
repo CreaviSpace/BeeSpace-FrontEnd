@@ -2,7 +2,8 @@ import { useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import CommentCard from '@/components/card/CommentCard';
-import useCommentGetPost from '@/hooks/queries/comment/useCommentGetPost';
+import useGetComment from '@/hooks/queries/comment/useGetComment';
+import useMutateCreateComment from '@/hooks/queries/comment/useMutateCreateComment';
 
 import SkeletonCommentCard from '../skeleton/SkeletonCommentCard';
 import { ICommentContainerTypes } from './../../types/global.d';
@@ -15,13 +16,13 @@ interface ICommentContainerProps {
 export default function CommentContainer({ id, type }: ICommentContainerProps) {
   const [value, setValue] = useState('');
 
-  const {
-    isLoading,
-    isError,
-    data,
-    isFetching,
-    mutate: mutatePost,
-  } = useCommentGetPost(id, type, value);
+  const { isLoading, data } = useGetComment(id, type);
+  const { mutate } = useMutateCreateComment(id, type, value);
+
+  const handleOnClickComment = () => {
+    mutate();
+    setValue('');
+  };
 
   return (
     <div>
@@ -41,7 +42,7 @@ export default function CommentContainer({ id, type }: ICommentContainerProps) {
         <CustomButton
           color="secondary"
           className="min-w-[6.25rem] max-w-[6.25rem] py-2 mr-auto"
-          onClick={() => mutatePost()}>
+          onClick={handleOnClickComment}>
           등록
         </CustomButton>
       </div>

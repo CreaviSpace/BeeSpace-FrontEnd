@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import useAdmin from '@/hooks/queries/admin/useAdmin';
+import useGetInfiniteAdminReports from '@/hooks/queries/admin/useGetInfiniteAdminReports';
 import { IReportType } from '@/types/global';
 
 import ReportContent from './ReportContent';
@@ -11,14 +11,7 @@ const TYPE = 'reports';
 export default function ReportManagement() {
   const [sorting, setSorting] = useState('DESC');
 
-  const {
-    isLoading,
-    isError,
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useAdmin(SIZE, sorting, TYPE);
+  const { isLoading, data } = useGetInfiniteAdminReports(SIZE, sorting, TYPE);
 
   return (
     <section className="w-full min-w-min_w p-3">

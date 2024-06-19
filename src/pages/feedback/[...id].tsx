@@ -6,9 +6,9 @@ import CheckBoxAnswer from '@/components/feedback/answer/CheckBoxAnswer';
 import MultipleChoiceAnswer from '@/components/feedback/answer/MultipleChoiceAnswer';
 import ShortAnswerAnswer from '@/components/feedback/answer/ShortAnswerAnswer';
 import SkeletonFeedBack from '@/components/skeleton/SkeletonFeedBack';
-import useFeedBackGet from '@/hooks/queries/feedback/useFeedBackGet';
-import useFeedBackPost from '@/hooks/queries/feedback/useFeedBackPost';
-import useProjectDetail from '@/hooks/queries/project/useProjectDetail';
+import useGetFeedBack from '@/hooks/queries/feedback/useGetFeedBack';
+import useMutateCreateFeedBack from '@/hooks/queries/feedback/useMutateCreateFeedBack';
+import { useGetProjectPost } from '@/hooks/queries/post/useGetPost';
 import useAnswerData from '@/store/feedback/useAnswerData';
 import {
   IAnswerType,
@@ -24,14 +24,21 @@ export default function FeedBackList() {
 
   const { answer, setAnswer } = useAnswerData();
 
-  const { isError: isErrorProject } = useProjectDetail(id as string);
+  const { isError: isErrorProject } = useGetProjectPost(
+    'project',
+    id as string
+  );
 
-  const { isLoading, isError, data, isFetching } = useFeedBackGet(
+  const { isLoading, data } = useGetFeedBack(
     parseInt(id as string),
     'feedback'
   );
 
-  const { mutate } = useFeedBackPost(parseInt(id as string), answer, 'answer');
+  const { mutate } = useMutateCreateFeedBack(
+    parseInt(id as string),
+    answer,
+    'answer'
+  );
 
   useEffect(() => {
     if (!isLoading && data) {
@@ -119,15 +126,12 @@ export default function FeedBackList() {
               </div>
             </>
           ) : (
-            <div className="mt-8 w-full flex justify-center gap-2">
+            <div className="mt-8 w-full gap-2 text-center">
+              <div className="text-bs_24 font-bold mb-5">
+                작성자의 피드백 질문이 없습니다.
+              </div>
               <CustomButton className="py-2 px-3 w-full" onClick={handleCancel}>
-                취소
-              </CustomButton>
-              <CustomButton
-                color="secondary"
-                className="py-2 px-3 w-full"
-                onClick={handleFeedBackWrite}>
-                피드백 작성
+                뒤로 가기
               </CustomButton>
             </div>
           )}

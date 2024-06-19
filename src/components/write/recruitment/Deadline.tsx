@@ -5,6 +5,7 @@ import { FaRegCalendarAlt } from '@react-icons/all-files/fa/FaRegCalendarAlt';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
+
 interface IDeadlineProps {
   end: string;
   setEnd: (end: string) => void;

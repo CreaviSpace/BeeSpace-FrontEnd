@@ -39,7 +39,7 @@ export default function CommunityCard({ item, className }: CommunityCardProps) {
               dangerouslySetInnerHTML={{ __html: item.content }}></p>
           </Link>
           <div className="flex gap-2">
-            {item.hashTags.map((hashTag, index) => (
+            {item.hashTags?.map((hashTag, index) => (
               <Tag
                 key={`${hashTag}-${index}`}
                 name={hashTag.hashTag}

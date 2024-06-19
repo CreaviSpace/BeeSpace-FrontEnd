@@ -1,9 +1,10 @@
 import 'react-quill/dist/quill.snow.css';
 
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import ReactQuill from 'react-quill';
 
 import ImageDrag from '@/components/ImageDrag';
+import { useMutateCreateImage } from '@/hooks/queries/useImage';
 import useImageCompression from '@/hooks/useImageCompression';
 import fileUpload from '@/utils/fileUpload';
 
@@ -41,12 +42,21 @@ export default function TextEditor({
   const { isLoading: isCompressLoading, compressImage } = useImageCompression();
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const { mutate, data, isSuccess } = useMutateCreateImage();
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      setImages(data?.data.data.url);
+
+      const value = values + `<img src="${data?.data.data.url}" />`;
+      setValues(value);
+    }
+  }, [isSuccess, data]);
+
   const handleImageUpload = async (imageFile: File) => {
     const compressedImage = await compressImage(imageFile);
-    const imageURL = await fileUpload(compressedImage);
-    const value = values + `<img src="${imageURL}" />`;
-    setValues(value);
-    setImages(imageURL);
+    const formData = await fileUpload(compressedImage);
+    mutate(formData);
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
