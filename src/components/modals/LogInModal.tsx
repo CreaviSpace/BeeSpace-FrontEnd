@@ -57,7 +57,8 @@ export default function LogInModal() {
             <Link
               key={`icon-${index}`}
               href={icon.link}
-              className="relative flex flex-col items-center gap-2 mobile:flex-row mobile:w-full">
+              className="relative flex flex-col items-center gap-2 mobile:flex-row mobile:w-full"
+              onClick={onClose}>
               <div
                 className={`${icon.style} rounded-full shadow-[0_3px_5px_rgba(0,0,0,0.3)] p-2 mobile:rounded-sm mobile:w-full mobile:flex mobile:justify-center`}>
                 {icon.icon}
