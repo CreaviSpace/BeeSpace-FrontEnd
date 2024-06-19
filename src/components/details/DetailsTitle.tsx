@@ -8,7 +8,7 @@ import { useGetLikeViewPost } from '@/hooks/queries/useLike';
 import useCookie from '@/hooks/useCookie';
 import useReconfirmModal from '@/store/modal/useReconfirmModal';
 import useReportModal from '@/store/modal/useReportModal';
-import useLogin from '@/store/useLogin';
+import useLoginStore from '@/store/useLoginStore';
 import { parseValue } from '@/utils/parseValue';
 
 interface IDetailsTitleProps {
@@ -36,7 +36,7 @@ export default function DetailsTitle({
   imageURL,
   memberId,
 }: IDetailsTitleProps) {
-  const { login } = useLogin();
+  const { login } = useLoginStore();
   const { getCookies } = useCookie(['MID']);
   const MID = getCookies('MID');
 

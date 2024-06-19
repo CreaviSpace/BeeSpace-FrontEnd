@@ -10,7 +10,7 @@ import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import Tag from '@/components/Tag';
 import { useGetProjectPost } from '@/hooks/queries/post/useGetPost';
 import useCookie from '@/hooks/useCookie';
-import useLogin from '@/store/useLogin';
+import useLoginStore from '@/store/useLoginStore';
 import { parseValue } from '@/utils/parseValue';
 
 import Custom404 from '../404';
@@ -18,7 +18,7 @@ import Custom404 from '../404';
 export default function ProjectDetail() {
   const router = useRouter();
   const { id } = router.query;
-  const { login } = useLogin();
+  const { login } = useLoginStore();
   const { getCookies } = useCookie(['MID']);
   const MID = getCookies('MID');
 

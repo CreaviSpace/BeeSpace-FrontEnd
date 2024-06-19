@@ -6,6 +6,7 @@ import { getLogin } from '@/api/auth';
 import { queryKeys } from '@/constants/keys';
 import { errorMessages } from '@/constants/messages';
 import useLoginModal from '@/store/modal/useLoginModal';
+import useLoginStore from '@/store/useLoginStore';
 import queryClient from '@/utils/queryClien';
 import { queryOnError } from '@/utils/queryOnError';
 
@@ -16,11 +17,15 @@ const useLogin = () => {
   const router = useRouter();
   const { token } = router.query;
   const { setCookies } = useCookie(['jwt', 'MID', 'OLD']);
+  const { setLogin } = useLoginStore();
 
   return useQuery({
     queryFn: () => getLogin(String(token), setCookies),
     queryKey: [queryKeys.AUTH],
     enabled: Boolean(token),
+    select: () => {
+      setLogin();
+    },
   });
 };
 

@@ -13,7 +13,7 @@ import useGetInfiniteProfilePosts from '@/hooks/queries/profile/useGetInfinitePr
 import useGetProfileMember from '@/hooks/queries/profile/useGetProfileMember';
 import useCookie from '@/hooks/useCookie';
 import useObserver from '@/hooks/useObserver';
-import useLogin from '@/store/useLogin';
+import useLoginStore from '@/store/useLoginStore';
 import { IUniversalType } from '@/types/global';
 
 import Custom404 from '../404';
@@ -67,7 +67,7 @@ export default function Profile() {
 
   const router = useRouter();
   const memberId = router.query.id;
-  const login = useLogin();
+  const login = useLoginStore();
 
   const { isLoading: profileLoading, data: profile } = useGetProfileMember(
     memberId as string

@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import LogInUserHeader from '@/components/layout/LogInUserHeader';
 import useSearchErrorModal from '@/store/modal/useSearchErrorModal';
-import useLogin from '@/store/useLogin';
+import useLoginStore from '@/store/useLoginStore';
 
 import MoblieNavigation from './MoblieNavigation';
 
@@ -30,7 +30,7 @@ export default function Header() {
   const router = useRouter();
   const pathname = router.pathname.split('/')[1];
 
-  const { setLogin } = useLogin();
+  const { setLogin } = useLoginStore();
   const { onOpen: openSearchError } = useSearchErrorModal();
 
   const handleSearchToggle = () => {
