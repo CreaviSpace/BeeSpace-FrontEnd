@@ -11,12 +11,14 @@ export default function Login() {
   const { setLogin } = useLoginStore();
 
   useEffect(() => {
-    if (isSuccess) {
-      setLogin();
-      if (olduser) {
-        router.back();
-      } else {
-        router.replace('/profile/editer');
+    if (!isLoading) {
+      if (isSuccess) {
+        setLogin();
+        if (olduser) {
+          router.back();
+        } else {
+          router.replace('/profile/editer');
+        }
       }
     }
   }, [isSuccess, isLoading]);
