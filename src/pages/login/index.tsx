@@ -2,13 +2,11 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import useAuth from '@/hooks/queries/useAuth';
-import useLoginModal from '@/store/modal/useLoginModal';
 
 export default function Login() {
   const router = useRouter();
   const { getLogin } = useAuth();
   const { data: olduser, isLoading, isSuccess } = getLogin;
-  const { onClose } = useLoginModal();
 
   useEffect(() => {
     if (!isLoading) {
@@ -20,7 +18,6 @@ export default function Login() {
         }
       }
     }
-    onClose();
   }, [isSuccess, isLoading]);
   return <></>;
 }
