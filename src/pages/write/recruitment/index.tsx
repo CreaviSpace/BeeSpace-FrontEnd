@@ -15,7 +15,7 @@ import TitleEditor from '@/components/write/TextEditor/TitleEditor';
 import { useGetRecruitPost } from '@/hooks/queries/post/useGetPost';
 import useMutateCreatePost from '@/hooks/queries/post/useMutateCreatePost';
 import useMutateUpdatePost from '@/hooks/queries/post/useMutateUpdatePost';
-import useLogin from '@/store/useLogin';
+import useLoginStore from '@/store/useLoginStore';
 import useRecruitData from '@/store/useRecruitData';
 
 const TextEditor = dynamic(
@@ -30,7 +30,7 @@ export default function RecruitmentWrite() {
   const router = useRouter();
   const { id } = router.query;
 
-  const login = useLogin();
+  const { login } = useLoginStore();
   const today = new Date().toString();
   const {
     category,
@@ -59,7 +59,7 @@ export default function RecruitmentWrite() {
     title,
     content,
     end,
-    positions,
+    positions: positions.filter((item) => item.position !== 'default'),
     techStacks: techStacks.map((item) => {
       const { techStack } = item;
       return { techStack };

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 
 import useAuth from '@/hooks/queries/useAuth';
-import useLogin from '@/store/useLogin';
+import useLoginStore from '@/store/useLoginStore';
 
 interface IProfileModalProps {
   handleWriteModalOpen: () => void;
@@ -20,7 +20,7 @@ export default function ProfileModal({
 }: IProfileModalProps) {
   const router = useRouter();
   const { logout } = useAuth();
-  const { setLogout } = useLogin();
+  const { setLogout } = useLoginStore();
   const handleOnClicks = (url?: string, handle?: () => void) => {
     if (handle) {
       handle();

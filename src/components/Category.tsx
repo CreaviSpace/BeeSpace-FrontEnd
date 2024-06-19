@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import useLoginModal from '@/store/modal/useLoginModal';
-import useLogin from '@/store/useLogin';
+import useLoginStore from '@/store/useLoginStore';
 import { parseValue } from '@/utils/parseValue';
 
 import CustomButton from './button/CustomButton';
@@ -24,7 +24,7 @@ export default function Category({
   const [isCategoryToggle, setIsCategoryToggle] = useState(false);
   const { type } = router.query;
   const { onOpen } = useLoginModal();
-  const { login } = useLogin();
+  const { login } = useLoginStore();
 
   const handleCurrentPage = (current: string) => {
     if (type && type === current.split('&')[0]) {

@@ -8,7 +8,7 @@ interface IuseLoginProps {
   setLogout: () => void;
 }
 
-const useLogin = create<IuseLoginProps>((set) => ({
+const useLoginStore = create<IuseLoginProps>((set) => ({
   login: false,
   setLogin: () => {
     const token = getCookies('jwt');
@@ -19,4 +19,4 @@ const useLogin = create<IuseLoginProps>((set) => ({
   setLogout: () => set(() => ({ login: false })),
 }));
 
-export default useLogin;
+export default useLoginStore;

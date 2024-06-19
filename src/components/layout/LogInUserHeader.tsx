@@ -7,7 +7,7 @@ import useGetAlarmCount from '@/hooks/queries/alarm/useGetAlarmCount';
 import useAuth from '@/hooks/queries/useAuth';
 import useCookie from '@/hooks/useCookie';
 import useLoginModal from '@/store/modal/useLoginModal';
-import useLogin from '@/store/useLogin';
+import useLoginStore from '@/store/useLoginStore';
 
 import SkeletonUserImage from '../skeleton/SkeletonUserImage';
 import AlarmModal from './modal/AlarmModal';
@@ -28,7 +28,7 @@ export default function LogInHeader() {
   const MID = getCookies('MID');
 
   const { onOpen: openLogin } = useLoginModal();
-  const { login } = useLogin();
+  const { login, setLogin } = useLoginStore();
 
   const { getMyProfile } = useAuth();
   const { isLoading, data } = getMyProfile;

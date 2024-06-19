@@ -34,16 +34,16 @@ export default function SelectButton({
       handler(index);
     }
 
-    if (hidden && setOption) {
-      if (copyPersonnel.some((prev) => prev === copyPersonnel[index])) {
-        const copyOption = option.filter((prev) => prev !== item);
-        setOption(copyOption);
-        if (select[index] !== `default`) {
-          const newOption = [...copyOption, select[index]];
-          setOption(newOption);
-        }
-      }
-    }
+    // if (hidden && setOption) {
+    //   if (copyPersonnel.some((prev) => prev === copyPersonnel[index])) {
+    //     const copyOption = option.filter((prev) => prev !== item);
+    //     setOption(copyOption);
+    //     if (select[index] !== `default`) {
+    //       const newOption = [...copyOption, select[index]];
+    //       setOption(newOption);
+    //     }
+    //   }
+    // }
   };
 
   const handleButtonOnClick = () => {
