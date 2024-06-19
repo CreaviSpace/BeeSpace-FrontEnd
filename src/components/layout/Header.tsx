@@ -3,12 +3,11 @@ import { AiOutlineUnorderedList } from '@react-icons/all-files/ai/AiOutlineUnord
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import LogInUserHeader from '@/components/layout/LogInUserHeader';
 import useCookie from '@/hooks/useCookie';
 import useSearchErrorModal from '@/store/modal/useSearchErrorModal';
-import useLoginStore from '@/store/useLoginStore';
 
 import MoblieNavigation from './MoblieNavigation';
 
@@ -22,7 +21,6 @@ export default function Header() {
   const [value, setValue] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isMCategoryVisible, setIsMCategoryVisible] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState('프로젝트');
 
   const divRef_search = useRef<HTMLDivElement>(null);
   const divRef_menu = useRef<HTMLDivElement>(null);
@@ -31,7 +29,6 @@ export default function Header() {
   const router = useRouter();
   const pathname = router.pathname.split('/')[1];
 
-  const { setLogin } = useLoginStore();
   const { onOpen: openSearchError } = useSearchErrorModal();
   const { getCookies } = useCookie(['jwt']);
 
@@ -68,10 +65,6 @@ export default function Header() {
     }
     setValue('');
   };
-
-  useEffect(() => {
-    setLogin(getCookies('jwt'));
-  }, []);
 
   return (
     <header className="sticky top-0 w-full h-16 z-20 bg-white">

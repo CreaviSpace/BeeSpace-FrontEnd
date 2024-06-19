@@ -24,7 +24,7 @@ export default function LogInHeader() {
   const writingModalRef = useRef<HTMLDivElement>(null);
   const alarmModalRef = useRef<HTMLDivElement>(null);
 
-  const { getCookies } = useCookie(['MID']);
+  const { getCookies } = useCookie(['jwt', 'MID']);
   const MID = getCookies('MID');
 
   const { onOpen: openLogin } = useLoginModal();
@@ -43,6 +43,10 @@ export default function LogInHeader() {
       setIsAlarm(true);
     }
   }, [alarmCountIsLoading]);
+
+  useEffect(() => {
+    setLogin(getCookies('jwt'));
+  }, [login]);
 
   const handleWriteModalOpen = () => {
     writingModalRef.current?.focus();
