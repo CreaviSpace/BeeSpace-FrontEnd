@@ -14,7 +14,7 @@
 
 ## 배포 주소
 
-vercel: [BeeSpace](https://creavispace.vercel.app/)
+vercel: [BeeSpace](https://beespace.vercel.app/)
 
 ## 프로젝트 소개
 
