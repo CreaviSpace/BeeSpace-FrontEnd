@@ -75,7 +75,8 @@ const useGetInfiniteCommunityPosts = (
 
     return data.data;
   };
-  const queryKey = [queryKeys.PROJECT, category, size, orderby];
+  
+  const queryKey = [queryKeys.COMMUNITY, category, size, orderby && orderby];
 
   return useGetInfinitePosts(size, postsAPI, queryKey);
 };
