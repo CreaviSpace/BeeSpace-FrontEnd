@@ -23,8 +23,11 @@ const useLogin = () => {
     queryFn: () => getLogin(String(token), setCookies),
     queryKey: [queryKeys.AUTH],
     enabled: Boolean(token),
-    select: () => {
-      setLogin();
+    select: (response) => {
+      if (response) {
+        setLogin();
+      }
+      return response;
     },
   });
 };
