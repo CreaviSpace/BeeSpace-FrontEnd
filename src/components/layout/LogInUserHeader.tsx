@@ -46,6 +46,9 @@ export default function LogInHeader() {
 
   useEffect(() => {
     setLogin(getCookies('jwt'));
+    if (onProfileModal) {
+      setOnProfileModal(false);
+    }
   }, [isLoading]);
 
   const handleWriteModalOpen = () => {
