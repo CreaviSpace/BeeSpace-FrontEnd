@@ -54,7 +54,7 @@ const useGetLikeViewPost = (id: number, postType: string) => {
       return data;
     },
     queryKey: [queryKeys.LIKE_VIEW, id],
-    enabled: Boolean(id),
+    enabled: Boolean(id) && postType !== 'RECRUIT',
     select: (response) => {
       if (!response) return;
 
