@@ -7,7 +7,7 @@ import useLoginStore from '@/store/useLoginStore';
 export default function Login() {
   const router = useRouter();
   const { getLogin } = useAuth();
-  const { data: olduser, isSuccess } = getLogin;
+  const { data: olduser, isLoading, isSuccess } = getLogin;
   const { setLogin } = useLoginStore();
 
   useEffect(() => {
@@ -19,6 +19,6 @@ export default function Login() {
         router.replace('/profile/editer');
       }
     }
-  }, [isSuccess]);
+  }, [isSuccess, isLoading]);
   return <></>;
 }
