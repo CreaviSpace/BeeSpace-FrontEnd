@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import SortButton from '@/components/button/SortButton';
@@ -11,10 +11,10 @@ import SkeletonProfile from '@/components/skeleton/SkeletonProfile';
 import SkeletonUniversalCard from '@/components/skeleton/SkeletonUniversalCard';
 import useGetInfiniteProfilePosts from '@/hooks/queries/profile/useGetInfiniteProfilePosts';
 import useGetProfileMember from '@/hooks/queries/profile/useGetProfileMember';
+import useCookie from '@/hooks/useCookie';
 import useObserver from '@/hooks/useObserver';
 import useLogin from '@/store/useLogin';
 import { IUniversalType } from '@/types/global';
-import { getCookies } from '@/utils/cookie/getCookies';
 
 import Custom404 from '../404';
 
@@ -48,8 +48,6 @@ const CATEGORIES = [
   },
 ];
 
-const MID = getCookies('MID', true);
-
 export default function Profile() {
   const [postType, setPostType] = useState({
     type: 'project',
@@ -63,6 +61,9 @@ export default function Profile() {
     type: 'project',
     name: '내 게시물',
   });
+
+  const { getCookies } = useCookie(['MID']);
+  const MID = getCookies('MID');
 
   const router = useRouter();
   const memberId = router.query.id;
@@ -142,9 +143,8 @@ export default function Profile() {
             <>
               {contents?.pages.map((item, index) =>
                 item?.map((item: IUniversalType) => (
-                  <>
+                  <Fragment key={`myContent-list-${item.id}-${index}`}>
                     <UniversalCard
-                      key={`myContent-list-${item.id}`}
                       id={item.id}
                       postType={postType.type}
                       title={item.title ? item.title : item.contentsTitle}
@@ -152,10 +152,13 @@ export default function Profile() {
                         item.bannerContent ? item.bannerContent : item.content
                       }
                       image={item.thumbnail ? item.thumbnail : ''}
+                      date={
+                        item.createdDate ? item.createdDate : item.modifiedDate
+                      }
                       size="large"
                       className="my-2 w-full"
                     />
-                  </>
+                  </Fragment>
                 ))
               )}
             </>

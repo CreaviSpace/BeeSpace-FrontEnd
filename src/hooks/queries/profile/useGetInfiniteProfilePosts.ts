@@ -1,8 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
 
 import { queryKeys } from '@/constants/keys';
-import { errorMessages } from '@/constants/messages';
 import useAxiosInstance from '@/hooks/useAxiosInstance';
 import useCookie from '@/hooks/useCookie';
 
@@ -45,19 +43,19 @@ const useGetInfiniteProfilePosts = (
       );
 
       if (status === 202 && !data.success) {
-        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
-          onClose: () =>
-            setCookies({
-              jwt: data.jwt,
-              MID: data.memberId,
-            }),
+        // toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
+        //   onClose: () =>
+        setCookies({
+          jwt: data.jwt,
+          MID: data.memberId,
         });
+        // });
       }
 
       return data.data;
     },
     queryKey: [queryKeys.PROFILE_CONTENT, postType, String(memberId), category],
-    enabled: Boolean(getCookies('jwt')) && Boolean(memberId),
+    enabled: Boolean(memberId),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = allPages.length + 1;

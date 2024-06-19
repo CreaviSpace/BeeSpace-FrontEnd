@@ -17,10 +17,10 @@ export default function CommentContainer({ id, type }: ICommentContainerProps) {
   const [value, setValue] = useState('');
 
   const { isLoading, data } = useGetComment(id, type);
-  const { mutate } = useMutateCreateComment(id, type, value);
+  const { mutate } = useMutateCreateComment(id, type);
 
   const handleOnClickComment = () => {
-    mutate();
+    mutate(value);
     setValue('');
   };
 

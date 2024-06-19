@@ -14,7 +14,7 @@ export default function CommunityCard({ item, className }: CommunityCardProps) {
 
   return (
     <div
-      className={`${className} w-full py-5 px-7 rounded-bs_5 bg-white border-gray10`}>
+      className={`${className} w-full h-full py-5 px-7 rounded-bs_5 bg-white border-gray10`}>
       {/* 사용자 정보, 게시글 날짜 및 시간 */}
       <div className="pb-2 flex items-center justify-between">
         <UserProfileButton

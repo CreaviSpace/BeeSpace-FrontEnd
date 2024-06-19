@@ -32,7 +32,7 @@ const useMutateUpdateProfile = (content: IMyProfileeditorProps) => {
     onSuccess: (response) => {
       if (!response) return;
 
-      if (response.status === 200 && response.data.success) {
+      if (response.status === 200) {
         queryClient.invalidateQueries({
           queryKey: [queryKeys.PROFILE_MY],
         });
@@ -45,12 +45,10 @@ const useMutateUpdateProfile = (content: IMyProfileeditorProps) => {
           onClose: () => router.replace(`/profile/${getCookies('MID')}`),
         });
       } else if (response.status === 202 && !response.data.success) {
-        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
-          onClose: () =>
-            setCookies({
-              jwt: response.data.jwt,
-              MID: response.data.memberId,
-            }),
+        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED);
+        setCookies({
+          jwt: response.data.jwt,
+          MID: response.data.memberId,
         });
       }
     },

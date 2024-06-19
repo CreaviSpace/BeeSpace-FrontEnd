@@ -9,13 +9,13 @@ import useLoginModal from '@/store/modal/useLoginModal';
 import queryClient from '@/utils/queryClien';
 import { queryOnError } from '@/utils/queryOnError';
 
-const useMutateCreateComment = (id: number, type: string, content: string) => {
+const useMutateCreateComment = (id: number, type: string) => {
   const axiosInstance = useAxiosInstance();
   const { getCookies, setCookies } = useCookie(['jwt', 'MID']);
   const { onOpen } = useLoginModal();
 
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (content: string) => {
       return await axiosInstance.post(
         `/comment?postId=${id}&postType=${type}`,
         { content: content }
@@ -29,12 +29,10 @@ const useMutateCreateComment = (id: number, type: string, content: string) => {
           queryKey: [queryKeys.COMMENT, id],
         });
       } else if (response.status === 202 && !response.data.success) {
-        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
-          onClose: () =>
-            setCookies({
-              jwt: response.data.jwt,
-              MID: response.data.memberId,
-            }),
+        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED);
+        setCookies({
+          jwt: response.data.jwt,
+          MID: response.data.memberId,
         });
       }
     },

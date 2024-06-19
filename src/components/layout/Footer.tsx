@@ -5,8 +5,16 @@ import { useRouter } from 'next/router';
 import Logo from '@/../public/BS_Logo315x114.png';
 
 const INFO = [
-  { name: 'contect', detail: 'google@gmail.com' },
-  { name: 'copyright', detail: 'BeeSpace. All rights reserved' },
+  {
+    name: 'github',
+    detail: 'BeeSpace',
+    link: 'https://github.com/CreaviSpace',
+  },
+  {
+    name: 'copyright',
+    detail: 'BeeSpace. All rights reserved',
+    link: 'https://github.com/CreaviSpace',
+  },
 ];
 const MENU = [
   { name: '프로젝트', link: '/project?type=all' },
@@ -48,7 +56,7 @@ export default function Footer() {
                 <span className="tablet:hidden mobile:hidden">
                   |&nbsp;&nbsp;
                 </span>
-                {item.detail}
+                <Link href={item.link}>{item.detail}</Link>
               </li>
             ))}
           </ul>
@@ -62,13 +70,13 @@ export default function Footer() {
               </li>
             ))}
           </ul>
-          <ul className="text-bs_14">
+          {/* <ul className="text-bs_14">
             {SERVICE.map((item, index) => (
               <li key={`service-${index}`} className="p-2 mobile:p-1">
                 <Link href={item.link}>{item.name}</Link>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
       </div>
     </footer>

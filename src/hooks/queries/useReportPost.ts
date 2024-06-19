@@ -32,20 +32,14 @@ const useMutateReportPost = (data: IuseReportPostProps) => {
       if (!response) return;
 
       if (response.status === 200 && response.data.success) {
-        toast.success(successMessages.REPORT_CREATE, {
-          onClose: () => {
-            queryClient.invalidateQueries({
-              queryKey: [
-                [
-                  queryKeys.ADMIN,
-                  queryKeys.ADMIN_CONTENT,
-                  queryKeys.ADMIN_REPORT,
-                ],
-              ],
-            });
-            onClose();
-          },
+        toast.success(successMessages.REPORT_CREATE);
+
+        queryClient.invalidateQueries({
+          queryKey: [
+            [queryKeys.ADMIN, queryKeys.ADMIN_CONTENT, queryKeys.ADMIN_REPORT],
+          ],
         });
+        onClose();
       } else if (response.status === 202 && !response.data.success) {
         toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
           onClose: () => {

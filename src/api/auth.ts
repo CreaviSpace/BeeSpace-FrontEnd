@@ -2,17 +2,25 @@
 
 import { toast } from 'react-toastify';
 
+import { queryKeys } from '@/constants/keys';
 import { axiosInstance } from '@/utils/api/axiosInstance';
-import { postCookies } from '@/utils/cookie/postCookies';
+import queryClient from '@/utils/queryClien';
 
-const getLogin = async (token: string | null) => {
+const getLogin = async (
+  token: string | null,
+  setCookies: ({ ...cookies }: { [x: string]: string | number }) => void
+) => {
   const response = await axiosInstance.get(`/login?token=${token}`);
 
   if (response.data && response.status === 200) {
-    postCookies({
+    setCookies({
       jwt: response.data.jwt,
       MID: response.data.memberId,
       OLD: response.data.oldUser ? 1 : 0,
+    });
+
+    queryClient.invalidateQueries({
+      queryKey: [queryKeys.AUTH, queryKeys.PROFILE_MY],
     });
 
     return response.data.oldUser;

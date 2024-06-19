@@ -1,8 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
 
 import { queryKeys } from '@/constants/keys';
-import { errorMessages } from '@/constants/messages';
 import useAxiosInstance from '@/hooks/useAxiosInstance';
 import useCookie from '@/hooks/useCookie';
 
@@ -22,13 +20,13 @@ const useGetAlarm = () => {
       if (!response) return;
 
       if (response.status === 202 && !response.data.success) {
-        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
-          onClose: () =>
-            setCookies({
-              jwt: response.data.jwt,
-              MID: response.data.memberId,
-            }),
+        // toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
+        //   onClose: () =>
+        setCookies({
+          jwt: response.data.jwt,
+          MID: response.data.memberId,
         });
+        // });
       }
 
       return response.data.data;

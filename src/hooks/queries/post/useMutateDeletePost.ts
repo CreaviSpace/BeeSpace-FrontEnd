@@ -31,19 +31,15 @@ const useMutateDeletePost = (id: number, postType: string) => {
           queryKey: [postType.toLowerCase() + '_detail', String(id)],
         });
 
-        toast.success(successMessages.POST_UPDATE, {
-          onClose: () =>
-            router.replace(
-              `/${response.data.data.postType.toLowerCase() === 'recruit' ? 'recruitment' : response.data.data.postType.toLowerCase()}?type=all`
-            ),
-        });
+        toast.success(successMessages.POST_UPDATE);
+        router.replace(
+          `/${response.data.data.postType.toLowerCase() === 'recruit' ? 'recruitment' : response.data.data.postType.toLowerCase()}?type=all`
+        );
       } else if (response.status === 202 && !response.data.success) {
-        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED, {
-          onClose: () =>
-            setCookies({
-              jwt: response.data.jwt,
-              MID: response.data.memberId,
-            }),
+        toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED);
+        setCookies({
+          jwt: response.data.jwt,
+          MID: response.data.memberId,
         });
       }
     },

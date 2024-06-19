@@ -123,6 +123,8 @@ export interface IUniversalType {
   category: string;
   postType: string;
   links: { type: string; url: string }[];
+  createdDate: string;
+  modifiedDate: string;
 }
 
 export interface IQuestionType {

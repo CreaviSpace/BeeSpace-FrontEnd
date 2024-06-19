@@ -22,7 +22,9 @@ export default function SortButton({
     } else {
       divRef.current?.focus();
     }
-    setIsOpen(!isOpen);
+    setTimeout(() => {
+      setIsOpen(!isOpen);
+    }, 101);
   };
 
   const handleSelect = (option: { type: string; name: string }) => {
@@ -43,14 +45,24 @@ export default function SortButton({
         </div>
         <div
           ref={divRef}
-          onFocus={() => setIsOpen(true)}
-          onBlur={() => setIsOpen(false)}
           tabIndex={0}
+          onFocus={() =>
+            setTimeout(() => {
+              setIsOpen(true);
+            }, 100)
+          }
+          onBlur={() =>
+            setTimeout(() => {
+              setIsOpen(false);
+            }, 100)
+          }
           onMouseDown={(e) => e.preventDefault()}>
           {isOpen && (
             <ul className="shadow-md rounded-md">
               {options.map((item, index) => (
-                <li key={`${item.type}-${index}`} className="flex flex-col p-1">
+                <li
+                  key={`${item.type}-${index}`}
+                  className="flex flex-col py-2 px-3">
                   <button
                     className="text-start"
                     onClick={() => handleSelect(item)}>

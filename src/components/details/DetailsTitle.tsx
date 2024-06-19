@@ -5,10 +5,10 @@ import UserProfileButton from '@/components/button/UserProfileButton';
 import Tag from '@/components/Tag';
 import useMutateDeletePost from '@/hooks/queries/post/useMutateDeletePost';
 import { useGetLikeViewPost } from '@/hooks/queries/useLike';
+import useCookie from '@/hooks/useCookie';
 import useReconfirmModal from '@/store/modal/useReconfirmModal';
 import useReportModal from '@/store/modal/useReportModal';
 import useLogin from '@/store/useLogin';
-import { getCookies } from '@/utils/cookie/getCookies';
 import { parseValue } from '@/utils/parseValue';
 
 interface IDetailsTitleProps {
@@ -37,7 +37,8 @@ export default function DetailsTitle({
   memberId,
 }: IDetailsTitleProps) {
   const { login } = useLogin();
-  const MID = getCookies('MID', true);
+  const { getCookies } = useCookie(['MID']);
+  const MID = getCookies('MID');
 
   const { onOpen: reportOpen, setReportTitle } = useReportModal();
   const {
