@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+import { getCookies } from '@/utils/cookie/getCookies';
+
 interface IuseLoginProps {
   login: boolean;
   setLogin: () => void;
@@ -8,7 +10,12 @@ interface IuseLoginProps {
 
 const useLoginStore = create<IuseLoginProps>((set) => ({
   login: false,
-  setLogin: () => set(() => ({ login: true })),
+  setLogin: () => {
+    const token = getCookies('jwt');
+    if (token) {
+      set(() => ({ login: true }));
+    }
+  },
   setLogout: () => set(() => ({ login: false })),
 }));
 
