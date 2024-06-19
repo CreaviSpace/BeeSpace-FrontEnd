@@ -46,7 +46,7 @@ export default function LogInHeader() {
 
   useEffect(() => {
     setLogin(getCookies('jwt'));
-  }, [login]);
+  }, []);
 
   const handleWriteModalOpen = () => {
     writingModalRef.current?.focus();
