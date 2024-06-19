@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 
 import LogInUserHeader from '@/components/layout/LogInUserHeader';
+import useCookie from '@/hooks/useCookie';
 import useSearchErrorModal from '@/store/modal/useSearchErrorModal';
 import useLoginStore from '@/store/useLoginStore';
 
@@ -32,6 +33,7 @@ export default function Header() {
 
   const { setLogin } = useLoginStore();
   const { onOpen: openSearchError } = useSearchErrorModal();
+  const { getCookies } = useCookie(['jwt']);
 
   const handleSearchToggle = () => {
     if (isSearchVisible) {
@@ -68,7 +70,7 @@ export default function Header() {
   };
 
   useEffect(() => {
-    setLogin();
+    setLogin(getCookies('jwt'));
   }, []);
 
   return (
