@@ -146,7 +146,7 @@ export default function LogInHeader() {
             {onAlarmModal && (
               <AlarmModal
                 isLoading={alarmIsLoading}
-                isAlarm={alarmData}
+                isAlarm={isAlarm}
                 data={alarmData}
               />
             )}
