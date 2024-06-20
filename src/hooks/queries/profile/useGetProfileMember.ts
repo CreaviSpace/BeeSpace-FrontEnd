@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/constants/keys';
 import useAxiosInstance from '@/hooks/useAxiosInstance';
 
-const useGetProfileMember = (memberId: string) => {
+const useGetProfileMember = (memberId: string | undefined) => {
   const axiosInstance = useAxiosInstance();
 
   return useQuery({

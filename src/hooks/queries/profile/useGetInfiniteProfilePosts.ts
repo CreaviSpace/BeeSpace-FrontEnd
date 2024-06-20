@@ -5,7 +5,7 @@ import useAxiosInstance from '@/hooks/useAxiosInstance';
 import useCookie from '@/hooks/useCookie';
 
 const apiEndPoinsts = (
-  memberId: string,
+  memberId: string | undefined,
   size: number,
   postType: string,
   sortType: string,
@@ -19,14 +19,14 @@ const apiEndPoinsts = (
 };
 
 const useGetInfiniteProfilePosts = (
-  memberId: string,
+  memberId: string | undefined,
   size: number,
   postType: string,
   sortType: string,
   category: string
 ) => {
   const axiosInstance = useAxiosInstance();
-  const { getCookies, setCookies } = useCookie(['jwt', 'MID']);
+  const { setCookies } = useCookie(['jwt', 'MID']);
 
   const API_ENDPONIT = apiEndPoinsts(
     memberId,
