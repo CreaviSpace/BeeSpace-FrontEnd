@@ -22,7 +22,7 @@ const useMutateDeleteAlarm = () => {
       if (!response) return;
 
       if (response.status === 200 && response.data.success) {
-        queryClient.invalidateQueries({ queryKey: [queryKeys.ALARM] });
+        queryClient.setQueryData([queryKeys.ALARM], []);
       } else if (response.status === 202 && !response.data.success) {
         toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED);
         setCookies({
