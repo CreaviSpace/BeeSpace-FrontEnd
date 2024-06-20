@@ -30,7 +30,7 @@ const useMutateUpdateComment = (
 
       if (response.status === 200 && response.data.success) {
         queryClient.invalidateQueries({
-          queryKey: [queryKeys.COMMENT, postid],
+          queryKey: [queryKeys.COMMENT, type, postid],
         });
       } else if (response.status === 202 && !response.data.success) {
         toast.error(errorMessages.TRY_AUTH_TOKEN_EXPIRED);
