@@ -14,7 +14,7 @@ const useGetAlarmCount = () => {
 
       return { data, status };
     },
-    queryKey: [queryKeys.ALARM],
+    queryKey: [queryKeys.ALARM_COUNT],
     enabled: Boolean(getCookies('jwt')),
     select: (response) => {
       if (!response) return;
