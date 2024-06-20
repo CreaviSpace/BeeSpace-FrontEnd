@@ -58,10 +58,6 @@ export default function FeedBackList() {
     router.back();
   };
 
-  const handleFeedBackWrite = () => {
-    router.replace(`/feedback/question/${id}`);
-  };
-
   if (isErrorProject) {
     return <Custom404 />;
   }
