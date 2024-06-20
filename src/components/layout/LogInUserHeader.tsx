@@ -41,8 +41,10 @@ export default function LogInHeader() {
   useEffect(() => {
     if (!alarmCountIsLoading && alarmCounts > 0) {
       setIsAlarm(true);
+    } else {
+      setIsAlarm(false);
     }
-  }, [alarmCountIsLoading]);
+  }, [alarmCountIsLoading, alarmCounts]);
 
   useEffect(() => {
     setLogin(getCookies('jwt'));
