@@ -1,3 +1,4 @@
+import { UseMutateFunction } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
@@ -7,6 +8,7 @@ import OnoffButton from '@/components/button/OnOffButton';
 import { useGetProjectPost } from '@/hooks/queries/post/useGetPost';
 import useMutateCreatePost from '@/hooks/queries/post/useMutateCreatePost';
 import useMutateUpdatePost from '@/hooks/queries/post/useMutateUpdatePost';
+import useButtonDebounce from '@/hooks/useButtonDebounce';
 import useProjectData from '@/store/useProjectData';
 
 import InputTag from '../../../components/write/communtiy/InputTag';
@@ -32,6 +34,7 @@ const COMMNUITYLIST = [
 export default function ProjectWrite() {
   const router = useRouter();
   const { id } = router.query;
+  const handleOnClick = useButtonDebounce<UseMutateFunction>(300);
 
   const {
     category,
@@ -207,9 +210,9 @@ export default function ProjectWrite() {
             className="py-3 px-10"
             onClick={async () => {
               if (id && data.id) {
-                projectUpdate();
+                handleOnClick(projectUpdate);
               } else {
-                projectPost();
+                handleOnClick(projectPost);
               }
             }}>
             작성

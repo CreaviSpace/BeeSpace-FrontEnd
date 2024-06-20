@@ -1,3 +1,4 @@
+import { UseMutateFunction } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -6,6 +7,7 @@ import OnoffButton from '@/components/button/OnOffButton';
 import { useGetCommunityPost } from '@/hooks/queries/post/useGetPost';
 import useMutateCreatePost from '@/hooks/queries/post/useMutateCreatePost';
 import useMutateUpdatePost from '@/hooks/queries/post/useMutateUpdatePost';
+import useButtonDebounce from '@/hooks/useButtonDebounce';
 import useCommunityData from '@/store/useCommunityData';
 
 import CustomButton from '../../../components/button/CustomButton';
@@ -31,6 +33,7 @@ export default function CommunityWrite() {
     useCommunityData();
   const router = useRouter();
   const { id } = router.query;
+  const handleOnClick = useButtonDebounce<UseMutateFunction>(300);
 
   const communityData = {
     category,
@@ -118,9 +121,9 @@ export default function CommunityWrite() {
               className="py-3 px-10"
               onClick={() => {
                 if (id && data.id) {
-                  communityUpdate();
+                  handleOnClick(communityUpdate);
                 } else {
-                  communityPost();
+                  handleOnClick(communityPost);
                 }
               }}>
               작성
