@@ -22,7 +22,8 @@ export default function CommentCard({ item, type, postid }: ICommentCardType) {
     type: '',
     postid: 0,
   });
-  const { mutate: mutatePut, isSuccess } = useMutateUpdateComment(
+
+  const { mutate: mutatePut } = useMutateUpdateComment(
     selectedComment.id,
     selectedComment.type,
     selectedComment.postid,
@@ -35,7 +36,12 @@ export default function CommentCard({ item, type, postid }: ICommentCardType) {
     selectedComment.postid
   );
 
-  const handlePutComment = () => {
+  const handlePutComment = (id: number, type: string, postid: number) => {
+    setSelectedComment({ id, type, postid });
+    handleUpdateToggle();
+  };
+
+  const handleUpdateToggle = () => {
     setClick(!click);
   };
 
@@ -63,7 +69,10 @@ export default function CommentCard({ item, type, postid }: ICommentCardType) {
           memberId={item.memberId}
         />
         <div className={click === true ? 'sr-only' : ''}>
-          <button onClick={handlePutComment}>수정</button>&nbsp;&#124;&nbsp;
+          <button onClick={() => handlePutComment(item.id, type, postid)}>
+            수정
+          </button>
+          &nbsp;&#124;&nbsp;
           <button onClick={() => handleDeleteComment(item.id, type, postid)}>
             삭제
           </button>
@@ -82,13 +91,13 @@ export default function CommentCard({ item, type, postid }: ICommentCardType) {
             color="secondary"
             onClick={() => {
               mutatePut();
-              if (isSuccess) handlePutComment();
+              handleUpdateToggle();
             }}>
             수정
           </CustomButton>
           <CustomButton
             className="p-3 mt-3 ml-1 w-[6rem]"
-            onClick={handlePutComment}>
+            onClick={handleUpdateToggle}>
             취소
           </CustomButton>
         </div>
