@@ -24,7 +24,7 @@ export default function ProjectDetail() {
 
   const { isLoading, isError, data } = useGetProjectPost(
     'project',
-    id as string
+    id ? String(id) : undefined
   );
 
   if (isError) {
