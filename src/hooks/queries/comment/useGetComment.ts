@@ -14,7 +14,7 @@ const useGetComment = (id: number, type: string) => {
 
       return data;
     },
-    queryKey: [queryKeys.COMMENT, id],
+    queryKey: [queryKeys.COMMENT, type, id],
     enabled: Boolean(id),
     select: (response) => {
       if (!response) return;
