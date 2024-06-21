@@ -24,10 +24,10 @@ const queryKeys = {
   PROFILE_CONTENT: 'profile-content',
   // 프로젝트
   PROJECT: 'project',
-  PROJECT_DETAIL: 'project-detail',
+  PROJECT_DETAIL: 'project_detail',
   // 모집
   RECRUIT: 'recruit',
-  RECRUIT_DETAIL: 'recruit-detail',
+  RECRUIT_DETAIL: 'recruit_detail',
   // 배너
   BANNER: 'banner',
   // 북마크
