@@ -21,7 +21,7 @@ export default function CommunityDetail() {
 
   const { isLoading, isError, data } = useGetCommunityPost(
     'community',
-    String(id)
+    id ? String(id) : undefined
   );
 
   if (isError) {

@@ -1,9 +1,11 @@
+import { UseMutateFunction } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import CustomButton from '@/components/button/CustomButton';
 import CommentCard from '@/components/card/CommentCard';
 import useGetComment from '@/hooks/queries/comment/useGetComment';
 import useMutateCreateComment from '@/hooks/queries/comment/useMutateCreateComment';
+import useButtonDebounce from '@/hooks/useButtonDebounce';
 
 import SkeletonCommentCard from '../skeleton/SkeletonCommentCard';
 import { ICommentContainerTypes } from './../../types/global.d';
@@ -19,9 +21,13 @@ export default function CommentContainer({ id, type }: ICommentContainerProps) {
   const { isLoading, data } = useGetComment(id, type);
   const { mutate } = useMutateCreateComment(id, type);
 
+  const handleDebounce = useButtonDebounce<UseMutateFunction>(300);
+
   const handleOnClickComment = () => {
-    mutate(value);
-    setValue('');
+    handleDebounce(() => {
+      mutate(value);
+      setValue('');
+    });
   };
 
   return (

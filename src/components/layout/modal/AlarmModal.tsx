@@ -1,8 +1,10 @@
+import { UseMutateFunction } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
 import useMutateDeleteAlarm from '@/hooks/queries/alarm/useMutateDeleteAlarm';
 import useMutateUpdateAlarm from '@/hooks/queries/alarm/useMutateUpdateAlarm';
+import useButtonDebounce from '@/hooks/useButtonDebounce';
 
 interface IAlarmType {
   id: number;
@@ -25,9 +27,10 @@ export default function AlarmModal({
 }: IAlarmModalProps) {
   const { mutate: AlarmRead } = useMutateUpdateAlarm();
   const { mutate: AlarmDelete } = useMutateDeleteAlarm();
+  const handleDebounce = useButtonDebounce<UseMutateFunction>(3000);
 
   useEffect(() => {
-    if (isAlarm) AlarmRead();
+    if (isAlarm) handleDebounce(AlarmRead, false);
   }, []);
 
   return (
@@ -53,10 +56,9 @@ export default function AlarmModal({
         data?.map((item: IAlarmType, index: number) => (
           <div key={index}>
             <Link
-              href={`/${item.postType}/${item.postId}`}
+              href={`/${item.postType === 'RECRUIT' ? 'recruitment' : item.postType.toLocaleLowerCase()}/${item.postId}`}
               className={`flex items-center gap-1 ${item.readStatus === 'READ' ? 'text-gray30' : 'text-black'}`}>
               <label htmlFor="message" className="text-start">
-                {/* {item.alarmType}이 {parseValue(item.postType)}에 달렸습니다. */}
                 {item.alarmMessage}
               </label>
               {/* 이동 <FaArrowRight /> */}

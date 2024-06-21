@@ -1,3 +1,4 @@
+import { UseMutateFunction } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { SetStateAction, useEffect, useState } from 'react';
 
@@ -8,7 +9,9 @@ import SkillStackInput from '@/components/write/SkillStackInput';
 import useGetProfileMember from '@/hooks/queries/profile/useGetProfileMember';
 import useMutateUpdateProfile from '@/hooks/queries/profile/useMutateUpdateProfile';
 import useAuth from '@/hooks/queries/useAuth';
+import useButtonDebounce from '@/hooks/useButtonDebounce';
 import useCookie from '@/hooks/useCookie';
+import useReconfirmModal from '@/store/modal/useReconfirmModal';
 import useProfileData from '@/store/useProfile';
 
 export default function ProfileEdit() {
@@ -35,6 +38,7 @@ export default function ProfileEdit() {
   ]);
 
   const { getCookies } = useCookie(['MID']);
+  const handleOnClick = useButtonDebounce<UseMutateFunction>(300);
 
   const {
     enabled,
@@ -52,7 +56,7 @@ export default function ProfileEdit() {
     introduce,
     position: position[0],
     career: parseInt(career[0].split('년')[0]),
-    interestedStack: interestedStack,
+    interestedStack,
     profileUrl,
   };
 
@@ -75,7 +79,7 @@ export default function ProfileEdit() {
       setter.setIntroduce(data.memberIntroduce);
       setter.setPosition([data.memberPosition]);
       setter.setCareer([`${data.memberCareer}년`]);
-      const processedData = data?.memberInterestedStack.map(
+      const processedData = data?.memberInterestedStack?.map(
         (item: { techStack: string; iconUrl: string }) => ({
           techStack: item.techStack,
           iconUrl: item.iconUrl,
@@ -94,8 +98,11 @@ export default function ProfileEdit() {
     }
   }, [isLoading, data]);
 
-  const handlerExpireMember = async () => {
-    expire.mutate();
+  const { onOpen, setHandlerFunction, setTitle } = useReconfirmModal();
+  const handlerExpireMember = () => {
+    setTitle('회원탈퇴를 하시겠습니까?');
+    setHandlerFunction(() => handleOnClick(expire.mutate));
+    onOpen();
   };
 
   const handleNameValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -195,9 +202,7 @@ export default function ProfileEdit() {
               <CustomButton
                 color="secondary"
                 className="py-2 px-5"
-                onClick={() => {
-                  mutate();
-                }}>
+                onClick={() => handleOnClick(mutate)}>
                 확인
               </CustomButton>
             </li>

@@ -39,7 +39,9 @@ export default function ContentManagement() {
   return (
     <section className="w-full p-3">
       {isLoading ? (
-        <SkeletonUniversalCard size="large" />
+        [1, 2, 3, 4, 5, 6].map((_, index) => (
+          <SkeletonUniversalCard key={index} size="large" />
+        ))
       ) : (
         <div className="p-3 bg-blue10">
           {data?.pages?.map((item) => {

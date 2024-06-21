@@ -1,3 +1,4 @@
+import { UseMutateFunction } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -15,6 +16,7 @@ import TitleEditor from '@/components/write/TextEditor/TitleEditor';
 import { useGetRecruitPost } from '@/hooks/queries/post/useGetPost';
 import useMutateCreatePost from '@/hooks/queries/post/useMutateCreatePost';
 import useMutateUpdatePost from '@/hooks/queries/post/useMutateUpdatePost';
+import useButtonDebounce from '@/hooks/useButtonDebounce';
 import useLoginStore from '@/store/useLoginStore';
 import useRecruitData from '@/store/useRecruitData';
 
@@ -32,6 +34,8 @@ export default function RecruitmentWrite() {
 
   const { login } = useLoginStore();
   const today = new Date().toString();
+  const handleOnClick = useButtonDebounce<UseMutateFunction>(300);
+
   const {
     category,
     contactWay,
@@ -192,9 +196,9 @@ export default function RecruitmentWrite() {
             className="py-3 px-10"
             onClick={() => {
               if (id && data.id) {
-                recrutiUpdate();
+                handleOnClick(recrutiUpdate);
               } else {
-                recruitPost();
+                handleOnClick(recruitPost);
               }
             }}>
             작성

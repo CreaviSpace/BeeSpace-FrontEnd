@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 
 import LogInUserHeader from '@/components/layout/LogInUserHeader';
-import useCookie from '@/hooks/useCookie';
 import useSearchErrorModal from '@/store/modal/useSearchErrorModal';
 
 import MoblieNavigation from './MoblieNavigation';
@@ -30,7 +29,6 @@ export default function Header() {
   const pathname = router.pathname.split('/')[1];
 
   const { onOpen: openSearchError } = useSearchErrorModal();
-  const { getCookies } = useCookie(['jwt']);
 
   const handleSearchToggle = () => {
     if (isSearchVisible) {

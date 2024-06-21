@@ -31,8 +31,8 @@ const useMutateUpdatePost = (
       if (!response) return;
 
       if (response.status === 200 && response.data.success) {
-        queryClient.invalidateQueries({
-          queryKey: [postType.toLowerCase(), String(id)],
+        queryClient.resetQueries({
+          queryKey: [postType.toLowerCase()],
         });
 
         queryClient.setQueryData(

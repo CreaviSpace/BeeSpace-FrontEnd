@@ -9,10 +9,20 @@ import TechStackList from '@/components/details/recruitment/TechStackList';
 import SkeletonDetail from '@/components/skeleton/SkeletonDetail';
 import { useGetRecruitPost } from '@/hooks/queries/post/useGetPost';
 
+import Custom404 from '../404';
+
 export default function RecruitmentDetail() {
   const router = useRouter();
   const { id } = router.query;
-  const { isLoading, data } = useGetRecruitPost('recruit', id as string);
+
+  const { isLoading, isError, data } = useGetRecruitPost(
+    'recruit',
+    id ? String(id) : undefined
+  );
+
+  if (isError) {
+    return <Custom404 />;
+  }
 
   return (
     <main className="h-full gap-5 max-w-max_w min-h-min_h m-auto py-10 px-16 relative mobile:px-4">

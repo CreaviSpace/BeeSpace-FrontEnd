@@ -23,7 +23,7 @@ const useMutateDeletePost = (id: number, postType: string) => {
       if (!response) return;
 
       if (response.status === 200 && response.data.success) {
-        queryClient.invalidateQueries({
+        queryClient.resetQueries({
           queryKey: [postType.toLowerCase()],
         });
 

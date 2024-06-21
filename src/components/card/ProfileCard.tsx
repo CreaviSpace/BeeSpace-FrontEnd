@@ -38,7 +38,7 @@ export default function ProfileCard({ items }: IProfileCardProps) {
       </div>
       <p className="my-3 break-all">{items.memberIntroduce}</p>
       <div className="mt-2 flex gap-1">
-        {items.memberInterestedStack.map((item, index) => (
+        {items.memberInterestedStack?.map((item, index) => (
           <span
             key={index}
             className="border rounded-full border-gray20 px-3 py-1">
