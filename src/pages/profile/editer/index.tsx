@@ -103,6 +103,7 @@ export default function ProfileEdit() {
     setTitle('회원탈퇴를 하시겠습니까?');
     setHandlerFunction(() => handleOnClick(expire.mutate));
     onOpen();
+    router.push(`/profile/${MID}`);
   };
 
   const handleNameValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
