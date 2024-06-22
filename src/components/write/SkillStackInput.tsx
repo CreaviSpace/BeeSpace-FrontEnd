@@ -58,7 +58,7 @@ export default function SkillStackInput({
         ? null
         : data?.length > 0 &&
           isToggle && (
-            <ul className="relative rounded-bs_5 overflow-hidden border border-gray10 bg-white z-[10] mt-3">
+            <ul className="relative rounded-bs_5 overflow-hidden border border-gray10 bg-white z-[10] mt-3 max-h-[15.625rem] overflow-y-auto">
               {data?.map((item: ITechStackType, index: number) => {
                 if (
                   item.techStack
@@ -68,7 +68,7 @@ export default function SkillStackInput({
                   return (
                     <li
                       key={`${item.techStack}-${index}`}
-                      className="w-full h-[3.125rem] max-h-[15.625rem] p-[0.625rem] hover:bg-gray10 flex items-center overflow-y-auto cursor-pointer custom-scrollbar"
+                      className="w-full h-[3.125rem] p-[0.625rem] hover:bg-gray10 flex items-center cursor-pointer custom-scrollbar"
                       onClick={() =>
                         handleTechStackDtosPush(item.techStack, item.iconUrl)
                       }
@@ -81,7 +81,7 @@ export default function SkillStackInput({
             </ul>
           )}
 
-      <ul className="flex mt-5 gap-2 max-h-[12.5rem] overflow-y-auto">
+      <ul className="flex mt-5 gap-2">
         {techStackDtos?.map((item, index) => (
           <li
             key={`${item.techStack}-${index}`}
