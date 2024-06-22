@@ -81,7 +81,7 @@ export default function SkillStackInput({
             </ul>
           )}
 
-      <ul className="flex mt-5 gap-2">
+      <ul className="flex mt-5 gap-2 max-h-[12.5rem] overflow-y-auto">
         {techStackDtos?.map((item, index) => (
           <li
             key={`${item.techStack}-${index}`}
