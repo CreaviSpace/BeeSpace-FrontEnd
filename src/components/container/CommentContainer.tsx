@@ -48,6 +48,7 @@ export default function CommentContainer({ id, type }: ICommentContainerProps) {
         <CustomButton
           color="secondary"
           className="min-w-[6.25rem] max-w-[6.25rem] py-2 mr-auto"
+          disabled={value.length <= 0}
           onClick={handleOnClickComment}>
           등록
         </CustomButton>
