@@ -13,7 +13,7 @@ export default function Home() {
       <Banner postType="project" />
       <div className="h-fit mx-auto py-16">
         <section className="max-w-max_w h-fit flex gap-x-10 mx-auto mt-10 tablet:flex-col mobile:flex-col tablet:px-8 mobile:px-6">
-          <PopularProject postType="project" />
+          <PopularProject />
           <DeadLineContainer />
         </section>
         <section className="max-w-max_w mx-auto mt-10 tablet:px-8 mobile:px-6">
