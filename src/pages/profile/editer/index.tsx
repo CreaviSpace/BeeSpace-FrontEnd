@@ -100,10 +100,19 @@ export default function ProfileEdit() {
 
   const { onOpen, setHandlerFunction, setTitle } = useReconfirmModal();
   const handlerExpireMember = () => {
-    setTitle(enabled ? '회원탈퇴를 하시겠습니까?' : '회원복구을 하시겠습니까?');
+    setTitle(
+      enabled ? '회원탈퇴를 하시겠습니까?' : '회원탈퇴 취소를 하시겠습니까?'
+    );
     setHandlerFunction(() => {
       handleOnClick(expire.mutate);
       router.push(`/profile/${MID}`);
+      if (enabled) {
+        alert(
+          '회원 탈퇴가 되었습니다. \n 글쓰기 등의 권한을 사용하실 수 없습니다.'
+        );
+      } else {
+        alert('회원 탈퇴 취소가 되었습니다.');
+      }
     });
     onOpen();
   };
