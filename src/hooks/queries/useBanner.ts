@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { queryKeys } from '@/constants/keys';
+import { IBannerItem } from '@/types/global';
 
 import useAxiosInstance from '../useAxiosInstance';
 
@@ -24,7 +25,7 @@ const useBanner = (postType: string) => {
     select: (response) => {
       if (!response) return;
 
-      return response.data;
+      return response.data.filter((f: IBannerItem) => f.thumbnail !== '');
     },
   });
 };
