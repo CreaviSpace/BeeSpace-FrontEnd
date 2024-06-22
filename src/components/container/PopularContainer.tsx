@@ -16,6 +16,7 @@ interface IPopularProjectProps {
 export default function PopularProject({ postType }: IPopularProjectProps) {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [maxConut, setMaxCount] = useState(1);
+  const [length, setLength] = useState(1);
   const listRef = useRef<HTMLDivElement>(null);
 
   const { isLoading, data, isError } = useBanner('project');
@@ -32,8 +33,17 @@ export default function PopularProject({ postType }: IPopularProjectProps) {
   };
 
   useEffect(() => {
+    if (!isLoading && !isError) {
+      const newLength = data.filter((f: IBannerItem) => f.thumbnail !== '');
+      if (newLength >= 1) {
+        setLength(Math.ceil(newLength.length / 2));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     setMaxCount(data?.length);
-  });
+  }, []);
 
   return (
     <div className="w-full max-w-[767px] tablet:mx-auto mobile:mx-auto tablet:mb-10 mobile:mb-10 'w-[300%]' overflow-x-hidden">
@@ -79,7 +89,7 @@ export default function PopularProject({ postType }: IPopularProjectProps) {
           </div>
           {listRef && (
             <CarouselList
-              length={Math.ceil(data.length / 2)}
+              length={length}
               bannerAllRef={listRef}
               currentIndex={currentIndex}
               setCurrentIndex={setCurrentIndex}
