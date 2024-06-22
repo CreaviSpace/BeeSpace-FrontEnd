@@ -12,7 +12,8 @@ export default function Login() {
     if (!isLoading) {
       if (isSuccess) {
         if (olduser) {
-          router.back();
+          // router.back();
+          router.replace('/');
         } else {
           router.replace('/profile/editer');
         }

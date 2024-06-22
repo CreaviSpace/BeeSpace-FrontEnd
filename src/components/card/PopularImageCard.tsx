@@ -17,7 +17,7 @@ export default function PopularImageCard({
   return (
     <div className="w-[767px] mx-auto">
       <Link href={link1}>
-        {img1 !== undefined && (
+        {img1 && (
           <div className="relative my-5 w-[100%] aspect-w-16 aspect-h-9">
             <Image
               src={img1}
@@ -29,7 +29,7 @@ export default function PopularImageCard({
         )}
       </Link>
       <Link href={link2}>
-        {img2 !== undefined && (
+        {img2 && (
           <div className="relative my-5 w-[100%] aspect-w-16 aspect-h-9">
             <Image
               src={img2}

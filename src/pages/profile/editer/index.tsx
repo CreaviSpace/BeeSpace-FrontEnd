@@ -100,7 +100,7 @@ export default function ProfileEdit() {
 
   const { onOpen, setHandlerFunction, setTitle } = useReconfirmModal();
   const handlerExpireMember = () => {
-    setTitle('회원탈퇴를 하시겠습니까?');
+    setTitle(enabled ? '회원탈퇴를 하시겠습니까?' : '회원복구을 하시겠습니까?');
     setHandlerFunction(() => handleOnClick(expire.mutate));
     onOpen();
     router.push(`/profile/${MID}`);
