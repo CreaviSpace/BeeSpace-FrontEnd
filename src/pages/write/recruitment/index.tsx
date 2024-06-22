@@ -34,7 +34,7 @@ export default function RecruitmentWrite() {
 
   const { login } = useLoginStore();
   const today = new Date().toString();
-  const handleOnClick = useButtonDebounce<UseMutateFunction>(300);
+  const handleOnClick = useButtonDebounce<UseMutateFunction>(1000);
 
   const {
     category,

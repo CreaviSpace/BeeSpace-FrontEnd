@@ -34,7 +34,7 @@ const COMMNUITYLIST = [
 export default function ProjectWrite() {
   const router = useRouter();
   const { id } = router.query;
-  const handleOnClick = useButtonDebounce<UseMutateFunction>(300);
+  const handleOnClick = useButtonDebounce<UseMutateFunction>(1000);
 
   const {
     category,
