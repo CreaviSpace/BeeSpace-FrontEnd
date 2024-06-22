@@ -5,7 +5,7 @@ import { IBannerItem } from '@/types/global';
 
 import useAxiosInstance from '../useAxiosInstance';
 
-const useBanner = (postType: string) => {
+const useBanner = (postType: string, banner: boolean = true) => {
   const axiosInstance = useAxiosInstance();
   return useQuery({
     queryFn: async () => {
@@ -25,7 +25,15 @@ const useBanner = (postType: string) => {
     select: (response) => {
       if (!response) return;
 
-      return response.data.filter((f: IBannerItem) => f.thumbnail !== '');
+      if (postType === 'project') {
+        if (banner) {
+          return response.data;
+        } else {
+          return response.data.filter((f: IBannerItem) => f.thumbnail !== '');
+        }
+      } else if (postType === 'recruitment') {
+        return response.data;
+      }
     },
   });
 };
