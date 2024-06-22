@@ -9,14 +9,9 @@ import CarouselList from '../banner/CarouselList';
 import PopularImageCard from '../card/PopularImageCard';
 import SkeletonPopularCard from '../skeleton/SkeletonPopularCard';
 
-interface IPopularProjectProps {
-  postType: string;
-}
-
-export default function PopularProject({ postType }: IPopularProjectProps) {
+export default function PopularProject() {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [maxConut, setMaxCount] = useState(1);
-  const [length, setLength] = useState(1);
   const listRef = useRef<HTMLDivElement>(null);
 
   const { isLoading, data, isError } = useBanner('project');
@@ -27,26 +22,19 @@ export default function PopularProject({ postType }: IPopularProjectProps) {
         listRef.current,
         currentIndex,
         setCurrentIndex,
-        Math.ceil(data.length / 2)
+        Math.ceil(data?.length / 2)
       );
     }
   };
 
   useEffect(() => {
-    if (!isLoading && !isError) {
-      const newLength = data.filter((f: IBannerItem) => f.thumbnail !== '');
-      if (newLength >= 1) {
-        setLength(Math.ceil(newLength.length / 2));
-      }
+    if (!isLoading) {
+      setMaxCount(data?.length);
     }
-  }, []);
-
-  useEffect(() => {
-    setMaxCount(data?.length);
-  }, []);
+  }, [isLoading]);
 
   return (
-    <div className="w-full max-w-[767px] tablet:mx-auto mobile:mx-auto tablet:mb-10 mobile:mb-10 'w-[300%]' overflow-x-hidden">
+    <div className="w-full max-w-[767px] tablet:mx-auto mobile:mx-auto tablet:mb-10 mobile:mb-10 overflow-x-hidden">
       <div className="text-bs_24 flex justify-between items-start w-full">
         <h2 className="text-bs_24 font-bold">인기 프로젝트</h2>
         <Link href={`/project?type=all`} className="text-gray40 text-bs_16">
@@ -58,7 +46,7 @@ export default function PopularProject({ postType }: IPopularProjectProps) {
       ) : data.length === 0 ? null : (
         <div>
           <div
-            className={`relative right-full flex justify-between transition-all ${maxConut >= 5 ? 'w-[500%]' : maxConut >= 3 ? 'w-[400%]' : 'w-[300%]'}`}
+            className={`relative right-full flex justify-between transition-all ${maxConut >= 5 ? 'w-[500%]' : maxConut >= 4 ? 'w-[400%]' : 'w-[300%]'} `}
             ref={listRef}
             onTransitionEnd={handleTransitionEnd}>
             <PopularImageCard
@@ -67,7 +55,7 @@ export default function PopularProject({ postType }: IPopularProjectProps) {
               link1={`/project/${data[data?.length - 2]?.id}`}
               link2={`/project/${data[data?.length - 1]?.id}`}
             />
-            {data.map((item: IBannerItem, index: number) => {
+            {data.map((_: IBannerItem, index: number) => {
               if (index % 2 == 0) {
                 return (
                   <PopularImageCard
@@ -89,7 +77,7 @@ export default function PopularProject({ postType }: IPopularProjectProps) {
           </div>
           {listRef && (
             <CarouselList
-              length={length}
+              length={Math.ceil(data?.length / 2)}
               bannerAllRef={listRef}
               currentIndex={currentIndex}
               setCurrentIndex={setCurrentIndex}
@@ -99,11 +87,4 @@ export default function PopularProject({ postType }: IPopularProjectProps) {
       )}
     </div>
   );
-}
-
-export async function getStaticPaths() {
-  return {
-    paths: ['/'],
-    fallback: false,
-  };
 }
