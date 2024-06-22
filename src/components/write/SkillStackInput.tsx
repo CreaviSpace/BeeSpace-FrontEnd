@@ -58,7 +58,7 @@ export default function SkillStackInput({
         ? null
         : data?.length > 0 &&
           isToggle && (
-            <ul className="relative rounded-bs_5 overflow-hidden border border-gray10 bg-white z-[10] mt-3 max-h-[15.625rem] overflow-y-auto">
+            <ul className="relative rounded-bs_5 overflow-hidden border border-gray10 bg-white z-[10] mt-3 max-h-[15.625rem] overflow-y-auto custom-scrollbar">
               {data?.map((item: ITechStackType, index: number) => {
                 if (
                   item.techStack
