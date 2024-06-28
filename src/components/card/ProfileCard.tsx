@@ -32,6 +32,9 @@ export default function ProfileCard({ items }: IProfileCardProps) {
       <h3 className="text-base leading-tight text-gray30 font-bold">
         {items.memberId}
       </h3>
+      <p className="text-base leading-tight text-gray30 font-bold">
+        {items.memberEmail}
+      </p>
       <div className="text-bs_16 my-2 flex gap-2">
         <span>{`${items.memberCareer}년차`}</span>
         <p className="font-bold">{items.memberPosition}</p>

@@ -247,4 +247,5 @@ export interface IMemberProfileType {
   memberPosition: string;
   memberIntroduce: string;
   memberInterestedStack: { techStack: string }[];
+  memberEmail: string;
 }
