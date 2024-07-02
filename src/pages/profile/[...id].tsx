@@ -118,60 +118,63 @@ export default function Profile() {
         selectedTab={category}
         memberID={(!profileLoading && profile && profile.memberId) || ''}
       />
-
-      <section className="pt-10 pb-24 max-w-4xl m-auto relative">
-        <div>
-          <SortButton
-            select={sortType}
-            setSelect={setSortType}
-            options={SORTTPYEOPTIONS}
-            className="right-[6.25rem]"
-          />
-          <SortButton
-            select={postType}
-            setSelect={setPostType}
-            options={POSTTYPEOTIONS}
-            className="right-0"
-          />
-        </div>
-        <div className="mt-7 flex flex-col justify-center">
-          {contentsLoading ? (
-            [1, 2, 3, 4, 5, 6].map((item, index) => (
-              <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
-            ))
-          ) : (
-            <>
-              {contents?.pages.map((item, index) =>
-                item?.map((item: IUniversalType) => (
-                  <Fragment key={`myContent-list-${item.id}-${index}`}>
-                    <UniversalCard
-                      id={item.id}
-                      postType={postType.type}
-                      title={item.title ? item.title : item.contentsTitle}
-                      content={
-                        item.bannerContent ? item.bannerContent : item.content
-                      }
-                      image={item.thumbnail ? item.thumbnail : ''}
-                      date={
-                        item.createdDate ? item.createdDate : item.modifiedDate
-                      }
-                      size="large"
-                      className="my-2 w-full"
-                    />
-                  </Fragment>
-                ))
-              )}
-            </>
-          )}
-          {!hasNextPage ? null : isFetchingNextPage ? (
-            [1, 2, 3, 4, 5, 6].map((item, index) => (
-              <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
-            ))
-          ) : (
-            <div ref={observerRef}></div>
-          )}
-        </div>
-      </section>
+      <div className=" max-w-max_w m-auto p-16 tablet:px-8 mobile:px-6">
+        <section className="pt-10 pb-24 max-w-4xl m-auto relative">
+          <div>
+            <SortButton
+              select={sortType}
+              setSelect={setSortType}
+              options={SORTTPYEOPTIONS}
+              className="right-[6.25rem]"
+            />
+            <SortButton
+              select={postType}
+              setSelect={setPostType}
+              options={POSTTYPEOTIONS}
+              className="right-0"
+            />
+          </div>
+          <div className="mt-7 flex flex-col justify-center">
+            {contentsLoading ? (
+              [1, 2, 3, 4, 5, 6].map((item, index) => (
+                <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
+              ))
+            ) : (
+              <>
+                {contents?.pages.map((item, index) =>
+                  item?.map((item: IUniversalType) => (
+                    <Fragment key={`myContent-list-${item.id}-${index}`}>
+                      <UniversalCard
+                        id={item.id}
+                        postType={postType.type}
+                        title={item.title ? item.title : item.contentsTitle}
+                        content={
+                          item.bannerContent ? item.bannerContent : item.content
+                        }
+                        image={item.thumbnail ? item.thumbnail : ''}
+                        date={
+                          item.createdDate
+                            ? item.createdDate
+                            : item.modifiedDate
+                        }
+                        size="large"
+                        className="my-2 w-full"
+                      />
+                    </Fragment>
+                  ))
+                )}
+              </>
+            )}
+            {!hasNextPage ? null : isFetchingNextPage ? (
+              [1, 2, 3, 4, 5, 6].map((item, index) => (
+                <SkeletonUniversalCard key={`${item}-${index}`} size="large" />
+              ))
+            ) : (
+              <div ref={observerRef}></div>
+            )}
+          </div>
+        </section>
+      </div>
     </main>
   );
 }

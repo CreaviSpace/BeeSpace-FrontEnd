@@ -56,7 +56,7 @@ export default function ProjectDetail() {
                 dangerouslySetInnerHTML={{ __html: data.content }}
               />
             </div>
-            <div className="py-8 border-b border-black">
+            <div className="py-8 border-b border-black overflow-x-auto">
               <Tag
                 name={`${parseValue(data.category)}프로젝트`}
                 category={data.category === 'TEAM' ? 'TEAM' : 'INDIVIDUAL'}
